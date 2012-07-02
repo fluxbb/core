@@ -1,10 +1,16 @@
-<?php namespace fluxbb;
+<?php namespace fluxbb; use Auth;
 
-class User extends \FluxBB_BaseModel {
+class User extends \FluxBB_BaseModel
+{
 
 	public function group()
 	{
 		return $this->belongs_to('fluxbb\\Group');
+	}
+
+	public function online()
+	{
+		return $this->has_one('fluxbb\\Online');
 	}
 
 	public function bans()
@@ -15,6 +21,142 @@ class User extends \FluxBB_BaseModel {
 	public function posts()
 	{
 		return $this->has_many('fluxbb\\Post', 'poster_id');
+	}
+
+	public static function current()
+	{
+		static $current;
+
+		if (Auth::guest())
+		{
+			if (!isset($current))
+			{
+				$current = static::find(1);
+			}
+
+			return $current;
+		}
+
+		// We already have the logged in user's object
+		return Auth::user();
+	}
+
+	public function is_guest()
+	{
+		// FIXME: Return something like $this->group_id == PUN_GUEST
+		return false;
+	}
+
+	public function is_member()
+	{
+		return !$this->is_guest();
+	}
+
+	// TODO: Better name
+	public function is_admmod()
+	{
+		// TODO: Implement this!
+		return false;
+	}
+
+	public function title()
+	{
+		static $ban_list;
+
+		// If not already built in a previous call, build an array of lowercase banned usernames
+		if (empty($ban_list))
+		{
+			$ban_list = array();
+
+			// FIXME: Retrieve $bans (former $pun_bans)
+			$bans = array();
+			foreach ($bans as $cur_ban)
+			{
+				$ban_list[] = strtolower($cur_ban['username']);
+			}
+		}
+
+		// If the user has a custom title
+		if ($this->title != '')
+		{
+			return $this->title;
+		}
+		// If the user is banned
+		else if (in_array(strtolower($this->username), $ban_list))
+		{
+			return __('Banned');
+		}
+		// If the user group has a default user title
+		else if ($this->group->g_user_title != '')
+		{
+			return $this->group->g_user_title;
+		}
+		// If the user is a guest
+		else if ($this->is_guest())
+		{
+			return __('Guest');
+		}
+		// If nothing else helps, we assign the default
+		else
+		{
+			return __('Member');
+		}
+	}
+
+	public function get_avatar_file()
+	{
+		// TODO: We might want to cache this result
+		$filetypes = array('jpg', 'gif', 'png');
+
+		foreach ($filetypes as $cur_type)
+		{
+			// FIXME: Prepend base path for upload dir
+			$path = '/'.$this->id.'.'.$cur_type;
+
+			if (file_exists($path))
+			{
+				return $path;
+			}
+		}
+
+		return '';
+	}
+
+	public function has_avatar()
+	{
+		return (bool) $this->get_avatar_file();
+	}
+
+	public function has_signature()
+	{
+		return !empty($this->signature);
+	}
+
+	public function signature()
+	{
+		// TODO: Actually parse this, but somewhere else (as that's presentation code)
+		// see fluxbb\Post::message()
+		return $this->signature;
+	}
+
+	public function is_online()
+	{
+		return isset($this->online) && $this->online->user_id == $this->id;
+	}
+
+	public function has_url()
+	{
+		return !empty($this->url);
+	}
+
+	public function disp_topics()
+	{
+		return $this->disp_topics ?: 25; // TODO: $pun_config['o_disp_topics_default'];
+	}
+
+	public function disp_posts()
+	{
+		return $this->disp_posts ?: 25; // TODO: $pun_config['o_disp_posts_default'];
 	}
 
 }
