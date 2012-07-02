@@ -1,6 +1,8 @@
 <?php namespace fluxbb;
 
-class Group extends \FluxBB_BaseModel {
+class Group extends \FluxBB_BaseModel
+{
+	public static $key = 'g_id';
 
 	public function users()
 	{

@@ -1,6 +1,7 @@
 <?php namespace fluxbb;
 
-class Category extends \Eloquent {
+class Category extends \FluxBB_BaseModel
+{
 
 	public function forums()
 	{

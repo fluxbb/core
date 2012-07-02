@@ -1,6 +1,7 @@
 <?php namespace fluxbb;
 
-class Ban extends \FluxBB_BaseModel {
+class Ban extends \FluxBB_BaseModel
+{
 
 	public function creator()
 	{
