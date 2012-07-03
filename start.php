@@ -18,10 +18,10 @@ View::composer('fluxbb::layout.main', function($view)
 		->with('direction', 'ltr')
 		->with('head', '')
 		->with('page', 'index')
-		->with('title', 'FluxBB')
-		->with('desc', 'This is your forum')
+		->with('title', 'My FluxBB Forum')
+		->with('desc', '<p><span>Unfortunately no one can be told what FluxBB is - you have to see it for yourself.</span></p>')
 		->with('navlinks', '<ul><li><a href="#">Home</a></li></ul>')
-		->with('status', 'Logged in')
+		->with('status', 'You are not logged in.')
 		->with('announcement', '');
 });
 
