@@ -149,6 +149,16 @@ class User extends \FluxBB_BaseModel
 		return !empty($this->url);
 	}
 
+	public function has_location()
+	{
+		return !empty($this->location);
+	}
+
+	public function has_admin_note()
+	{
+		return !empty($this->admin_note);
+	}
+
 	public function disp_topics()
 	{
 		return $this->disp_topics ?: 25; // TODO: $pun_config['o_disp_topics_default'];

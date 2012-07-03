@@ -6,10 +6,12 @@
 <!-- TODO: Maybe use "render_each" here? (What about counting?) -->
 @foreach ($posts as $post)
 <?php
+
 $post_count++;
 $post_classes = 'row'.HTML::oddeven();
 if ($post->id == $topic->first_post_id) $post_classes .= ' firstpost';
 if ($post_count == 1) $post_classes .= ' blockpost1';
+
 ?>
 <div id="p{{ $post->id }}" class="blockpost {{ $post_classes }}">
 	<h2><span><span class="conr">#{{ $start_from + $post_count }}</span> <a href="{{ URL::to_action('fluxbb::home@post', array($post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a></span></h2>
@@ -23,8 +25,23 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 	@if ($post->poster->has_avatar())
 						<dd class="postavatar">{{ HTML::avatar($post->poster) }}</dd>
 	@endif
-	<?php if (count($user_info)) echo "\t\t\t\t\t\t".implode("\n\t\t\t\t\t\t", $user_info)."\n"; ?>
-<?php if (count($user_contacts)) echo "\t\t\t\t\t\t".'<dd class="usercontacts">'.implode(' ', $user_contacts).'</dd>'."\n"; ?>
+	@if ($post->poster->has_location()) <!-- TODO: and if user is allowed to view this (logged in and show_user_info -->
+						<dd><span>{{ __('From').' '.e($post->poster->location) }}</span></dd>
+	@endif
+						<dd><span>{{ __('Registered').' '.HTML::format_time($post->poster->registered, true) }}</span></dd>
+						<dd><span>{{ __('Posts').' '.number_format($post->poster->num_posts) }}</span></dd> <!-- TODO: forum_number_format -->
+						<dd><span><a href="{{ URL::to_action('fluxbb::moderate@host', array($post->id)) }}" title="{{ $post->poster->ip }}">{{ __('IP address logged') }}</a></span></dd>
+	@if ($post->poster->has_admin_note())
+						<dd><span>{{ __('Note') }} <strong>{{ e($post->poster->admin_note) }}</strong></span></dd>
+	@endif
+
+						<dd class="usercontacts">
+							<span class="email"><a href="mailto:{{ $post->poster_email }}">{{ __('Email') }}</a></span>
+							<span class="email"><a href="{{ URL::to_action('fluxbb::misc@email', array($post->poster_id)) }}">{{ __('Email') }}</a></span>
+	@if ($post->poster->has_url())
+							<span class="website"><a href="{{ e($post->poster->url) }}">{{ __('Website') }}</a></span>
+	@endif
+						</dd>
 
 					</dl>
 				</div>
