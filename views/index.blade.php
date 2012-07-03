@@ -16,10 +16,33 @@
 				</tr>
 			</thead>
 			<tbody>
+	<?php $forum_count = 0; ?>
 	@foreach ($category->forums as $forum)
+<?php
+
+		$forum_count++;
+		$icon_type = 'icon';
+
+		if (Auth::check() && $forum->last_post > fluxbb\User::current()->last_visit && (empty($tracked_topics['forums'][$forum->id]) || $forum->last_post > $tracked_topics['forums'][$forum->id]))
+		{
+			// There are new posts in this forum, but have we read all of them already?
+			foreach ($new_topics[$forum->fid] as $check_topic_id => $check_last_post)
+			{
+				if ((empty($tracked_topics['topics'][$check_topic_id]) || $tracked_topics['topics'][$check_topic_id] < $check_last_post) && (empty($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $check_last_post))
+				{
+					$item_status .= ' inew';
+					$forum_field_new = '<span class="newtext">[ <a href="'.URL::to_action('fluxbb::search@new', array($forum->id)).'">'.__('New posts').'</a> ]</span>';
+					$icon_type = 'icon icon-new';
+
+					break;
+				}
+			}
+		}
+
+?>
 				<tr class="row{{ HTML::oddeven() }}">
 					<td class="tcl">
-						<div class="{{ '$icon_type' }}"><div class="nosize">{{ number_format(intval('$forum_count')) }}</div></div><!-- forum_number_format -->
+						<div class="{{ $icon_type }}"><div class="nosize">{{ number_format($forum_count) }}</div></div><!-- forum_number_format -->
 						<div class="tclcon">
 							<div>
 <?php
@@ -34,6 +57,14 @@
 
 	if ($forum->forum_desc != '')
 		$forum_field .= "\n\t\t\t\t\t\t\t\t".'<div class="forumdesc">'.$forum->forum_desc.'</div>';
+
+	if ($forum->last_post != '')
+		$last_post = '<a href="'.URL::to_action('fluxbb::home@post', array($forum->last_post_id)).'#p'.$forum->last_post_id.'">'.HTML::format_time($forum->last_post).'</a> <span class="byuser">'.__('by').' '.e($forum->last_poster).'</span>';
+	else if (!empty($forum->redirect_url))
+		$last_post = '- - -';
+	else
+		$last_post = __('Never');
+
 ?>
 								{{ $forum_field }}
 							</div>
@@ -41,7 +72,7 @@
 					</td>
 					<td class="tc2">{{ number_format($forum->num_topics()) }}</td><!-- forum_number_format -->
 					<td class="tc3">{{ number_format($forum->num_posts()) }}</td><!-- here too -->
-					<td class="tcr">{{ '$last_post' }}</td>
+					<td class="tcr">{{ $last_post }}</td>
 				</tr>
 	@endforeach
 			</tbody>
