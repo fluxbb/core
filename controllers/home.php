@@ -74,7 +74,10 @@ class FluxBB_Home_Controller extends Base_Controller
 		->take($disp_topics)
 		->get();
 
-		return View::make('fluxbb::viewforum')->with('forum', $forum)->with('topics', $topics);
+		return View::make('fluxbb::viewforum')
+			->with('forum', $forum)
+			->with('topics', $topics)
+			->with('start_from', $start_from);
 	}
 
 	public function get_topic($tid, $page = 1)

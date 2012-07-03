@@ -16,10 +16,22 @@
 			</thead>
 			<tbody>
 
+<?php $topic_count = 0; ?>
 @foreach ($topics as $topic)
+<?php
+
+$topic_count++;
+$icon_type = 'icon';
+if (fluxbb\User::current()->is_member() && $topic->last_post > fluxbb\User::current()->last_visit && (!isset($tracked_topics['topics'][$topic->id]) || $tracked_topics['topics'][$topic->id] < $topic->last_post) && (!isset($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $topic->last_post) && is_null($topic->moved_to))
+{
+	// TODO: For obvious reasons, this if statement should not be here in the view (in that form)
+	$icon_type = 'icon icon-new';
+}
+
+?>
 				<tr class="row{{ HTML::oddeven() }}">
 					<td class="tcl">
-						<div class="{{ '$icon_type' }}"><div class="nosize">{{ 'number_format($topic_count + $start_from)' }}</div></div><!-- forum_number_format() -->
+						<div class="{{ $icon_type }}"><div class="nosize">{{ number_format($topic_count + $start_from) }}</div></div><!-- TODO: forum_number_format() -->
 						<div class="tclcon">
 							<div>
 								<a href="{{ URL::to_action('fluxbb::home@topic', array($topic->id)) }}">{{ e($topic->subject) }}</a> <span class="byuser">{{ __('by') }} {{ e($topic->poster) }}</span>
