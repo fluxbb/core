@@ -79,24 +79,24 @@
 				</fieldset>
 			</div>
 			@endif
-			@if (!empty($user->num_posts)|| !empty($user->last_post) ||!empty($user->registered))
 			<div class="inform">
 				<fieldset>
 				<legend>User activity</legend>
 					<div class="infldset">
 						<dl>
+						
 							<dt>Posts</dt>
-							<dd>1 - <a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a></dd>
+							<dd>{{$user->num_posts}} - <a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a></dd>
 							<dt>Last post</dt>
-							<dd>Today 10:21:54</dd>
+							<dd><?php echo HTML::format_time($user->last_post) ?></dd>
 							<dt>Registered</dt>
-							<dd>Today</dd>
+							<dd><?php echo HTML::format_time($user->registered, true) ?></dd>
 						</dl>
 						<div class="clearer"></div>
 					</div>
 				</fieldset>
 			</div>
-			@endif
+
 		</div>
 	</div>
 </div>
