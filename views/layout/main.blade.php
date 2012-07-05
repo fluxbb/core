@@ -22,26 +22,26 @@
 		<div id="brdmenu" class="inbox">
 			<ul>
 				<!-- TODO: Class isactive -->
-				<li id="navindex" class="isactive"><a href="{{ URL::to_action('fluxbb::home@index') }}">{{ __('Index') }}</a></li>
+				<li id="navindex" class="isactive"><a href="{{ URL::to_action('fluxbb::home@index') }}">{{ __('fluxbb::common.index') }}</a></li>
 @if (fluxbb\User::current()->group->g_read_board == '1' && fluxbb\User::current()->group->g_view_users == '1')
-				<li id="navuserlist"><a href="{{ URL::to_action('fluxbb::user@list') }}">{{ __('User list') }}</a></li>
+				<li id="navuserlist"><a href="{{ URL::to_action('fluxbb::user@list') }}">{{ __('fluxbb::common.user_list') }}</a></li>
 @endif
 <!-- TODO: First: $pun_config['o_rules'] == '1'; second: $pun_config['o_regs_allow'] == '1' -->
 @if (true && (Auth::check() || fluxbb\User::current()->group->g_read_board == '1' || true))
-				<li id="navrules"><a href="{{ URL::to_action('fluxbb::misc@rules') }}">{{ __('Rules') }}</a></li>
+				<li id="navrules"><a href="{{ URL::to_action('fluxbb::misc@rules') }}">{{ __('fluxbb::common.rules') }}</a></li>
 @endif
 @if (fluxbb\User::current()->group->g_read_board == '1' && fluxbb\User::current()->group->g_search == '1')
-				<li id="navsearch"><a href="{{ URL::to_action('fluxbb::search@index') }}">{{ __('Search') }}</a></li>
+				<li id="navsearch"><a href="{{ URL::to_action('fluxbb::search@index') }}">{{ __('fluxbb::common.search') }}</a></li>
 @endif
 @if (Auth::guest())
-				<li id="navregister"><a href="{{ URL::to_action('fluxbb::auth@register') }}">{{ __('Register') }}</a></li>
-				<li id="navlogin"><a href="{{ URL::to_action('fluxbb::auth@login') }}">{{ __('Login') }}</a></li>
+				<li id="navregister"><a href="{{ URL::to_action('fluxbb::auth@register') }}">{{ __('fluxbb::common.register') }}</a></li>
+				<li id="navlogin"><a href="{{ URL::to_action('fluxbb::auth@login') }}">{{ __('fluxbb::common.login') }}</a></li>
 @else
-				<li id="navprofile"><a href="{{ URL::to_action('fluxbb::user@profile') }}">{{ __('Profile') }}</a></li>
+				<li id="navprofile"><a href="{{ URL::to_action('fluxbb::user@profile') }}">{{ __('fluxbb::common.profile') }}</a></li>
 	@if (fluxbb\User::current()->is_admin())
-				<li id="navadmin"><a href="{{ URL::to_action('fluxbb::admin@index') }}">{{ __('Administration') }}</a></li>
+				<li id="navadmin"><a href="{{ URL::to_action('fluxbb::admin@index') }}">{{ __('fluxbb::common.admin') }}</a></li>
 	@endif
-				<li id="navlogout"><a href="{{ URL::to_action('fluxbb::auth@logout') }}">{{ __('Logout') }}</a></li>
+				<li id="navlogout"><a href="{{ URL::to_action('fluxbb::auth@logout') }}">{{ __('fluxbb::common.logout') }}</a></li>
 @endif
 			</ul>
 		</div>
