@@ -26,10 +26,10 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 						<dd class="postavatar">{{ HTML::avatar($post->poster) }}</dd>
 	@endif
 	@if ($post->poster->has_location()) <!-- TODO: and if user is allowed to view this (logged in and show_user_info -->
-						<dd><span>{{ __('From').' '.e($post->poster->location) }}</span></dd>
+						<dd><span>{{ __('fluxbb::topic.from', array('name' => e($post->poster->location))) }}</span></dd>
 	@endif
-						<dd><span>{{ __('Registered').' '.HTML::format_time($post->poster->registered, true) }}</span></dd>
-						<dd><span>{{ __('Posts').' '.number_format($post->poster->num_posts) }}</span></dd> <!-- TODO: forum_number_format -->
+						<dd><span>{{ __('fluxbb::topic.registered', array('time' => HTML::format_time($post->poster->registered, true))) }}</span></dd>
+						<dd><span>{{ __('fluxbb::topic.posts', array('count' => number_format($post->poster->num_posts))) }}</span></dd> <!-- TODO: forum_number_format -->
 						<dd><span><a href="{{ URL::to_action('fluxbb::moderate@host', array($post->id)) }}" title="{{ $post->poster->ip }}">{{ __('IP address logged') }}</a></span></dd>
 	@if ($post->poster->has_admin_note())
 						<dd><span>{{ __('Note') }} <strong>{{ e($post->poster->admin_note) }}</strong></span></dd>
