@@ -1,18 +1,15 @@
 <?php
 
-use fluxbb\User,
-	fluxbb\Category,
+use fluxbb\Category,
 	fluxbb\Forum,
 	fluxbb\Topic,
 	fluxbb\Post;
 
-class FluxBB_Home_Controller extends Base_Controller
+class FluxBB_Home_Controller extends FluxBB_BaseController
 {
-	public $restful = true;
-
 	public function get_index()
 	{
-		$gid = User::current()->group_id;
+		$gid = $this->user()->group_id;
 		
 		// TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
 
@@ -39,7 +36,7 @@ class FluxBB_Home_Controller extends Base_Controller
 	public function get_forum($fid, $page = 1)
 	{
 		$page = intval($page);
-		$gid = User::current()->group_id;
+		$gid = $this->user()->group_id;
 
 		// Fetch some info about the forum
 		$forum = Forum::with(array(
@@ -59,7 +56,7 @@ class FluxBB_Home_Controller extends Base_Controller
 			return Event::first('404');
 		}
 
-		$disp_topics = User::current()->disp_topics();
+		$disp_topics = $this->user()->disp_topics();
 		$num_pages = ceil(($forum->num_topics + 1) / $disp_topics);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_topics * ($page - 1);
@@ -82,7 +79,7 @@ class FluxBB_Home_Controller extends Base_Controller
 
 	public function get_topic($tid, $page = 1)
 	{
-		$gid = User::current()->group_id;
+		$gid = $this->user()->group_id;
 
 		// Fetch some info about the topic
 		$topic = Topic::with(array(
@@ -104,7 +101,7 @@ class FluxBB_Home_Controller extends Base_Controller
 			return Event::first('404');
 		}
 
-		$disp_posts = User::current()->disp_posts();
+		$disp_posts = $this->user()->disp_posts();
 		$num_pages = ceil(($topic->num_replies + 1) / $disp_posts);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_posts * ($page - 1);
@@ -150,7 +147,7 @@ class FluxBB_Home_Controller extends Base_Controller
 		// Determine on what page the post is located (depending on $forum_user['disp_posts'])
 		$num_posts = DB::table('posts')->where_topic_id($tid)->where('posted', '<', $posted)->count('id') + 1;
 
-		$disp_posts = User::current()->disp_posts();
+		$disp_posts = $this->user()->disp_posts();
 		$p = ceil($num_posts / $disp_posts);
 
 		// FIXME: second parameter for $page number
