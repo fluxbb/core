@@ -13,7 +13,7 @@ class FluxBB_User_Controller extends FluxBB_BaseController
 		else
 		{ return "User not found";}
 	}
-	public function action_list()
+	public function get_list()
 	{
 		$users = DB::table('users')->paginate(20);
 		return View::make('fluxbb::user.list')
