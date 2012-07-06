@@ -30,27 +30,27 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 	@endif
 						<dd><span>{{ __('fluxbb::topic.registered', array('time' => HTML::format_time($post->poster->registered, true))) }}</span></dd>
 						<dd><span>{{ __('fluxbb::topic.posts', array('count' => number_format($post->poster->num_posts))) }}</span></dd> <!-- TODO: forum_number_format -->
-						<dd><span><a href="{{ URL::to_action('fluxbb::moderate@host', array($post->id)) }}" title="{{ $post->poster->ip }}">{{ __('IP address logged') }}</a></span></dd>
+						<dd><span><a href="{{ URL::to_action('fluxbb::moderate@host', array($post->id)) }}" title="{{ $post->poster->ip }}">{{ __('fluxbb::topic.ip') }}</a></span></dd>
 	@if ($post->poster->has_admin_note())
-						<dd><span>{{ __('Note') }} <strong>{{ e($post->poster->admin_note) }}</strong></span></dd>
+						<dd><span>{{ __('fluxbb::topic.note') }} <strong>{{ e($post->poster->admin_note) }}</strong></span></dd>
 	@endif
 
 						<dd class="usercontacts">
-							<span class="email"><a href="mailto:{{ $post->poster_email }}">{{ __('Email') }}</a></span>
-							<span class="email"><a href="{{ URL::to_action('fluxbb::misc@email', array($post->poster_id)) }}">{{ __('Email') }}</a></span>
+							<span class="email"><a href="mailto:{{ $post->poster_email }}">{{ __('fluxbb::topic.email') }}</a></span>
+							<span class="email"><a href="{{ URL::to_action('fluxbb::misc@email', array($post->poster_id)) }}">{{ __('fluxbb::topic.email') }}</a></span>
 	@if ($post->poster->has_url())
-							<span class="website"><a href="{{ e($post->poster->url) }}">{{ __('Website') }}</a></span>
+							<span class="website"><a href="{{ e($post->poster->url) }}">{{ __('fluxbb::topic.website') }}</a></span>
 	@endif
 						</dd>
 
 					</dl>
 				</div>
 				<div class="postright">
-					<h3><?php if ($post->id != $topic->first_post_id) echo __('Re').' '; ?>{{ e($topic->subject) }}</h3>
+					<h3><?php if ($post->id != $topic->first_post_id) echo __('fluxbb::topic.re').' '; ?>{{ e($topic->subject) }}</h3>
 					<div class="postmsg">
 						{{ $post->message() }}
 	@if ($post->was_edited())
-						<p class="postedit"><em>{{ __('Last edit').' '.e($post->edited_by).' ('.HTML::format_time($post->edited) }})</em></p>
+						<p class="postedit"><em>{{ __('fluxbb::topic.last_edit').' '.e($post->edited_by).' ('.HTML::format_time($post->edited) }})</em></p>
 	@endif
 					</div>
 	@if ($post->poster->has_signature())
@@ -64,9 +64,9 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 				<div class="postfootleft">
 	@if (!$post->poster->is_guest())
 		@if ($post->poster->is_online())
-					<p><strong>{{ __('Online') }}</strong></p>
+					<p><strong>{{ __('fluxbb::topic.online') }}</strong></p>
 		@else
-					<p><span>{{ __('Offline') }}</span></p>
+					<p><span>{{ __('fluxbb::topic.offline') }}</span></p>
 		@endif
 	@endif
 				</div>
@@ -74,10 +74,10 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 				<div class="postfootright">
 					<ul>
 						<!-- TODO: Only show these if appropriate -->
-						<li class="postreport"><span><a href="{{ URL::to_action('fluxbb::misc@report', array($post->id)) }}">{{ __('Report') }}</a></span></li>
-						<li class="postdelete"><span><a href="{{ URL::to_action('fluxbb::post@delete', array($post->id)) }}">{{ __('Delete') }}</a></span></li>
-						<li class="postedit"><span><a href="{{ URL::to_action('fluxbb::post@edit', array($post->id)) }}">{{ __('Edit') }}</a></span></li>
-						<li class="postquote"><span><a href="{{ URL::to_action('fluxbb::post@quote', array($topic->id, $post->id)) }}">{{ __('Quote') }}</a></span></li>
+						<li class="postreport"><span><a href="{{ URL::to_action('fluxbb::misc@report', array($post->id)) }}">{{ __('fluxbb::topic.report') }}</a></span></li>
+						<li class="postdelete"><span><a href="{{ URL::to_action('fluxbb::post@delete', array($post->id)) }}">{{ __('fluxbb::topic.delete') }}</a></span></li>
+						<li class="postedit"><span><a href="{{ URL::to_action('fluxbb::post@edit', array($post->id)) }}">{{ __('fluxbb::topic.edit') }}</a></span></li>
+						<li class="postquote"><span><a href="{{ URL::to_action('fluxbb::post@quote', array($topic->id, $post->id)) }}">{{ __('fluxbb::topic.quote') }}</a></span></li>
 					</ul>
 				</div>
 	@endif
