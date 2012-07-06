@@ -12,4 +12,8 @@ return array(
 	'admin'			=> 'Administration',
 	'logout'		=> 'Logout',
 
+	'username'		=> 'Username',
+	'password'		=> 'Password',
+	'required'		=> 'Required',
+
 );
