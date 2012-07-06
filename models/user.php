@@ -2,7 +2,6 @@
 
 class User extends \FluxBB_BaseModel
 {
-
 	public function group()
 	{
 		return $this->belongs_to('fluxbb\\Group');
@@ -141,7 +140,14 @@ class User extends \FluxBB_BaseModel
 
 	public function is_online()
 	{
-		return isset($this->online) && $this->online->user_id == $this->id;
+		if(isset($this->online) && !empty($this->online))
+		{
+			return ($this->online->user_id == $this->id);
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public function has_url()
