@@ -34,7 +34,7 @@ if (fluxbb\User::current()->is_member() && $topic->last_post > fluxbb\User::curr
 						<div class="{{ $icon_type }}"><div class="nosize">{{ number_format($topic_count + $start_from) }}</div></div><!-- TODO: forum_number_format() -->
 						<div class="tclcon">
 							<div>
-								<a href="{{ URL::to_action('fluxbb::home@topic', array($topic->id)) }}">{{ e($topic->subject) }}</a> <span class="byuser">{{ __('by') }} {{ e($topic->poster) }}</span>
+								<a href="{{ URL::to_action('fluxbb::home@topic', array($topic->id)) }}">{{ e($topic->subject) }}</a> <span class="byuser">{{ __('fluxbb::forum.by', array('name' => e($topic->poster))) }}</span>
 							</div>
 						</div>
 					</td>
@@ -43,7 +43,7 @@ if (fluxbb\User::current()->is_member() && $topic->last_post > fluxbb\User::curr
 	@if ($topic->was_moved())
 					<td class="tcr">- - -</td>
 	@else
-					<td class="tcr"><a href="{{ URL::to_action('fluxbb::home@post', array($topic->last_post_id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ __('by') }} {{ e($topic->last_poster) }}</span></td>
+					<td class="tcr"><a href="{{ URL::to_action('fluxbb::home@post', array($topic->last_post_id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ __('fluxbb::forum.by', array('name' => e($topic->last_poster))) }}</span></td>
 	@endif
 				</tr>
 @endforeach
