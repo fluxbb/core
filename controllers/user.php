@@ -1,22 +1,30 @@
 <?php
 use fluxbb\User;
+
 class FluxBB_User_Controller extends FluxBB_BaseController
-{	
-	public function get_profile($id = 0)
+{
+
+	public function get_profile($id)
 	{
-		$user = User::where('id', '=', $id)->first();
-		if(!empty($id) && !empty($user)) //If no user defined or if user doesn't exist
+		$user = User::where_id($id)->first();
+
+		if ($user === NULL)
 		{
-		return View::make('fluxbb::user.profile.view')
-				->with('user', $user);
+			return Event::first('404');
 		}
 		else
-		{ return "User not found";}
+		{
+			return View::make('fluxbb::user.profile.view')
+				->with('user', $user);
+		}
 	}
+
 	public function get_list()
 	{
 		$users = DB::table('users')->paginate(20);
+
 		return View::make('fluxbb::user.list')
-				->with('users', $users);
+			->with('users', $users);
 	}
+
 }
