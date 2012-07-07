@@ -23,7 +23,7 @@
 			<tbody>
 			<?php foreach ($users->results as $user): ?>
 				<tr>
-					<td class="tcl">{{ HTML::link_to_route('profile', $user->username, array($user->id)) }}</td>
+					<td class="tcl">{{ HTML::link_to_action('fluxbb::user@profile', $user->username, array($user->id)) }}</td>
 					<td class="tc2">{{$user->title}}</td>
 					<td class="tc3">{{$user->num_posts}}</td>
 					<td class="tcr"><?php echo HTML::format_time($user->registered, true) ?></td>
