@@ -23,10 +23,16 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-Route::get('(:bundle)/forum/(:num)', 'fluxbb::home@forum');
-Route::get('(:bundle)/topic/(:num)', 'fluxbb::home@topic');
-Route::get('(:bundle)/post/(:num)', 'fluxbb::home@post');
-Route::get('(:bundle)', 'fluxbb::home@index');
-Route::get('(:bundle)/profile/(:num)', 'fluxbb::user@profile');
-Route::get('(:bundle)/user/list', "fluxbb::user@list");
-Route::get('(:bundle)/search', "fluxbb::search@index");
+ use fluxbb\Category;
+ 
+class FluxBB_Search_Controller extends FluxBB_BaseController
+{
+
+	public function get_index()
+	{
+		$categories = Category::all();
+		return View::make('fluxbb::search.index')
+				->with('categories', $categories);
+	}
+
+}
