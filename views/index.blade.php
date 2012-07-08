@@ -9,10 +9,10 @@
 			<table cellspacing="0">
 			<thead>
 				<tr>
-					<th class="tcl" scope="col">{{ __('Forum') }}</th>
-					<th class="tc2" scope="col">{{ __('Topics') }}</th>
-					<th class="tc3" scope="col">{{ __('Posts') }}</th>
-					<th class="tcr" scope="col">{{ __('Last post') }}</th>
+					<th class="tcl" scope="col">Category</th>
+					<th class="tc2" scope="col">{{ __('fluxbb::common.topics') }}</th>
+					<th class="tc3" scope="col">{{ __('fluxbb::common.posts') }}</th>
+					<th class="tcr" scope="col">{{ __('fluxbb::common.last_post') }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,7 +48,7 @@
 <?php
 	if ($forum->redirect_url != '')
 	{
-		$forum_field = '<h3><span class="redirtext">'.__('Link to').'</span> <a href="'.e($forum->redirect_url).'" title="'.__('Link to').' '.e($forum->redirect_url).'">'.e($forum->forum_name).'</a></h3>';
+		$forum_field = '<h3><span class="redirtext">'.__('fluxbb::common.link_to').'</span> <a href="'.e($forum->redirect_url).'" title="'.__('fluxbb::common.link_to').' '.e($forum->redirect_url).'">'.e($forum->forum_name).'</a></h3>';
 	}
 	else
 	{
@@ -59,11 +59,11 @@
 		$forum_field .= "\n\t\t\t\t\t\t\t\t".'<div class="forumdesc">'.$forum->forum_desc.'</div>';
 
 	if ($forum->last_post != '')
-		$last_post = '<a href="'.URL::to_action('fluxbb::home@post', array($forum->last_post_id)).'#p'.$forum->last_post_id.'">'.HTML::format_time($forum->last_post).'</a> <span class="byuser">'.__('by').' '.e($forum->last_poster).'</span>';
+		$last_post = '<a href="'.URL::to_action('fluxbb::home@post', array($forum->last_post_id)).'#p'.$forum->last_post_id.'">'.HTML::format_time($forum->last_post).'</a> <span class="byuser">'.__('fluxbb::common.by').' '.e($forum->last_poster).'</span>';
 	else if (!empty($forum->redirect_url))
 		$last_post = '- - -';
 	else
-		$last_post = __('Never');
+		$last_post = __('fluxbb::common.never');
 
 ?>
 								{{ $forum_field }}
