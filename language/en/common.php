@@ -39,6 +39,6 @@ return array(
 	'last_post'		=> 'Last Post',
 	
 	'topics'		=> 'Topics',
-	'posts'			=> 'Last Post',
+	'posts'			=> 'Posts',
 
 );
