@@ -28,7 +28,7 @@
 					<div class="infldset">
 						<label class="conl required"><strong>{{ __('fluxbb::common.password') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password1" size="16" /><br /></label>
 						<label class="conl required"><strong>{{ __('fluxbb::prof_reg.confirm_pass') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password2" size="16" /><br /></label>
-						<p class="clearb">{{ __('fluxbb::common.info_pass') }}</p>
+						<p class="clearb">{{ __('fluxbb::register.info_pass') }}</p>
 					</div>
 				</fieldset>
 			</div>
@@ -46,7 +46,7 @@
 @if (true)
 					<p>{{ __('fluxbb::register.info_email') }}</p>
 @endif
-						<label class="required"><strong>{{ __('fluxbb::common.Email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
+						<label class="required"><strong>{{ __('fluxbb::common.email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
 						<input type="text" name="req_email1" size="50" maxlength="80" /><br /></label>
 {{-- TODO: if ($pun_config['o_regs_verify'] == '1') --}}
 @if (true)
@@ -58,7 +58,7 @@
 			</div>
 			<div class="inform">
 				<fieldset>
-					<legend>{{ __('fluxbb::prof_reg.legend_localization') }}</legend>
+					<legend>{{ __('fluxbb::prof_reg.legend_localisation') }}</legend>
 					<div class="infldset">
 						<p>{{ __('fluxbb::prof_reg.info_timezone') }}</p>
 						<label>{{ __('fluxbb::prof_reg.timezone') }}
