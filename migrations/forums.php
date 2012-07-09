@@ -33,19 +33,22 @@ class Migration_Forums
 			$table->create();
 
 			$table->increments('id');
-			$table->string('forum_name', 80);
+			// TODO: Localize string?
+			$table->string('forum_name', 80)->default('New forum');
 			$table->text('forum_desc')->nullable();
 			$table->string('redirect_url', 100)->nullable();
 			// TODO: Remove moderators column
 			$table->text('moderators')->nullable();
-			$table->integer('num_topics');
-			$table->integer('num_posts');
+			$table->integer('num_topics')->default(0);
+			$table->integer('num_posts')->default(0);
 			$table->integer('last_post')->nullable();
 			$table->integer('last_post_id')->nullable();
 			$table->string('last_poster', 200)->nullable();
-			$table->boolean('sort_by');
-			$table->integer('disp_position');
-			$table->integer('cat_id');
+			// TODO: Really a boolean (or multiple options)?
+			$table->boolean('sort_by')->default(false);
+			$table->integer('disp_position')->default(0);
+			// TODO: Do we really need a default here?
+			$table->integer('cat_id')->default(0);
 
 			$table->primary('id');
 		});

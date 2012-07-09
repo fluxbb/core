@@ -33,11 +33,11 @@ class Migration_Reports
 			$table->create();
 
 			$table->increments('id');
-			$table->integer('post_id');
-			$table->integer('topic_id');
-			$table->integer('forum_id');
-			$table->integer('reported_by');
-			$table->integer('created');
+			$table->integer('post_id')->default(0);
+			$table->integer('topic_id')->default(0);
+			$table->integer('forum_id')->default(0);
+			$table->integer('reported_by')->default(0);
+			$table->integer('created')->default(0);
 			$table->text('message')->nullable();
 			$table->integer('zapped')->nullable();
 			$table->integer('zapped_by')->nullable();

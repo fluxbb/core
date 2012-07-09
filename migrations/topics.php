@@ -33,19 +33,19 @@ class Migration_Topics
 			$table->create();
 
 			$table->increments('id');
-			$table->string('poster', 200);
-			$table->string('subject', 255);
-			$table->integer('posted');
-			$table->integer('first_post_id');
-			$table->integer('last_post');
-			$table->integer('last_post_id');
+			$table->string('poster', 200)->default('');
+			$table->string('subject', 255)->default('');
+			$table->integer('posted')->default(0);
+			$table->integer('first_post_id')->default(0);
+			$table->integer('last_post')->default(0);
+			$table->integer('last_post_id')->default(0);
 			$table->string('last_poster', 200)->nullable();
-			$table->integer('num_views');
-			$table->integer('num_replies');
-			$table->boolean('closed');
-			$table->boolean('sticky');
+			$table->integer('num_views')->default(0);
+			$table->integer('num_replies')->default(0);
+			$table->boolean('closed')->default(false);
+			$table->boolean('sticky')->default(false);
 			$table->integer('moved_to')->nullable();
-			$table->integer('forum_id');
+			$table->integer('forum_id')->default(0);
 
 			$table->primary('id');
 

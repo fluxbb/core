@@ -33,10 +33,10 @@ class Migration_Users
 			$table->create();
 
 			$table->increments('id');
-			$table->integer('group_id');
-			$table->string('username', 200);
-			$table->string('password', 40);
-			$table->string('email', 80);
+			$table->integer('group_id')->default(3);
+			$table->string('username', 200)->default('');
+			$table->string('password', 40)->default('');
+			$table->string('email', 80)->default('');
 			$table->string('title', 50)->nullable();
 			$table->string('realname', 40)->nullable();
 			$table->string('url', 100)->nullable();
@@ -44,28 +44,32 @@ class Migration_Users
 			$table->text('signature')->nullable();
 			$table->integer('disp_topics')->nullable();
 			$table->integer('disp_posts')->nullable();
-			$table->integer('email_setting'); // TODO: Meh, pretty large for a TINYINT with three possible values
-			$table->boolean('notify_with_post');
-			$table->boolean('auto_notify');
-			$table->boolean('show_smilies');
-			$table->boolean('show_img');
-			$table->boolean('show_img_sig');
-			$table->boolean('show_avatars');
-			$table->boolean('show_sig');
-			$table->float('timezone');
-			$table->boolean('dst');
-			$table->integer('time_format');
-			$table->integer('date_format');
-			$table->string('language', 25)
-			$table->string('style', 25);
-			$table->integer('num_posts');
+			$table->integer('email_setting')->default(1); // TODO: Meh, pretty large for a TINYINT with three possible values
+			$table->boolean('notify_with_post')->default(false);
+			$table->boolean('auto_notify')->default(false);
+			$table->boolean('show_smilies')->default(true);
+			$table->boolean('show_img')->default(true);
+			$table->boolean('show_img_sig')->default(true);
+			$table->boolean('show_avatars')->default(true);
+			$table->boolean('show_sig')->default(true);
+			$table->float('timezone')->default(0);
+			$table->boolean('dst')->default(false);
+			// TODO: Integer for three values?
+			$table->integer('time_format')->default(0);
+			$table->integer('date_format')->default(0);
+			// TODO: Use selected language here (retrieve from Lang class)
+			// TODO: Too long?
+			$table->string('language', 25)->default('en');
+			// TODO: Use selected style here
+			$table->string('style', 25)->default('Air');
+			$table->integer('num_posts')->default(0);
 			$table->integer('last_post')->nullable();
 			$table->integer('last_search')->nullable();
 			$table->integer('last_email_sent')->nullable();
 			$table->integer('last_report_sent')->nullable();
-			$table->integer('registered');
-			$table->string('registration_ip', 35);
-			$table->integer('last_visit');
+			$table->integer('registered')->default(0);
+			$table->string('registration_ip', 35)->default('0.0.0.0');
+			$table->integer('last_visit')->default(0);
 			$table->string('admin_note', 30)->nullable();
 			$table->string('activate_string', 80)->nullable();
 			$table->string('activate_key', 8)->nullable(); // TODO: A little short maybe?

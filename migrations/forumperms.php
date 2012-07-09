@@ -32,12 +32,11 @@ class Migration_ForumPerms
 		{
 			$table->create();
 
-			$table->increments('id');
 			$table->integer('group_id');
 			$table->integer('forum_id');
-			$table->boolean('read_forum');
-			$table->boolean('post_replies');
-			$table->boolean('post_topics');
+			$table->boolean('read_forum')->default(true);
+			$table->boolean('post_replies')->default(true);
+			$table->boolean('post_topics')->default(true);
 
 			$table->primary(array('group_id', 'forum_id'));
 		});

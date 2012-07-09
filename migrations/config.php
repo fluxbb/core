@@ -32,7 +32,7 @@ class Migration_Config
 		{
 			$table->create();
 
-			$table->string('conf_name', 255);
+			$table->string('conf_name', 255)->default('');
 			$table->text('conf_value')->nullable();
 
 			$table->primary('conf_name');

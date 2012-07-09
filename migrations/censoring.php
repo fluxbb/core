@@ -33,8 +33,8 @@ class Migration_Censoring
 			$table->create();
 
 			$table->increments('id');
-			$table->string('search_for', 60);
-			$table->string('replace_with', 60);
+			$table->string('search_for', 60)->default('');
+			$table->string('replace_with', 60)->default('');
 
 			$table->primary('id');
 		});

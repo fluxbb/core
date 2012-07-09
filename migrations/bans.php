@@ -38,7 +38,7 @@ class Migration_Bans
 			$table->string('email', 80)->nullable();
 			$table->string('message', 255)->nullable();
 			$table->integer('expire')->nullable();
-			$table->integer('ban_creator');
+			$table->integer('ban_creator')->default(0);
 
 			$table->primary('id');
 			$table->index('username');

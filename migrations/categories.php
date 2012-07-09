@@ -33,8 +33,9 @@ class Migration_Categories
 			$table->create();
 
 			$table->increments('id');
-			$table->string('cat_name', 80);
-			$table->integer('disp_position');
+			// TODO: Localize string?
+			$table->string('cat_name', 80)->default('New Category');
+			$table->integer('disp_position')->default(0);
 
 			$table->primary('id');
 		});

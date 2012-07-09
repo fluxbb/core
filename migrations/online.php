@@ -32,10 +32,10 @@ class Migration_Online
 		{
 			$table->create();
 
-			$table->integer('user_id');
-			$table->string('ident', 200);
-			$table->integer('logged');
-			$table->boolean('idle');
+			$table->integer('user_id')->default(1);
+			$table->string('ident', 200)->default('');
+			$table->integer('logged')->default(0);
+			$table->boolean('idle')->default(false);
 			$table->integer('last_post')->nullable();
 			$table->integer('last_search')->nullable();
 
