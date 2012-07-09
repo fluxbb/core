@@ -28,7 +28,7 @@ use fluxbb\User;
 class FluxBB_User_Controller extends FluxBB_BaseController
 {
 
-	public function get_profile($id)
+	public function get_profile($id, $action = "essentials")
 	{
 		$user = User::where_id($id)->first();
 
@@ -36,11 +36,19 @@ class FluxBB_User_Controller extends FluxBB_BaseController
 		{
 			return Event::first('404');
 		}
-		else
+		
+		else if(User::current()->id == $id || User::current()->group_id == 1) //TODO: Add more specific rule for admins (now it is based on the group_id of the visiting user)
 		{
-			return View::make('fluxbb::user.profile.view')
+			return View::make("fluxbb::user.profile.".$action)
 				->with('user', $user);
 		}
+		
+		else
+		{
+			return View::make("fluxbb::user.profile.view")
+				->with('user', $user);
+		}
+	
 	}
 
 	public function get_list()
