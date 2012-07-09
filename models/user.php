@@ -69,8 +69,8 @@ class User extends \FluxBB_BaseModel
 
 	public function is_guest()
 	{
-		// FIXME: Return something like $this->group_id == PUN_GUEST
-		return false;
+		// FIXME: This should be a constant (was PUN_GUEST or something else) maybe
+		return $this->group_id == 3;
 	}
 
 	public function is_member()
