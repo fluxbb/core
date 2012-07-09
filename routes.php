@@ -29,5 +29,6 @@ Route::get('(:bundle)/post/(:num)', 'fluxbb::home@post');
 Route::get('(:bundle)', 'fluxbb::home@index');
 Route::get('(:bundle)/profile/(:num)/(:any?)', 'fluxbb::user@profile');
 Route::get('(:bundle)/user/list', 'fluxbb::user@list');
+Route::any('(:bundle)/register', 'fluxbb::auth@register');
 Route::any('(:bundle)/login', 'fluxbb::auth@login');
 Route::get('(:bundle)/search', 'fluxbb::search@index');

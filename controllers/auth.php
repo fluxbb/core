@@ -40,4 +40,19 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 			->with('redirect_url', $redirect_url);
 	}
 
+	public function get_register()
+	{
+		// TODO: Remember old values, too
+		$timezone = 1; // $pun_config['o_default_timezone']
+		$dst = 1; // $pun_config['o_default_dst']
+		$languages = array('en' => 'English', 'fr' => 'French'); // forum_language_list()
+		$email_setting = 1; // $pun_config['o_default_email_setting']
+
+		return View::make('fluxbb::auth.register')
+			->with('timezone', $timezone)
+			->with('dst', $dst)
+			->with('languages', $languages)
+			->with('email_setting', $email_setting);
+	}
+
 }
