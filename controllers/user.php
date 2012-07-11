@@ -40,7 +40,8 @@ class FluxBB_User_Controller extends FluxBB_BaseController
 		else if(User::current()->id == $id || User::current()->group_id == 1) //TODO: Add more specific rule for admins (now it is based on the group_id of the visiting user)
 		{
 			return View::make("fluxbb::user.profile.".$action)
-				->with('user', $user);
+				->with('user', $user)
+				->with('admin', User::current()->group_id == 1);
 		}
 		
 		else
@@ -49,6 +50,65 @@ class FluxBB_User_Controller extends FluxBB_BaseController
 				->with('user', $user);
 		}
 	
+	}
+	
+	public function put_profile($id, $action = "essentials")
+	{
+		$user = User::where_id($id)->first();
+		if ($action == "essentials")
+		{
+			$user->username = Input::get('username', $user->username);
+			$user->email = Input::get('email', $user->email);
+			$user->timezone = Input::get('timezone', $user->timezone);
+			$user->dst = Input::get('dst', $user->dst);
+			$user->time_format = Input::get('time_format');
+			$user->date_format = Input::get('date_format');
+			$user->admin_note = Input::get('admin_note', $user->admin_note);
+		}
+		
+		else if ($action == "messaging")
+		{
+			$user->jabber = Input::get('jabber');
+			$user->icq = Input::get('icq');
+			$user->msn = Input::get('msn');
+			$user->aim = Input::get('aim');
+			$user->yahoo = Input::get('yahoo');
+		}
+		
+		else if ($action == "personal")
+		{
+			$user->realname = Input::get('realname');
+			$user->title = Input::get('title');
+			$user->location = Input::get('location');
+			$user->url = Input::get('url');
+		}
+		
+		else if ($action == "personality")
+		{
+			$user->signature = Input::get('signature');
+		}
+		
+		else if ($action == "display")
+		{
+		//This will give an error if not everything is set -> need to set defaults in database!
+			$user->style = Input::get('style');
+			$user->show_smilies = Input::get('show_smilies');
+			$user->show_sig = Input::get('show_sig');
+			$user->show_avatars = Input::get('show_avatars');
+			$user->show_img = Input::get('show_img');
+			$user->disp_topics = Input::get('disp_topics', $user->disp_topics);
+			$user->disp_posts = Input::get('disp_posts', $user->disp_posts);
+		}
+		
+		else //if action == privacy
+		{
+			//TODO
+		}
+		
+		$user->save();
+		return View::make("fluxbb::user.profile.".$action)
+				->with('user', $user)
+				->with('admin', (User::current()->group_id == 1));
 	}
 
 	public function get_list()

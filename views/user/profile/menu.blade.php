@@ -9,9 +9,9 @@
 			<ul>
 				@foreach($menuItems as $menuItem)
 					@if($menuItem == Str::title($currentItem)) <?php // with $currentItem as passed variable for the menu part which the user is viewing now ?>
-						<li class="isactive">{{ HTML::link_to_action('user@profile', $menuItem, array($user->id, $menuItem)) }}</li>
+						<li class="isactive">{{ HTML::link_to_route('profile', $menuItem, array($user->id, Str::lower($menuItem))) }}</li>
 					@else
-						<li>{{ HTML::link_to_action('user@profile', $menuItem, array($user->id, $menuItem)) }}</li>
+						<li>{{ HTML::link_to_route('profile', $menuItem, array($user->id, Str::lower($menuItem))) }}</li>
 					@endif
 				@endforeach
 			</ul>
