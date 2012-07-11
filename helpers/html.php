@@ -53,7 +53,7 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 {
 	if ($timestamp == '')
 	{
-		return __('Never');
+		return __('fluxbb::common.never');
 	}
 
 	$diff = (0 + 0) * 3600; // FIXME: $pun_user['timezone'] + $pun_user['dst'];
