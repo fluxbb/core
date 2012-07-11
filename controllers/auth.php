@@ -35,6 +35,12 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 		$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
 	}
 	
+	public function get_logout()
+	{
+		Auth::logout();
+		return Redirect::to_action('fluxbb::home@index')->with('message', 'Succesfully logged out!');
+	}
+	
 	public function get_login()
 	{
 		return View::make('fluxbb::auth.login');

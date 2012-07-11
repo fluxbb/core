@@ -31,4 +31,5 @@ Route::any('(:bundle)/profile/(:num)/(:any?)', array('as' => 'profile', 'uses' =
 Route::get('(:bundle)/user/list', 'fluxbb::user@list');
 Route::any('(:bundle)/register', 'fluxbb::auth@register');
 Route::any('(:bundle)/login', 'fluxbb::auth@login');
+Route::get('(:bundle)/logout', 'fluxbb::auth@logout');
 Route::get('(:bundle)/search', 'fluxbb::search@index');
