@@ -86,6 +86,11 @@ class User extends \FluxBB_BaseModel
 		return false;
 	}
 
+	public function is_admin()
+	{
+		return $this->group_id = 1;
+	}
+
 	public function title()
 	{
 		static $ban_list;
