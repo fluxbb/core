@@ -33,6 +33,7 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 		parent::__construct();
 
 		$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
+		$this->filter('before', 'fluxbb::only_members')->only('logout');
 	}
 	
 	public function get_logout()
