@@ -40,5 +40,8 @@ return array(
 	
 	'topics'		=> 'Topics',
 	'posts'			=> 'Posts',
+	
+	'today'			=> 'Today',
+	'yesterday'		=> 'Yesterday',
 
 );

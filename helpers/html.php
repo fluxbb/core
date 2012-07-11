@@ -78,11 +78,11 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 	{
 		if ($date == $today)
 		{
-			$date = __('Today');
+			$date = __('fluxbb::common.today');
 		}
 		else if ($date == $yesterday)
 		{
-			$date = __('Yesterday');
+			$date = __('fluxbb::common.yesterday');
 		}
 	}
 
