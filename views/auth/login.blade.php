@@ -4,6 +4,8 @@
 <div class="blockform">
 	<h2><span>{{ __('fluxbb::common.login') }}</span></h2>
 	<div class="box">
+		<?php print_r($errors); ?>
+		<?php if (isset($error)) print_r($error); ?>
 		<form id="login" method="post" action="{{ URL::to_action('fluxbb::auth@login') }}" onsubmit="return process_form(this)">
 			<div class="inform">
 				<fieldset>

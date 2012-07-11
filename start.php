@@ -47,4 +47,13 @@ View::composer('fluxbb::layout.main', function($view)
 		->with('status', 'You are not logged in.')
 		->with('announcement', '');
 });
+
+// TODO: Maybe too generic a place for this
+View::composer('fluxbb::auth.login', function($view)
+{
+	// TODO: Might want to make this dynamic
+	$redirect_url = URL::to_action('fluxbb::home@index');
+	$view->with('redirect_url', $redirect_url);
+});
+
 require('helpers/html.php'); //include html helpers

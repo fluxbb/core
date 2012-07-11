@@ -35,11 +35,45 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 			return Redirect::to_action('fluxbb::home@index');
 		}
 
-		// TODO: Might want to make this dynamic
-		$redirect_url = URL::to_action('fluxbb::home@index');
+		return View::make('fluxbb::auth.login');
+	}
 
-		return View::make('fluxbb::auth.login')
-			->with('redirect_url', $redirect_url);
+	public function post_login()
+	{
+		if ($this->user()->is_member())
+		{
+			return Redirect::to_action('fluxbb::home@index');
+		}
+
+		// TODO: Validate maybe?
+		$rules = array(
+			'req_username'	=> 'required',
+			'req_password'	=> 'required',
+			'redirect_url'	=> 'url',
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+		if ($validation->fails())
+		{
+			return Redirect::to_action('fluxbb::auth@login')->with_errors($validation);
+		}
+
+		$login_data = array(
+			'username'	=> Input::get('req_username'),
+			'password'	=> Input::get('req_password'),
+			'remember'	=> Input::get('save_pass', '0') == '1',
+		);
+
+		if (Auth::attempt($login_data))
+		{
+			$redirect_url = Input::get('redirect_url', URL::to_action('fluxbb::home@index'));
+			return Redirect::to($redirect_url);
+		}
+		else
+		{
+			return View::make('fluxbb::auth.login')
+				->with('error', 'Invalid username / password combination.');
+		}
 	}
 
 	public function get_register()
