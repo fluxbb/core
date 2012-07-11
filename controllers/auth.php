@@ -38,7 +38,7 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 	public function get_logout()
 	{
 		Auth::logout();
-		return Redirect::to_action('fluxbb::home@index')->with('message', 'Succesfully logged out!');
+		return Redirect::to_action('fluxbb::home@index')->with('message', __('fluxbb::login.message_logout'));
 	}
 	
 	public function get_login()
