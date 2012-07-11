@@ -35,7 +35,7 @@ class Migration_Users
 			$table->increments('id');
 			$table->integer('group_id')->default(3);
 			$table->string('username', 200)->default('');
-			$table->string('password', 40)->default('');
+			$table->string('password', 60)->default('');
 			$table->string('email', 80)->default('');
 			$table->string('title', 50)->nullable();
 			$table->string('realname', 40)->nullable();
