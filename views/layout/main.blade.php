@@ -37,7 +37,7 @@
 				<li id="navregister"><a href="{{ URL::to_action('fluxbb::auth@register') }}">{{ __('fluxbb::common.register') }}</a></li>
 				<li id="navlogin"><a href="{{ URL::to_action('fluxbb::auth@login') }}">{{ __('fluxbb::common.login') }}</a></li>
 @else
-				<li id="navprofile"><a href="{{ URL::to_action('fluxbb::user@profile') }}">{{ __('fluxbb::common.profile') }}</a></li>
+				<li id="navprofile">{{ HTML::link_to_action('fluxbb::user@profile', __('fluxbb::common.profile'), array(Auth::user()->id)) }}</li>
 	@if (fluxbb\User::current()->is_admin())
 				<li id="navadmin"><a href="{{ URL::to_action('fluxbb::admin@index') }}">{{ __('fluxbb::common.admin') }}</a></li>
 	@endif
