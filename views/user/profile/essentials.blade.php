@@ -105,10 +105,12 @@
 					<fieldset>
 						<legend>User activity</legend>
 						<div class="infldset">
-							<p>Registered: {{ HTML::format_time($user->registered, true, "Y-m-d") }} (<a href="moderate.php?get_host=127.0.0.1">127.0.0.1</a>)</p>
+							<p>Registered: {{ HTML::format_time($user->registered, true, "Y-m-d") }}</p>
 							<p>Last post: {{ HTML::format_time($user->last_post) }}</p>
 							<p>Last visit: {{ HTML::format_time($user->last_visit) }}</p>
-							<label>Posts<br>{{ Form::text('num_posts', $user->num_posts, array('size' => '8', 'maxlength' => '8')) }}<br></label><p class="actions"><a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
+							<label>Posts<br>{{ $user->num_posts }}<br></label><p class="actions">
+							{{--- TODO: add input field for posts when admin + add links to controller actions --}}
+							<a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
 							<label>Admin note<br>
 							{{ Form::text('admin_note', $user->admin_note, array('size' => '30', 'maxlength' => '30', 'id' => "admin_note")) }}<br></label>
 						</div>
