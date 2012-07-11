@@ -42,6 +42,12 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 
 	public function get_register()
 	{
+		// TODO: Moving this to a filter might make sense!
+		if ($this->user()->is_member())
+		{
+			return Redirect::to_action('fluxbb::home@index');
+		}
+
 		// TODO: Remember old values, too
 		$timezone = 1; // $pun_config['o_default_timezone']
 		$dst = 1; // $pun_config['o_default_dst']
@@ -53,6 +59,50 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 			->with('dst', $dst)
 			->with('languages', $languages)
 			->with('email_setting', $email_setting);
+	}
+
+	public function post_register()
+	{
+		if ($this->user()->is_member())
+		{
+			return Redirect::to_action('fluxbb::home@index');
+		}
+
+		// TODO: Add agreement to rules here!
+
+		$rules = array(
+			// TODO: Reserved chars, BBCode, IP + case-insensitivity for "Guest", censored words, name doesn't exist
+			'req_user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
+			// TODO: No password if o_regs_verify == 1
+			'req_password'	=> 'required|min:4|confirmed',
+			// TODO: only check for confirmation if o_regs_verify == 1, also add check for banned email
+			'req_email'		=> 'required|email|confirmed|unique:users,email',
+		);
+		// TODO: More validation
+
+		$validation = Validator::make(Input::all(), $rules);
+		if ($validation->fails())
+		{
+			return Redirect::to_action('fluxbb::auth@register')->with_errors($validation);
+		}
+
+		$user_data = array(
+			'username'			=> Input::get('req_user'),
+			'group_id'			=> 4, // TODO: ($pun_config['o_regs_verify'] == '0') ? $pun_config['o_default_user_group'] : PUN_UNVERIFIED
+			'password'			=> Input::get('req_password'),
+			'email'				=> Input::get('req_email'),
+			'email_setting'		=> Input::get('email_setting'),
+			'timezone'			=> Input::get('timezone'), // TODO: default to $pun_config['o_default_dst']
+			'dst'				=> Input::get('dst'),
+			'language'			=> Input::get('language'),
+			'style'				=> 'Air', // TODO: Default style!!!
+			'registered'		=> time(), // TODO: Request::time()? https://github.com/laravel/laravel/pull/933
+			'registration_ip'	=> Request::ip(),
+			'last_visit'		=> time(),
+		);
+		$user = User::create($user_data);
+	
+		return Redirect::to_action('fluxbb::user@profile', array($user->id))->with('message', __('fluxbb::register.reg_complete'));
 	}
 
 }

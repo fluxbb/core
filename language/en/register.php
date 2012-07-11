@@ -11,5 +11,6 @@ return array(
 	'info_pass'				=> 'Passwords must be at least 4 characters long. Passwords are case sensitive.',
 	'info_email'			=> 'You must enter a valid email address as your randomly generated password will be sent to that address.',
 	'confirm_email'			=> 'Confirm email address',
+	'reg_complete'			=> 'Registration complete. Logged in.',
 
 );

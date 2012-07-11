@@ -26,6 +26,7 @@
 namespace fluxbb;
 
 use Auth;
+use Hash;
 
 class User extends \FluxBB_BaseModel
 {
@@ -200,6 +201,12 @@ class User extends \FluxBB_BaseModel
 	public function disp_posts()
 	{
 		return $this->disp_posts ?: 25; // TODO: $pun_config['o_disp_posts_default'];
+	}
+
+	public function set_password($password)
+	{
+		$this->set_attribute('password', Hash::make($password));
+		// TODO: Maybe reset some attributes like confirmation code here?
 	}
 
 }

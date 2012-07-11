@@ -1,6 +1,7 @@
 @layout('fluxbb::layout.main')
 
 @section('main')
+<?php print_r($errors); ?>
 <div id="regform" class="blockform">
 	<h2><span>{{ __('fluxbb::register.register') }}</span></h2>
 	<div class="box">
@@ -26,8 +27,8 @@
 				<fieldset>
 					<legend>{{ __('fluxbb::register.legend_pass') }}</legend>
 					<div class="infldset">
-						<label class="conl required"><strong>{{ __('fluxbb::common.password') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password1" size="16" /><br /></label>
-						<label class="conl required"><strong>{{ __('fluxbb::prof_reg.confirm_pass') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password2" size="16" /><br /></label>
+						<label class="conl required"><strong>{{ __('fluxbb::common.password') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password" size="16" /><br /></label>
+						<label class="conl required"><strong>{{ __('fluxbb::prof_reg.confirm_pass') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password_confirmation" size="16" /><br /></label>
 						<p class="clearb">{{ __('fluxbb::register.info_pass') }}</p>
 					</div>
 				</fieldset>
@@ -47,11 +48,11 @@
 					<p>{{ __('fluxbb::register.info_email') }}</p>
 @endif
 						<label class="required"><strong>{{ __('fluxbb::common.email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-						<input type="text" name="req_email1" size="50" maxlength="80" /><br /></label>
+						<input type="text" name="req_email" size="50" maxlength="80" /><br /></label>
 {{-- TODO: if ($pun_config['o_regs_verify'] == '1') --}}
 @if (true)
 						<label class="required"><strong>{{ __('fluxbb::register.confirm_email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-						<input type="text" name="req_email2" size="50" maxlength="80" /><br /></label>
+						<input type="text" name="req_email_confirmation" size="50" maxlength="80" /><br /></label>
 @endif
 					</div>
 				</fieldset>
