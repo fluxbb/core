@@ -58,7 +58,15 @@
 {{ $announcement }}
 
 <div id="brdmain">
+
+@if (Session::has('message'))
+	<div>
+		<p>{{ e(Session::get('message')) }}</p>
+	</div>
+@endif
+
 @yield('main')
+
 </div>
 
 @include('fluxbb::layout.partials.footer')
