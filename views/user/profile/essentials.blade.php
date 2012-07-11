@@ -8,13 +8,20 @@
 	<div class="blockform">
 		<h2><span>Essentials</span></h2>
 		<div class="box">
-			{{ Form::open('profile/'.$user->id.'/essentials', 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
+			<?php //TODO: unhardcode core, suggestion: adding a config file which holds the base url which the user wants to use. Always use that value (also in routes.php) ?>
+			{{ Form::open('core/profile/'.$user->id.'/essentials', 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
 				<div class="inform">
 					<fieldset>
 						<legend>Enter your username and password</legend>
 						<div class="infldset">
 							<input type="hidden" name="form_sent" value="1">
-							<label class="required"><strong>Username <span>(Required)</span></strong><br>{{ Form::text('req_username', $user->username, array('size' =>  "25", 'maxlength' => "25")) }}<br></label>
+							<label class="required"><strong>Username <span>(Required)</span></strong><br>
+							@if ($admin)
+							{{ Form::text('username', $user->username, array('size' =>  "25", 'maxlength' => "25")) }}
+							@else
+							{{ $user->username }}
+							@endif
+							<br></label>
 							<p class="actions"><span><a href="profile.php?action=change_pass&amp;id=2">Change password</a></span></p>
 						</div>
 					</fieldset>
@@ -23,7 +30,7 @@
 					<fieldset>
 						<legend>Enter a valid email address</legend>
 						<div class="infldset">
-							<label class="required"><strong>Email <span>(Required)</span></strong><br>{{ Form::text('req_email', $user->email, array('size' => "40", "maxlength" => "80")) }}<br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
+							<label class="required"><strong>Email <span>(Required)</span></strong><br>{{ Form::text('email', $user->email, array('size' => "40", "maxlength" => "80")) }}<br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
 						</div>
 					</fieldset>
 				</div>
@@ -33,7 +40,7 @@
 						<div class="infldset">
 							<p>For the forum to display times correctly you must select your local time zone. If Daylight Savings Time is in effect you should also check the option provided which will advance times by 1 hour.</p>
 							<label>Time zone
-							<br><select name="form[timezone]">
+							<br><select name="timezone">
 								<option value="-12">(UTC-12:00) International Date Line West</option>
 								<option value="-11">(UTC-11:00) Niue, Samoa</option>
 								<option value="-10">(UTC-10:00) Hawaii-Aleutian, Cook Island</option>
@@ -77,10 +84,10 @@
 							</select>
 							<br></label>
 							<div class="rbox">
-								<label><input type="checkbox" name="form[dst]" value="1">Daylight Savings Time is in effect (advance time by 1 hour).<br></label>
+								<label><input type="checkbox" name="dst" value="1">Daylight Savings Time is in effect (advance time by 1 hour).<br></label>
 							</div>
 							<label>Time format
-							<br><select name="form[time_format]">
+							<br><select name="time_format">
 								<option value="0" selected="selected">{{ date('h:i:s') }} (Default)</option>
 								<option value="2">{{date('h:i') }}</option>
 								<option value="3">{{date('g:i:s a') }}</option>
@@ -88,7 +95,7 @@
 							</select>
 							<br></label>
 							<label>Date format
-							<br><select name="form[date_format]">
+							<br><select name="date_format">
 								<option value="0" selected="selected">{{ date("Y-m-d") }} (Default)</option>
 								<option value="2">{{ date("Y-d-m") }}</option>
 								<option value="3">{{ date("d-m-Y") }}</option>
@@ -108,11 +115,13 @@
 							<p>Registered: {{ HTML::format_time($user->registered, true, "Y-m-d") }}</p>
 							<p>Last post: {{ HTML::format_time($user->last_post) }}</p>
 							<p>Last visit: {{ HTML::format_time($user->last_visit) }}</p>
-							<label>Posts<br>{{ $user->num_posts }}<br></label><p class="actions">
+							<label>Posts: {{ $user->num_posts }}<br></label><p class="actions">
 							{{--- TODO: add input field for posts when admin + add links to controller actions --}}
 							<a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
+							@if ($admin)
 							<label>Admin note<br>
 							{{ Form::text('admin_note', $user->admin_note, array('size' => '30', 'maxlength' => '30', 'id' => "admin_note")) }}<br></label>
+							@endif
 						</div>
 					</fieldset>
 				</div>
