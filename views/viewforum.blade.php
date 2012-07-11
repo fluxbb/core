@@ -43,7 +43,7 @@ if (fluxbb\User::current()->is_member() && $topic->last_post > fluxbb\User::curr
 	@if ($topic->was_moved())
 					<td class="tcr">- - -</td>
 	@else
-					<td class="tcr"><a href="{{ URL::to_action('fluxbb::home@post', array($topic->last_post_id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ __('fluxbb::forum.by', array('name' => e($topic->last_poster))) }}</span></td>
+					<td class="tcr"><a href="{{ URL::to_action('fluxbb::home@post', array($topic->last_post_id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ __('fluxbb::common.by', array('author' => e($topic->last_poster))) }}</span></td>
 	@endif
 				</tr>
 @endforeach
