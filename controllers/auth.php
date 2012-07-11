@@ -27,24 +27,21 @@ use fluxbb\User;
 
 class FluxBB_Auth_Controller extends FluxBB_BaseController
 {
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
+	}
 	
 	public function get_login()
 	{
-		if ($this->user()->is_member())
-		{
-			return Redirect::to_action('fluxbb::home@index');
-		}
-
 		return View::make('fluxbb::auth.login');
 	}
 
 	public function post_login()
 	{
-		if ($this->user()->is_member())
-		{
-			return Redirect::to_action('fluxbb::home@index');
-		}
-
 		// TODO: Validate maybe?
 		$rules = array(
 			'req_username'	=> 'required',
@@ -78,12 +75,6 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 
 	public function get_register()
 	{
-		// TODO: Moving this to a filter might make sense!
-		if ($this->user()->is_member())
-		{
-			return Redirect::to_action('fluxbb::home@index');
-		}
-
 		// TODO: Remember old values, too
 		$timezone = 1; // $pun_config['o_default_timezone']
 		$dst = 1; // $pun_config['o_default_dst']
@@ -99,11 +90,6 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 
 	public function post_register()
 	{
-		if ($this->user()->is_member())
-		{
-			return Redirect::to_action('fluxbb::home@index');
-		}
-
 		// TODO: Add agreement to rules here!
 
 		$rules = array(

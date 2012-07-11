@@ -56,4 +56,9 @@ View::composer('fluxbb::auth.login', function($view)
 	$view->with('redirect_url', $redirect_url);
 });
 
-require('helpers/html.php'); //include html helpers
+
+// Route filters
+require 'helpers/filters.php';
+
+// HTML helpers
+require 'helpers/html.php';
