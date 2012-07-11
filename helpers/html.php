@@ -99,4 +99,3 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 		return $date.' '.gmdate($time_format, $timestamp);
 	}
 });
-?>
