@@ -59,7 +59,7 @@
 		$forum_field .= "\n\t\t\t\t\t\t\t\t".'<div class="forumdesc">'.$forum->forum_desc.'</div>';
 
 	if ($forum->last_post != '')
-		$last_post = '<a href="'.URL::to_action('fluxbb::home@post', array($forum->last_post_id)).'#p'.$forum->last_post_id.'">'.HTML::format_time($forum->last_post).'</a> <span class="byuser">'.__('fluxbb::common.by').' '.e($forum->last_poster).'</span>';
+		$last_post = '<a href="'.URL::to_action('fluxbb::home@post', array($forum->last_post_id)).'#p'.$forum->last_post_id.'">'.HTML::format_time($forum->last_post).'</a> <span class="byuser">'.__('fluxbb::common.by', array('author' => e($forum->last_poster))).'</span>';
 	else if (!empty($forum->redirect_url))
 		$last_post = '- - -';
 	else

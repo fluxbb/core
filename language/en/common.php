@@ -30,7 +30,7 @@ return array(
 	'board_info'	=> 'Board information',
 	'board_stats'	=> 'Board statistics',
 	'user_info'		=> 'User information',
-	'by'			=> 'By:',
+	'by'			=> 'by :author',
 	'never'			=> 'Never',
 	'important'		=> 'Important information',
 	
