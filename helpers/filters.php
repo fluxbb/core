@@ -30,3 +30,11 @@ Route::filter('fluxbb::only_guests', function()
 		return Redirect::to_action('fluxbb::home@index');
 	}
 });
+
+Route::filter('fluxbb::only_members', function()
+{
+	if (!Auth::check())
+	{
+		return Redirect::to_action('fluxbb::home@index');
+	}
+});
