@@ -45,4 +45,6 @@ return array(
 	'yesterday'		=> 'Yesterday',
 	'never'			=> 'Never',
 
+	'login_to_view'	=> 'You need to login to view this page.',
+
 );
