@@ -76,10 +76,10 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 	public function get_register()
 	{
 		// TODO: Remember old values, too
-		$timezone = 1; // $pun_config['o_default_timezone']
-		$dst = 1; // $pun_config['o_default_dst']
+		$timezone = fluxbb\Config::get('o_default_timezone');
+		$dst = fluxbb\Config::get('o_default_dst');
 		$languages = array('en' => 'English', 'fr' => 'French'); // forum_language_list()
-		$email_setting = 1; // $pun_config['o_default_email_setting']
+		$email_setting = fluxbb\Config::get('o_default_email_setting');
 
 		return View::make('fluxbb::auth.register')
 			->with('timezone', $timezone)
@@ -114,7 +114,7 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 			'password'			=> Input::get('req_password'),
 			'email'				=> Input::get('req_email'),
 			'email_setting'		=> Input::get('email_setting'),
-			'timezone'			=> Input::get('timezone'), // TODO: default to $pun_config['o_default_dst']
+			'timezone'			=> Input::get('timezone', fluxbb\Config::get('o_default_dst')),
 			'dst'				=> Input::get('dst'),
 			'language'			=> Input::get('language'),
 			'style'				=> 'Air', // TODO: Default style!!!
