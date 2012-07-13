@@ -65,8 +65,18 @@ class Config
 		{
 			return $data[$key];
 		}
-		
+
 		return $default;
+	}
+
+	public static function enabled($key)
+	{
+		return static::get($key, 0) == 1;
+	}
+
+	public static function disabled($key)
+	{
+		return static::get($key, 0) == 0;
 	}
 
 }
