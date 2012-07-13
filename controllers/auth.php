@@ -49,35 +49,27 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 
 	public function post_login()
 	{
-		// TODO: Validate maybe?
-		$rules = array(
-			'req_username'	=> 'required',
-			'req_password'	=> 'required',
-			'redirect_url'	=> 'url',
-		);
-
-		$validation = Validator::make(Input::all(), $rules);
-		if ($validation->fails())
-		{
-			return Redirect::to_action('fluxbb::auth@login')->with_errors($validation);
-		}
-
 		$login_data = array(
 			'username'	=> Input::get('req_username'),
 			'password'	=> Input::get('req_password'),
-			'remember'	=> Input::get('save_pass', '0') == '1',
+			'remember'	=> !is_null(Input::get('save_pass')),
 		);
 
 		if (Auth::attempt($login_data))
 		{
+			// TODO: This is properly validated in URL::to, right?
 			$redirect_url = Input::get('redirect_url', URL::to_action('fluxbb::home@index'));
 			return Redirect::to($redirect_url)
 				->with('message', 'You were successfully logged in.');
 		}
 		else
 		{
-			return View::make('fluxbb::auth.login')
-				->with('error', 'Invalid username / password combination.');
+			$errors = new Laravel\Messages;
+			$errors->add('login', 'Invalid username / password combination.');
+
+			return Redirect::back()
+				->with_input()
+				->with_errors($errors);
 		}
 	}
 
