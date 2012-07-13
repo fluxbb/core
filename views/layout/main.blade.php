@@ -61,7 +61,7 @@
 
 @if (Session::has('message'))
 	<div>
-		<p>{{ e(Session::get('message')) }}</p>
+		<p style="color: #9F6000; background-color: #FEEFB3; border: 1px solid #9F6000; padding: 5px; margin-bottom: 10px;">{{ e(Session::get('message')) }}</p>
 	</div>
 @endif
 

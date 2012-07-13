@@ -156,7 +156,7 @@ class FluxBB_Home_Controller extends FluxBB_BaseController
 
 	public function get_post($pid)
 	{
-		// If a post ID is specified we determine topic ID and page number so we can redirect to the correct message
+		// If a post ID is specified we determine topic ID and page number so we can show the correct message
 		$post = DB::table('posts')->where_id($pid)->select(array('topic_id', 'posted'))->first();
 
 		if ($post === NULL)
