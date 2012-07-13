@@ -71,7 +71,8 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 		if (Auth::attempt($login_data))
 		{
 			$redirect_url = Input::get('redirect_url', URL::to_action('fluxbb::home@index'));
-			return Redirect::to($redirect_url);
+			return Redirect::to($redirect_url)
+				->with('message', 'You were successfully logged in.');
 		}
 		else
 		{
