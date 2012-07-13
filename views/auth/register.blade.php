@@ -21,8 +21,7 @@
 					</div>
 				</fieldset>
 			</div>
-{{-- TODO: if ($pun_config['o_regs_verify'] == '0') --}}
-@if (true)
+@if (fluxbb\Config::disabled('o_regs_verify'))
 			<div class="inform">
 				<fieldset>
 					<legend>{{ __('fluxbb::register.legend_pass') }}</legend>
@@ -36,21 +35,18 @@
 @endif
 			<div class="inform">
 				<fieldset>
-	{{-- $pun_config['o_regs_verify'] == '1' --}}
-	@if (true)
+	@if (fluxbb\Config::enabled('o_regs_verify'))
 					<legend>{{ __('fluxbb::prof_reg.legend_email2') }}</legend>
 	@else
 					<legend>{{ __('fluxbb::prof_reg.legend_email') }}</legend>
 	@endif
 					<div class="infldset">
-{{-- TODO: if ($pun_config['o_regs_verify'] == '1') --}}
-@if (true)
+@if (fluxbb\Config::enabled('o_regs_verify'))
 					<p>{{ __('fluxbb::register.info_email') }}</p>
 @endif
 						<label class="required"><strong>{{ __('fluxbb::common.email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
 						<input type="text" name="req_email" size="50" maxlength="80" /><br /></label>
-{{-- TODO: if ($pun_config['o_regs_verify'] == '1') --}}
-@if (true)
+@if (fluxbb\Config::enabled('o_regs_verify'))
 						<label class="required"><strong>{{ __('fluxbb::register.confirm_email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
 						<input type="text" name="req_email_confirmation" size="50" maxlength="80" /><br /></label>
 @endif

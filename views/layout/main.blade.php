@@ -26,8 +26,7 @@
 @if (fluxbb\User::current()->group->g_read_board == '1' && fluxbb\User::current()->group->g_view_users == '1')
 				<li id="navuserlist"><a href="{{ URL::to_action('fluxbb::user@list') }}">{{ __('fluxbb::common.user_list') }}</a></li>
 @endif
-<!-- TODO: First: $pun_config['o_rules'] == '1'; second: $pun_config['o_regs_allow'] == '1' -->
-@if (true && (Auth::check() || fluxbb\User::current()->group->g_read_board == '1' || true))
+@if (fluxbb\Config::enabled('o_rules') && (Auth::check() || fluxbb\User::current()->group->g_read_board == '1' || fluxbb\Config::enabled('o_regs_allow')))
 				<li id="navrules"><a href="{{ URL::to_action('fluxbb::misc@rules') }}">{{ __('fluxbb::common.rules') }}</a></li>
 @endif
 @if (fluxbb\User::current()->group->g_read_board == '1' && fluxbb\User::current()->group->g_search == '1')
