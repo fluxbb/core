@@ -25,9 +25,48 @@
 
 namespace fluxbb;
 
-class Config extends \FluxBB_BaseModel
-{
+use Cache;
+use DB;
 
-	public static $table = 'config';
+class Config
+{
+	protected static $loaded = false;
+
+	protected static $data = array();
+
+	protected static function data()
+	{
+		if (!static::$loaded)
+		{
+			static::$data = Cache::remember('fluxbb.config', function()
+			{
+				$data = DB::table('config')->get();
+				$cache = array();
+
+				foreach ($data as $row)
+				{
+					$cache[$row->conf_name] = $row->conf_value;
+				}
+
+				return $cache;
+			}, 24 * 60);
+
+			static::$loaded = true;
+		}
+
+		return static::$data;
+	}
+
+	public static function get($key, $default = null)
+	{
+		$data = static::data();
+
+		if (array_key_exists($key, $data))
+		{
+			return $data[$key];
+		}
+		
+		return $default;
+	}
 
 }
