@@ -133,6 +133,9 @@ class Config
 
 		// No need to cache old values anymore
 		static::$original = static::$data;
+
+		// Delete the cache so that it will be regenerated on the next request
+		Cache::forget('fluxbb.config');
 	}
 
 	// TODO: Do we need another function to clear the cache here?
