@@ -23,20 +23,22 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-Autoloader::namespaces(array(
-	'fluxbb' => __DIR__ . DS . 'models',
-));
+View::composer('fluxbb::layout.main', function($view)
+{
+	$view->with('language', 'en')
+		->with('direction', 'ltr')
+		->with('head', '')
+		->with('page', 'index')
+		->with('title', 'My FluxBB Forum')
+		->with('desc', '<p><span>Unfortunately no one can be told what FluxBB is - you have to see it for yourself.</span></p>')
+		->with('navlinks', '<ul><li><a href="#">Home</a></li></ul>')
+		->with('status', 'You are not logged in.')
+		->with('announcement', '');
+});
 
-Autoloader::underscored(array(
-	'FluxBB' => __DIR__ . DS . 'classes',
-));
+View::composer('fluxbb::auth.login', function($view)
+{
+	$redirect_url = Session::get('fluxbb::login_redirect', URL::to_action('fluxbb::home@index'));
 
-
-// View composers
-require 'helpers/composers.php';
-
-// Route filters
-require 'helpers/filters.php';
-
-// HTML helpers
-require 'helpers/html.php';
+	$view->with('redirect_url', $redirect_url);
+});
