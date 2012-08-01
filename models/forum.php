@@ -40,8 +40,8 @@ class Forum extends \FluxBB_BaseModel
 
 	public function subscription()
 	{
-		// TODO: Condition for current user
-		return $this->has_one('fluxbb\\ForumSubscription');
+		return $this->has_one('fluxbb\\ForumSubscription')
+			->where_user_id(User::current()->id);
 	}
 
 	public function perms()
@@ -62,8 +62,7 @@ class Forum extends \FluxBB_BaseModel
 
 	public function is_user_subscribed()
 	{
-		// TODO: If logged out: return false!
-		return !is_null($this->subscription);
+		return Auth::check() && !is_null($this->subscription);
 	}
 
 }
