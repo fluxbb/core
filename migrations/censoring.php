@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class Migration_Censoring
+class FluxBB_Migration_Censoring
 {
 
 	public function up()

@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class Migration_Categories
+class FluxBB_Migration_Categories
 {
 
 	public function up()
