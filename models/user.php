@@ -82,13 +82,18 @@ class User extends \FluxBB_BaseModel
 	// TODO: Better name
 	public function is_admmod()
 	{
-		// TODO: Implement this!
-		return false;
+		// TODO: Is this even necessary or is a better check for is_moderator() (that returns true for admins, too) better?
+		return $this->is_admin() || $this->is_moderator();
 	}
 
 	public function is_admin()
 	{
 		return $this->group_id = 1;
+	}
+
+	public function is_moderator()
+	{
+		return $this->group->g_moderator == 1;
 	}
 
 	public function title()
