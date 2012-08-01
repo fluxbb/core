@@ -44,9 +44,7 @@ class FluxBB_Home_Controller extends FluxBB_BaseController
 			},
 			'forums.perms' => function($query) use ($gid)
 			{
-				$query->where_group_id($gid)
-					->where_null('read_forum')
-					->or_where('read_forum', '=', 1);
+				$query->where_group_id($gid);
 			},
 		))
 		->order_by('disp_position', 'ASC')
@@ -65,10 +63,7 @@ class FluxBB_Home_Controller extends FluxBB_BaseController
 		$forum = Forum::with(array(
 			'perms' => function($query) use ($gid)
 			{
-				// TODO: Is this the same as left join's ON condition + WHERE condition?
-				$query->where_group_id($gid)
-					->where_null('read_forum')
-					->or_where('read_forum', '=', '1');
+				$query->where_group_id($gid);
 			},
 		))
 		->where_id($fid)
@@ -109,10 +104,7 @@ class FluxBB_Home_Controller extends FluxBB_BaseController
 			'forum',
 			'forum.perms' => function($query) use ($gid)
 			{
-				// TODO: Is this the same as left join's ON condition + WHERE condition?
-				$query->where_group_id($gid)
-					->where_null('read_forum')
-					->or_where('read_forum', '=', '1');
+				$query->where_group_id($gid);
 			},
 		))
 		->where_id($tid)

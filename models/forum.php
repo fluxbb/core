@@ -47,7 +47,9 @@ class Forum extends \FluxBB_BaseModel
 	public function perms()
 	{
 		// TODO: has_one() with group condition?
-		return $this->has_many('fluxbb\\ForumPerms');
+		return $this->has_many('fluxbb\\ForumPerms')
+			->where_null('read_forum')
+			->or_where('read_forum', '=', '1');
 	}
 
 	public function num_topics()
