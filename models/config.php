@@ -114,7 +114,10 @@ class Config
 			}
 		}
 
-		DB::table('config')->insert($insert_values);
+		if (!empty($insert_values))
+		{
+			DB::table('config')->insert($insert_values);
+		}
 
 		foreach ($changed as $name => $value)
 		{
@@ -123,7 +126,10 @@ class Config
 
 		// Deleted keys
 		$deleted_keys = array_keys(array_diff_key(static::$original, static::$data));
-		DB::table('config')->where_in('conf_name', $deleted_keys)->delete();
+		if (!empty($deleted_keys))
+		{
+			DB::table('config')->where_in('conf_name', $deleted_keys)->delete();
+		}
 
 		// No need to cache old values anymore
 		static::$original = static::$data;
