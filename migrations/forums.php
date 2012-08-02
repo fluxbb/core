@@ -49,8 +49,6 @@ class FluxBB_Migration_Forums
 			$table->integer('disp_position')->default(0);
 			// TODO: Do we really need a default here?
 			$table->integer('cat_id')->default(0);
-
-			$table->primary('id');
 		});
 	}
 

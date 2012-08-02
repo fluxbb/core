@@ -36,8 +36,6 @@ class FluxBB_Migration_Categories
 			// TODO: Localize string?
 			$table->string('cat_name', 80)->default('New Category');
 			$table->integer('disp_position')->default(0);
-
-			$table->primary('id');
 		});
 	}
 

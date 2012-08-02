@@ -58,8 +58,6 @@ class FluxBB_Migration_Groups
 			$table->integer('g_search_flood')->default(30);
 			$table->integer('g_email_flood')->default(60);
 			$table->integer('g_report_flood')->default(60);
-
-			$table->primary('g_id');
 		});
 	}
 
