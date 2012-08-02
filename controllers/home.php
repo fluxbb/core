@@ -25,8 +25,8 @@
 
 use fluxbb\Category,
 	fluxbb\Forum,
-	fluxbb\Topic,
-	fluxbb\Post;
+	fluxbb\Post,
+	fluxbb\Topic;
 
 class FluxBB_Home_Controller extends FluxBB_BaseController
 {
