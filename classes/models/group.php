@@ -23,47 +23,15 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
-use Auth;
-
-class Topic extends \FluxBB_BaseModel
+class Group extends Base
 {
+	public static $key = 'g_id';
 
-	public function posts()
+	public function users()
 	{
-		return $this->has_many('fluxbb\\Post');
-	}
-
-	public function forum()
-	{
-		return $this->belongs_to('fluxbb\\Forum');
-	}
-
-	public function subscription()
-	{
-		return $this->has_one('fluxbb\\TopicSubscription')
-			->where_user_id(User::current()->id);
-	}
-
-	public function num_replies()
-	{
-		return is_null($this->moved_to) ? $this->num_replies : '-';
-	}
-
-	public function num_views()
-	{
-		return is_null($this->moved_to) ? $this->num_views : '-';
-	}
-
-	public function is_user_subscribed()
-	{
-		return Auth::check() && !is_null($this->subscription);
-	}
-
-	public function was_moved()
-	{
-		return !is_null($this->moved_to);
+		return $this->has_many('fluxbb\\Models\\User');
 	}
 
 }

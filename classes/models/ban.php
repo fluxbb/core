@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class Ban extends \FluxBB_BaseModel
+class Ban extends Base
 {
 
 	public function creator()
 	{
-		return $this->belongs_to('fluxbb\\User', 'ban_creator');
+		return $this->belongs_to('fluxbb\\Models\\User', 'ban_creator');
 	}
 
 }

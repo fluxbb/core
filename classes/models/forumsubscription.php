@@ -23,15 +23,10 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-use fluxbb\User;
+namespace fluxbb\Models;
 
-class FluxBB_BaseController extends Base_Controller
+class ForumSubscription extends Base
 {
-	public $restful = true;
-
-	public function user()
-	{
-		return User::current();
-	}
+	public static $table = 'forum_subscriptions';
 
 }

@@ -22,12 +22,49 @@
  * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
+ 
+namespace fluxbb\Models;
 
-namespace fluxbb;
-
-class Censor extends \FluxBB_BaseModel
+class Forum extends Base
 {
 
-	public static $table = 'censoring';
+	public function topics()
+	{
+		return $this->has_many('fluxbb\\Models\\Topic');
+	}
+
+	public function subscriptions()
+	{
+		return $this->has_many('fluxbb\\Models\\ForumSubscription');
+	}
+
+	public function subscription()
+	{
+		return $this->has_one('fluxbb\\Models\\ForumSubscription')
+			->where_user_id(User::current()->id);
+	}
+
+	public function perms()
+	{
+		// TODO: has_one() with group condition?
+		return $this->has_many('fluxbb\\Models\\ForumPerms')
+			->where_null('read_forum')
+			->or_where('read_forum', '=', '1');
+	}
+
+	public function num_topics()
+	{
+		return $this->redirect_url == '' ? $this->num_topics : '-';
+	}
+
+	public function num_posts()
+	{
+		return $this->redirect_url == '' ? $this->num_posts : '-';
+	}
+
+	public function is_user_subscribed()
+	{
+		return Auth::check() && !is_null($this->subscription);
+	}
 
 }

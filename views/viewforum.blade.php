@@ -22,7 +22,7 @@
 
 $topic_count++;
 $icon_type = 'icon';
-if (fluxbb\User::current()->is_member() && $topic->last_post > fluxbb\User::current()->last_visit && (!isset($tracked_topics['topics'][$topic->id]) || $tracked_topics['topics'][$topic->id] < $topic->last_post) && (!isset($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $topic->last_post) && is_null($topic->moved_to))
+if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Models\User::current()->last_visit && (!isset($tracked_topics['topics'][$topic->id]) || $tracked_topics['topics'][$topic->id] < $topic->last_post) && (!isset($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $topic->last_post) && is_null($topic->moved_to))
 {
 	// TODO: For obvious reasons, this if statement should not be here in the view (in that form)
 	$icon_type = 'icon icon-new';

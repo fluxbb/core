@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class Category extends \FluxBB_BaseModel
+class Category extends Base
 {
 
 	public function forums()
 	{
-		return $this->has_many('fluxbb\\Forum', 'cat_id');
+		return $this->has_many('fluxbb\\Models\\Forum', 'cat_id');
 	}
 
 }

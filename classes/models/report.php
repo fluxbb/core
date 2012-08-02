@@ -23,34 +23,34 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
  
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class Report extends \FluxBB_BaseModel
+class Report extends Base
 {
 
 	public function post()
 	{
-		return $this->belongs_to('fluxbb\\Post');
+		return $this->belongs_to('fluxbb\\Models\\Post');
 	}
 
 	public function topic()
 	{
-		return $this->belongs_to('fluxbb\\Topic');
+		return $this->belongs_to('fluxbb\\Models\\Topic');
 	}
 
 	public function forum()
 	{
-		return $this->belongs_to('fluxbb\\Forum');
+		return $this->belongs_to('fluxbb\\Models\\Forum');
 	}
 
 	public function reporter()
 	{
-		return $this->belongs_to('fluxbb\\User', 'reported_by');
+		return $this->belongs_to('fluxbb\\Models\\User', 'reported_by');
 	}
 
 	public function zapper()
 	{
-		return $this->belongs_to('fluxbb\\User', 'zapped_by');
+		return $this->belongs_to('fluxbb\\Models\\User', 'zapped_by');
 	}
 
 }

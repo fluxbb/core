@@ -23,31 +23,31 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
 use Auth;
 use Hash;
 
-class User extends \FluxBB_BaseModel
+class User extends Base
 {
 	public function group()
 	{
-		return $this->belongs_to('fluxbb\\Group');
+		return $this->belongs_to('fluxbb\\Models\\Group');
 	}
 
 	public function online()
 	{
-		return $this->has_one('fluxbb\\Online');
+		return $this->has_one('fluxbb\\Models\\Online');
 	}
 
 	public function bans()
 	{
-		return $this->has_many('fluxbb\\Ban');
+		return $this->has_many('fluxbb\\Models\\Ban');
 	}
 
 	public function posts()
 	{
-		return $this->has_many('fluxbb\\Post', 'poster_id');
+		return $this->has_many('fluxbb\\Models\\Post', 'poster_id');
 	}
 
 	public static function current()

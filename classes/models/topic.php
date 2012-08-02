@@ -22,49 +22,48 @@
  * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
- 
-namespace fluxbb;
 
-class Forum extends \FluxBB_BaseModel
+namespace fluxbb\Models;
+
+use Auth;
+
+class Topic extends Base
 {
 
-	public function topics()
+	public function posts()
 	{
-		return $this->has_many('fluxbb\\Topic');
+		return $this->has_many('fluxbb\\Models\\Post');
 	}
 
-	public function subscriptions()
+	public function forum()
 	{
-		return $this->has_many('fluxbb\\ForumSubscription');
+		return $this->belongs_to('fluxbb\\Models\\Forum');
 	}
 
 	public function subscription()
 	{
-		return $this->has_one('fluxbb\\ForumSubscription')
+		return $this->has_one('fluxbb\\Models\\TopicSubscription')
 			->where_user_id(User::current()->id);
 	}
 
-	public function perms()
+	public function num_replies()
 	{
-		// TODO: has_one() with group condition?
-		return $this->has_many('fluxbb\\ForumPerms')
-			->where_null('read_forum')
-			->or_where('read_forum', '=', '1');
+		return is_null($this->moved_to) ? $this->num_replies : '-';
 	}
 
-	public function num_topics()
+	public function num_views()
 	{
-		return $this->redirect_url == '' ? $this->num_topics : '-';
-	}
-
-	public function num_posts()
-	{
-		return $this->redirect_url == '' ? $this->num_posts : '-';
+		return is_null($this->moved_to) ? $this->num_views : '-';
 	}
 
 	public function is_user_subscribed()
 	{
 		return Auth::check() && !is_null($this->subscription);
+	}
+
+	public function was_moved()
+	{
+		return !is_null($this->moved_to);
 	}
 
 }

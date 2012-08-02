@@ -36,7 +36,7 @@ HTML::macro('oddeven', function($name = 'default')
 	return ($status[$name] % 2 == 0) ? 'even' : 'odd';
 });
 
-HTML::macro('avatar', function(fluxbb\User $user)
+HTML::macro('avatar', function(fluxbb\Models\User $user)
 {
 	// TODO: We might want to cache this result per user
 	$path = $user->get_avatar_file();

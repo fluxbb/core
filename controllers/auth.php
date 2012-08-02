@@ -23,9 +23,11 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-use fluxbb\User;
+use fluxbb\Controllers\Base,
+	fluxbb\Models\Config,
+	fluxbb\Models\User;
 
-class FluxBB_Auth_Controller extends FluxBB_BaseController
+class FluxBB_Auth_Controller extends Base
 {
 
 	public function __construct()
@@ -76,10 +78,10 @@ class FluxBB_Auth_Controller extends FluxBB_BaseController
 	public function get_register()
 	{
 		// TODO: Remember old values, too
-		$timezone = fluxbb\Config::get('o_default_timezone');
-		$dst = fluxbb\Config::get('o_default_dst');
+		$timezone = Config::get('o_default_timezone');
+		$dst = Config::get('o_default_dst');
 		$languages = array('en' => 'English', 'fr' => 'French'); // forum_language_list()
-		$email_setting = fluxbb\Config::get('o_default_email_setting');
+		$email_setting = Config::get('o_default_email_setting');
 
 		return View::make('fluxbb::auth.register')
 			->with('timezone', $timezone)
