@@ -178,14 +178,7 @@ class User extends \FluxBB_BaseModel
 
 	public function is_online()
 	{
-		if(isset($this->online) && !empty($this->online))
-		{
-			return ($this->online->user_id == $this->id);
-		}
-		else
-		{
-			return false;
-		}
+		return isset($this->online) && $this->online->user_id == $this->id;
 	}
 
 	public function has_url()
