@@ -138,6 +138,4 @@ class Config
 		Cache::forget('fluxbb.config');
 	}
 
-	// TODO: Do we need another function to clear the cache here?
-
 }
