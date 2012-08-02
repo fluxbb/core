@@ -42,8 +42,6 @@ class FluxBB_Migration_Reports
 			$table->integer('zapped')->nullable();
 			$table->integer('zapped_by')->nullable();
 			
-			$table->primary('id');
-
 			$table->index('zapped');
 		});
 	}

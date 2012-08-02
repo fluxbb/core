@@ -23,14 +23,18 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Controllers;
 
-class Online extends \FluxBB_BaseModel
+use Base_Controller,
+	fluxbb\Models\User;
+
+class Base extends Base_Controller
 {
+	public $restful = true;
 
-	public static $table = 'online';
-
-	// FIXME: Unique is combination of user_id <-> ident, not this!!!
-	public static $key = 'ident';
+	public function user()
+	{
+		return User::current();
+	}
 
 }

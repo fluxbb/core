@@ -23,15 +23,11 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class Group extends \FluxBB_BaseModel
+class Censor extends Base
 {
-	public static $key = 'g_id';
 
-	public function users()
-	{
-		return $this->has_many('fluxbb\\User');
-	}
+	public static $table = 'censoring';
 
 }

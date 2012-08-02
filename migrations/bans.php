@@ -40,7 +40,6 @@ class FluxBB_Migration_Bans
 			$table->integer('expire')->nullable();
 			$table->integer('ban_creator')->default(0);
 
-			$table->primary('id');
 			$table->index('username');
 			// TODO: length 25 for MySQL?
 		});

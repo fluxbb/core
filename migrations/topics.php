@@ -47,8 +47,6 @@ class FluxBB_Migration_Topics
 			$table->integer('moved_to')->nullable();
 			$table->integer('forum_id')->default(0);
 
-			$table->primary('id');
-
 			$table->index('forum_id');
 			$table->index('moved_to');
 			$table->index('last_post');

@@ -23,9 +23,9 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
  
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class Rank extends \FluxBB_BaseModel
+class Rank extends Base
 {
 
 

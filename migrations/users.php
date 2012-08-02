@@ -74,7 +74,6 @@ class FluxBB_Migration_Users
 			$table->string('activate_string', 80)->nullable();
 			$table->string('activate_key', 8)->nullable(); // TODO: A little short maybe?
 
-			$table->primary('id');
 			$table->unique('username');
 			$table->index('registered');
 		});

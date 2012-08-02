@@ -23,9 +23,10 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
- use fluxbb\Category;
+use fluxbb\Controllers\Base,
+ 	fluxbb\Models\Category;
  
-class FluxBB_Search_Controller extends FluxBB_BaseController
+class FluxBB_Search_Controller extends Base
 {
 
 	public function get_index()

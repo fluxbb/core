@@ -23,12 +23,13 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-use fluxbb\Category,
-	fluxbb\Forum,
-	fluxbb\Post,
-	fluxbb\Topic;
+use fluxbb\Controllers\Base,
+	fluxbb\Models\Category,
+	fluxbb\Models\Forum,
+	fluxbb\Models\Post,
+	fluxbb\Models\Topic;
 
-class FluxBB_Home_Controller extends FluxBB_BaseController
+class FluxBB_Home_Controller extends Base
 {
 	public function get_index()
 	{

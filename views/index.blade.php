@@ -23,7 +23,7 @@
 		$forum_count++;
 		$icon_type = 'icon';
 
-		if (Auth::check() && $forum->last_post > fluxbb\User::current()->last_visit && (empty($tracked_topics['forums'][$forum->id]) || $forum->last_post > $tracked_topics['forums'][$forum->id]))
+		if (Auth::check() && $forum->last_post > fluxbb\Models\User::current()->last_visit && (empty($tracked_topics['forums'][$forum->id]) || $forum->last_post > $tracked_topics['forums'][$forum->id]))
 		{
 			// There are new posts in this forum, but have we read all of them already?
 			foreach ($new_topics[$forum->fid] as $check_topic_id => $check_last_post)

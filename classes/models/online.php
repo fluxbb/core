@@ -23,10 +23,14 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class ForumSubscription extends \FluxBB_BaseModel
+class Online extends Base
 {
-	public static $table = 'forum_subscriptions';
+
+	public static $table = 'online';
+
+	// FIXME: Unique is combination of user_id <-> ident, not this!!!
+	public static $key = 'ident';
 
 }

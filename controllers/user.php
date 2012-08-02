@@ -23,9 +23,10 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-use fluxbb\User;
+use fluxbb\Controllers\Base,
+	fluxbb\Models\User;
 
-class FluxBB_User_Controller extends FluxBB_BaseController
+class FluxBB_User_Controller extends Base
 {
 
 	public function get_profile($id, $action = "essentials")
@@ -37,7 +38,7 @@ class FluxBB_User_Controller extends FluxBB_BaseController
 			return Event::first('404');
 		}
 		
-		else if(User::current()->id == $id || User::current()->group_id == 1) //TODO: Add more specific rule for admins (now it is based on the group_id of the visiting user)
+		else if (User::current()->id == $id || User::current()->group_id == 1) //TODO: Add more specific rule for admins (now it is based on the group_id of the visiting user)
 		{
 			return View::make("fluxbb::user.profile.".$action)
 				->with('user', $user)

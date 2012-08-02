@@ -35,8 +35,6 @@ class FluxBB_Migration_Censoring
 			$table->increments('id');
 			$table->string('search_for', 60)->default('');
 			$table->string('replace_with', 60)->default('');
-
-			$table->primary('id');
 		});
 	}
 

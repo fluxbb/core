@@ -45,8 +45,6 @@ class FluxBB_Migration_Posts
 			// TODO: Do we need a default here?
 			$table->integer('topic_id')->default(0);
 
-			$table->primary('id');
-
 			$table->index('topic_id');
 			$table->index('poster_id', 'topic_id');
 		});

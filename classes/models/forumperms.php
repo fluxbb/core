@@ -23,9 +23,9 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace fluxbb\Models;
 
-class ForumPerms extends \FluxBB_BaseModel
+class ForumPerms extends Base
 {
 	public static $table = 'forum_perms';
 

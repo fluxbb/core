@@ -23,13 +23,13 @@
 			<ul>
 				<!-- TODO: Class isactive -->
 				<li id="navindex" class="isactive"><a href="{{ URL::to_action('fluxbb::home@index') }}">{{ __('fluxbb::common.index') }}</a></li>
-@if (fluxbb\User::current()->group->g_read_board == '1' && fluxbb\User::current()->group->g_view_users == '1')
+@if (fluxbb\Models\User::current()->group->g_read_board == '1' && fluxbb\Models\User::current()->group->g_view_users == '1')
 				<li id="navuserlist"><a href="{{ URL::to_action('fluxbb::user@list') }}">{{ __('fluxbb::common.user_list') }}</a></li>
 @endif
-@if (fluxbb\Config::enabled('o_rules') && (Auth::check() || fluxbb\User::current()->group->g_read_board == '1' || fluxbb\Config::enabled('o_regs_allow')))
+@if (fluxbb\Models\Config::enabled('o_rules') && (Auth::check() || fluxbb\Models\User::current()->group->g_read_board == '1' || fluxbb\Models\Config::enabled('o_regs_allow')))
 				<li id="navrules"><a href="{{ URL::to_action('fluxbb::misc@rules') }}">{{ __('fluxbb::common.rules') }}</a></li>
 @endif
-@if (fluxbb\User::current()->group->g_read_board == '1' && fluxbb\User::current()->group->g_search == '1')
+@if (fluxbb\Models\User::current()->group->g_read_board == '1' && fluxbb\Models\User::current()->group->g_search == '1')
 				<li id="navsearch"><a href="{{ URL::to_action('fluxbb::search@index') }}">{{ __('fluxbb::common.search') }}</a></li>
 @endif
 @if (Auth::guest())
@@ -37,7 +37,7 @@
 				<li id="navlogin"><a href="{{ URL::to_action('fluxbb::auth@login') }}">{{ __('fluxbb::common.login') }}</a></li>
 @else
 				<li id="navprofile">{{ HTML::link_to_action('fluxbb::user@profile', __('fluxbb::common.profile'), array(Auth::user()->id)) }}</li>
-	@if (fluxbb\User::current()->is_admin())
+	@if (fluxbb\Models\User::current()->is_admin())
 				<li id="navadmin"><a href="{{ URL::to_action('fluxbb::admin@index') }}">{{ __('fluxbb::common.admin') }}</a></li>
 	@endif
 				<li id="navlogout"><a href="{{ URL::to_action('fluxbb::auth@logout') }}">{{ __('fluxbb::common.logout') }}</a></li>
