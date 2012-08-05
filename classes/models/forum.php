@@ -48,6 +48,7 @@ class Forum extends Base
 	{
 		// TODO: has_one() with group condition?
 		return $this->has_many('fluxbb\\Models\\ForumPerms')
+			->where_group_id(User::current()->id)
 			->where_null('read_forum')
 			->or_where('read_forum', '=', '1');
 	}

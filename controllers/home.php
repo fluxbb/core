@@ -33,20 +33,12 @@ class FluxBB_Home_Controller extends Base
 {
 	public function get_index()
 	{
-		$gid = $this->user()->group_id;
-		
 		// TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
 
 		// Fetch the categories and forums
 		$categories = Category::with(array(
-			'forums' => function($query)
-			{
-				$query->order_by('disp_position', 'ASC');
-			},
-			'forums.perms' => function($query) use ($gid)
-			{
-				$query->where_group_id($gid);
-			},
+			'forums',
+			'forums.perms',
 		))
 		->order_by('disp_position', 'ASC')
 		->order_by('id', 'ASC')
@@ -58,17 +50,11 @@ class FluxBB_Home_Controller extends Base
 	public function get_forum($fid, $page = 1)
 	{
 		$page = intval($page);
-		$gid = $this->user()->group_id;
-
+		
 		// Fetch some info about the forum
-		$forum = Forum::with(array(
-			'perms' => function($query) use ($gid)
-			{
-				$query->where_group_id($gid);
-			},
-		))
-		->where_id($fid)
-		->first();
+		$forum = Forum::with('perms')
+			->where_id($fid)
+			->first();
 
 		if ($forum === NULL)
 		{
@@ -98,15 +84,10 @@ class FluxBB_Home_Controller extends Base
 
 	public function get_topic($tid, $page = 1)
 	{
-		$gid = $this->user()->group_id;
-
 		// Fetch some info about the topic
 		$topic = Topic::with(array(
 			'forum',
-			'forum.perms' => function($query) use ($gid)
-			{
-				$query->where_group_id($gid);
-			},
+			'forum.perms',
 		))
 		->where_id($tid)
 		->where_null('moved_to')
