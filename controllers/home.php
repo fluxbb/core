@@ -131,7 +131,7 @@ class FluxBB_Home_Controller extends Base
 	public function get_post($pid)
 	{
 		// If a post ID is specified we determine topic ID and page number so we can show the correct message
-		$post = DB::table('posts')->where_id($pid)->select(array('topic_id', 'posted'))->first();
+		$post = Post::where_id($pid)->select(array('topic_id', 'posted'))->first();
 
 		if ($post === NULL)
 		{
@@ -142,7 +142,7 @@ class FluxBB_Home_Controller extends Base
 		$posted = $post->posted;
 
 		// Determine on what page the post is located (depending on $forum_user['disp_posts'])
-		$num_posts = DB::table('posts')->where_topic_id($tid)->where('posted', '<', $posted)->count('id') + 1;
+		$num_posts = Post::where_topic_id($tid)->where('posted', '<', $posted)->count('id') + 1;
 
 		$disp_posts = $this->user()->disp_posts();
 		$p = ceil($num_posts / $disp_posts);
