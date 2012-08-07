@@ -59,6 +59,9 @@ class FluxBB_Auth_Controller extends Base
 
 		if (Auth::attempt($login_data))
 		{
+			// Make sure last_visit data is properly updated
+			Session::sweep();
+
 			// TODO: This is properly validated in URL::to, right?
 			$redirect_url = Input::get('redirect_url', URL::to_action('fluxbb::home@index'));
 			return Redirect::to($redirect_url)
