@@ -28,6 +28,12 @@ Autoloader::namespaces(array(
 ));
 
 
+Session::extend('fluxbb::session', function()
+{
+	return new fluxbb\Session\Driver(Laravel\Database::connection());
+});
+
+
 // View composers
 require 'helpers/composers.php';
 
