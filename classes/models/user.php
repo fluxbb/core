@@ -198,12 +198,12 @@ class User extends Base
 
 	public function disp_topics()
 	{
-		return $this->disp_topics ?: fluxbb\Config::get('o_disp_topics_default');
+		return $this->disp_topics ?: Config::get('o_disp_topics_default');
 	}
 
 	public function disp_posts()
 	{
-		return $this->disp_posts ?: fluxbb\Config::get('o_disp_posts_default');
+		return $this->disp_posts ?: Config::get('o_disp_posts_default');
 	}
 
 	public function set_password($password)

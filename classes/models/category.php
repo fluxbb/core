@@ -30,7 +30,8 @@ class Category extends Base
 
 	public function forums()
 	{
-		return $this->has_many('fluxbb\\Models\\Forum', 'cat_id');
+		return $this->has_many('fluxbb\\Models\\Forum', 'cat_id')
+			->order_by('disp_position', 'ASC');
 	}
 
 }
