@@ -99,3 +99,11 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 		return $date.' '.gmdate($time_format, $timestamp);
 	}
 });
+
+//
+// A wrapper for PHP's number_format function
+//
+HTML::macro('number_format', function($number, $decimals = 0)
+{
+	return is_numeric($number) ? number_format($number, $decimals, __('fluxbb::common.lang_decimal_point'), __('fluxbb::common.lang_thousands_sep')) : $number;
+});

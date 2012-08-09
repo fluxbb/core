@@ -2,6 +2,10 @@
 
 return array(
 
+	// Number formatting
+	'lang_decimal_point'				=>	'.',
+	'lang_thousands_sep'				=>	',',
+
 	'index'			=> 'Index',
 	'user_list'		=> 'User list',
 	'rules'			=> 'Rules',

@@ -31,7 +31,7 @@ if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Mod
 ?>
 				<tr class="row{{ HTML::oddeven() }}">
 					<td class="tcl">
-						<div class="{{ $icon_type }}"><div class="nosize">{{ number_format($topic_count + $start_from) }}</div></div><!-- TODO: forum_number_format() -->
+						<div class="{{ $icon_type }}"><div class="nosize">{{ HTML::number_format($topic_count + $start_from) }}</div></div>
 						<div class="tclcon">
 							<div>
 								<a href="{{ URL::to_action('fluxbb::home@topic', array($topic->id)) }}">{{ e($topic->subject) }}</a> <span class="byuser">{{ __('fluxbb::common.by', array('author' => e($topic->poster))) }}</span>

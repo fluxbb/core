@@ -42,7 +42,7 @@
 ?>
 				<tr class="row{{ HTML::oddeven() }}">
 					<td class="tcl">
-						<div class="{{ $icon_type }}"><div class="nosize">{{ number_format($forum_count) }}</div></div><!-- forum_number_format -->
+						<div class="{{ $icon_type }}"><div class="nosize">{{ HTML::number_format($forum_count) }}</div></div>
 						<div class="tclcon">
 							<div>
 <?php
@@ -70,8 +70,8 @@
 							</div>
 						</div>
 					</td>
-					<td class="tc2">{{ number_format($forum->num_topics()) }}</td><!-- forum_number_format -->
-					<td class="tc3">{{ number_format($forum->num_posts()) }}</td><!-- here too -->
+					<td class="tc2">{{ HTML::number_format($forum->num_topics()) }}</td>
+					<td class="tc3">{{ HTML::number_format($forum->num_posts()) }}</td>
 					<td class="tcr">{{ $last_post }}</td>
 				</tr>
 	@endforeach
