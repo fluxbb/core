@@ -39,27 +39,6 @@ if (isset($footer_style) && ($footer_style == 'viewforum' || $footer_style == 'v
 */
 ?>
 		<div id="brdfooternav" class="inbox">
-			<div class="conl">
-<?php
-/*
-// Display the "Jump to" drop list
-if ($pun_config['o_quickjump'] == '1')
-{
-	// Load cached quick jump
-	if (file_exists(FORUM_CACHE_DIR.'cache_quickjump_'.$pun_user['g_id'].'.php'))
-		include FORUM_CACHE_DIR.'cache_quickjump_'.$pun_user['g_id'].'.php';
-
-	if (!defined('PUN_QJ_LOADED'))
-	{
-		if (!defined('FORUM_CACHE_FUNCTIONS_LOADED'))
-			require PUN_ROOT.'include/cache.php';
-
-		generate_quickjump_cache($pun_user['g_id']);
-		require FORUM_CACHE_DIR.'cache_quickjump_'.$pun_user['g_id'].'.php';
-	}
-}*/
-?>
-			</div>
 			<div class="conr">
 <?php
 /*
