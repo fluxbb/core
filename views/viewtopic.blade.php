@@ -1,10 +1,17 @@
 @layout('fluxbb::layout.main')
 
 @section('main')
+<div class="linkst">
+	<div class="inbox">
+		<p class="pagelink"><span class="pages-label">Pages: </span><strong class="item1"><?php echo $posts->links(); ?></strong></p>
+		<div class="clearer"></div>
+	</div>
+</div>
+
 <?php $post_count = 0; ?>
 
 <!-- TODO: Maybe use "render_each" here? (What about counting?) -->
-@foreach ($posts as $post)
+@foreach ($posts->results as $post)
 <?php
 
 $post_count++;
@@ -14,7 +21,7 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 
 ?>
 <div id="p{{ $post->id }}" class="blockpost {{ $post_classes }}">
-	<h2><span><span class="conr">#{{ $start_from + $post_count }}</span> <a href="{{ URL::to_action('fluxbb::home@post', array($post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a></span></h2>
+	<h2><span><span class="conr">#{{ ($posts->page - 1) * $posts->per_page + $post_count }}</span> <a href="{{ URL::to_action('fluxbb::home@post', array($post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a></span></h2>
 	<div class="box">
 		<div class="inbox">
 			<div class="postbody">

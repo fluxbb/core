@@ -43,14 +43,14 @@ class FluxBB_Home_Controller extends Base
 		->order_by('disp_position', 'ASC')
 		->order_by('id', 'ASC')
 		->get();
-		
+
 		return View::make('fluxbb::index')->with('categories', $categories);
 	}
 
 	public function get_forum($fid, $page = 1)
 	{
 		$page = intval($page);
-		
+
 		// Fetch some info about the forum
 		$forum = Forum::with('perms')
 			->where_id($fid)
@@ -61,25 +61,17 @@ class FluxBB_Home_Controller extends Base
 			return Event::first('404');
 		}
 
-		$disp_topics = $this->user()->disp_topics();
-		$num_pages = ceil(($forum->num_topics + 1) / $disp_topics);
-		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
-		$start_from = $disp_topics * ($page - 1);
-
 		// FIXME: Do we have to fetch just IDs first (performance)?
 		// TODO: If logged in, with "the dot" subquery
 		// Fetch topic data
 		$topics = Topic::where_forum_id($fid)
 		->order_by('sticky', 'DESC') // TODO: insert $sort_by
 		->order_by('id', 'DESC')
-		->skip($start_from)
-		->take($disp_topics)
-		->get();
+		->paginate($this->user()->disp_topics());
 
 		return View::make('fluxbb::viewforum')
 			->with('forum', $forum)
-			->with('topics', $topics)
-			->with('start_from', $start_from);
+			->with('topics', $topics);
 	}
 
 	public function get_topic($tid, $page = 1)
@@ -102,7 +94,7 @@ class FluxBB_Home_Controller extends Base
 		$num_pages = ceil(($topic->num_replies + 1) / $disp_posts);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_posts * ($page - 1);
-		
+
 
 		// TODO: Use paginate?
 		// Fetch post data
@@ -118,14 +110,11 @@ class FluxBB_Home_Controller extends Base
 		))
 		->where_topic_id($tid)
 		->order_by('id')
-		->skip($start_from)
-		->take($disp_posts)
-		->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
-		
+		->paginate($this->user()->disp_posts());	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
+
 		return View::make('fluxbb::viewtopic')
 			->with('topic', $topic)
-			->with('posts', $posts)
-			->with('start_from', $start_from);
+			->with('posts', $posts);
 	}
 
 	public function get_post($pid)
