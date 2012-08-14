@@ -21,7 +21,7 @@
 					</div>
 				</fieldset>
 			</div>
-@if (fluxbb\Config::disabled('o_regs_verify'))
+@if (fluxbb\Models\Config::disabled('o_regs_verify'))
 			<div class="inform">
 				<fieldset>
 					<legend>{{ __('fluxbb::register.legend_pass') }}</legend>
@@ -35,18 +35,18 @@
 @endif
 			<div class="inform">
 				<fieldset>
-	@if (fluxbb\Config::enabled('o_regs_verify'))
+	@if (fluxbb\Models\Config::enabled('o_regs_verify'))
 					<legend>{{ __('fluxbb::prof_reg.legend_email2') }}</legend>
 	@else
 					<legend>{{ __('fluxbb::prof_reg.legend_email') }}</legend>
 	@endif
 					<div class="infldset">
-@if (fluxbb\Config::enabled('o_regs_verify'))
+@if (fluxbb\Models\Config::enabled('o_regs_verify'))
 					<p>{{ __('fluxbb::register.info_email') }}</p>
 @endif
 						<label class="required"><strong>{{ __('fluxbb::common.email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
 						<input type="text" name="req_email" size="50" maxlength="80" /><br /></label>
-@if (fluxbb\Config::enabled('o_regs_verify'))
+@if (fluxbb\Models\Config::enabled('o_regs_verify'))
 						<label class="required"><strong>{{ __('fluxbb::register.confirm_email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
 						<input type="text" name="req_email_confirmation" size="50" maxlength="80" /><br /></label>
 @endif
@@ -62,7 +62,7 @@
 						<br />
 <?php
 // TODO: This should be blade, but it doesn't support multi-line statements yet
-echo Form::select('timezone', 
+echo Form::select('timezone',
 	array(
 		-12		=> __('fluxbb::prof_reg.utc-12:00'),
 		-11		=> __('fluxbb::prof_reg.utc-11:00'),
