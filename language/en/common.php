@@ -63,4 +63,10 @@ return array(
 	// 'Stick topic'						=>	'Stick topic',
 	// 'Moderate forum'					=>	'Moderate forum',
 	'powered_by'						=>	'Powered by :link',
+
+	'on'								=>	'on', // As in "BBCode is on"
+	'off'								=>	'off',
+
+	'write_message_legend'				=>	'Write your message and submit',
+
 );

@@ -23,14 +23,41 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-Route::get('(:bundle)/forum/(:num)', 'fluxbb::home@forum');
-Route::get('(:bundle)/topic/(:num)', 'fluxbb::home@topic');
-Route::get('(:bundle)/post/(:num)', 'fluxbb::home@post');
-Route::get('(:bundle)', 'fluxbb::home@index');
-Route::any('(:bundle)/profile/(:num)/(:any?)', array('as' => 'profile', 'uses' => 'fluxbb::user@profile'));
-Route::get('(:bundle)/user/list', 'fluxbb::user@list');
-Route::any('(:bundle)/register', 'fluxbb::auth@register');
-Route::any('(:bundle)/login', 'fluxbb::auth@login');
-Route::get('(:bundle)/logout', 'fluxbb::auth@logout');
-Route::get('(:bundle)/search', 'fluxbb::search@index');
-Route::get('(:bundle)/topic/(:num)/reply', 'fluxbb::posting@reply');
+use fluxbb\Controllers\Base,
+	fluxbb\Models\Post,
+	fluxbb\Models\Topic,
+	fluxbb\Models\User;
+
+class FluxBB_Posting_Controller extends Base
+{
+
+	public function get_reply($tid)
+	{
+		$topic = Topic::where_id($tid)->first();
+
+		if ($topic === NULL)
+		{
+			return Event::first('404');
+		}
+
+		return View::make("fluxbb::posting.post")
+			->with('topic', $topic)
+			->with('action', __('fluxbb::post.new_reply'));
+	}
+
+	// TODO:
+	public function put_reply($tid)
+	{
+		// TODO: guest
+		$username = User::current()->username;
+
+		$post_data = array(
+			'poster'			=> $username,
+			'poster_id'			=> User::current()->id,
+		);
+		$post = Post::create($post_data);
+
+		return Redirect::to_action('fluxbb::post', array($post->id))->with('message', __('fluxbb::post.post_added'));
+	}
+
+}
