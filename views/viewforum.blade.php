@@ -10,7 +10,7 @@
 				<tr>
 					<th class="tcl" scope="col">Topic</th>
 					<th class="tc2" scope="col">{{ __('fluxbb::common.replies') }}</th>
-					<th class="tc3" scope="col">{{ __('fluxbb::common.views') }}</th> <!-- TODO: Only show if o_topic_views is enabled -->
+					<th class="tc3" scope="col">{{ __('fluxbb::forum.views') }}</th> <!-- TODO: Only show if o_topic_views is enabled -->
 					<th class="tcr" scope="col">{{ __('fluxbb::common.last_post') }}</th>
 				</tr>
 			</thead>

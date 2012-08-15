@@ -45,7 +45,7 @@ if (isset($forum)): ?>
 				</fieldset>
 <?php
 
-$is_admmod = true;// TOOD: fix
+$is_admmod = true;// TODO: fix
 
 $checkboxes = array();
 if ($is_admmod)
@@ -62,9 +62,9 @@ if (!Auth::check())
 
 		// If it's a preview
 		if (Input::has('preview'))
-			$subscr_checked = Input::has('subscribe') ? true : false;
+			$subscr_checked = Input::has('subscribe');
 		// If auto subscribed
-		else if (fluxbb\Models\User::current()->auto_notify)
+		else if (fluxbb\Models\User::current()->auto_notify == '1')
 			$subscr_checked = true;
 		// If already subscribed to the topic
 		else if ($is_subscribed)

@@ -41,7 +41,7 @@ return array(
 'required'							=>	'(Required)',
 'required_field'					=>	'is a required field in this form.', // For javascript form validation
 'last_post'							=>	'Last post',
-'by'								=>	'by :user', // As in last post by some user
+'by'								=>	'by :author', // As in last post by some user
 'new_posts'							=>	'New posts', // The link that leads to the first new post
 'new_posts_info'					=>	'Go to the first new post in this topic.', // The popup text for new posts links
 'username'							=>	'Username',

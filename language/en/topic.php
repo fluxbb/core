@@ -5,11 +5,11 @@ return array(
 
 'post_reply'		=>	'Post reply',
 'topic_closed'		=>	'Topic closed',
-'from'				=>	'From:', // User location
+'from'				=>	'From: :name', // User location
 'ip_address_logged'	=>	'IP address logged',
 'note'				=>	'Note:', // Admin note
-'posts'				=>	'Posts:',
-'registered'		=>	'Registered:',
+'posts'				=>	'Posts: :count',
+'registered'		=>	'Registered: :time',
 'replies'			=>	'Replies:',
 'website'			=>	'Website',
 'guest'				=>	'Guest',
