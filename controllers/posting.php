@@ -42,7 +42,7 @@ class FluxBB_Posting_Controller extends Base
 
 		return View::make("fluxbb::posting.post")
 			->with('topic', $topic)
-			->with('action', __('fluxbb::post.new_reply'));
+			->with('action', __('fluxbb::post.post_a_reply'));
 	}
 
 	// TODO:
