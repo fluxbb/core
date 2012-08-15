@@ -178,7 +178,7 @@ class User extends Base
 
 	public function is_online()
 	{
-		return !is_null($this->online) && $this->online->user_id == $this->id;
+		return isset($this->online) && $this->online->user_id == $this->id;
 	}
 
 	public function has_url()
