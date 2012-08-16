@@ -1,6 +1,16 @@
 @layout('fluxbb::layout.main')
 
 @section('main')
+
+<div class="linkst">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@reply', array($topic->id)) }}">{{ __('fluxbb::topic.post_reply') }}</a></p>
+		</div>
+		<div class="clearer"></div>
+	</div>
+</div>
+
 <?php $post_count = 0; ?>
 
 <!-- TODO: Maybe use "render_each" here? (What about counting?) -->
@@ -86,5 +96,14 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 	</div>
 </div>
 @endforeach
+
+<div class="postlinksb">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@reply', array($topic->id)) }}">{{ __('fluxbb::topic.post_reply') }}</a></p>
+		</div>
+		<div class="clearer"></div>
+	</div>
+</div>
 
 @endsection

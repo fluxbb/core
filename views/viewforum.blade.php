@@ -1,6 +1,16 @@
 @layout('fluxbb::layout.main')
 
 @section('main')
+
+<div class="linkst">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
+		</div>
+		<div class="clearer"></div>
+	</div>
+</div>
+
 <div id="vf" class="blocktable">
 	<h2><span>{{ e($forum->forum_name) }}</span></h2>
 	<div class="box">
@@ -51,6 +61,15 @@ if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Mod
 			</tbody>
 			</table>
 		</div>
+	</div>
+</div>
+
+<div class="postlinksb">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
+		</div>
+		<div class="clearer"></div>
 	</div>
 </div>
 
