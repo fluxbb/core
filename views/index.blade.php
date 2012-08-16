@@ -10,7 +10,7 @@
 			<thead>
 				<tr>
 					<th class="tcl" scope="col">Category</th>
-					<th class="tc2" scope="col">{{ __('fluxbb::common.topics') }}</th>
+					<th class="tc2" scope="col">{{ __('fluxbb::index.topics') }}</th>
 					<th class="tc3" scope="col">{{ __('fluxbb::common.posts') }}</th>
 					<th class="tcr" scope="col">{{ __('fluxbb::common.last_post') }}</th>
 				</tr>
