@@ -26,7 +26,9 @@
 use fluxbb\Controllers\Base,
 	fluxbb\Models\Post,
 	fluxbb\Models\Topic,
-	fluxbb\Models\User;
+	fluxbb\Models\Forum,
+	fluxbb\Models\User,
+	fluxbb\Models\Config;
 
 class FluxBB_Posting_Controller extends Base
 {
@@ -45,19 +47,82 @@ class FluxBB_Posting_Controller extends Base
 			->with('action', __('fluxbb::post.post_a_reply'));
 	}
 
-	// TODO:
+	// TODO: validation
 	public function put_reply($tid)
 	{
-		// TODO: guest
-		$username = User::current()->username;
-
 		$post_data = array(
-			'poster'			=> $username,
+			'poster'			=> User::current()->username,
 			'poster_id'			=> User::current()->id,
+			'poster_ip'			=> Request::ip(),
+			'message'			=> Input::get('req_message'),
+			'hide_smilies'		=> Input::get('hide_smilies') ? '1' : '0',
+			'posted'			=> Request::time(),
+			'topic_id'			=> $tid
 		);
+
+		if (!Auth::check())
+		{
+			$post_data['poster'] = Input::get('req_username');
+			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
+		}
+
 		$post = Post::create($post_data);
 
 		return Redirect::to_action('fluxbb::post', array($post->id))->with('message', __('fluxbb::post.post_added'));
 	}
 
+	public function get_topic($fid)
+	{
+		$forum = Forum::where_id($fid)->first();
+
+		if ($forum === NULL)
+		{
+			return Event::first('404');
+		}
+
+		return View::make("fluxbb::posting.post")
+			->with('forum', $forum)
+			->with('action', __('fluxbb::forum.post_topic'));
+	}
+
+	// TODO: validation
+	public function put_topic($fid)
+	{
+		$topic_data = array(
+			'poster'			=> User::current()->username,
+			'subject'			=> Input::get('req_subject'),
+			'posted'			=> Request::time(),
+			'last_post'			=> Request::time(),
+			'last_poster'		=> User::current()->username,
+			'sticky'			=> Input::get('stick_topic') ? '1' : '0',
+			'forum_id'			=> $fid,
+		);
+
+		if (!Auth::check())
+		{
+			$topic_data['poster'] = $topic_data['last_poster'] = Input::get('req_username');
+		}
+
+		$topic = Topic::create($topic_data);
+
+		$post_data = array(
+			'poster'			=> User::current()->username,
+			'poster_id'			=> User::current()->id,
+			'poster_ip'			=> Request::ip(),
+			'message'			=> Input::get('req_message'),
+			'hide_smilies'		=> Input::get('hide_smilies') ? '1' : '0',
+			'posted'			=> Request::time(),
+			'topic_id'			=> $topic->id
+		);
+
+		if (!Auth::check())
+		{
+			$post_data['poster'] = Input::get('req_username');
+			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
+		}
+
+		$post = Post::create($post_data);
+
+		return Redirect::to_action('fluxbb::topic', array($topic->id))->with('message', __('fluxbb::topic.topic_added'));
+	}
 }

@@ -32,7 +32,7 @@ if (!Auth::check())
 }
 
 if (isset($forum)): ?>
-						<label class="required"><strong>{{ __('fluxbb::common.Subject') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input class="longinput" type="text" name="req_subject" value="<?php if (isset($_POST['req_subject'])) echo pun_htmlspecialchars($subject); ?>" size="80" maxlength="70" tabindex="<?php echo $cur_index++ ?>" /><br /></label>
+						<label class="required"><strong>{{ __('fluxbb::common.subject') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input class="longinput" type="text" name="req_subject" value="<?php if (isset($_POST['req_subject'])) echo pun_htmlspecialchars($subject); ?>" size="80" maxlength="70" tabindex="<?php echo $cur_index++ ?>" /><br /></label>
 <?php endif; ?>						<label class="required"><strong>{{ __('fluxbb::common.message') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
 						<textarea name="req_message" rows="20" cols="95" tabindex="<?php echo $cur_index++ ?>"><?php echo isset($_POST['req_message']) ? pun_htmlspecialchars($orig_message) : (isset($quote) ? $quote : ''); ?></textarea><br /></label>
 						<ul class="bblinks">

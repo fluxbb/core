@@ -33,4 +33,5 @@ Route::any('(:bundle)/register', 'fluxbb::auth@register');
 Route::any('(:bundle)/login', 'fluxbb::auth@login');
 Route::get('(:bundle)/logout', 'fluxbb::auth@logout');
 Route::get('(:bundle)/search', 'fluxbb::search@index');
-Route::get('(:bundle)/topic/(:num)/reply', 'fluxbb::posting@reply');
+Route::any('(:bundle)/topic/(:num)/reply', 'fluxbb::posting@reply');
+Route::any('(:bundle)/forum/(:num)/new_topic', 'fluxbb::posting@topic');

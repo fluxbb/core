@@ -3,8 +3,11 @@
 @section('main')
 
 <div class="linkst">
-	<div class="inbox">
-		<p class="pagelink"><span class="pages-label">Pages: </span><strong class="item1"><?php echo $topics->links(); ?></strong></p>
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="pagelink"><span class="pages-label">Pages: </span><strong class="item1"><?php echo $topics->links(); ?></strong></p>
+			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
+		</div>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -59,6 +62,16 @@ if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Mod
 			</tbody>
 			</table>
 		</div>
+	</div>
+</div>
+
+<div class="postlinksb">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="pagelink"><span class="pages-label">Pages: </span><strong class="item1"><?php echo $topics->links(); ?></strong></p>
+			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
+		</div>
+		<div class="clearer"></div>
 	</div>
 </div>
 
