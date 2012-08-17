@@ -5,6 +5,7 @@
 <div class="linkst">
 	<div class="inbox crumbsplus">
 		<div class="pagepost">
+			<p class="pagelink"><span class="pages-label">Pages: </span><strong class="item1"><?php echo $topics->links(); ?></strong></p>
 			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
 		</div>
 		<div class="clearer"></div>
@@ -27,7 +28,7 @@
 			<tbody>
 
 <?php $topic_count = 0; ?>
-@foreach ($topics as $topic)
+@foreach ($topics->results as $topic)
 <?php
 
 $topic_count++;
@@ -41,7 +42,7 @@ if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Mod
 ?>
 				<tr class="row{{ HTML::oddeven() }}">
 					<td class="tcl">
-						<div class="{{ $icon_type }}"><div class="nosize">{{ HTML::number_format($topic_count + $start_from) }}</div></div>
+						<div class="{{ $icon_type }}"><div class="nosize">{{ HTML::number_format($topic_count + ($topics->page - 1) * $topics->per_page) }}</div></div>
 						<div class="tclcon">
 							<div>
 								<a href="{{ URL::to_action('fluxbb::home@topic', array($topic->id)) }}">{{ e($topic->subject) }}</a> <span class="byuser">{{ __('fluxbb::common.by', array('author' => e($topic->poster))) }}</span>
@@ -67,6 +68,7 @@ if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Mod
 <div class="postlinksb">
 	<div class="inbox crumbsplus">
 		<div class="pagepost">
+			<p class="pagelink"><span class="pages-label">Pages: </span><strong class="item1"><?php echo $topics->links(); ?></strong></p>
 			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
 		</div>
 		<div class="clearer"></div>
