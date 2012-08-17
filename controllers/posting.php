@@ -47,9 +47,30 @@ class FluxBB_Posting_Controller extends Base
 			->with('action', __('fluxbb::post.post_a_reply'));
 	}
 
-	// TODO: validation
 	public function put_reply($tid)
 	{
+		$rules = array(
+			// TODO: PUN_MAX_POSTSIZE, censor, All caps message
+			'req_message'		=> 'required',
+		);
+		// TODO: More validation
+
+		if (!Auth::check())
+		{
+			if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
+			{
+				$rules['req_email']	= 'required|email';
+			}
+
+			// TODO: banned email
+		}
+
+		$validation = Validator::make(Input::all(), $rules);
+		if ($validation->fails())
+		{
+			return Redirect::to_action('fluxbb::posting@reply', array($tid))->with_input()->with_errors($validation);
+		}
+
 		$post_data = array(
 			'poster'			=> User::current()->username,
 			'poster_id'			=> User::current()->id,
@@ -85,9 +106,34 @@ class FluxBB_Posting_Controller extends Base
 			->with('action', __('fluxbb::forum.post_topic'));
 	}
 
-	// TODO: validation
 	public function put_topic($fid)
 	{
+		Input::flash(); // TODO: move to router?
+
+		$rules = array(
+			// TODO: censored words, All caps subject
+			'req_subject'	=> 'required|max:70',
+			// TODO: PUN_MAX_POSTSIZE, censor, All caps message
+			'req_message'	=> 'required',
+		);
+		// TODO: More validation
+
+		if (!Auth::check())
+		{
+			if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
+			{
+				$rules['req_email']	= 'required|email';
+			}
+
+			// TODO: banned email
+		}
+
+		$validation = Validator::make(Input::all(), $rules);
+		if ($validation->fails())
+		{
+			return Redirect::to_action('fluxbb::posting@topic', array($fid))->with_input()->with_errors($validation);
+		}
+
 		$topic_data = array(
 			'poster'			=> User::current()->username,
 			'subject'			=> Input::get('req_subject'),

@@ -4,12 +4,10 @@
 <div class="blockform">
 	<h2><span>{{ __('fluxbb::common.login') }}</span></h2>
 	<div class="box">
-		<?php print_r($errors); ?>
-		<?php if (isset($error)) print_r($error); ?>
 		<form id="login" method="post" action="{{ URL::to_action('fluxbb::auth@login') }}" onsubmit="return process_form(this)">
 			<div class="inform">
 				<fieldset>
-					<legend>{{ __('fluxbb::login.legend') }}</legend>
+					<legend>{{ __('fluxbb::login.login_legend') }}</legend>
 					<div class="infldset">
 						<input type="hidden" name="form_sent" value="1" />
 						<input type="hidden" name="redirect_url" value="{{ e($redirect_url) }}" />

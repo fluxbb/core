@@ -64,6 +64,12 @@
 	</div>
 @endif
 
+@if (Session::has('errors'))
+	<div style="color: #823535; background-color: #FDE3D9; border: 1px solid #E8DADA; padding: 5px; margin-bottom: 10px;">
+		{{ HTML::ul(Session::get('errors')->all()) }}
+	</div>
+@endif
+
 @yield('main')
 
 </div>

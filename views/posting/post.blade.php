@@ -13,7 +13,7 @@
 				<fieldset>
 					<legend>{{ __('fluxbb::common.write_message_legend') }}</legend>
 					<div class="infldset txtarea">
-						<input type="hidden" name="form_sent" value="1" />
+						{{ Form::hidden('form_sent', '1') }}
 <?php
 
 $cur_index = 1;
@@ -24,17 +24,17 @@ if (!Auth::check())
 	$email_form_name = fluxbb\Models\Config::enabled('p_force_guest_email') ? 'req_email' : 'email';
 
 ?>
-						<label class="conl required"><strong>{{ __('fluxbb::post.guest_name') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_username" value="<?php if (isset($_POST['req_username'])) echo pun_htmlspecialchars($username); ?>" size="25" maxlength="25" tabindex="<?php echo $cur_index++ ?>" /><br /></label>
-						<label class="conl<?php echo fluxbb\Models\Config::enabled('p_force_guest_email') ? ' required' : '' ?>"><?php echo $email_label ?><br /><input type="text" name="<?php echo $email_form_name ?>" value="<?php if (isset($_POST[$email_form_name])) echo pun_htmlspecialchars($email); ?>" size="50" maxlength="80" tabindex="<?php echo $cur_index++ ?>" /><br /></label>
+						<label class="conl required"><strong>{{ __('fluxbb::post.guest_name') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />{{ Form::text('req_username', Input::old('req_username'), array('size' => '25', 'maxlength' => '25', 'tabindex' => $cur_index++)) }}<br /></label>
+						<label class="conl<?php echo fluxbb\Models\Config::enabled('p_force_guest_email') ? ' required' : '' ?>"><?php echo $email_label ?><br />{{ Form::text($email_form_name, Input::old($email_form_name), array('size' => '50', 'maxlength' => '80', 'tabindex' => $cur_index++)) }}<br /></label>
 						<div class="clearer"></div>
 <?php
 
 }
 
 if (isset($forum)): ?>
-						<label class="required"><strong>{{ __('fluxbb::common.subject') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br /><input class="longinput" type="text" name="req_subject" value="<?php if (isset($_POST['req_subject'])) echo pun_htmlspecialchars($subject); ?>" size="80" maxlength="70" tabindex="<?php echo $cur_index++ ?>" /><br /></label>
+						<label class="required"><strong>{{ __('fluxbb::common.subject') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />{{ Form::text('req_subject', Input::old('req_subject'), array('class' => 'longinput', 'size' => '80', 'tabindex' => $cur_index++)) }}<br /></label>
 <?php endif; ?>						<label class="required"><strong>{{ __('fluxbb::common.message') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-						<textarea name="req_message" rows="20" cols="95" tabindex="<?php echo $cur_index++ ?>"><?php echo isset($_POST['req_message']) ? pun_htmlspecialchars($orig_message) : (isset($quote) ? $quote : ''); ?></textarea><br /></label>
+						{{ Form::textarea('req_message', Input::old('req_message'), array('rows' => '20', 'cols' => '95', 'tabindex' => $cur_index++)) }}<br /></label>
 						<ul class="bblinks">
 							<li><span><a href="help.php#bbcode" onclick="window.open(this.href); return false;">{{ __('fluxbb::common.bbcode') }}</a> <?php echo fluxbb\Models\Config::enabled('p_message_bbcode') ? __('fluxbb::common.on') : __('fluxbb::common.off'); ?></span></li>
 							<li><span><a href="help.php#url" onclick="window.open(this.href); return false;">{{ __('fluxbb::common.url_tag') }}</a> <?php echo fluxbb\Models\Config::enabled('p_message_bbcode') && fluxbb\Models\User::current()->group->g_post_links == '1' ? __('fluxbb::common.on') : __('fluxbb::common.off'); ?></span></li>
