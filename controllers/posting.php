@@ -108,8 +108,6 @@ class FluxBB_Posting_Controller extends Base
 
 	public function put_topic($fid)
 	{
-		Input::flash(); // TODO: move to router?
-
 		$rules = array(
 			// TODO: censored words, All caps subject
 			'req_subject'	=> 'required|max:70',
