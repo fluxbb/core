@@ -65,8 +65,14 @@
 @endif
 
 @if (Session::has('errors'))
-	<div style="color: #823535; background-color: #FDE3D9; border: 1px solid #E8DADA; padding: 5px; margin-bottom: 10px;">
-		{{ HTML::ul(Session::get('errors')->all()) }}
+	<div id="posterror" class="block">
+		<h2><span>Errors</span></h2>
+		<div class="box">
+			<div class="inbox error-info">
+				<p>The following errors need to be corrected:</p>
+				{{ HTML::ul(Session::get('errors')->all(), array('class' => 'error-list')) }}
+			</div>
+		</div>
 	</div>
 @endif
 
