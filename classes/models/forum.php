@@ -65,7 +65,7 @@ class Forum extends Base
 
 	public function is_user_subscribed()
 	{
-		return Auth::check() && !is_null($this->subscription);
+		return \Auth::check() && !is_null($this->subscription);
 	}
 
 	public function moderators()
@@ -83,4 +83,21 @@ class Forum extends Base
 		return User::current()->is_admin() || $this->is_moderator();
 	}
 
+	public function subscribe($subscribe = true)
+	{
+		// To subscribe or not to subscribe, that ...
+		if (!Config::enabled('o_forum_subscriptions') || !Auth::check())
+		{
+			return false;
+		}
+
+		if ($subscribe && !$this->is_user_subscribed())
+		{
+			$this->subscription()->insert(array('user_id' => User::current()->id));
+		}
+		else if (!$subscribe && $this->is_user_subscribed())
+		{
+			$this->subscription()->delete();
+		}
+	}
 }

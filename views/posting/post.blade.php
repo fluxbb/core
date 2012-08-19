@@ -49,13 +49,14 @@ $checkboxes = array();
 if (isset($topic) && $topic->forum->is_admmod() || isset($forum) && $forum->is_admmod())
 	$checkboxes[] = '<label><input type="checkbox" name="stick_topic" value="1" tabindex="'.($cur_index++).'"'.(Input::has('stick_topic') ? ' checked="checked"' : '').' />'.__('fluxbb::common.stick_topic').'<br /></label>';
 
-if (!Auth::check())
+if (Auth::check())
 {
 	if (fluxbb\Models\Config::enabled('o_smilies'))
 		$checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'"'.(Input::has('hide_smilies') ? ' checked="checked"' : '').' />'.__('fluxbb::post.hide_smilies').'<br /></label>';
 
 	if (fluxbb\Models\Config::enabled('o_topic_subscriptions'))
 	{
+		$is_subscribed = isset($topic) && $topic->forum->is_user_subscribed();
 		$subscr_checked = false;
 
 		// If it's a preview

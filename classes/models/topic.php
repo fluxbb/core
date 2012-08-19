@@ -66,4 +66,22 @@ class Topic extends Base
 		return !is_null($this->moved_to);
 	}
 
+	public function subscribe($subscribe = true)
+	{
+		// To subscribe or not to subscribe, that ...
+		if (!Config::enabled('o_topic_subscriptions') || !Auth::check())
+		{
+			return false;
+		}
+
+		if ($subscribe && !$this->is_user_subscribed())
+		{
+			$this->subscription()->insert(array('user_id' => User::current()->id));
+		}
+		else if (!$subscribe && $this->is_user_subscribed())
+		{
+			$this->subscription()->delete();
+		}
+	}
+
 }
