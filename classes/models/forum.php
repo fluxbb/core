@@ -22,7 +22,7 @@
  * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
- 
+
 namespace fluxbb\Models;
 
 class Forum extends Base
@@ -66,6 +66,21 @@ class Forum extends Base
 	public function is_user_subscribed()
 	{
 		return Auth::check() && !is_null($this->subscription);
+	}
+
+	public function moderators()
+	{
+		return $this->moderators != '' ? unserialize($this->moderators) : array();
+	}
+
+	public function is_moderator()
+	{
+		return User::current()->is_moderator() && array_key_exists(User::current()->username, $this->moderators());
+	}
+
+	public function is_admmod()
+	{
+		return User::current()->is_admin() || $this->is_moderator();
 	}
 
 }

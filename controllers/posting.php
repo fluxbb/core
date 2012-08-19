@@ -35,7 +35,12 @@ class FluxBB_Posting_Controller extends Base
 
 	public function get_reply($tid)
 	{
-		$topic = Topic::where_id($tid)->first();
+		$topic = Topic::with(array(
+			'forum',
+			'forum.perms',
+		))
+		->where_id($tid)
+		->first();
 
 		if ($topic === NULL)
 		{
@@ -94,7 +99,11 @@ class FluxBB_Posting_Controller extends Base
 
 	public function get_topic($fid)
 	{
-		$forum = Forum::where_id($fid)->first();
+		$forum = Forum::with(array(
+			'perms',
+		))
+		->where_id($fid)
+		->first();
 
 		if ($forum === NULL)
 		{

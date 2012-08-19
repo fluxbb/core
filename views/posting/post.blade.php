@@ -45,10 +45,8 @@ if (isset($forum)): ?>
 				</fieldset>
 <?php
 
-$is_admmod = true;// TODO: fix
-
 $checkboxes = array();
-if ($is_admmod)
+if (isset($topic) && $topic->forum->is_admmod() || isset($forum) && $forum->is_admmod())
 	$checkboxes[] = '<label><input type="checkbox" name="stick_topic" value="1" tabindex="'.($cur_index++).'"'.(Input::has('stick_topic') ? ' checked="checked"' : '').' />'.__('fluxbb::common.stick_topic').'<br /></label>';
 
 if (!Auth::check())
