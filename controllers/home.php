@@ -43,14 +43,14 @@ class FluxBB_Home_Controller extends Base
 		->order_by('disp_position', 'ASC')
 		->order_by('id', 'ASC')
 		->get();
-		
+
 		return View::make('fluxbb::index')->with('categories', $categories);
 	}
 
 	public function get_forum($fid, $page = 1)
 	{
 		$page = intval($page);
-		
+
 		// Fetch some info about the forum
 		$forum = Forum::with('perms')
 			->where_id($fid)
@@ -66,11 +66,28 @@ class FluxBB_Home_Controller extends Base
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_topics * ($page - 1);
 
+		switch ($forum->sort_by)
+		{
+			case 0:
+				$sort_by = 'last_post'; $sort_dir = 'DESC';
+				break;
+			case 1:
+				$sort_by = 'posted'; $sort_dir = 'DESC';
+				break;
+			case 2:
+				$sort_by = 'subject'; $sort_dir = 'ASC';
+				break;
+			default:
+				$sort_by = 'last_post'; $sort_dir = 'DESC';
+				break;
+		}
+
 		// FIXME: Do we have to fetch just IDs first (performance)?
 		// TODO: If logged in, with "the dot" subquery
 		// Fetch topic data
 		$topics = Topic::where_forum_id($fid)
-		->order_by('sticky', 'DESC') // TODO: insert $sort_by
+		->order_by('sticky', 'DESC')
+		->order_by($sort_by, $sort_dir)
 		->order_by('id', 'DESC')
 		->skip($start_from)
 		->take($disp_topics)
@@ -102,7 +119,7 @@ class FluxBB_Home_Controller extends Base
 		$num_pages = ceil(($topic->num_replies + 1) / $disp_posts);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_posts * ($page - 1);
-		
+
 
 		// TODO: Use paginate?
 		// Fetch post data
@@ -121,7 +138,7 @@ class FluxBB_Home_Controller extends Base
 		->skip($start_from)
 		->take($disp_posts)
 		->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
-		
+
 		return View::make('fluxbb::viewtopic')
 			->with('topic', $topic)
 			->with('posts', $posts)
