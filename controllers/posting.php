@@ -111,7 +111,23 @@ class FluxBB_Posting_Controller extends Base
 		// To subscribe or not to subscribe
 		$topic->subscribe(Input::get('subscribe'));
 
-		// TODO: update_forum(), update_search_index();
+		// Update topic
+		$topic->num_replies += 1;
+		$topic->last_post = Request::time();
+		$topic->last_post_id = $post->id;
+		$topic->last_poster = $post_data['poster'];
+		$topic->save();
+
+		// Update forum (maybe $forum->update_forum() ?)
+		$forum = $topic->forum;
+		$forum->num_posts += 1;
+		$forum->num_topics += 1;
+		$forum->last_post = $topic->last_post;
+		$forum->last_post_id = $topic->last_post_id;
+		$forum->last_poster = $topic->last_poster;
+		$forum->save();
+
+		// TODO: update_search_index();
 
 		// If the posting user is logged in, increment his/her post count
 		$user = User::current();
@@ -231,7 +247,15 @@ class FluxBB_Posting_Controller extends Base
 		$topic->last_post_id = $topic->first_post_id = $post->id;
 		$topic->save();
 
-		// TODO: update_forum(), update_search_index();
+		// Update forum (maybe $forum->update_forum() ?)
+		$forum->num_posts += 1;
+		$forum->num_topics += 1;
+		$forum->last_post = $topic->last_post;
+		$forum->last_post_id = $topic->last_post_id;
+		$forum->last_poster = $topic->last_poster;
+		$forum->save();
+
+		// TODO: update_search_index();
 
 		// If the posting user is logged in, increment his/her post count
 		$user = User::current();
