@@ -83,6 +83,36 @@ class Forum extends Base
 		return User::current()->is_admin() || $this->is_moderator();
 	}
 
+	public function sort_column()
+	{
+		switch ($this->sort_by)
+		{
+			case 0:
+				return 'last_post';
+			case 1:
+				return 'posted';
+			case 2:
+				return 'subject';
+			default:
+				return 'last_post';
+		}
+	}
+
+	public function sort_direction()
+	{
+		switch ($this->sort_by)
+		{
+			case 0:
+				return 'DESC';
+			case 1:
+				return 'DESC';
+			case 2:
+				return 'ASC';
+			default:
+				return 'DESC';
+		}
+	}
+
 	public function subscribe($subscribe = true)
 	{
 		// To subscribe or not to subscribe, that ...

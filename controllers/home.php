@@ -66,28 +66,12 @@ class FluxBB_Home_Controller extends Base
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_topics * ($page - 1);
 
-		switch ($forum->sort_by)
-		{
-			case 0:
-				$sort_by = 'last_post'; $sort_dir = 'DESC';
-				break;
-			case 1:
-				$sort_by = 'posted'; $sort_dir = 'DESC';
-				break;
-			case 2:
-				$sort_by = 'subject'; $sort_dir = 'ASC';
-				break;
-			default:
-				$sort_by = 'last_post'; $sort_dir = 'DESC';
-				break;
-		}
-
 		// FIXME: Do we have to fetch just IDs first (performance)?
 		// TODO: If logged in, with "the dot" subquery
 		// Fetch topic data
 		$topics = Topic::where_forum_id($fid)
 		->order_by('sticky', 'DESC')
-		->order_by($sort_by, $sort_dir)
+		->order_by($forum->sort_column(), $forum->sort_direction())
 		->order_by('id', 'DESC')
 		->skip($start_from)
 		->take($disp_topics)
