@@ -77,17 +77,7 @@ class FluxBB_Auth_Controller extends Base
 
 	public function get_register()
 	{
-		// TODO: Remember old values, too
-		$timezone = Config::get('o_default_timezone');
-		$dst = Config::get('o_default_dst');
-		$languages = array('en' => 'English', 'fr' => 'French'); // forum_language_list()
-		$email_setting = Config::get('o_default_email_setting');
-
-		return View::make('fluxbb::auth.register')
-			->with('timezone', $timezone)
-			->with('dst', $dst)
-			->with('languages', $languages)
-			->with('email_setting', $email_setting);
+		return View::make('fluxbb::auth.register');
 	}
 
 	public function post_register()
@@ -102,7 +92,6 @@ class FluxBB_Auth_Controller extends Base
 			// TODO: only check for confirmation if o_regs_verify == 1, also add check for banned email
 			'req_email'		=> 'required|email|confirmed|unique:users,email',
 		);
-		// TODO: More validation
 
 		$validation = Validator::make(Input::all(), $rules);
 		if ($validation->fails())
@@ -115,14 +104,14 @@ class FluxBB_Auth_Controller extends Base
 			'group_id'			=> 4, // TODO: ($pun_config['o_regs_verify'] == '0') ? $pun_config['o_default_user_group'] : PUN_UNVERIFIED
 			'password'			=> Input::get('req_password'),
 			'email'				=> Input::get('req_email'),
-			'email_setting'		=> Input::get('email_setting'),
-			'timezone'			=> Input::get('timezone', fluxbb\Config::get('o_default_dst')),
-			'dst'				=> Input::get('dst'),
-			'language'			=> Input::get('language'),
-			'style'				=> 'Air', // TODO: Default style!!!
-			'registered'		=> time(), // TODO: Request::time()? https://github.com/laravel/laravel/pull/933
+			'email_setting'		=> Config::get('o_default_email_setting'),
+			'timezone'			=> Config::get('o_default_timezone'),
+			'dst'				=> Config::get('o_default_dst'),
+			'language'			=> Config::get('o_default_language'),
+			'style'				=> Config::get('o_default_style'),
+			'registered'		=> Request::time(),
 			'registration_ip'	=> Request::ip(),
-			'last_visit'		=> time(),
+			'last_visit'		=> Request::time(),
 		);
 		$user = User::create($user_data);
 	
