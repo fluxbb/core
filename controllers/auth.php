@@ -82,25 +82,23 @@ class FluxBB_Auth_Controller extends Base
 
 	public function post_register()
 	{
-		// TODO: Add agreement to rules here!
-		
-		if(Config::enabled('o_regs_verify')) // If email confirmation is enabled
-		{
-			$email_rules = 'required|email|confirmed|unique:users,email';
-		}
-		else
-		{
-			$email_rules = 'required|email|unique:users,email';
-		}
-		
+        // TODO: Add agreement to rules here!
 		$rules = array(
 			// TODO: Reserved chars, BBCode, IP + case-insensitivity for "Guest", censored words, name doesn't exist
 			'req_user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
 			// TODO: No password if o_regs_verify == 1
 			'req_password'	=> 'required|min:4|confirmed',
-			// TODO: add check for banned email
-			'req_email'		=> $email_rules,
 		);
+		
+		// TODO: add check for banned email
+		if(Config::enabled('o_regs_verify')) // If email confirmation is enabled
+		{
+			$rules['req_email'] = 'required|email|confirmed|unique:users,email';
+		}
+		else
+		{
+			$rules['req_email'] = 'required|email|unique:users,email';
+		}
 
 		$validation = Validator::make(Input::all(), $rules);
 		if ($validation->fails())
