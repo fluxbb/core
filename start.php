@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-define('FLUXBB_VERSION', '2.0-dev');
+define('FLUXBB_VERSION', '2.0-alpha1');
 
 
 Autoloader::namespaces(array(
