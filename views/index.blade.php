@@ -23,21 +23,7 @@
 		$forum_count++;
 		$icon_type = 'icon';
 
-		if (Auth::check() && $forum->last_post > fluxbb\Models\User::current()->last_visit && (empty($tracked_topics['forums'][$forum->id]) || $forum->last_post > $tracked_topics['forums'][$forum->id]))
-		{
-			// There are new posts in this forum, but have we read all of them already?
-			foreach ($new_topics[$forum->fid] as $check_topic_id => $check_last_post)
-			{
-				if ((empty($tracked_topics['topics'][$check_topic_id]) || $tracked_topics['topics'][$check_topic_id] < $check_last_post) && (empty($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $check_last_post))
-				{
-					$item_status .= ' inew';
-					$forum_field_new = '<span class="newtext">[ <a href="'.URL::to_action('fluxbb::search@new', array($forum->id)).'">'.__('New posts').'</a> ]</span>';
-					$icon_type = 'icon icon-new';
-
-					break;
-				}
-			}
-		}
+		// TODO: Handle unread posts stuff
 
 ?>
 				<tr class="row{{ HTML::oddeven() }}">
