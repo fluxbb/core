@@ -121,7 +121,6 @@ class FluxBB_Posting_Controller extends Base
 		// Update forum (maybe $forum->update_forum() ?)
 		$forum = $topic->forum;
 		$forum->num_posts += 1;
-		$forum->num_topics += 1;
 		$forum->last_post = $topic->last_post;
 		$forum->last_post_id = $topic->last_post_id;
 		$forum->last_poster = $topic->last_poster;
