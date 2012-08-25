@@ -130,4 +130,10 @@ class Forum extends Base
 			$this->subscription()->delete();
 		}
 	}
+
+	public function unsubscribe()
+	{
+		return $this->subscribe(false);
+	}
+	
 }

@@ -84,4 +84,9 @@ class Topic extends Base
 		}
 	}
 
+	public function unsubscribe()
+	{
+		return $this->subscribe(false);
+	}
+
 }
