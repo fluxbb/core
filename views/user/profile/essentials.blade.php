@@ -16,7 +16,7 @@
 						<div class="infldset">
 							<input type="hidden" name="form_sent" value="1">
 							<label class="required"><strong>Username <span>(Required)</span></strong><br>
-							@if ($admin)
+							@if ($user->is_admin())
 							{{ Form::text('username', $user->username, array('size' =>  "25", 'maxlength' => "25")) }}
 							@else
 							{{ $user->username }}
@@ -118,7 +118,7 @@
 							<label>Posts: {{ $user->num_posts }}<br></label><p class="actions">
 							{{--- TODO: add input field for posts when admin + add links to controller actions --}}
 							<a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
-							@if ($admin)
+							@if ($user->is_admin())
 							<label>Admin note<br>
 							{{ Form::text('admin_note', $user->admin_note, array('size' => '30', 'maxlength' => '30', 'id' => "admin_note")) }}<br></label>
 							@endif

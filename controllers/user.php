@@ -29,34 +29,34 @@ use fluxbb\Controllers\Base,
 class FluxBB_User_Controller extends Base
 {
 
-	public function get_profile($id, $action = "essentials")
+	public function get_profile($id, $action = 'essentials')
 	{
-		$user = User::where_id($id)->first();
+		$user = User::find($id);
 
 		if ($user === NULL)
 		{
 			return Event::first('404');
 		}
 		
-		else if (User::current()->id == $id || User::current()->group_id == 1) //TODO: Add more specific rule for admins (now it is based on the group_id of the visiting user)
+		else if (User::current()->id == $id || User::current()->is_admin())
 		{
-			return View::make("fluxbb::user.profile.".$action)
-				->with('user', $user)
-				->with('admin', User::current()->group_id == 1);
+			return View::make('fluxbb::user.profile.'.$action)
+				->with('user', $user);
 		}
 		
 		else
 		{
-			return View::make("fluxbb::user.profile.view")
+			return View::make('fluxbb::user.profile.view')
 				->with('user', $user);
 		}
 	
 	}
 	
-	public function put_profile($id, $action = "essentials")
+	public function put_profile($id, $action = 'essentials')
 	{
-		$user = User::where_id($id)->first();
-		if ($action == "essentials")
+		$user = User::find($id);
+		// TODO: Add validation. This can probably wait until we restructure the profile.
+		if ($action == 'essentials')
 		{
 			$user->username = Input::get('username', $user->username);
 			$user->email = Input::get('email', $user->email);
@@ -67,7 +67,7 @@ class FluxBB_User_Controller extends Base
 			$user->admin_note = Input::get('admin_note', $user->admin_note);
 		}
 		
-		else if ($action == "messaging")
+		else if ($action == 'messaging')
 		{
 			$user->jabber = Input::get('jabber');
 			$user->icq = Input::get('icq');
@@ -76,7 +76,7 @@ class FluxBB_User_Controller extends Base
 			$user->yahoo = Input::get('yahoo');
 		}
 		
-		else if ($action == "personal")
+		else if ($action == 'personal')
 		{
 			$user->realname = Input::get('realname');
 			$user->title = Input::get('title');
@@ -84,12 +84,12 @@ class FluxBB_User_Controller extends Base
 			$user->url = Input::get('url');
 		}
 		
-		else if ($action == "personality")
+		else if ($action == 'personality')
 		{
 			$user->signature = Input::get('signature');
 		}
 		
-		else if ($action == "display")
+		else if ($action == 'display')
 		{
 		//This will give an error if not everything is set -> need to set defaults in database!
 			$user->style = Input::get('style');
@@ -107,14 +107,14 @@ class FluxBB_User_Controller extends Base
 		}
 		
 		$user->save();
-		return View::make("fluxbb::user.profile.".$action)
+		return View::make('fluxbb::user.profile.'.$action)
 				->with('user', $user)
 				->with('admin', (User::current()->group_id == 1));
 	}
 
 	public function get_list()
 	{
-		$users = DB::table('users')->paginate(20);
+		$users = User::paginate(20);
 
 		return View::make('fluxbb::user.list')
 			->with('users', $users);
