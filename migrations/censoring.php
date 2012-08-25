@@ -40,7 +40,7 @@ class FluxBB_Migration_Censoring
 
 	public function down()
 	{
-		Schema::drop('cenosring');
+		Schema::drop('censoring');
 	}
 
 }
