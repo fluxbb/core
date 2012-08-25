@@ -122,7 +122,7 @@ class FluxBB_Auth_Controller extends Base
 		);
 		$user = User::create($user_data);
 	
-		return Redirect::to_action('fluxbb::user@profile', array($user->id))->with('message', __('fluxbb::register.reg_complete'));
+		return Redirect::to_action('fluxbb::home@index')->with('message', __('fluxbb::register.reg_complete'));
 	}
 
 }
