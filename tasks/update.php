@@ -99,7 +99,7 @@ class Fluxbb_Update_Task
 
 	protected function down_version($version)
 	{
-		$this->log('Rollback to v'.$version.'...');
+		$this->log('Rollback from v'.$version.'...');
 
 		$this->foreach_migration($version, 'down');
 	}
