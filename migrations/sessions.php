@@ -23,22 +23,30 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-Autoloader::namespaces(array(
-	'fluxbb'	=> __DIR__ . DS . 'classes',
-));
-
-
-Session::extend('fluxbb::session', function()
+class FluxBB_Migration_Sessions
 {
-	return new fluxbb\Session\Driver(Laravel\Database::connection());
-});
 
+	public function up()
+	{
+		Schema::table('sessions', function($table)
+		{
+			$table->create();
 
-// View composers
-require 'helpers/composers.php';
+			$table->string('id', 64);
+			$table->integer('user_id')->default(1);
+			$table->integer('created')->default(0);
+			$table->integer('last_visit')->default(0);
+			$table->string('last_ip', 200)->default('0.0.0.0');
+			$table->text('data');
 
-// Route filters
-require 'helpers/filters.php';
+			$table->primary('id');
+			$table->index('user_id');
+		});
+	}
 
-// HTML helpers
-require 'helpers/html.php';
+	public function down()
+	{
+		Schema::drop('sessions');
+	}
+
+}
