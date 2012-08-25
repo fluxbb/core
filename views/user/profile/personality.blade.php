@@ -8,8 +8,7 @@
 	<div class="blockform">
 		<h2><span>Personality</span></h2>
 		<div class="box">
-			<form id="profile4" method="post" action="profile.php?section=personality&amp;id=3">
-				<div><input type="hidden" name="form_sent" value="1"></div>
+			<form id="profile4" method="post" action="{{ URL::to_action('fluxbb::user@profile', array($user->id, 'personality')) }}">
 				<div class="inform">
 					<fieldset id="profileavatar">
 						<legend>Set your avatar display options</legend>

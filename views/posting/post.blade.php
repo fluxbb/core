@@ -5,9 +5,9 @@
 	<h2><span><?php echo $action ?></span></h2>
 	<div class="box">
 @if (isset($topic))
-		{{ Form::open('core/topic/'.$topic->id.'/reply', 'PUT', array('id' => 'post', 'onsubmit' => 'this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;')) }}
+		{{ Form::open(URL::to_action('fluxbb::posting@reply', array($topic->id)), 'PUT', array('id' => 'post', 'onsubmit' => 'this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;')) }}
 @else
-		{{ Form::open('core/forum/'.$forum->id.'/new_topic', 'PUT', array('id' => 'post', 'onsubmit' => 'return process_form(this)')) }}
+		{{ Form::open(URL::to_action('fluxbb::posting@topic', array($forum->id)), 'PUT', array('id' => 'post', 'onsubmit' => 'return process_form(this)')) }}
 @endif
 			<div class="inform">
 				<fieldset>

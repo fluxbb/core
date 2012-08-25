@@ -8,8 +8,7 @@
 	<div class="blockform">
 		<h2><span>Display</span></h2>
 		<div class="box">
-			{{ Form::open('core/profile/'.$user->id.'/display', 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
-				<div><input type="hidden" name="form_sent" value="1"></div>
+			{{ Form::open(URL::to_action('fluxbb::user@profile', array($user->id, 'display')), 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
 				<div class="inform">
 					<fieldset>
 						<legend>Select your preferred style</legend>

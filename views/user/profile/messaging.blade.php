@@ -8,13 +8,11 @@
 		<div class="blockform">
 			<h2><span>Messaging</span></h2>
 			<div class="box">
-				<?php //TODO: unhardcode core, suggestion: adding a config file which holds the base url which the user wants to use. Always use that value (also in routes.php) ?>
-				{{ Form::open('core/profile/'.$user->id.'/messaging', 'PUT', array('id' => 'profile3', 'onsubmit' => 'return process_form(this)')) }}
+				{{ Form::open(URL::to_action('fluxbb::user@profile', array($user->id, 'messaging')), 'PUT', array('id' => 'profile3', 'onsubmit' => 'return process_form(this)')) }}
 					<div class="inform">
 						<fieldset>
 							<legend>Enter your messaging details</legend>
 							<div class="infldset">
-								<input type="hidden" name="form_sent" value="1">
 								<label>Jabber<br>{{ Form::text('jabber', $user->jabber, array('size' => '40', 'maxlength' => '75', 'id' => 'jabber')) }}<br></label>
 								<label>ICQ<br>{{ Form::text('icq', $user->icq, array('size' => '12', 'maxlength' => '12', 'id' => 'icq')) }}<br></label>
 								<label>MSN Messenger<br>{{ Form::text('msn', $user->msn, array('size' => '40', 'maxlength' => '50', 'id' => 'msn')) }}<br></label>

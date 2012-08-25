@@ -8,8 +8,7 @@
 	<div class="blockform">
 		<h2><span>Essentials</span></h2>
 		<div class="box">
-			<?php //TODO: unhardcode core, suggestion: adding a config file which holds the base url which the user wants to use. Always use that value (also in routes.php) ?>
-			{{ Form::open('core/profile/'.$user->id.'/essentials', 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
+			{{ Form::open(URL::to_action('fluxbb::user@profile', array($user->id, 'essentials')), 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
 				<div class="inform">
 					<fieldset>
 						<legend>Enter your username and password</legend>
