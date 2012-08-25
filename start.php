@@ -23,6 +23,9 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
+define('FLUXBB_VERSION', '2.0-dev');
+
+
 Autoloader::namespaces(array(
 	'fluxbb'	=> __DIR__ . DS . 'classes',
 ));
