@@ -46,7 +46,7 @@ class FluxBB_Migration_Posts
 			$table->integer('topic_id')->default(0);
 
 			$table->index('topic_id');
-			$table->index('poster_id', 'topic_id');
+			$table->index(array('poster_id', 'topic_id'));
 		});
 	}
 
