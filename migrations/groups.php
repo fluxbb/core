@@ -33,7 +33,7 @@ class FluxBB_Migration_Groups
 			$table->create();
 
 			$table->increments('g_id');
-			$table->string('g_title', 50)->('');
+			$table->string('g_title', 50)->default('');
 			$table->string('g_user_title')->nullable();
 			$table->integer('g_promote_min_posts')->default(0);
 			$table->integer('g_promote_next_group')->default(0);
