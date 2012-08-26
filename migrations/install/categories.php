@@ -33,8 +33,7 @@ class FluxBB_Install_Categories
 			$table->create();
 
 			$table->increments('id');
-			// TODO: Localize string?
-			$table->string('cat_name', 80)->default('New Category');
+			$table->string('cat_name', 80);
 			$table->integer('disp_position')->default(0);
 		});
 	}
