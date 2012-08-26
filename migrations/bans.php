@@ -41,7 +41,6 @@ class FluxBB_Migration_Bans
 			$table->integer('ban_creator')->unsigned()->default(0);
 
 			$table->index('username');
-			// TODO: length 25 for MySQL?
 		});
 	}
 
