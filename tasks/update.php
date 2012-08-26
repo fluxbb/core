@@ -132,7 +132,7 @@ class Fluxbb_Update_Task
 
 	protected function path()
 	{
-		return Bundle::path('fluxbb').'migrations'.DS.'updates'.DS;
+		return Bundle::path('fluxbb').'migrations'.DS.'update'.DS;
 	}
 
 	protected function log($msg)
