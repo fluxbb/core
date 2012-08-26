@@ -33,14 +33,14 @@ class FluxBB_Migration_Reports
 			$table->create();
 
 			$table->increments('id');
-			$table->integer('post_id')->default(0);
-			$table->integer('topic_id')->default(0);
-			$table->integer('forum_id')->default(0);
-			$table->integer('reported_by')->default(0);
-			$table->integer('created')->default(0);
+			$table->integer('post_id')->unsigned()->default(0);
+			$table->integer('topic_id')->unsigned()->default(0);
+			$table->integer('forum_id')->unsigned()->default(0);
+			$table->integer('reported_by')->unsigned()->default(0);
+			$table->integer('created')->unsigned()->default(0);
 			$table->text('message')->nullable();
-			$table->integer('zapped')->nullable();
-			$table->integer('zapped_by')->nullable();
+			$table->integer('zapped')->unsigned()->nullable();
+			$table->integer('zapped_by')->unsigned()->nullable();
 			
 			$table->index('zapped');
 		});

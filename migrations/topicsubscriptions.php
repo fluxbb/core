@@ -32,8 +32,8 @@ class FluxBB_Migration_TopicSubscriptions
 		{
 			$table->create();
 
-			$table->integer('user_id');
-			$table->integer('topic_id');
+			$table->integer('user_id')->unsigned();
+			$table->integer('topic_id')->unsigned();
 
 			$table->primary(array('user_id', 'topic_id'));
 		});

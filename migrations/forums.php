@@ -39,16 +39,16 @@ class FluxBB_Migration_Forums
 			$table->string('redirect_url', 100)->nullable();
 			// TODO: Remove moderators column
 			$table->text('moderators')->nullable();
-			$table->integer('num_topics')->default(0);
-			$table->integer('num_posts')->default(0);
-			$table->integer('last_post')->nullable();
-			$table->integer('last_post_id')->nullable();
+			$table->integer('num_topics')->unsigned()->default(0);
+			$table->integer('num_posts')->unsigned()->default(0);
+			$table->integer('last_post')->unsigned()->nullable();
+			$table->integer('last_post_id')->unsigned()->nullable();
 			$table->string('last_poster', 200)->nullable();
 			// TODO: Really a boolean (or multiple options)?
 			$table->boolean('sort_by')->default(false);
 			$table->integer('disp_position')->default(0);
 			// TODO: Do we really need a default here?
-			$table->integer('cat_id')->default(0);
+			$table->integer('cat_id')->unsigned()->default(0);
 		});
 	}
 

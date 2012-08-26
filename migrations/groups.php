@@ -35,8 +35,8 @@ class FluxBB_Migration_Groups
 			$table->increments('g_id');
 			$table->string('g_title', 50)->default('');
 			$table->string('g_user_title')->nullable();
-			$table->integer('g_promote_min_posts')->default(0);
-			$table->integer('g_promote_next_group')->default(0);
+			$table->integer('g_promote_min_posts')->unsigned()->default(0);
+			$table->integer('g_promote_next_group')->unsigned()->default(0);
 			$table->boolean('g_moderator')->default(false);
 			$table->boolean('g_mod_edit_users')->default(false);
 			$table->boolean('g_mod_rename_users')->default(false);
@@ -54,10 +54,10 @@ class FluxBB_Migration_Groups
 			$table->boolean('g_search')->default(true);
 			$table->boolean('g_search_users')->default(true);
 			$table->boolean('g_send_email')->default(true);
-			$table->integer('g_post_flood')->default(30);
-			$table->integer('g_search_flood')->default(30);
-			$table->integer('g_email_flood')->default(60);
-			$table->integer('g_report_flood')->default(60);
+			$table->integer('g_post_flood')->unsigned()->default(30);
+			$table->integer('g_search_flood')->unsigned()->default(30);
+			$table->integer('g_email_flood')->unsigned()->default(60);
+			$table->integer('g_report_flood')->unsigned()->default(60);
 		});
 	}
 

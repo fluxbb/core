@@ -33,9 +33,9 @@ class FluxBB_Migration_Sessions
 			$table->create();
 
 			$table->string('id', 64);
-			$table->integer('user_id')->default(1);
-			$table->integer('created')->default(0);
-			$table->integer('last_visit')->default(0);
+			$table->integer('user_id')->unsigned()->default(1);
+			$table->integer('created')->unsigned()->default(0);
+			$table->integer('last_visit')->unsigned()->default(0);
 			$table->string('last_ip', 200)->default('0.0.0.0');
 			$table->text('data');
 

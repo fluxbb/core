@@ -34,16 +34,16 @@ class FluxBB_Migration_Posts
 
 			$table->increments('id');
 			$table->string('poster', 200)->default('');
-			$table->integer('poster_id')->default(1);
+			$table->integer('poster_id')->unsigned()->default(1);
 			$table->string('poster_ip', 39)->nullable();
 			$table->string('poster_email', 80)->nullable();
 			$table->text('message')->nullable();
 			$table->boolean('hide_smilies')->default(false);
-			$table->integer('posted')->default(0);
-			$table->integer('edited')->nullable();
+			$table->integer('posted')->unsigned()->default(0);
+			$table->integer('edited')->unsigned()->nullable();
 			$table->string('edited_by', 200)->nullable();
 			// TODO: Do we need a default here?
-			$table->integer('topic_id')->default(0);
+			$table->integer('topic_id')->unsigned()->default(0);
 
 			$table->index('topic_id');
 			$table->index(array('poster_id', 'topic_id'));

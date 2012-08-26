@@ -37,8 +37,8 @@ class FluxBB_Migration_Bans
 			$table->string('ip', 255)->nullable();
 			$table->string('email', 80)->nullable();
 			$table->string('message', 255)->nullable();
-			$table->integer('expire')->nullable();
-			$table->integer('ban_creator')->default(0);
+			$table->integer('expire')->unsigned()->nullable();
+			$table->integer('ban_creator')->unsigned()->default(0);
 
 			$table->index('username');
 			// TODO: length 25 for MySQL?

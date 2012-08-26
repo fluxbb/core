@@ -32,8 +32,8 @@ class FluxBB_Migration_ForumPerms
 		{
 			$table->create();
 
-			$table->integer('group_id');
-			$table->integer('forum_id');
+			$table->integer('group_id')->unsigned();
+			$table->integer('forum_id')->unsigned();
 			$table->boolean('read_forum')->default(true);
 			$table->boolean('post_replies')->default(true);
 			$table->boolean('post_topics')->default(true);
