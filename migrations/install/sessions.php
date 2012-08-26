@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_Sessions
+class FluxBB_Install_Sessions
 {
 
 	public function up()

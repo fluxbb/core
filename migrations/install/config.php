@@ -23,38 +23,25 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_Forums
+class FluxBB_Install_Config
 {
 
 	public function up()
 	{
-		Schema::table('forums', function($table)
+		Schema::table('config', function($table)
 		{
 			$table->create();
 
-			$table->increments('id');
-			// TODO: Localize string?
-			$table->string('forum_name', 80)->default('New forum');
-			$table->text('forum_desc')->nullable();
-			$table->string('redirect_url', 100)->nullable();
-			// TODO: Remove moderators column
-			$table->text('moderators')->nullable();
-			$table->integer('num_topics')->unsigned()->default(0);
-			$table->integer('num_posts')->unsigned()->default(0);
-			$table->integer('last_post')->unsigned()->nullable();
-			$table->integer('last_post_id')->unsigned()->nullable();
-			$table->string('last_poster', 200)->nullable();
-			// TODO: Really a boolean (or multiple options)?
-			$table->boolean('sort_by')->default(false);
-			$table->integer('disp_position')->default(0);
-			// TODO: Do we really need a default here?
-			$table->integer('cat_id')->unsigned()->default(0);
+			$table->string('conf_name', 255)->default('');
+			$table->text('conf_value')->nullable();
+
+			$table->primary('conf_name');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('forums');
+		Schema::drop('config');
 	}
 
 }

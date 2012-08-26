@@ -23,25 +23,30 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_Categories
+class FluxBB_Install_Bans
 {
 
 	public function up()
 	{
-		Schema::table('categories', function($table)
+		Schema::table('bans', function($table)
 		{
 			$table->create();
 
 			$table->increments('id');
-			// TODO: Localize string?
-			$table->string('cat_name', 80)->default('New Category');
-			$table->integer('disp_position')->default(0);
+			$table->string('username', 200)->nullable();
+			$table->string('ip', 255)->nullable();
+			$table->string('email', 80)->nullable();
+			$table->string('message', 255)->nullable();
+			$table->integer('expire')->unsigned()->nullable();
+			$table->integer('ban_creator')->unsigned()->default(0);
+
+			$table->index('username');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('categories');
+		Schema::drop('bans');
 	}
 
 }

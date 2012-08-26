@@ -23,25 +23,38 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_ForumSubscriptions
+class FluxBB_Install_Forums
 {
 
 	public function up()
 	{
-		Schema::table('forum_subscriptions', function($table)
+		Schema::table('forums', function($table)
 		{
 			$table->create();
 
-			$table->integer('user_id')->unsigned();
-			$table->integer('forum_id')->unsigned();
-
-			$table->primary(array('user_id', 'forum_id'));
+			$table->increments('id');
+			// TODO: Localize string?
+			$table->string('forum_name', 80)->default('New forum');
+			$table->text('forum_desc')->nullable();
+			$table->string('redirect_url', 100)->nullable();
+			// TODO: Remove moderators column
+			$table->text('moderators')->nullable();
+			$table->integer('num_topics')->unsigned()->default(0);
+			$table->integer('num_posts')->unsigned()->default(0);
+			$table->integer('last_post')->unsigned()->nullable();
+			$table->integer('last_post_id')->unsigned()->nullable();
+			$table->string('last_poster', 200)->nullable();
+			// TODO: Really a boolean (or multiple options)?
+			$table->boolean('sort_by')->default(false);
+			$table->integer('disp_position')->default(0);
+			// TODO: Do we really need a default here?
+			$table->integer('cat_id')->unsigned()->default(0);
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('forum_subscriptions');
+		Schema::drop('forums');
 	}
 
 }

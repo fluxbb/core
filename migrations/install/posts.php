@@ -23,32 +23,36 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_Reports
+class FluxBB_Install_Posts
 {
 
 	public function up()
 	{
-		Schema::table('reports', function($table)
+		Schema::table('posts', function($table)
 		{
 			$table->create();
 
 			$table->increments('id');
-			$table->integer('post_id')->unsigned()->default(0);
-			$table->integer('topic_id')->unsigned()->default(0);
-			$table->integer('forum_id')->unsigned()->default(0);
-			$table->integer('reported_by')->unsigned()->default(0);
-			$table->integer('created')->unsigned()->default(0);
+			$table->string('poster', 200)->default('');
+			$table->integer('poster_id')->unsigned()->default(1);
+			$table->string('poster_ip', 39)->nullable();
+			$table->string('poster_email', 80)->nullable();
 			$table->text('message')->nullable();
-			$table->integer('zapped')->unsigned()->nullable();
-			$table->integer('zapped_by')->unsigned()->nullable();
-			
-			$table->index('zapped');
+			$table->boolean('hide_smilies')->default(false);
+			$table->integer('posted')->unsigned()->default(0);
+			$table->integer('edited')->unsigned()->nullable();
+			$table->string('edited_by', 200)->nullable();
+			// TODO: Do we need a default here?
+			$table->integer('topic_id')->unsigned()->default(0);
+
+			$table->index('topic_id');
+			$table->index(array('poster_id', 'topic_id'));
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('reports');
+		Schema::drop('posts');
 	}
 
 }

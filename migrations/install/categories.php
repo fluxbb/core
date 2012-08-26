@@ -23,25 +23,25 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_TopicSubscriptions
+class FluxBB_Install_Categories
 {
 
 	public function up()
 	{
-		Schema::table('topic_subscriptions', function($table)
+		Schema::table('categories', function($table)
 		{
 			$table->create();
 
-			$table->integer('user_id')->unsigned();
-			$table->integer('topic_id')->unsigned();
-
-			$table->primary(array('user_id', 'topic_id'));
+			$table->increments('id');
+			// TODO: Localize string?
+			$table->string('cat_name', 80)->default('New Category');
+			$table->integer('disp_position')->default(0);
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('topic_subscriptions');
+		Schema::drop('categories');
 	}
 
 }

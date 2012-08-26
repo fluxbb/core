@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_ForumPerms
+class FluxBB_Install_ForumPerms
 {
 
 	public function up()

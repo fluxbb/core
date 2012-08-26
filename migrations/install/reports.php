@@ -23,25 +23,32 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_Config
+class FluxBB_Install_Reports
 {
 
 	public function up()
 	{
-		Schema::table('config', function($table)
+		Schema::table('reports', function($table)
 		{
 			$table->create();
 
-			$table->string('conf_name', 255)->default('');
-			$table->text('conf_value')->nullable();
-
-			$table->primary('conf_name');
+			$table->increments('id');
+			$table->integer('post_id')->unsigned()->default(0);
+			$table->integer('topic_id')->unsigned()->default(0);
+			$table->integer('forum_id')->unsigned()->default(0);
+			$table->integer('reported_by')->unsigned()->default(0);
+			$table->integer('created')->unsigned()->default(0);
+			$table->text('message')->nullable();
+			$table->integer('zapped')->unsigned()->nullable();
+			$table->integer('zapped_by')->unsigned()->nullable();
+			
+			$table->index('zapped');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('config');
+		Schema::drop('reports');
 	}
 
 }

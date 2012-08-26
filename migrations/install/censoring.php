@@ -23,30 +23,24 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Migration_Bans
+class FluxBB_Install_Censoring
 {
 
 	public function up()
 	{
-		Schema::table('bans', function($table)
+		Schema::table('censoring', function($table)
 		{
 			$table->create();
 
 			$table->increments('id');
-			$table->string('username', 200)->nullable();
-			$table->string('ip', 255)->nullable();
-			$table->string('email', 80)->nullable();
-			$table->string('message', 255)->nullable();
-			$table->integer('expire')->unsigned()->nullable();
-			$table->integer('ban_creator')->unsigned()->default(0);
-
-			$table->index('username');
+			$table->string('search_for', 60)->default('');
+			$table->string('replace_with', 60)->default('');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('bans');
+		Schema::drop('censoring');
 	}
 
 }
