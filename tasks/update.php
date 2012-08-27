@@ -26,7 +26,7 @@
 use fluxbb\Models\Config,
 	Laravel\Str;
 
-class Fluxbb_Update_Task
+class FluxBB_Update_Task
 {
 	
 	public function run($arguments = array())
@@ -46,6 +46,22 @@ class Fluxbb_Update_Task
 			$this->update_version($target_version);
 			$this->log('Done.');
 		}
+	}
+
+	public function up($arguments = array())
+	{
+		$version = $this->cur_version();
+		$migration = $arguments[0];
+
+		$this->run_migration($version, $migration, 'up');
+	}
+
+	public function down($arguments = array())
+	{
+		$version = $this->cur_version();
+		$migration = $arguments[0];
+
+		$this->run_migration($version, $migration, 'down');
 	}
 
 	protected function migrate($from, $to)
@@ -109,14 +125,22 @@ class Fluxbb_Update_Task
 		foreach (new FilesystemIterator($this->path().$version) as $file)
 		{
 			$cur_migration = basename($file->getFileName(), '.php');
-			$this->log('Migrate '.$cur_migration.'...');
-			
-			$class = 'FluxBB_Update_'.Str::classify($cur_migration);
-			include_once $file->getPathName();
 
-			$migration = new $class;
-			$migration->$method();
+			$this->run_migration($version, $cur_migration, $method);
 		}
+	}
+
+	protected function run_migration($version, $migration, $method)
+	{
+		$file = $this->path().$version.DS.$migration.'.php';
+
+		$this->log('Migrate '.$migration.'...');
+
+		$class = 'FluxBB_Update_'.Str::classify($migration);
+		include_once $file;
+
+		$instance = new $class;
+		$instance->$method();
 	}
 
 	protected function cur_version()
