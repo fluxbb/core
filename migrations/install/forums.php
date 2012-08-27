@@ -41,7 +41,7 @@ class FluxBB_Install_Forums
 			$table->integer('last_post')->unsigned()->nullable();
 			$table->integer('last_post_id')->unsigned()->nullable();
 			$table->string('last_poster', 200)->nullable();
-			$table->boolean('sort_by')->default(false); // Enchanted boolean (small int, enough for three values). Thanks, ENQ!
+			$table->boolean('sort_by')->default(0); // Enchanted boolean (small int, enough for three values). Thanks, ENQ!
 			$table->integer('disp_position')->default(0);
 			$table->integer('cat_id')->unsigned();
 		});
