@@ -27,7 +27,8 @@ use fluxbb\Controllers\Base,
 	fluxbb\Models\Category,
 	fluxbb\Models\Forum,
 	fluxbb\Models\Post,
-	fluxbb\Models\Topic;
+	fluxbb\Models\Topic,
+	fluxbb\Models\User;
 
 class FluxBB_Home_Controller extends Base
 {
@@ -36,13 +37,7 @@ class FluxBB_Home_Controller extends Base
 		// TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
 
 		// Fetch the categories and forums
-		$categories = Category::with(array(
-			'forums',
-			'forums.perms',
-		))
-		->order_by('disp_position', 'ASC')
-		->order_by('id', 'ASC')
-		->get();
+		$categories = Category::all_for_group(User::current()->group_id);
 
 		return View::make('fluxbb::index')->with('categories', $categories);
 	}

@@ -25,6 +25,8 @@
 
 namespace fluxbb\Models;
 
+use \Cache;
+
 class Category extends Base
 {
 
@@ -32,6 +34,23 @@ class Category extends Base
 	{
 		return $this->has_many('fluxbb\\Models\\Forum', 'cat_id')
 			->order_by('disp_position', 'ASC');
+	}
+
+	public static function all_for_group($group_id)
+	{
+		return Cache::remember('fluxbb.forums-group'.$group_id, function() use($group_id) {
+			return Category::with(array(
+				'forums',
+				'forums.perms' => function($query) use($group_id) {
+					$query->where_group_id($group_id)
+						->where_null('read_forum')
+						->or_where('read_forum', '=', '1');
+				},
+			))
+			->order_by('disp_position', 'ASC')
+			->order_by('id', 'ASC')
+			->get();
+		}, 24 * 60);
 	}
 
 }
