@@ -44,7 +44,7 @@ class FluxBB_Install_Users
 			$table->text('signature')->nullable();
 			$table->integer('disp_topics')->unsigned()->nullable();
 			$table->integer('disp_posts')->unsigned()->nullable();
-			$table->boolean('email_setting')->default(1); // Enchanted boolean (translates to small integer)
+			$table->integer('email_setting')->unsigned()->default(1);
 			$table->boolean('notify_with_post')->default(false);
 			$table->boolean('auto_notify')->default(false);
 			$table->boolean('show_smilies')->default(true);
@@ -54,8 +54,8 @@ class FluxBB_Install_Users
 			$table->boolean('show_sig')->default(true);
 			$table->float('timezone')->default(0);
 			$table->boolean('dst')->default(false);
-			$table->boolean('time_format')->default(0); // Enchanted boolean
-			$table->boolean('date_format')->default(0); // Enchanted boolean
+			$table->integer('time_format')->unsigned()->default(0);
+			$table->integer('date_format')->unsigned()->default(0);
 			// TODO: Use selected language here (retrieve from Lang class)
 			// TODO: Too long?
 			$table->string('language', 25)->default('en');
