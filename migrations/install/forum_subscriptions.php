@@ -23,28 +23,25 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Install_ForumPerms
+class FluxBB_Install_Forum_Subscriptions
 {
 
 	public function up()
 	{
-		Schema::table('forum_perms', function($table)
+		Schema::table('forum_subscriptions', function($table)
 		{
 			$table->create();
 
-			$table->integer('group_id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->integer('forum_id')->unsigned();
-			$table->boolean('read_forum')->default(true);
-			$table->boolean('post_replies')->default(true);
-			$table->boolean('post_topics')->default(true);
 
-			$table->primary(array('group_id', 'forum_id'));
+			$table->primary(array('user_id', 'forum_id'));
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('forum_perms');
+		Schema::drop('forum_subscriptions');
 	}
 
 }
