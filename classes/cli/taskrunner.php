@@ -29,14 +29,31 @@ use Laravel\CLI\Command;
 
 class TaskRunner
 {
-	public static function run($command)
+
+	protected $command;
+	
+	protected $output = '';
+
+	public function __construct($command)
 	{
-		$arguments = explode(' ', $command);
+		$this->command = $command;
+	}
+
+	public function run()
+	{
+		$arguments = explode(' ', $this->command);
 
 		ob_start();
 		Command::run($arguments);
-		$buffer = ob_get_clean();
+		$this->output = ob_get_clean();
 
-		return $buffer;
+		// TODO: Make this a true boolean, depending on success of task
+		return true;
 	}
+
+	public function get_output()
+	{
+		return $this->output;
+	}
+
 }
