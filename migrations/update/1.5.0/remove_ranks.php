@@ -28,7 +28,7 @@ class FluxBB_Update_Remove_Ranks
 	
 	public function up()
 	{
-		Schema::drop_table('ranks');
+		Schema::drop('ranks');
 	}
 
 	public function down()
