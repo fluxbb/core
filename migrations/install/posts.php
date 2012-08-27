@@ -42,8 +42,7 @@ class FluxBB_Install_Posts
 			$table->integer('posted')->unsigned()->default(0);
 			$table->integer('edited')->unsigned()->nullable();
 			$table->string('edited_by', 200)->nullable();
-			// TODO: Do we need a default here?
-			$table->integer('topic_id')->unsigned()->default(0);
+			$table->integer('topic_id')->unsigned();
 
 			$table->index('topic_id');
 			$table->index(array('poster_id', 'topic_id'));
