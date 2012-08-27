@@ -23,10 +23,11 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-use fluxbb\Models\Config,
+use fluxbb\CLI\Task,
+	fluxbb\Models\Config,
 	Laravel\Str;
 
-class FluxBB_Update_Task
+class FluxBB_Update_Task extends Task
 {
 	
 	public function run($arguments = array())
@@ -157,11 +158,6 @@ class FluxBB_Update_Task
 	protected function path()
 	{
 		return Bundle::path('fluxbb').'migrations'.DS.'update'.DS;
-	}
-
-	protected function log($msg)
-	{
-		echo $msg.PHP_EOL;
 	}
 
 }
