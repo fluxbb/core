@@ -32,7 +32,7 @@ class FluxBB_Install_Sessions
 		{
 			$table->create();
 
-			$table->string('id', 64);
+			$table->string('id', 40);
 			$table->integer('user_id')->unsigned()->default(1);
 			$table->integer('created')->unsigned()->default(0);
 			$table->integer('last_visit')->unsigned()->default(0);
