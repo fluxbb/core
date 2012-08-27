@@ -56,11 +56,8 @@ class FluxBB_Install_Users
 			$table->boolean('dst')->default(false);
 			$table->integer('time_format')->unsigned()->default(0);
 			$table->integer('date_format')->unsigned()->default(0);
-			// TODO: Use selected language here (retrieve from Lang class)
-			// TODO: Too long?
-			$table->string('language', 25)->default('en');
-			// TODO: Use selected style here
-			$table->string('style', 25)->default('Air');
+			$table->string('language', 25)->default('');
+			$table->string('style', 25)->default('');
 			$table->integer('num_posts')->unsigned()->default(0);
 			$table->integer('last_post')->unsigned()->nullable();
 			$table->integer('last_search')->unsigned()->nullable();
