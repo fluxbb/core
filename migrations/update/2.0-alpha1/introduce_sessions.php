@@ -23,16 +23,35 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-class FluxBB_Update_Remove_Online
+class FluxBB_Update_Introduce_Sessions
 {
 	
 	public function up()
 	{
+		// Create the table to hold session data
+		Schema::table('sessions', function($table)
+		{
+			$table->create();
+
+			$table->string('id', 40);
+			$table->integer('user_id')->unsigned()->default(1);
+			$table->integer('created')->unsigned()->default(0);
+			$table->integer('last_visit')->unsigned()->default(0);
+			$table->string('last_ip', 200)->default('0.0.0.0');
+			$table->text('data');
+
+			$table->primary('id');
+			$table->index('user_id');
+		});
+
+		// ... and delete the old online table
 		Schema::drop('online');
 	}
 
 	public function down()
 	{
+		Schema::drop('sessions');
+
 		Schema::table('online', function($table)
 		{
 			$table->create();
