@@ -35,11 +35,6 @@ class User extends Base
 		return $this->belongs_to('fluxbb\\Models\\Group');
 	}
 
-	public function online()
-	{
-		return $this->has_one('fluxbb\\Models\\Online');
-	}
-
 	public function bans()
 	{
 		return $this->has_many('fluxbb\\Models\\Ban');
@@ -52,7 +47,7 @@ class User extends Base
 
 	public static function current()
 	{
-		static $current;
+		static $current = null;
 
 		if (Auth::guest())
 		{
@@ -178,7 +173,7 @@ class User extends Base
 
 	public function is_online()
 	{
-		return isset($this->online) && $this->online->user_id == $this->id;
+		return false;
 	}
 
 	public function has_url()

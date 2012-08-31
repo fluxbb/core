@@ -106,11 +106,6 @@ class FluxBB_Home_Controller extends Base
 		$posts = Post::with(array(
 			'poster',
 			'poster.group',
-			'poster.online' => function($query)
-			{
-				$query->where('user_id', '!=', 1)
-					->where_idle(0);
-			},
 		))
 		->where_topic_id($tid)
 		->order_by('id')
