@@ -25,7 +25,7 @@
 
 namespace fluxbb\Models;
 
-use \Cache;
+use Laravel\Cache;
 
 class Category extends Base
 {
@@ -36,21 +36,57 @@ class Category extends Base
 			->order_by('disp_position', 'ASC');
 	}
 
+
+	public static function all()
+	{
+		return Cache::remember('fluxbb.categories', function() {
+			$all = array();
+			$categories = Category::order_by('disp_position', 'ASC')
+				->order_by('id', 'ASC')
+				->get();
+
+			foreach ($categories as $category)
+			{
+				$all[$category->id] = $category;
+			}
+			return $all;
+		}, 7 * 24 * 60);
+	}
+
 	public static function all_for_group($group_id)
 	{
-		return Cache::remember('fluxbb.forums-group'.$group_id, function() use($group_id) {
-			return Category::with(array(
-				'forums',
-				'forums.perms' => function($query) use($group_id) {
-					$query->where_group_id($group_id)
-						->where_null('read_forum')
-						->or_where('read_forum', '=', '1');
-				},
-			))
-			->order_by('disp_position', 'ASC')
-			->order_by('id', 'ASC')
-			->get();
-		}, 24 * 60);
+		$categories = static::all();
+
+		$forums = Forum::all_for_group($group_id);
+		usort($forums, function($forum1, $forum2) {
+			if ($forum1->cat_id == $forum2->cat_id)
+			{
+				// Same category: forum's disp_position value decides
+				return $forum1->disp_position - $forum2->disp_position;
+			}
+			else
+			{
+				// ...else the categories' disp_position values are compared
+				return $categories[$forum1->cat_id]->disp_position - $categories[$forum2->cat_id]->disp_position;
+			}
+		});
+		
+		// FIXME: Yuck!!!
+		$forums_by_cat = array();
+		foreach ($forums as $forum)
+		{
+			if (!isset($forums_by_cat[$forum->cat_id]))
+			{
+				$forums_by_cat[$forum->cat_id] = array(
+					'category'	=> $categories[$forum->cat_id],
+					'forums'	=> array(),
+				);
+			}
+
+			$forums_by_cat[$forum->cat_id]['forums'][] = $forum;
+		}
+
+		return $forums_by_cat;
 	}
 
 }

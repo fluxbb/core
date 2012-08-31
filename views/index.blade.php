@@ -1,7 +1,8 @@
 @layout('fluxbb::layout.main')
 
 @section('main')
-@foreach ($categories as $category)
+@foreach ($categories as $cat_info)
+<?php $category = $cat_info['category']; ?>
 <div id="idx{{ $category->id }}" class="blocktable"> <!-- supposed to be $cat_count -->
 	<h2><span>{{ e($category->cat_name) }}</span></h2>
 	<div class="box">
@@ -17,7 +18,7 @@
 			</thead>
 			<tbody>
 	<?php $forum_count = 0; ?>
-	@foreach ($category->forums as $forum)
+	@foreach ($cat_info['forums'] as $forum)
 <?php
 
 		$forum_count++;

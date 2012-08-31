@@ -25,8 +25,32 @@
 
 namespace fluxbb\Models;
 
+use Laravel\Cache;
+
 class ForumPerms extends Base
 {
+
 	public static $table = 'forum_perms';
+
+
+	public function forum()
+	{
+		return $this->belongs_to('fluxbb\\Models\\Forum', 'forum_id');
+	}
+
+	public function group()
+	{
+		return $this->belongs_to('fluxbb\\Models\\Group', 'group_id');
+	}
+
+
+	public static function forums_for_group($group_id)
+	{
+		return Cache::remember('fluxbb.forums_for_group.'.$group_id, function() use($group_id) {
+			$disallowed = ForumPerms::where_group_id($group_id)->where_read_forum(0)->lists('forum_id');
+			$all_forum_ids = Forum::ids();
+			return array_diff($all_forum_ids, $disallowed);
+		}, 7 * 24 * 60);
+	}
 
 }

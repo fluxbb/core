@@ -25,6 +25,8 @@
 
 namespace fluxbb\Models;
 
+use Laravel\Cache;
+
 class Forum extends Base
 {
 
@@ -51,6 +53,21 @@ class Forum extends Base
 			->where_group_id(User::current()->id)
 			->where_null('read_forum')
 			->or_where('read_forum', '=', '1');
+	}
+
+
+	public static function ids()
+	{
+		return Cache::remember('fluxbb.forum_ids', function() {
+			return Forum::lists('id');
+		}, 7 * 24 * 60);
+	}
+
+	public static function all_for_group($group_id)
+	{
+		$ids = ForumPerms::forums_for_group($group_id);
+
+		return static::where_in('id', $ids)->get();
 	}
 
 	public function num_topics()
