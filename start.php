@@ -31,10 +31,18 @@ Autoloader::namespaces(array(
 ));
 
 
-Session::extend('fluxbb::session', function()
+// Set up our custom session handler
+if (!Request::cli() && !Session::started())
 {
-	return new fluxbb\Session\Driver(Laravel\Database::connection());
-});
+	Session::extend('fluxbb::session', function()
+	{
+		return new fluxbb\Session\Driver(Laravel\Database::connection());
+	});
+
+	Config::set('session.driver', 'fluxbb::session');
+
+	Session::load();	
+}
 
 
 // View composers
