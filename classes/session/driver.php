@@ -25,7 +25,8 @@
 
 namespace fluxbb\Session;
 
-use Laravel\Session\Drivers\Database,
+use Laravel\Session,
+	Laravel\Session\Drivers\Database,
 	Laravel\Session\Drivers\Sweeper,
 	Laravel\Database\Connection,
 	Laravel\Request,
@@ -122,6 +123,38 @@ class Driver extends Database implements Sweeper
 		{
 			$this->table()->where_in('id', $delete_ids)->or_where('last_visit', '<', $expiration)->delete();
 		}
+	}
+
+	/**
+	 * Create a fresh session array with a unique ID.
+	 *
+	 * @return array
+	 */
+	public function fresh()
+	{
+		// Fetch a guest session with the same IP address
+		$old_guest_session = $this->table()
+			->where_user_id(1)
+			->where_last_ip(Request::ip())
+			->first();
+		
+		// We will simply generate an empty session payload array, using an ID
+		// that is either not currently assigned to any existing session or
+		// that belongs to a guest with the same IP address.
+		if (is_null($old_guest_session))
+		{
+			$id = $this->id();
+		}
+		else
+		{
+			$id = $old_guest_session->id;
+			Session::instance()->exists = true;
+		}
+
+		return array('id' => $id, 'data' => array(
+			':new:' => array(),
+			':old:' => array(),
+		));
 	}
 
 	/**
