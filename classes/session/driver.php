@@ -118,7 +118,10 @@ class Driver extends Database implements Sweeper
 			$result = $this->connection->table('users')->where_id($cur_session->user_id)->update(array('last_visit' => $cur_session->last_visit));
 		}
 
-		$this->table()->where_in('id', $delete_ids)->or_where('last_visit', '<', $expiration)->delete();
+		if (!empty($delete_ids))
+		{
+			$this->table()->where_in('id', $delete_ids)->or_where('last_visit', '<', $expiration)->delete();
+		}
 	}
 
 	/**
