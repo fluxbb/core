@@ -28,7 +28,6 @@ namespace fluxbb\Session;
 use Laravel\Session,
 	Laravel\Session\Drivers\Database,
 	Laravel\Session\Drivers\Sweeper,
-	Laravel\Database\Connection,
 	Laravel\Request,
 	fluxbb\Models\Config;
 
