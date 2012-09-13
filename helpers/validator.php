@@ -23,36 +23,17 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-define('FLUXBB_VERSION', '2.0-alpha1');
-
-
-Autoloader::namespaces(array(
-	'fluxbb'	=> __DIR__ . DS . 'classes',
-));
-
-
-// Set up our custom session handler
-if (!Request::cli() && !Session::started())
+Validator::register('email_not_banned', function($attribute, $value, $parameters)
 {
-	Session::extend('fluxbb::session', function()
+	$bans = fluxbb\Models\Ban::all();
+
+	foreach ($bans as $cur_ban)
 	{
-		return new fluxbb\Session\Driver(Laravel\Database::connection());
-	});
+		if (!empty($cur_ban->email) &&
+			($value == $cur_ban->email ||
+			(!str_contains($cur_ban->email, '@') && str_contains(strtolower($value), '@'.$cur_ban->email))))
+			return false;
+	}
 
-	Config::set('session.driver', 'fluxbb::session');
-
-	Session::load();	
-}
-
-
-// View composers
-require 'helpers/composers.php';
-
-// Route filters
-require 'helpers/filters.php';
-
-// HTML helpers
-require 'helpers/html.php';
-
-// Custom validators
-require 'helpers/validator.php';
+	return true;
+});

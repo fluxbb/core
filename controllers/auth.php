@@ -91,11 +91,11 @@ class FluxBB_Auth_Controller extends Base
 			'user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
 		);
 		
-		// TODO: add check for banned email
-		if (Config::enabled('o_regs_verify')) // If email confirmation is enabled
+		// If email confirmation is enabled
+		if (Config::enabled('o_regs_verify'))
 		{
 			$rules['password'] = 'required|min:4|confirmed';
-			$rules['email'] = 'required|email|confirmed|unique:users,email';
+			$rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
 		}
 		else
 		{
