@@ -102,7 +102,7 @@ class FluxBB_Auth_Controller extends Base
 			$rules['email'] = 'required|email|unique:users,email';
 		}
 
-		$validation = Validator::make(Input::all(), $rules);
+		$validation = $this->make_validator(Input::all(), $rules);
 		if ($validation->fails())
 		{
 			return Redirect::to_action('fluxbb::auth@register')->with_input()->with_errors($validation);

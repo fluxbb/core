@@ -83,7 +83,7 @@ class FluxBB_Posting_Controller extends Base
 			// TODO: banned email
 		}
 
-		$validation = Validator::make(Input::all(), $rules);
+		$validation = $this->make_validator(Input::all(), $rules);
 		if ($validation->fails())
 		{
 			return Redirect::to_action('fluxbb::posting@reply', array($tid))->with_input()->with_errors($validation);
@@ -196,7 +196,7 @@ class FluxBB_Posting_Controller extends Base
 			// TODO: banned email
 		}
 
-		$validation = Validator::make(Input::all(), $rules);
+		$validation = $this->make_validator(Input::all(), $rules);
 		if ($validation->fails())
 		{
 			return Redirect::to_action('fluxbb::posting@topic', array($fid))->with_input()->with_errors($validation);

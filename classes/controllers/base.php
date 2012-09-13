@@ -26,7 +26,8 @@
 namespace fluxbb\Controllers;
 
 use Base_Controller,
-	fluxbb\Models\User;
+	fluxbb\Models\User,
+	Laravel\Validator;
 
 class Base extends Base_Controller
 {
@@ -35,6 +36,11 @@ class Base extends Base_Controller
 	public function user()
 	{
 		return User::current();
+	}
+
+	public function make_validator($attributes, $rules, $messages = array())
+	{
+		return Validator::make($attributes, $rules, $messages)->bundle('fluxbb');
 	}
 
 }
