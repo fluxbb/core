@@ -89,13 +89,12 @@ class FluxBB_Auth_Controller extends Base
 		$rules = array(
 			// TODO: Reserved chars, BBCode, IP + case-insensitivity for "Guest", censored words, name doesn't exist
 			'user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
-			// TODO: No password if o_regs_verify == 1
-			'password'	=> 'required|min:4|confirmed',
 		);
 		
 		// TODO: add check for banned email
 		if (Config::enabled('o_regs_verify')) // If email confirmation is enabled
 		{
+			$rules['password'] = 'required|min:4|confirmed';
 			$rules['email'] = 'required|email|confirmed|unique:users,email';
 		}
 		else
