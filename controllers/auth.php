@@ -94,11 +94,11 @@ class FluxBB_Auth_Controller extends Base
 		// If email confirmation is enabled
 		if (Config::enabled('o_regs_verify'))
 		{
-			$rules['password'] = 'required|min:4|confirmed';
 			$rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
 		}
 		else
 		{
+			$rules['password'] = 'required|min:4|confirmed';
 			$rules['email'] = 'required|email|unique:users,email';
 		}
 
