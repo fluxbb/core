@@ -87,8 +87,7 @@ class FluxBB_Auth_Controller extends Base
 	{
         // TODO: Add agreement to rules here!
 		$rules = array(
-			// TODO: Reserved chars, BBCode, IP + case-insensitivity for "Guest", censored words, name doesn't exist
-			'user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
+			'user'		=> 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',
 		);
 		
 		// If email confirmation is enabled
