@@ -1,7 +1,6 @@
 @layout('fluxbb::layout.main')
 
 @section('main')
-<?php print_r($errors); ?>
 <div id="regform" class="blockform">
 	<h2><span>{{ __('fluxbb::register.register') }}</span></h2>
 	<div class="box">
