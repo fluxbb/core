@@ -25,6 +25,7 @@
 
 use fluxbb\Controllers\Base,
 	fluxbb\Models\Config,
+	fluxbb\Models\Group,
 	fluxbb\Models\User;
 
 class FluxBB_Auth_Controller extends Base
@@ -109,7 +110,7 @@ class FluxBB_Auth_Controller extends Base
 
 		$user_data = array(
 			'username'			=> Input::get('user'),
-			'group_id'			=> 4, // TODO: ($pun_config['o_regs_verify'] == '0') ? $pun_config['o_default_user_group'] : PUN_UNVERIFIED
+			'group_id'			=> Config::enabled('o_regs_verify') ? Group::UNVERIFIED : Config::get('o_default_user_group'),
 			'password'			=> Input::get('password'),
 			'email'				=> Input::get('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),

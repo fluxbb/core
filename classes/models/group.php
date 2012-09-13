@@ -29,6 +29,14 @@ class Group extends Base
 {
 	public static $key = 'g_id';
 
+
+	const UNVERIFIED = 0;
+	const ADMIN = 1;
+	const MOD = 2;
+	const GUEST = 3;
+	const MEMBER = 4;
+
+
 	public function users()
 	{
 		return $this->has_many('fluxbb\\Models\\User');
