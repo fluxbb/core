@@ -43,11 +43,11 @@
 @endif
 			<div class="inform">
 				<fieldset>
-	@if (fluxbb\Models\Config::enabled('o_regs_verify'))
+@if (fluxbb\Models\Config::enabled('o_regs_verify'))
 					<legend>{{ __('fluxbb::prof_reg.legend_email2') }}</legend>
-	@else
+@else
 					<legend>{{ __('fluxbb::prof_reg.legend_email') }}</legend>
-	@endif
+@endif
 					<div class="infldset">
 @if (fluxbb\Models\Config::enabled('o_regs_verify'))
 					<p>{{ __('fluxbb::register.info_email') }}</p>
