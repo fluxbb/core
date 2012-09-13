@@ -106,7 +106,7 @@ class FluxBB_Auth_Controller extends Base
 		$validation = Validator::make(Input::all(), $rules);
 		if ($validation->fails())
 		{
-			return Redirect::to_action('fluxbb::auth@register')->with_errors($validation);
+			return Redirect::to_action('fluxbb::auth@register')->with_input()->with_errors($validation);
 		}
 
 		$user_data = array(
