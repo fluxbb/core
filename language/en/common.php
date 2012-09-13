@@ -66,7 +66,7 @@ return array(
 'image_link'						=>	'image', // This is displayed (i.e. <image>) instead of images when "Show images" is disabled in the profile
 'wrote'								=>	'wrote:', // For [quote]'s
 'mailer'							=>	'%s Mailer', // As in "MyForums Mailer" in the signature of outgoing emails
-'important_information'				=>	'Important information',
+'important'							=>	'Important information',
 'write_message_legend'				=>	'Write your message and submit',
 'previous'							=>	'Previous',
 'next'								=>	'Next',

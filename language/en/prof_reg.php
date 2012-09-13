@@ -3,7 +3,7 @@
 // Language definitions used in both profile.php and register.php
 return array(
 
-'email_legend'				=>	'Enter a valid email address',
+'legend_email'				=>	'Enter a valid email address',
 'email_legend_2'			=>	'Enter and confirm a valid email address',
 'localisation_legend'		=>	'Set your localisation options',
 'time_zone'					=>	'Time zone',
