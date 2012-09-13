@@ -4,7 +4,7 @@
 return array(
 
 'legend_email'				=>	'Enter a valid email address',
-'email_legend_2'			=>	'Enter and confirm a valid email address',
+'legend_email2'				=>	'Enter and confirm a valid email address',
 'localisation_legend'		=>	'Set your localisation options',
 'time_zone'					=>	'Time zone',
 'time_zone_info'			=>	'For the forum to display times correctly you must select your local time zone. If Daylight Savings Time is in effect you should also check the option provided which will advance times by 1 hour.',
