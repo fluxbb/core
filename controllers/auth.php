@@ -88,19 +88,19 @@ class FluxBB_Auth_Controller extends Base
         // TODO: Add agreement to rules here!
 		$rules = array(
 			// TODO: Reserved chars, BBCode, IP + case-insensitivity for "Guest", censored words, name doesn't exist
-			'req_user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
+			'user'		=> 'required|min:2|max:25|not_in:Guest,'.__('fluxbb::common.guest'),
 			// TODO: No password if o_regs_verify == 1
-			'req_password'	=> 'required|min:4|confirmed',
+			'password'	=> 'required|min:4|confirmed',
 		);
 		
 		// TODO: add check for banned email
-		if(Config::enabled('o_regs_verify')) // If email confirmation is enabled
+		if (Config::enabled('o_regs_verify')) // If email confirmation is enabled
 		{
-			$rules['req_email'] = 'required|email|confirmed|unique:users,email';
+			$rules['email'] = 'required|email|confirmed|unique:users,email';
 		}
 		else
 		{
-			$rules['req_email'] = 'required|email|unique:users,email';
+			$rules['email'] = 'required|email|unique:users,email';
 		}
 
 		$validation = Validator::make(Input::all(), $rules);
@@ -110,10 +110,10 @@ class FluxBB_Auth_Controller extends Base
 		}
 
 		$user_data = array(
-			'username'			=> Input::get('req_user'),
+			'username'			=> Input::get('user'),
 			'group_id'			=> 4, // TODO: ($pun_config['o_regs_verify'] == '0') ? $pun_config['o_default_user_group'] : PUN_UNVERIFIED
-			'password'			=> Input::get('req_password'),
-			'email'				=> Input::get('req_email'),
+			'password'			=> Input::get('password'),
+			'email'				=> Input::get('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),
 			'timezone'			=> Config::get('o_default_timezone'),
 			'dst'				=> Config::get('o_default_dst'),

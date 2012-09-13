@@ -18,7 +18,7 @@
 						{{-- TODO: Repopulate this with old values on errors --}}
 						<label class="required">
 							<strong>{{ __('fluxbb::common.username') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-							{{ Form::text('req_user', Input::old('req_user'), array('size' => 25, 'maxlength' => 25)) }}<br />
+							{{ Form::text('user', Input::old('user'), array('size' => 25, 'maxlength' => 25)) }}<br />
 						</label>
 					</div>
 				</fieldset>
@@ -30,11 +30,11 @@
 					<div class="infldset">
 						<label class="conl required">
 							<strong>{{ __('fluxbb::common.password') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-							{{ Form::password('req_password', array('size' => 16)) }}<br />
+							{{ Form::password('password', array('size' => 16)) }}<br />
 						</label>
 						<label class="conl required">
 							<strong>{{ __('fluxbb::prof_reg.confirm_pass') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-							{{ Form::password('req_password_confirmation', array('size' => 16)) }}<br />
+							{{ Form::password('password_confirmation', array('size' => 16)) }}<br />
 						</label>
 						<p class="clearb">{{ __('fluxbb::register.info_pass') }}</p>
 					</div>
@@ -54,12 +54,12 @@
 @endif
 						<label class="required">
 							<strong>{{ __('fluxbb::common.email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-							{{ Form::text('req_email', Input::old('req_email'), array('size' => 50, 'maxlength' => 80)) }}<br />
+							{{ Form::text('email', Input::old('email'), array('size' => 50, 'maxlength' => 80)) }}<br />
 						</label>
 @if (fluxbb\Models\Config::enabled('o_regs_verify'))
 						<label class="required">
 							<strong>{{ __('fluxbb::register.confirm_email') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-							{{ Form::text('req_email_confirmation', Input::old('req_email_confirmation'), array('size' => 50, 'maxlength' => 80)) }}<br />
+							{{ Form::text('email_confirmation', Input::old('email_confirmation'), array('size' => 50, 'maxlength' => 80)) }}<br />
 						</label>
 @endif
 					</div>
