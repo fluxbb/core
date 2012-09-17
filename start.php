@@ -31,17 +31,21 @@ Autoloader::namespaces(array(
 ));
 
 
-// Set up our custom session handler
-if (!Request::cli() && !Session::started())
+// Only initialize the session if FluxBB has been installed.
+if (!is_dir(Bundle::path('fluxbb_installer')))
 {
-	Session::extend('fluxbb::session', function()
+	// Set up our custom session handler
+	if (!Request::cli() && !Session::started())
 	{
-		return new fluxbb\Session\Driver(Laravel\Database::connection());
-	});
+		Session::extend('fluxbb::session', function()
+		{
+			return new fluxbb\Session\Driver(Laravel\Database::connection());
+		});
 
-	Config::set('session.driver', 'fluxbb::session');
+		Config::set('session.driver', 'fluxbb::session');
 
-	Session::load();	
+		Session::load();	
+	}
 }
 
 
@@ -53,6 +57,3 @@ require 'helpers/filters.php';
 
 // HTML helpers
 require 'helpers/html.php';
-
-// Custom validators
-require 'helpers/validator.php';
