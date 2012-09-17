@@ -25,7 +25,8 @@
 
 namespace fluxbb\Session;
 
-use Laravel\Session,
+use Laravel\Auth,
+	Laravel\Session,
 	Laravel\Session\Drivers\Database,
 	Laravel\Session\Drivers\Sweeper,
 	Laravel\Request,
