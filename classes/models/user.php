@@ -45,6 +45,12 @@ class User extends Base
 		return $this->has_many('fluxbb\\Models\\Post', 'poster_id');
 	}
 
+	public function sessions()
+	{
+		return $this->has_many('fluxbb\\Models\\Session');
+	}
+
+
 	public static function current()
 	{
 		static $current = null;
@@ -172,7 +178,7 @@ class User extends Base
 
 	public function is_online()
 	{
-		return false;
+		return isset($this->sessions);
 	}
 
 	public function has_url()
