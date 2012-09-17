@@ -65,8 +65,7 @@ class User extends Base
 
 	public function is_guest()
 	{
-		// FIXME: This should be a constant (was PUN_GUEST or something else) maybe
-		return $this->group_id == 3;
+		return $this->group_id == Group::GUEST;
 	}
 
 	public function is_member()
@@ -83,7 +82,7 @@ class User extends Base
 
 	public function is_admin()
 	{
-		return $this->group_id = 1;
+		return $this->group_id == Group::ADMIN;
 	}
 
 	public function is_moderator()
