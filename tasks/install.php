@@ -31,6 +31,13 @@ class FluxBB_Install_Task extends Task
 	
 	public function run($arguments = array())
 	{
+		$this->structure();
+
+		$this->seed();
+	}
+
+	public function structure()
+	{
 		foreach (new FilesystemIterator($this->path()) as $file)
 		{
 			$migration = basename($file->getFileName(), '.php');
