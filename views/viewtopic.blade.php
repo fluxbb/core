@@ -30,7 +30,11 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 			<div class="postbody">
 				<div class="postleft">
 					<dl>
+	@if (fluxbb\Models\User::current()->can_view_users())
+						<dt><strong>{{ HTML::link_to_action('fluxbb::user@profile', $post->poster->username, array($post->poster_id)) }}</strong></dt>
+	@else
 						<dt><strong>{{ e($post->poster->username) }}</strong></dt><!-- TODO: linkify if logged in and g_view_users is enabled for this group -->
+	@endif
 						<dd class="usertitle"><strong>{{ e($post->poster->title()) }}</strong></dd>
 	@if ($post->poster->has_avatar())
 						<dd class="postavatar">{{ HTML::avatar($post->poster) }}</dd>

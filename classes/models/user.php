@@ -196,6 +196,11 @@ class User extends Base
 		return !empty($this->admin_note);
 	}
 
+	public function can_view_users()
+	{
+		return $this->group->g_view_users == 1;
+	}
+
 	public function disp_topics()
 	{
 		return $this->disp_topics ?: Config::get('o_disp_topics_default');
