@@ -116,7 +116,7 @@ class FluxBB_Auth_Controller extends Base
 			'email_setting'		=> Config::get('o_default_email_setting'),
 			'timezone'			=> Config::get('o_default_timezone'),
 			'dst'				=> Config::get('o_default_dst'),
-			'language'			=> Config::get('o_default_language'),
+			'language'			=> Config::get('o_default_lang'),
 			'style'				=> Config::get('o_default_style'),
 			'registered'		=> Request::time(),
 			'registration_ip'	=> Request::ip(),
