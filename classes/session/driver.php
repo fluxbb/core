@@ -29,7 +29,8 @@ use Laravel\Session,
 	Laravel\Session\Drivers\Database,
 	Laravel\Session\Drivers\Sweeper,
 	Laravel\Request,
-	fluxbb\Models\Config;
+	fluxbb\Models\Config,
+	fluxbb\Models\User;
 
 class Driver extends Database implements Sweeper
 {
@@ -116,6 +117,17 @@ class Driver extends Database implements Sweeper
 		{
 			$delete_ids[] = $cur_session->id;
 			$result = $this->connection->table('users')->where_id($cur_session->user_id)->update(array('last_visit' => $cur_session->last_visit));
+		}
+
+		// Make sure logged-in users have no more than ten sessions alive
+		if (Auth::check())
+		{
+			$uid = User::current()->id;
+
+			$session_ids = $this->table()->where_user_id($uid)->order_by('last_visit', 'desc')->lists('id');
+			$prune_ids = array_slice($session_ids, 10);
+
+			$delete_ids = array_merge($delete_ids, $prune_ids);
 		}
 
 		if (!empty($delete_ids))
