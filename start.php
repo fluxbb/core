@@ -57,3 +57,6 @@ require 'helpers/filters.php';
 
 // HTML helpers
 require 'helpers/html.php';
+
+// Validators
+require 'helpers/validator.php';
