@@ -23,36 +23,14 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-define('FLUXBB_VERSION', '2.0-alpha1');
+namespace fluxbb;
 
-
-Autoloader::namespaces(array(
-	'fluxbb'	=> __DIR__ . DS . 'classes',
-));
-
-
-// Set up our custom session handler
-if (!Request::cli() && !Session::started())
+class Core
 {
-	Session::extend('fluxbb::session', function()
+
+	public static function installed()
 	{
-		return new fluxbb\Session\Driver(Laravel\Database::connection());
-	});
+		return is_dir(path('app').'config/fluxbb');
+	}
 
-	Config::set('session.driver', 'fluxbb::session');
-
-	Session::load();	
 }
-
-
-// View composers
-require 'helpers/composers.php';
-
-// Route filters
-require 'helpers/filters.php';
-
-// HTML helpers
-require 'helpers/html.php';
-
-// Validators
-require 'helpers/validator.php';

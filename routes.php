@@ -23,15 +23,28 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-Route::get('(:bundle)/forum/(:num)', 'fluxbb::home@forum');
-Route::get('(:bundle)/topic/(:num)', 'fluxbb::home@topic');
-Route::get('(:bundle)/post/(:num)', 'fluxbb::home@post');
-Route::get('(:bundle)', 'fluxbb::home@index');
-Route::any('(:bundle)/profile/(:num)/(:any?)', array('as' => 'profile', 'uses' => 'fluxbb::user@profile'));
-Route::get('(:bundle)/user/list', 'fluxbb::user@list');
-Route::any('(:bundle)/register', 'fluxbb::auth@register');
-Route::any('(:bundle)/login', 'fluxbb::auth@login');
-Route::get('(:bundle)/logout', 'fluxbb::auth@logout');
-Route::get('(:bundle)/search', 'fluxbb::search@index');
-Route::any('(:bundle)/topic/(:num)/reply', 'fluxbb::posting@reply');
-Route::any('(:bundle)/forum/(:num)/new_topic', 'fluxbb::posting@topic');
+Route::group(array('before' => 'fluxbb::is_installed'), function()
+{
+	Route::get('(:bundle)/forum/(:num)', 'fluxbb::home@forum');
+	Route::get('(:bundle)/topic/(:num)', 'fluxbb::home@topic');
+	Route::get('(:bundle)/post/(:num)', 'fluxbb::home@post');
+	Route::get('(:bundle)', 'fluxbb::home@index');
+	Route::any('(:bundle)/profile/(:num)/(:any?)', array('as' => 'profile', 'uses' => 'fluxbb::user@profile'));
+	Route::get('(:bundle)/user/list', 'fluxbb::user@list');
+	Route::any('(:bundle)/register', 'fluxbb::auth@register');
+	Route::any('(:bundle)/login', 'fluxbb::auth@login');
+	Route::get('(:bundle)/logout', 'fluxbb::auth@logout');
+	Route::get('(:bundle)/search', 'fluxbb::search@index');
+	Route::any('(:bundle)/topic/(:num)/reply', 'fluxbb::posting@reply');
+	Route::any('(:bundle)/forum/(:num)/new_topic', 'fluxbb::posting@topic');
+});
+
+
+Route::filter('fluxbb::is_installed', function()
+{
+	if (!fluxbb\Core::installed())
+	{
+		return View::make('fluxbb::not_installed')
+			->with('has_installer', is_dir(Bundle::path('fluxbb_installer')));
+	}
+});
