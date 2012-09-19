@@ -24,7 +24,13 @@
  */
 
 use fluxbb\CLI\Task,
-	fluxbb\Models;
+	fluxbb\Models\Category,
+	fluxbb\Models\Config,
+	fluxbb\Models\Forum,
+	fluxbb\Models\Group,
+	fluxbb\Models\Post,
+	fluxbb\Models\Topic,
+	fluxbb\Models\User;
 
 class FluxBB_Install_Task extends Task
 {
@@ -36,9 +42,51 @@ class FluxBB_Install_Task extends Task
 		$this->seed();
 	}
 
-	public function structure()
+	public function database($arguments = array())
 	{
-		foreach (new FilesystemIterator($this->path()) as $file)
+		if (count($arguments) < 4)
+		{
+			throw new BadMethodCallException('At least four arguments expected.');
+		}
+
+		$credentials = explode(':', $arguments[3], 2);
+		$username = $credentials[0];
+		$password = isset($credentials[1]) ? $credentials[1] : '';
+
+		$prefix = isset($arguments[4]) ? $arguments[4] : '';
+
+		$conf = array(
+			'default'		=> 'fluxbb_'.$arguments[0],
+			'connections'	=> array(
+				'fluxbb_'.$arguments[0]	=> array(
+					'driver'	=> $arguments[0],
+					'host'		=> $arguments[1],
+					'database'	=> $arguments[2],
+					'username'	=> $username,
+					'password'	=> $password,
+					'charset'	=> 'utf8',
+					'prefix'	=> $prefix,
+				),
+			),
+		);
+
+		$config = '<?php'."\n\n".'return '.var_export($conf, true).';'."\n";
+
+		$conf_dir = path('app').'config/fluxbb/';
+		$conf_file = $conf_dir.'database.php';
+
+		$dir_exists = File::mkdir($conf_dir);
+		$file_exists = File::put($conf_dir.'database.php', $config);
+
+		if (!$dir_exists || !$file_exists)
+		{
+			throw new RuntimeException('Unable to write config file. Please create the file "'.$conf_file.'" with the following contents:'."\n\n".$config);
+		}
+	}
+
+	public function structure($arguments = array())
+	{
+		foreach (new FilesystemIterator($this->migration_path()) as $file)
 		{
 			$migration = basename($file->getFileName(), '.php');
 
@@ -52,26 +100,43 @@ class FluxBB_Install_Task extends Task
 		}
 	}
 
-	public function seed($arguments = array())
+	public function admin($arguments = array())
 	{
-		$this->seed_groups();
+		if (count($arguments) != 3)
+		{
+			throw new BadMethodCallException('Exactly three arguments expected.');
+		}
 
-		$this->seed_users();
+		$username = $arguments[0];
+		$password = $arguments[1];
+		$email = $arguments[2];
 
-		$this->seed_config();
-
-		$this->seed_content();
-	}
-
-	protected function seed_groups()
-	{
-		// TODO: Can we get rid of these hard-coded IDs?
+		// Create guest user
+		$guest_user = User::create(array(
+			'id'		=> User::GUEST,
+			'username'	=> __('fluxbb::seed_data.guest'),
+			'password'	=> __('fluxbb::seed_data.guest'),
+			'email'		=> __('fluxbb::seed_data.guest'),
+		));
 		
+		// Create admin user
+		$admin_user = User::create(array(
+			'username'			=> $username,
+			'password'			=> $password,
+			'email'				=> $email,
+			'language'			=> Laravel\Config::get('application.language'),
+			'style'				=> 'Air',
+			'last_post'			=> Request::time(),
+			'registered'		=> Request::time(),
+			'registration_ip'	=> Request::ip(),
+			'last_visit'		=> Request::time(),
+		));
+
 		// Insert the four preset groups
-		Group::create(array(
-			'g_id'						=> 1,
-			'g_title'					=> __('fluxbb_installer::seed_data.administrators'),
-			'g_user_title'				=> __('fluxbb_installer::seed_data.administrator'),
+		$admin_group = Group::create(array(
+			'g_id'						=> Group::ADMIN,
+			'g_title'					=> __('fluxbb::seed_data.administrators'),
+			'g_user_title'				=> __('fluxbb::seed_data.administrator'),
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
 			'g_moderator'				=> 0,
@@ -97,10 +162,10 @@ class FluxBB_Install_Task extends Task
 			'g_report_flood'			=> 0,
 		));
 
-		Group::create(array(
-			'g_id'						=> 2,
-			'g_title'					=> __('fluxbb_installer::seed_data.moderators'),
-			'g_user_title'				=> __('fluxbb_installer::seed_data.moderator'),
+		$moderator_group = Group::create(array(
+			'g_id'						=> Group::MOD,
+			'g_title'					=> __('fluxbb::seed_data.moderators'),
+			'g_user_title'				=> __('fluxbb::seed_data.moderator'),
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
 			'g_moderator'				=> 1,
@@ -126,9 +191,9 @@ class FluxBB_Install_Task extends Task
 			'g_report_flood'			=> 0,
 		));
 
-		Group::create(array(
-			'g_id'						=> 3,
-			'g_title'					=> __('fluxbb_installer::seed_data.guests'),
+		$guest_group = Group::create(array(
+			'g_id'						=> Group::GUEST,
+			'g_title'					=> __('fluxbb::seed_data.guests'),
 			'g_user_title'				=> null,
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
@@ -155,9 +220,9 @@ class FluxBB_Install_Task extends Task
 			'g_report_flood'			=> 0,
 		));
 
-		Group::create(array(
-			'g_id'						=> 4,
-			'g_title'					=> __('fluxbb_installer::seed_data.members'),
+		$member_group = Group::create(array(
+			'g_id'						=> Group::MEMBER,
+			'g_title'					=> __('fluxbb::seed_data.members'),
 			'g_user_title'				=> null,
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
@@ -183,35 +248,16 @@ class FluxBB_Install_Task extends Task
 			'g_email_flood'				=> 60,
 			'g_report_flood'			=> 60,
 		));
+
+		$guest_group->users()->insert($guest_user);
+		$admin_group->users()->insert($admin_user);
 	}
 
-	protected function seed_users()
+	public function board($arguments = array())
 	{
-		// Insert guest and first admin user
-		User::create(array(
-			'group_id'	=> 3,
-			'username'	=> __('fluxbb_installer::seed_data.guest'),
-			'password'	=> __('fluxbb_installer::seed_data.guest'),
-			'email'		=> __('fluxbb_installer::seed_data.guest'),
-		));
+		$title = isset($arguments[0]) ? $arguments[0] : __('fluxbb::seed_data.board_title');
+		$desc = isset($arguments[1]) ? $arguments[1] : __('fluxbb::seed_data.board_desc');
 
-		User::create(array(
-			'group_id'			=> 1,
-			'username'			=> 'username',
-			'password'			=> 'password1',
-			'email'				=> 'email',
-			'language'			=> 'en',
-			'style'				=> 'Air',
-			'num_posts'			=> 1,
-			'last_post'			=> Request::time(),
-			'registered'		=> Request::time(),
-			'registration_ip'	=> Request::ip(),
-			'last_visit'		=> Request::time(),
-		));
-	}
-
-	protected function seed_config()
-	{
 		// Enable/disable avatars depending on file_uploads setting in PHP configuration
 		$avatars = in_array(strtolower(@ini_get('file_uploads')), array('on', 'true', '1')) ? 1 : 0;
 
@@ -219,7 +265,7 @@ class FluxBB_Install_Task extends Task
 		$config = array(
 			'o_cur_version'				=> FLUXBB_VERSION,
 			'o_board_title'				=> $title,
-			'o_board_desc'				=> $description,
+			'o_board_desc'				=> $desc,
 			'o_default_timezone'		=> 0,
 			'o_time_format'				=> 'H:i:s',
 			'o_date_format'				=> 'Y-m-d',
@@ -233,8 +279,8 @@ class FluxBB_Install_Task extends Task
 			'o_smilies'					=> 1,
 			'o_smilies_sig'				=> 1,
 			'o_make_links'				=> 1,
-			'o_default_lang'			=> $default_lang,
-			'o_default_style'			=> $default_style,
+			'o_default_lang'			=> Laravel\Config::get('application.language'),
+			'o_default_style'			=> 'Air', // FIXME
 			'o_default_user_group'		=> 4,
 			'o_topic_review'			=> 15,
 			'o_disp_topics_default'		=> 30,
@@ -252,16 +298,15 @@ class FluxBB_Install_Task extends Task
 			'o_report_method'			=> 0,
 			'o_regs_report'				=> 0,
 			'o_default_email_setting'	=> 1,
-			'o_mailing_list'			=> $email,
+			'o_mailing_list'			=> 'email', // FIXME
 			'o_avatars'					=> $avatars,
 			'o_avatars_dir'				=> 'img/avatars',
 			'o_avatars_width'			=> 60,
 			'o_avatars_height'			=> 60,
 			'o_avatars_size'			=> 10240,
 			'o_search_all_forums'		=> 1,
-			'o_base_url'				=> $base_url,
-			'o_admin_email'				=> $email,
-			'o_webmaster_email'			=> $email,
+			'o_admin_email'				=> 'email', // FIXME
+			'o_webmaster_email'			=> 'email', // FIXME
 			'o_forum_subscriptions'		=> 1,
 			'o_topic_subscriptions'		=> 1,
 			'o_smtp_host'				=> NULL,
@@ -271,11 +316,11 @@ class FluxBB_Install_Task extends Task
 			'o_regs_allow'				=> 1,
 			'o_regs_verify'				=> 0,
 			'o_announcement'			=> 0,
-			'o_announcement_message'	=> __('fluxbb_installer::seed_data.announcement'),
+			'o_announcement_message'	=> __('fluxbb::seed_data.announcement'),
 			'o_rules'					=> 0,
-			'o_rules_message'			=> __('fluxbb_installer::seed_data.rules'),
+			'o_rules_message'			=> __('fluxbb::seed_data.rules'),
 			'o_maintenance'				=> 0,
-			'o_maintenance_message'		=> __('fluxbb_installer::seed_data.maintenance_message'),
+			'o_maintenance_message'		=> __('fluxbb::seed_data.maintenance_message'),
 			'o_default_dst'				=> 0,
 			'o_feed_type'				=> 2,
 			'o_feed_ttl'				=> 0,
@@ -301,54 +346,7 @@ class FluxBB_Install_Task extends Task
 		Config::save();
 	}
 
-	protected function seed_content()
-	{
-		// Insert some default content
-		Category::create(array(
-			'id'			=> 1,
-			'cat_name'		=> __('fluxbb_installer::seed_data.test_category'),
-			'disp_position'	=> 1,
-		));
-
-		Forum::create(array(
-			'id'			=> 1,
-			'forum_name'	=> __('fluxbb_installer::seed_data.test_forum'),
-			'forum_desc'	=> __('fluxbb_installer::seed_data.test_forum_desc'),
-			'num_topics'	=> 1,
-			'num_posts'		=> 1,
-			'last_post'		=> Request::time(),
-			'last_post_id'	=> 1,
-			'last_poster'	=> 'admin', // FIXME!!!
-			'disp_position'	=> 1,
-			'cat_id'		=> 1,
-		));
-
-		Topic::create(array(
-			'id'			=> 1,
-			'poster'		=> 'admin', // FIXME!!!
-			'subject'		=> __('fluxbb_installer::seed_data.test_post'),
-			'posted'		=> Request::time(),
-			'first_post_id'	=> 1,
-			'last_post'		=> Request::time(),
-			'last_post_id'	=> 1,
-			'last_poster'	=> 'admin', // FIXME!!!
-			'forum_id'		=> 1,
-		));
-
-		Post::create(array(
-			'id'		=> 1,
-			'poster'	=> 'admin', // FIXME!!!
-			'poster_id'	=> 2,
-			'poster_ip'	=> Request::ip(),
-			'message'	=> __('fluxbb_installer::seed_data.message'),
-			'posted'	=> Request::time(),
-			'topic_id'	=> 1,
-		));
-
-		// TODO: Update search index, hehe. Is that a hook? (event)
-	}
-
-	protected function path()
+	protected function migration_path()
 	{
 		return Bundle::path('fluxbb').'migrations'.DS.'install'.DS;
 	}

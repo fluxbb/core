@@ -30,6 +30,10 @@ use Hash;
 
 class User extends Base
 {
+
+	const GUEST = 1;
+
+
 	public function group()
 	{
 		return $this->belongs_to('fluxbb\\Models\\Group');
@@ -59,7 +63,7 @@ class User extends Base
 		{
 			if (!isset($current))
 			{
-				$current = static::find(1);
+				$current = static::find(static::GUEST);
 			}
 
 			return $current;
@@ -71,7 +75,7 @@ class User extends Base
 
 	public function is_guest()
 	{
-		return $this->group_id == Group::GUEST;
+		return $this->id == static::GUEST;
 	}
 
 	public function is_member()
