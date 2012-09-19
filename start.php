@@ -31,6 +31,11 @@ Autoloader::namespaces(array(
 ));
 
 
+if (fluxbb\Core::installed())
+{
+	Request::set_env('fluxbb');
+}
+
 // Set up our custom session handler
 if (!Request::cli() && !Session::started())
 {
