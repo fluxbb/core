@@ -100,39 +100,9 @@ class FluxBB_Install_Task extends Task
 		}
 	}
 
-	public function admin($arguments = array())
+	public function groups($arguments = array())
 	{
-		if (count($arguments) != 3)
-		{
-			throw new BadMethodCallException('Exactly three arguments expected.');
-		}
-
-		$username = $arguments[0];
-		$password = $arguments[1];
-		$email = $arguments[2];
-
-		// Create guest user
-		$guest_user = User::create(array(
-			'id'		=> User::GUEST,
-			'username'	=> __('fluxbb::seed_data.guest'),
-			'password'	=> __('fluxbb::seed_data.guest'),
-			'email'		=> __('fluxbb::seed_data.guest'),
-		));
-		
-		// Create admin user
-		$admin_user = User::create(array(
-			'username'			=> $username,
-			'password'			=> $password,
-			'email'				=> $email,
-			'language'			=> Laravel\Config::get('application.language'),
-			'style'				=> 'Air',
-			'last_post'			=> Request::time(),
-			'registered'		=> Request::time(),
-			'registration_ip'	=> Request::ip(),
-			'last_visit'		=> Request::time(),
-		));
-
-		// Insert the four preset groups
+		// Insert the three preset groups
 		$admin_group = Group::create(array(
 			'g_id'						=> Group::ADMIN,
 			'g_title'					=> __('fluxbb::seed_data.administrators'),
@@ -191,35 +161,6 @@ class FluxBB_Install_Task extends Task
 			'g_report_flood'			=> 0,
 		));
 
-		$guest_group = Group::create(array(
-			'g_id'						=> Group::GUEST,
-			'g_title'					=> __('fluxbb::seed_data.guests'),
-			'g_user_title'				=> null,
-			'g_promote_min_posts'		=> 0,
-			'g_promote_next_group'		=> 0,
-			'g_moderator'				=> 0,
-			'g_mod_edit_users'			=> 0,
-			'g_mod_rename_users'		=> 0,
-			'g_mod_change_passwords'	=> 0,
-			'g_mod_ban_users'			=> 0,
-			'g_read_board'				=> 1,
-			'g_view_users'				=> 1,
-			'g_post_replies'			=> 0,
-			'g_post_topics'				=> 0,
-			'g_edit_posts'				=> 0,
-			'g_delete_posts'			=> 0,
-			'g_delete_topics'			=> 0,
-			'g_post_links'				=> 0,
-			'g_set_title'				=> 0,
-			'g_search'					=> 1,
-			'g_search_users'			=> 1,
-			'g_send_email'				=> 0,
-			'g_post_flood'				=> 60,
-			'g_search_flood'			=> 30,
-			'g_email_flood'				=> 0,
-			'g_report_flood'			=> 0,
-		));
-
 		$member_group = Group::create(array(
 			'g_id'						=> Group::MEMBER,
 			'g_title'					=> __('fluxbb::seed_data.members'),
@@ -248,24 +189,52 @@ class FluxBB_Install_Task extends Task
 			'g_email_flood'				=> 60,
 			'g_report_flood'			=> 60,
 		));
+	}
 
-		$guest_group->users()->insert($guest_user);
+	public function admin($arguments = array())
+	{
+		if (count($arguments) != 3)
+		{
+			throw new BadMethodCallException('Exactly three arguments expected.');
+		}
+
+		$username = $arguments[0];
+		$password = $arguments[1];
+		$email = $arguments[2];
+		
+		// Create admin user
+		$admin_user = User::create(array(
+			'username'			=> $username,
+			'password'			=> $password,
+			'email'				=> $email,
+			'language'			=> Laravel\Config::get('application.language'),
+			'style'				=> 'Air',
+			'last_post'			=> Request::time(),
+			'registered'		=> Request::time(),
+			'registration_ip'	=> Request::ip(),
+			'last_visit'		=> Request::time(),
+		));
+
+		$admin_group = Group::find(Group::ADMIN);
+
+		if (is_null($admin_group))
+		{
+			throw new LogicException('Could not find admin group.');
+		}
+
 		$admin_group->users()->insert($admin_user);
 	}
 
-	public function board($arguments = array())
+	public function config($arguments = array())
 	{
-		$title = isset($arguments[0]) ? $arguments[0] : __('fluxbb::seed_data.board_title');
-		$desc = isset($arguments[1]) ? $arguments[1] : __('fluxbb::seed_data.board_desc');
-
 		// Enable/disable avatars depending on file_uploads setting in PHP configuration
 		$avatars = in_array(strtolower(@ini_get('file_uploads')), array('on', 'true', '1')) ? 1 : 0;
 
 		// Insert config data
 		$config = array(
 			'o_cur_version'				=> FLUXBB_VERSION,
-			'o_board_title'				=> $title,
-			'o_board_desc'				=> $desc,
+			'o_board_title'				=> __('fluxbb::seed_data.board_title'),
+			'o_board_desc'				=> __('fluxbb::seed_data.board_desc'),
 			'o_default_timezone'		=> 0,
 			'o_time_format'				=> 'H:i:s',
 			'o_date_format'				=> 'Y-m-d',
@@ -342,6 +311,19 @@ class FluxBB_Install_Task extends Task
 		{
 			Config::set($conf_name, $conf_value);
 		}
+
+		Config::save();
+	}
+
+	public function board($arguments = array())
+	{
+		if (count($arguments) != 2)
+		{
+			throw new BadMethodCallException('Exactly two arguments expected.');
+		}
+
+		Config::set('o_board_title', $arguments[0]);
+		Config::set('o_board_desc', $arguments[1]);
 
 		Config::save();
 	}
