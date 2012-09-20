@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -16,7 +16,9 @@
 <pre>
 php artisan fluxbb::install:database mysql host dbname user:pass prefix
 php artisan --env=fluxbb fluxbb::install:structure
+php artisan --env=fluxbb fluxbb::install:config
 php artisan --env=fluxbb fluxbb::install:board "Board name" "Board description"
+php artisan --env=fluxbb fluxbb::install:groups
 php artisan --env=fluxbb fluxbb::install:admin username password email
 </pre>
 @endif
