@@ -37,12 +37,10 @@ class FluxBB_Install_Task extends Task
 	
 	public function run($arguments = array())
 	{
-		$this->structure();
-
-		$this->seed();
+		// Nothing here. Move on.
 	}
 
-	public function database($arguments = array())
+	public function config($arguments = array())
 	{
 		if (count($arguments) < 4)
 		{
@@ -84,7 +82,62 @@ class FluxBB_Install_Task extends Task
 		}
 	}
 
-	public function structure($arguments = array())
+	public function database($arguments = array())
+	{
+		$this->structure();
+
+		$this->seed_groups();
+		$this->seed_config();
+	}
+
+	public function admin($arguments = array())
+	{
+		if (count($arguments) != 3)
+		{
+			throw new BadMethodCallException('Exactly three arguments expected.');
+		}
+
+		$username = $arguments[0];
+		$password = $arguments[1];
+		$email = $arguments[2];
+		
+		// Create admin user
+		$admin_user = User::create(array(
+			'username'			=> $username,
+			'password'			=> $password,
+			'email'				=> $email,
+			'language'			=> Laravel\Config::get('application.language'),
+			'style'				=> 'Air',
+			'last_post'			=> Request::time(),
+			'registered'		=> Request::time(),
+			'registration_ip'	=> Request::ip(),
+			'last_visit'		=> Request::time(),
+		));
+
+		$admin_group = Group::find(Group::ADMIN);
+
+		if (is_null($admin_group))
+		{
+			throw new LogicException('Could not find admin group.');
+		}
+
+		$admin_group->users()->insert($admin_user);
+	}
+
+	public function board($arguments = array())
+	{
+		if (count($arguments) != 2)
+		{
+			throw new BadMethodCallException('Exactly two arguments expected.');
+		}
+
+		Config::set('o_board_title', $arguments[0]);
+		Config::set('o_board_desc', $arguments[1]);
+
+		Config::save();
+	}
+
+	protected function structure()
 	{
 		foreach (new FilesystemIterator($this->migration_path()) as $file)
 		{
@@ -100,7 +153,7 @@ class FluxBB_Install_Task extends Task
 		}
 	}
 
-	public function groups($arguments = array())
+	protected function seed_groups()
 	{
 		// Insert the three preset groups
 		$admin_group = Group::create(array(
@@ -191,41 +244,7 @@ class FluxBB_Install_Task extends Task
 		));
 	}
 
-	public function admin($arguments = array())
-	{
-		if (count($arguments) != 3)
-		{
-			throw new BadMethodCallException('Exactly three arguments expected.');
-		}
-
-		$username = $arguments[0];
-		$password = $arguments[1];
-		$email = $arguments[2];
-		
-		// Create admin user
-		$admin_user = User::create(array(
-			'username'			=> $username,
-			'password'			=> $password,
-			'email'				=> $email,
-			'language'			=> Laravel\Config::get('application.language'),
-			'style'				=> 'Air',
-			'last_post'			=> Request::time(),
-			'registered'		=> Request::time(),
-			'registration_ip'	=> Request::ip(),
-			'last_visit'		=> Request::time(),
-		));
-
-		$admin_group = Group::find(Group::ADMIN);
-
-		if (is_null($admin_group))
-		{
-			throw new LogicException('Could not find admin group.');
-		}
-
-		$admin_group->users()->insert($admin_user);
-	}
-
-	public function config($arguments = array())
+	protected function seed_config()
 	{
 		// Enable/disable avatars depending on file_uploads setting in PHP configuration
 		$avatars = in_array(strtolower(@ini_get('file_uploads')), array('on', 'true', '1')) ? 1 : 0;
@@ -311,19 +330,6 @@ class FluxBB_Install_Task extends Task
 		{
 			Config::set($conf_name, $conf_value);
 		}
-
-		Config::save();
-	}
-
-	public function board($arguments = array())
-	{
-		if (count($arguments) != 2)
-		{
-			throw new BadMethodCallException('Exactly two arguments expected.');
-		}
-
-		Config::set('o_board_title', $arguments[0]);
-		Config::set('o_board_desc', $arguments[1]);
 
 		Config::save();
 	}
