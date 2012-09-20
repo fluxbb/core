@@ -67,7 +67,7 @@ class Forum extends Base
 	{
 		$ids = ForumPerms::forums_for_group($group_id);
 
-		return static::where_in('id', $ids)->get();
+		return empty($ids) ? array() : static::where_in('id', $ids)->get();
 	}
 
 	public function num_topics()
