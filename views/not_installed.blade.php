@@ -14,11 +14,9 @@
 @else
 	<p>As you do not seem to have the graphical installer in your system, you can install FluxBB by running the following commands from the command line:</p>
 <pre>
-php artisan fluxbb::install:database mysql host dbname user:pass prefix
-php artisan --env=fluxbb fluxbb::install:structure
-php artisan --env=fluxbb fluxbb::install:config
+php artisan fluxbb::install:config mysql host dbname user:pass prefix
+php artisan --env=fluxbb fluxbb::install:database
 php artisan --env=fluxbb fluxbb::install:board "Board name" "Board description"
-php artisan --env=fluxbb fluxbb::install:groups
 php artisan --env=fluxbb fluxbb::install:admin username password email
 </pre>
 @endif
