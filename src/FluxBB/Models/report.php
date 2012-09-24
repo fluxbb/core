@@ -22,15 +22,35 @@
  * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
+ 
+namespace FluxBB\Models;
 
-namespace fluxbb\Models;
-
-class Ban extends Base
+class Report extends Base
 {
 
-	public function creator()
+	public function post()
 	{
-		return $this->belongs_to('fluxbb\\Models\\User', 'ban_creator');
+		return $this->belongs_to('FluxBB\\Models\\Post');
+	}
+
+	public function topic()
+	{
+		return $this->belongs_to('FluxBB\\Models\\Topic');
+	}
+
+	public function forum()
+	{
+		return $this->belongs_to('FluxBB\\Models\\Forum');
+	}
+
+	public function reporter()
+	{
+		return $this->belongs_to('FluxBB\\Models\\User', 'reported_by');
+	}
+
+	public function zapper()
+	{
+		return $this->belongs_to('FluxBB\\Models\\User', 'zapped_by');
 	}
 
 }

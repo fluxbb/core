@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
+namespace FluxBB\Models;
 
 use Laravel\Cache;
 
@@ -32,24 +32,24 @@ class Forum extends Base
 
 	public function topics()
 	{
-		return $this->has_many('fluxbb\\Models\\Topic');
+		return $this->has_many('FluxBB\\Models\\Topic');
 	}
 
 	public function subscriptions()
 	{
-		return $this->has_many('fluxbb\\Models\\ForumSubscription');
+		return $this->has_many('FluxBB\\Models\\ForumSubscription');
 	}
 
 	public function subscription()
 	{
-		return $this->has_one('fluxbb\\Models\\ForumSubscription')
+		return $this->has_one('FluxBB\\Models\\ForumSubscription')
 			->where_user_id(User::current()->id);
 	}
 
 	public function perms()
 	{
 		// TODO: has_one() with group condition?
-		return $this->has_many('fluxbb\\Models\\ForumPerms')
+		return $this->has_many('FluxBB\\Models\\ForumPerms')
 			->where_group_id(User::current()->id)
 			->where_null('read_forum')
 			->or_where('read_forum', '=', '1');
@@ -58,7 +58,7 @@ class Forum extends Base
 
 	public static function ids()
 	{
-		return Cache::remember('fluxbb.forum_ids', function() {
+		return Cache::remember('FluxBB.forum_ids', function() {
 			return Forum::lists('id');
 		}, 7 * 24 * 60);
 	}

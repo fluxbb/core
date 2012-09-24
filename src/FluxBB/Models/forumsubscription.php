@@ -23,10 +23,10 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
+namespace FluxBB\Models;
 
-class TopicSubscription extends Base
+class ForumSubscription extends Base
 {
-	public static $table = 'topic_subscriptions';
+	public static $table = 'forum_subscriptions';
 
 }

@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
+namespace FluxBB\Models;
 
 use Cache;
 use DB;

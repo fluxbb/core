@@ -22,11 +22,15 @@
  * @copyright	Copyright (c) 2008-2012 FluxBB (http://fluxbb.org)
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
- 
-namespace fluxbb\Models;
 
-class Rank extends Base
+namespace FluxBB\Models;
+
+class Session extends Base
 {
 
+	public function user()
+	{
+		return $this->belongs_to('FluxBB\\Models\\User');
+	}
 
 }

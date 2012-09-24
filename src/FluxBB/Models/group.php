@@ -23,31 +23,23 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
+namespace FluxBB\Models;
 
-class Post extends Base
+class Group extends Base
 {
+	public static $key = 'g_id';
 
-	public function topic()
-	{
-		return $this->belongs_to('fluxbb\\Models\\Topic');
-	}
 
-	public function poster()
-	{
-		return $this->belongs_to('fluxbb\\Models\\User', 'poster_id');
-	}
+	const UNVERIFIED = 0;
+	const ADMIN = 1;
+	const MOD = 2;
+	const GUEST = 3;
+	const MEMBER = 4;
 
-	public function message()
-	{
-		// TODO: Apply parse_message() with $this->hide_smilies as parameter
-		// TODO2: Actually, the parsing might have to be moved to another method, as that's presentation code
-		return $this->message;
-	}
 
-	public function was_edited()
+	public function users()
 	{
-		return !empty($this->edited);
+		return $this->has_many('FluxBB\\Models\\User');
 	}
 
 }

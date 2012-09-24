@@ -23,11 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
-
-use Eloquent;
-
-class Base extends Eloquent
-{
-	public static $timestamps = false;
-}
+include __DIR__.'/composers.php';
+include __DIR__.'/filters.php';
+include __DIR__.'/html.php';
+include __DIR__.'/validators.php';

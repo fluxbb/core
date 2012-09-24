@@ -23,14 +23,11 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
+namespace FluxBB\Models;
 
-class Session extends Base
+use Eloquent;
+
+class Base extends Eloquent
 {
-
-	public function user()
-	{
-		return $this->belongs_to('fluxbb\\Models\\User');
-	}
-
+	public static $timestamps = false;
 }

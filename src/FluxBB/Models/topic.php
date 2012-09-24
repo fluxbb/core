@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb\Models;
+namespace FluxBB\Models;
 
 use Auth;
 
@@ -32,17 +32,17 @@ class Topic extends Base
 
 	public function posts()
 	{
-		return $this->has_many('fluxbb\\Models\\Post');
+		return $this->has_many('FluxBB\\Models\\Post');
 	}
 
 	public function forum()
 	{
-		return $this->belongs_to('fluxbb\\Models\\Forum');
+		return $this->belongs_to('FluxBB\\Models\\Forum');
 	}
 
 	public function subscription()
 	{
-		return $this->has_one('fluxbb\\Models\\TopicSubscription')
+		return $this->has_one('FluxBB\\Models\\TopicSubscription')
 			->where_user_id(User::current()->id);
 	}
 
