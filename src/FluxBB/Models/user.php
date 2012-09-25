@@ -25,8 +25,8 @@
 
 namespace FluxBB\Models;
 
-use Auth;
-use Hash;
+use Auth,
+	Hash;
 
 class User extends Base
 {

@@ -25,8 +25,8 @@
 
 namespace FluxBB\Models;
 
-use Cache;
-use DB;
+use Cache,
+	DB;
 
 class Config
 {

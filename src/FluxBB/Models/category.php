@@ -25,7 +25,7 @@
 
 namespace FluxBB\Models;
 
-use Laravel\Cache;
+use Cache;
 
 class Category extends Base
 {
@@ -61,7 +61,8 @@ class Category extends Base
 		$categories = static::all();
 
 		$forums = Forum::allForGroup($group_id);
-		usort($forums, function($forum1, $forum2) {
+		
+		/*usort($forums, function($forum1, $forum2) {
 			if ($forum1->cat_id == $forum2->cat_id)
 			{
 				// Same category: forum's disp_position value decides
@@ -72,7 +73,7 @@ class Category extends Base
 				// ...else the categories' disp_position values are compared
 				return $categories[$forum1->cat_id]->disp_position - $categories[$forum2->cat_id]->disp_position;
 			}
-		});
+		});*/ // TODO: Handle sorting!
 		
 		// FIXME: Yuck!!!
 		$forums_by_cat = array();

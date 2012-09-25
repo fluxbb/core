@@ -25,7 +25,7 @@
 
 namespace FluxBB\Models;
 
-use Laravel\Cache;
+use Cache;
 
 class Forum extends Base
 {
@@ -61,9 +61,9 @@ class Forum extends Base
 
 	public static function ids()
 	{
-		return Cache::remember('FluxBB.forum_ids', function() {
+		return Cache::remember('FluxBB.forum_ids', 7 * 24 * 60, function() {
 			return Forum::lists('id');
-		}, 7 * 24 * 60);
+		});
 	}
 
 	public static function allForGroup($group_id)
