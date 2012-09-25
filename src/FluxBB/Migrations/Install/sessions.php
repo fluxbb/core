@@ -27,7 +27,7 @@ namespace FluxBB\Migrations\Install;
 
 use Schema;
 
-class fluxbb::seed_dataSessions
+class Sessions
 {
 
 	public function up()

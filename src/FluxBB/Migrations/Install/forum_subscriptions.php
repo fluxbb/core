@@ -27,7 +27,7 @@ namespace FluxBB\Migrations\Install;
 
 use Schema;
 
-class fluxbb::seed_dataForum_Subscriptions
+class Forum_Subscriptions
 {
 
 	public function up()

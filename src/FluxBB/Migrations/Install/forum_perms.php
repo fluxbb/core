@@ -27,7 +27,7 @@ namespace FluxBB\Migrations\Install;
 
 use Schema;
 
-class fluxbb::seed_dataForum_Perms
+class Forum_Perms
 {
 
 	public function up()
