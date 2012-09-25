@@ -29,5 +29,5 @@ use Eloquent;
 
 class Base extends Eloquent
 {
-	public static $timestamps = false;
+	public $timestamps = false;
 }
