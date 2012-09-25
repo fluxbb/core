@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB;
+namespace FluxBB\Core\Providers;
 
 use Illuminate\Foundation\Application,
 	Illuminate\Foundation\Providers\ServiceProvider;
