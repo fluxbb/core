@@ -24,7 +24,7 @@
 	"autoload": {
 		"psr-0": {
 			"FluxBB": "src/"
-		},
+		}
 	},
 	"minimum-stability": "dev"
 }
