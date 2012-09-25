@@ -31,27 +31,29 @@ use Hash;
 class User extends Base
 {
 
+	protected $table = 'users';
+
 	const GUEST = 1;
 
 
 	public function group()
 	{
-		return $this->belongs_to('FluxBB\\Models\\Group');
+		return $this->belongsTo('FluxBB\\Models\\Group');
 	}
 
 	public function bans()
 	{
-		return $this->has_many('FluxBB\\Models\\Ban');
+		return $this->hasMany('FluxBB\\Models\\Ban');
 	}
 
 	public function posts()
 	{
-		return $this->has_many('FluxBB\\Models\\Post', 'poster_id');
+		return $this->hasMany('FluxBB\\Models\\Post', 'poster_id');
 	}
 
 	public function sessions()
 	{
-		return $this->has_many('FluxBB\\Models\\Session');
+		return $this->hasMany('FluxBB\\Models\\Session');
 	}
 
 
@@ -59,7 +61,7 @@ class User extends Base
 	{
 		static $current = null;
 
-		if (Auth::guest())
+		if (Auth::isGuest())
 		{
 			if (!isset($current))
 			{

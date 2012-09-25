@@ -30,7 +30,7 @@ use Laravel\Cache;
 class ForumPerms extends Base
 {
 
-	public static $table = 'forum_perms';
+	protected $table = 'perms';
 
 
 	public function forum()

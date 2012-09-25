@@ -30,6 +30,8 @@ use Laravel\Cache;
 class Forum extends Base
 {
 
+	protected $table = 'forums';
+
 	public function topics()
 	{
 		return $this->has_many('FluxBB\\Models\\Topic');
@@ -49,10 +51,10 @@ class Forum extends Base
 	public function perms()
 	{
 		// TODO: has_one() with group condition?
-		return $this->has_many('FluxBB\\Models\\ForumPerms')
-			->where_group_id(User::current()->id)
-			->where_null('read_forum')
-			->or_where('read_forum', '=', '1');
+		return $this->hasMany('FluxBB\\Models\\ForumPerms')
+			->where('group_id', '=', User::current()->id)
+			->whereNull('read_forum')
+			->orWhere('read_forum', '=', '1');
 	}
 
 

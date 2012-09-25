@@ -30,6 +30,9 @@ use DB;
 
 class Config
 {
+
+	protected $table = 'config';
+
 	protected static $loaded = false;
 
 	protected static $data = array();
@@ -43,7 +46,7 @@ class Config
 			return;
 		}
 		
-		static::$data = static::$original = Cache::remember('fluxbb.config', function()
+		static::$data = static::$original = Cache::remember('fluxbb.config', 24 * 60, function()
 		{
 			$data = DB::table('config')->get();
 			$cache = array();
@@ -54,7 +57,7 @@ class Config
 			}
 
 			return $cache;
-		}, 24 * 60);
+		});
 
 		static::$loaded = true;
 	}

@@ -30,6 +30,8 @@ use Auth;
 class Topic extends Base
 {
 
+	protected $table = 'topics';
+
 	public function posts()
 	{
 		return $this->has_many('FluxBB\\Models\\Post');
