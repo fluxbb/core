@@ -28,9 +28,11 @@ namespace FluxBB\Models;
 class Session extends Base
 {
 
+	protected $table = 'sessions';
+
 	public function user()
 	{
-		return $this->belongs_to('FluxBB\\Models\\User');
+		return $this->belongsTo('FluxBB\\Models\\User');
 	}
 
 }

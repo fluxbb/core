@@ -28,5 +28,6 @@ namespace FluxBB\Models;
 class Rank extends Base
 {
 
+	protected $table = 'ranks';
 
 }

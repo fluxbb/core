@@ -27,7 +27,10 @@ namespace FluxBB\Models;
 
 class Group extends Base
 {
-	public static $key = 'g_id';
+
+	protected $table = 'groups';
+
+	protected $key = 'g_id';
 
 
 	const UNVERIFIED = 0;
@@ -39,7 +42,7 @@ class Group extends Base
 
 	public function users()
 	{
-		return $this->has_many('FluxBB\\Models\\User');
+		return $this->hasMany('FluxBB\\Models\\User');
 	}
 
 }

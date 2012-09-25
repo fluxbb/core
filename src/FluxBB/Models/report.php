@@ -28,29 +28,31 @@ namespace FluxBB\Models;
 class Report extends Base
 {
 
+	protected $table = 'reports';
+
 	public function post()
 	{
-		return $this->belongs_to('FluxBB\\Models\\Post');
+		return $this->belongsTo('FluxBB\\Models\\Post');
 	}
 
 	public function topic()
 	{
-		return $this->belongs_to('FluxBB\\Models\\Topic');
+		return $this->belongsTo('FluxBB\\Models\\Topic');
 	}
 
 	public function forum()
 	{
-		return $this->belongs_to('FluxBB\\Models\\Forum');
+		return $this->belongsTo('FluxBB\\Models\\Forum');
 	}
 
 	public function reporter()
 	{
-		return $this->belongs_to('FluxBB\\Models\\User', 'reported_by');
+		return $this->belongsTo('FluxBB\\Models\\User', 'reported_by');
 	}
 
 	public function zapper()
 	{
-		return $this->belongs_to('FluxBB\\Models\\User', 'zapped_by');
+		return $this->belongsTo('FluxBB\\Models\\User', 'zapped_by');
 	}
 
 }

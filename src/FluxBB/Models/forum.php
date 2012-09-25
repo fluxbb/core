@@ -32,20 +32,21 @@ class Forum extends Base
 
 	protected $table = 'forums';
 
+
 	public function topics()
 	{
-		return $this->has_many('FluxBB\\Models\\Topic');
+		return $this->hasMany('FluxBB\\Models\\Topic');
 	}
 
 	public function subscriptions()
 	{
-		return $this->has_many('FluxBB\\Models\\ForumSubscription');
+		return $this->hasMany('FluxBB\\Models\\ForumSubscription');
 	}
 
 	public function subscription()
 	{
-		return $this->has_one('FluxBB\\Models\\ForumSubscription')
-			->where_user_id(User::current()->id);
+		return $this->hasOne('FluxBB\\Models\\ForumSubscription')
+			->where('user_id', '=', User::current()->id);
 	}
 
 	public function perms()
@@ -65,26 +66,26 @@ class Forum extends Base
 		}, 7 * 24 * 60);
 	}
 
-	public static function all_for_group($group_id)
+	public static function allForGroup($group_id)
 	{
-		$ids = ForumPerms::forums_for_group($group_id);
+		$ids = ForumPerms::forumsForGroup($group_id);
 
-		return empty($ids) ? array() : static::where_in('id', $ids)->get();
+		return empty($ids) ? array() : static::whereIn('id', $ids)->get();
 	}
 
-	public function num_topics()
+	public function numTopics()
 	{
 		return $this->redirect_url == '' ? $this->num_topics : '-';
 	}
 
-	public function num_posts()
+	public function numPosts()
 	{
 		return $this->redirect_url == '' ? $this->num_posts : '-';
 	}
 
-	public function is_user_subscribed()
+	public function isUserSubscribed()
 	{
-		return \Auth::check() && !is_null($this->subscription);
+		return \Auth::isAuthed() && !is_null($this->subscription);
 	}
 
 	public function moderators()
@@ -92,17 +93,17 @@ class Forum extends Base
 		return $this->moderators != '' ? unserialize($this->moderators) : array();
 	}
 
-	public function is_moderator()
+	public function isModerator()
 	{
-		return User::current()->is_moderator() && array_key_exists(User::current()->username, $this->moderators());
+		return User::current()->isModerator() && array_key_exists(User::current()->username, $this->moderators());
 	}
 
-	public function is_admmod()
+	public function isAdmMod()
 	{
-		return User::current()->is_admin() || $this->is_moderator();
+		return User::current()->isAdmin() || $this->isModerator();
 	}
 
-	public function sort_column()
+	public function sortColumn()
 	{
 		switch ($this->sort_by)
 		{
@@ -117,7 +118,7 @@ class Forum extends Base
 		}
 	}
 
-	public function sort_direction()
+	public function sortDirection()
 	{
 		switch ($this->sort_by)
 		{
@@ -135,16 +136,16 @@ class Forum extends Base
 	public function subscribe($subscribe = true)
 	{
 		// To subscribe or not to subscribe, that ...
-		if (!Config::enabled('o_forum_subscriptions') || !Auth::check())
+		if (!Config::enabled('o_forum_subscriptions') || !Auth::isAuthed())
 		{
 			return false;
 		}
 
-		if ($subscribe && !$this->is_user_subscribed())
+		if ($subscribe && !$this->isUserSubscribed())
 		{
 			$this->subscription()->insert(array('user_id' => User::current()->id));
 		}
-		else if (!$subscribe && $this->is_user_subscribed())
+		else if (!$subscribe && $this->isUserSubscribed())
 		{
 			$this->subscription()->delete();
 		}

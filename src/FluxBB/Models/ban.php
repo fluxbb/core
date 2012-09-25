@@ -30,7 +30,7 @@ class Ban extends Base
 
 	public function creator()
 	{
-		return $this->belongs_to('FluxBB\\Models\\User', 'ban_creator');
+		return $this->belongsTo('FluxBB\\Models\\User', 'ban_creator');
 	}
 
 }

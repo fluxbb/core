@@ -28,14 +28,17 @@ namespace FluxBB\Models;
 class Post extends Base
 {
 
+	protected $table = 'posts';
+
+
 	public function topic()
 	{
-		return $this->belongs_to('FluxBB\\Models\\Topic');
+		return $this->belongsTo('FluxBB\\Models\\Topic');
 	}
 
 	public function poster()
 	{
-		return $this->belongs_to('FluxBB\\Models\\User', 'poster_id');
+		return $this->belongsTo('FluxBB\\Models\\User', 'poster_id');
 	}
 
 	public function message()
@@ -45,7 +48,7 @@ class Post extends Base
 		return $this->message;
 	}
 
-	public function was_edited()
+	public function wasEdited()
 	{
 		return !empty($this->edited);
 	}

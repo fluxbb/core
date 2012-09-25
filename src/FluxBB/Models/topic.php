@@ -34,36 +34,36 @@ class Topic extends Base
 
 	public function posts()
 	{
-		return $this->has_many('FluxBB\\Models\\Post');
+		return $this->hasMany('FluxBB\\Models\\Post');
 	}
 
 	public function forum()
 	{
-		return $this->belongs_to('FluxBB\\Models\\Forum');
+		return $this->belongsTo('FluxBB\\Models\\Forum');
 	}
 
 	public function subscription()
 	{
-		return $this->has_one('FluxBB\\Models\\TopicSubscription')
-			->where_user_id(User::current()->id);
+		return $this->hasOne('FluxBB\\Models\\TopicSubscription')
+			->where('user_id', '=', User::current()->id);
 	}
 
-	public function num_replies()
+	public function numReplies()
 	{
 		return is_null($this->moved_to) ? $this->num_replies : '-';
 	}
 
-	public function num_views()
+	public function numViews()
 	{
 		return is_null($this->moved_to) ? $this->num_views : '-';
 	}
 
-	public function is_user_subscribed()
+	public function isUserSubscribed()
 	{
-		return Auth::check() && !is_null($this->subscription);
+		return Auth::isAuthed() && !is_null($this->subscription);
 	}
 
-	public function was_moved()
+	public function wasMoved()
 	{
 		return !is_null($this->moved_to);
 	}
@@ -71,16 +71,16 @@ class Topic extends Base
 	public function subscribe($subscribe = true)
 	{
 		// To subscribe or not to subscribe, that ...
-		if (!Config::enabled('o_topic_subscriptions') || !Auth::check())
+		if (!Config::enabled('o_topic_subscriptions') || !Auth::isAuthed())
 		{
 			return false;
 		}
 
-		if ($subscribe && !$this->is_user_subscribed())
+		if ($subscribe && !$this->isUserSubscribed())
 		{
 			$this->subscription()->insert(array('user_id' => User::current()->id));
 		}
-		else if (!$subscribe && $this->is_user_subscribed())
+		else if (!$subscribe && $this->isUserSubscribed())
 		{
 			$this->subscription()->delete();
 		}

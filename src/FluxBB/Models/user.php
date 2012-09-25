@@ -75,29 +75,29 @@ class User extends Base
 		return Auth::user();
 	}
 
-	public function is_guest()
+	public function isGuest()
 	{
 		return $this->id == static::GUEST;
 	}
 
-	public function is_member()
+	public function isMember()
 	{
-		return !$this->is_guest();
+		return !$this->isGuest();
 	}
 
 	// TODO: Better name
-	public function is_admmod()
+	public function isAdmMod()
 	{
 		// TODO: Is this even necessary or is a better check for is_moderator() (that returns true for admins, too) better?
-		return $this->is_admin() || $this->is_moderator();
+		return $this->isAdmin() || $this->isModerator();
 	}
 
-	public function is_admin()
+	public function isAdmin()
 	{
 		return $this->group_id == Group::ADMIN;
 	}
 
-	public function is_moderator()
+	public function isModerator()
 	{
 		return $this->group->g_moderator == 1;
 	}
@@ -135,7 +135,7 @@ class User extends Base
 			return $this->group->g_user_title;
 		}
 		// If the user is a guest
-		else if ($this->is_guest())
+		else if ($this->isGuest())
 		{
 			return __('Guest');
 		}
@@ -146,7 +146,7 @@ class User extends Base
 		}
 	}
 
-	public function get_avatar_file()
+	public function getAvatarFile()
 	{
 		// TODO: We might want to cache this result
 		$filetypes = array('jpg', 'gif', 'png');
@@ -165,12 +165,12 @@ class User extends Base
 		return '';
 	}
 
-	public function has_avatar()
+	public function hasAvatar()
 	{
-		return (bool) $this->get_avatar_file();
+		return (bool) $this->getAvatarFile();
 	}
 
-	public function has_signature()
+	public function hasSignature()
 	{
 		return !empty($this->signature);
 	}
@@ -182,37 +182,37 @@ class User extends Base
 		return $this->signature;
 	}
 
-	public function is_online()
+	public function isOnline()
 	{
 		return isset($this->sessions);
 	}
 
-	public function has_url()
+	public function hasUrl()
 	{
 		return !empty($this->url);
 	}
 
-	public function has_location()
+	public function hasLocation()
 	{
 		return !empty($this->location);
 	}
 
-	public function has_admin_note()
+	public function hasAdminNote()
 	{
 		return !empty($this->admin_note);
 	}
 
-	public function can_view_users()
+	public function canViewUsers()
 	{
 		return $this->group->g_view_users == 1;
 	}
 
-	public function disp_topics()
+	public function dispTopics()
 	{
 		return $this->disp_topics ?: Config::get('o_disp_topics_default');
 	}
 
-	public function disp_posts()
+	public function dispPosts()
 	{
 		return $this->disp_posts ?: Config::get('o_disp_posts_default');
 	}

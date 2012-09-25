@@ -28,12 +28,12 @@ namespace FluxBB\Models;
 class Censor extends Base
 {
 
-	public static $table = 'censoring';
+	protected $table = 'censoring';
 
 
 	public static function filter($text)
 	{
-		list($search_for, $replace_with) = static::get_search_replace();
+		list($search_for, $replace_with) = static::getSearchReplace();
 
 		if (!empty($search_for))
 		{
@@ -44,12 +44,12 @@ class Censor extends Base
 		return $text;
 	}
 
-	public static function is_clean($text)
+	public static function isClean($text)
 	{
 		return static::filter($text) == $text;
 	}
 
-	protected static function get_search_replace()
+	protected static function getSearchReplace()
 	{
 		static $search_for, $replace_with;
 

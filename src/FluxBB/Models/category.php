@@ -30,19 +30,22 @@ use Laravel\Cache;
 class Category extends Base
 {
 
+	protected $table = 'categories';
+
+
 	public function forums()
 	{
-		return $this->has_many('FluxBB\\Models\\Forum', 'cat_id')
-			->order_by('disp_position', 'ASC');
+		return $this->hasMany('FluxBB\\Models\\Forum', 'cat_id')
+			->orderBy('disp_position', 'ASC');
 	}
 
 
 	public static function all()
 	{
-		return Cache::remember('fluxbb.categories', function() {
+		return Cache::remember('fluxbb.categories', 7 * 24 * 60, function() {
 			$all = array();
-			$categories = Category::order_by('disp_position', 'ASC')
-				->order_by('id', 'ASC')
+			$categories = Category::orderBy('disp_position', 'ASC')
+				->orderBy('id', 'ASC')
 				->get();
 
 			foreach ($categories as $category)
@@ -50,14 +53,14 @@ class Category extends Base
 				$all[$category->id] = $category;
 			}
 			return $all;
-		}, 7 * 24 * 60);
+		});
 	}
 
-	public static function all_for_group($group_id)
+	public static function allForGroup($group_id)
 	{
 		$categories = static::all();
 
-		$forums = Forum::all_for_group($group_id);
+		$forums = Forum::allForGroup($group_id);
 		usort($forums, function($forum1, $forum2) {
 			if ($forum1->cat_id == $forum2->cat_id)
 			{

@@ -33,13 +33,14 @@ class Config
 
 	protected $table = 'config';
 
+
 	protected static $loaded = false;
 
 	protected static $data = array();
 
 	protected static $original = array();
 
-	protected static function load_data()
+	protected static function loadData()
 	{
 		if (static::$loaded)
 		{
@@ -64,7 +65,7 @@ class Config
 
 	public static function get($key, $default = null)
 	{
-		static::load_data();
+		static::loadData();
 
 		if (array_key_exists($key, static::$data))
 		{
@@ -86,14 +87,14 @@ class Config
 
 	public static function set($key, $value)
 	{
-		static::load_data();
+		static::loadData();
 
 		static::$data[$key] = $value;
 	}
 
 	public static function delete($key)
 	{
-		static::load_data();
+		static::loadData();
 
 		unset(static::$data[$key]);
 	}
@@ -124,14 +125,14 @@ class Config
 
 		foreach ($changed as $name => $value)
 		{
-			DB::table('config')->where_conf_name($name)->update(array('conf_value' => $value));
+			DB::table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
 		}
 
 		// Deleted keys
 		$deleted_keys = array_keys(array_diff_key(static::$original, static::$data));
 		if (!empty($deleted_keys))
 		{
-			DB::table('config')->where_in('conf_name', $deleted_keys)->delete();
+			DB::table('config')->whereIn('conf_name', $deleted_keys)->delete();
 		}
 
 		// No need to cache old values anymore

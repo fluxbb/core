@@ -27,6 +27,7 @@ namespace FluxBB\Models;
 
 class TopicSubscription extends Base
 {
-	public static $table = 'topic_subscriptions';
+	
+	protected $table = 'topic_subscriptions';
 
 }
