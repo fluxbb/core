@@ -50,3 +50,6 @@ Route::filter('fluxbb::is_installed', function()
 			->with('has_installer', false);
 	}
 });
+
+// Load our helpers (composers, macros, validators etc.)
+include __DIR__.'/helpers.php';
