@@ -29,7 +29,8 @@ use FluxBB\Models\Category,
 	FluxBB\Models\Forum,
 	FluxBB\Models\Post,
 	FluxBB\Models\Topic,
-	FluxBB\Models\User;
+	FluxBB\Models\User,
+	View;
 
 class Home extends Base
 {
@@ -38,7 +39,7 @@ class Home extends Base
 		// TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
 
 		// Fetch the categories and forums
-		$categories = Category::all_for_group(User::current()->group_id);
+		$categories = Category::allForGroup(User::current()->group_id);
 
 		return View::make('fluxbb::index')->with('categories', $categories);
 	}
@@ -49,7 +50,7 @@ class Home extends Base
 
 		// Fetch some info about the forum
 		$forum = Forum::with('perms')
-			->where_id($fid)
+			->where('id', '=', $fid)
 			->first();
 
 		if ($forum === NULL)
@@ -57,7 +58,7 @@ class Home extends Base
 			return Event::first('404');
 		}
 
-		$disp_topics = $this->user()->disp_topics();
+		$disp_topics = $this->user()->dispTopics();
 		$num_pages = ceil(($forum->num_topics + 1) / $disp_topics);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_topics * ($page - 1);
@@ -65,10 +66,10 @@ class Home extends Base
 		// FIXME: Do we have to fetch just IDs first (performance)?
 		// TODO: If logged in, with "the dot" subquery
 		// Fetch topic data
-		$topics = Topic::where_forum_id($fid)
-		->order_by('sticky', 'DESC')
-		->order_by($forum->sort_column(), $forum->sort_direction())
-		->order_by('id', 'DESC')
+		$topics = Topic::where('forum_id', '=', $fid)
+		->orderBy('sticky', 'DESC')
+		->orderBy($forum->sortColumn(), $forum->sortDirection())
+		->orderBy('id', 'DESC')
 		->skip($start_from)
 		->take($disp_topics)
 		->get();
@@ -86,8 +87,8 @@ class Home extends Base
 			'forum',
 			'forum.perms',
 		))
-		->where_id($tid)
-		->where_null('moved_to')
+		->where('id', '=', $tid)
+		->whereNull('moved_to')
 		->first();
 
 		if ($topic === NULL)
@@ -95,7 +96,7 @@ class Home extends Base
 			return Event::first('404');
 		}
 
-		$disp_posts = $this->user()->disp_posts();
+		$disp_posts = $this->user()->dispPosts();
 		$num_pages = ceil(($topic->num_replies + 1) / $disp_posts);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_posts * ($page - 1);
@@ -108,8 +109,8 @@ class Home extends Base
 			'poster',
 			'poster.group',
 		))
-		->where_topic_id($tid)
-		->order_by('id')
+		->where('topic_id', '=', $tid)
+		->orderBy('id')
 		->skip($start_from)
 		->take($disp_posts)
 		->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
@@ -123,7 +124,7 @@ class Home extends Base
 	public function get_post($pid)
 	{
 		// If a post ID is specified we determine topic ID and page number so we can show the correct message
-		$post = Post::where_id($pid)->select(array('topic_id', 'posted'))->first();
+		$post = Post::where('id', '=', $pid)->select(array('topic_id', 'posted'))->first();
 
 		if ($post === NULL)
 		{
@@ -134,9 +135,9 @@ class Home extends Base
 		$posted = $post->posted;
 
 		// Determine on what page the post is located (depending on $forum_user['disp_posts'])
-		$num_posts = Post::where_topic_id($tid)->where('posted', '<', $posted)->count('id') + 1;
+		$num_posts = Post::where('topic_id', '=', $tid)->where('posted', '<', $posted)->count('id') + 1;
 
-		$disp_posts = $this->user()->disp_posts();
+		$disp_posts = $this->user()->dispPosts();
 		$p = ceil($num_posts / $disp_posts);
 
 		// FIXME: second parameter for $page number
