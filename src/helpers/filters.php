@@ -25,7 +25,7 @@
 
 Route::filter('fluxbb::only_guests', function()
 {
-	if (!Auth::guest())
+	if (!Auth::isGuest())
 	{
 		return Redirect::to_action('fluxbb::home@index');
 	}
@@ -33,10 +33,10 @@ Route::filter('fluxbb::only_guests', function()
 
 Route::filter('fluxbb::only_members', function()
 {
-	if (!Auth::check())
+	if (!Auth::isAuthed())
 	{
 		return Redirect::to_action('fluxbb::auth@login')
 			->with('message', __('fluxbb::common.login_to_view'))
-			->with('fluxbb::login_redirect', URL::current());
+			->with('fluxbb::login_redirect', URL::current()); // TODO: URL::current() is not yet implemented
 	}
 });
