@@ -1,6 +1,7 @@
 @extends('fluxbb::layout.main')
 
 @section('main')
+
 {{-- TODO: Escape all the variables!!! --}}
 <ul>
 @foreach ($categories as $cat_info)
@@ -11,7 +12,7 @@
 @foreach ($cat_info['forums'] as $forum)
 			<li>
 				<a href="{{ URL::action('fluxbb::home@forum', array($forum->id)) }}">{{ $forum->forum_name }}</a>
-				<span class="forumdesc">{{ $forum->forum_desc }}</span>
+				<em class="forumdesc">{{ $forum->forum_desc }}</em>
 				<ul>
 					<li>{{ $forum->numTopics() }} topics</li>
 					<li>{{ $forum->numPosts() }} posts</li>
@@ -23,4 +24,4 @@
 @endforeach
 </ul>
 
-@endsection
+@stop
