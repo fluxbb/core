@@ -41,7 +41,9 @@ class Home extends Base
 		// Fetch the categories and forums
 		$categories = Category::allForGroup(User::current()->group_id);
 
-		return View::make('fluxbb::index')->with('categories', $categories);
+		$view = View::make('fluxbb::index');
+		$view['categories'] = $categories;
+		return $view;
 	}
 
 	public function get_forum($fid, $page = 1)
