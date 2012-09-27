@@ -1,5 +1,5 @@
 <div id="brdfooter" class="block">
-	<h2><span>{{ __('fluxbb::common.board_footer') }}</span></h2>
+	<h2><span>{{ trans('fluxbb::common.board_footer') }}</span></h2>
 	<div class="box">
 <?php
 /*
@@ -68,7 +68,7 @@ else if ($footer_style == 'viewtopic')
 }
 */
 ?>
-				<p id="poweredby">{{ __('fluxbb::common.powered_by', array('link' => '<a href="http://fluxbb.org/">FluxBB</a>'.(Config::get('o_show_version') == '1' ? ' '.Config::get('o_cur_version') : ''))) }}</p>
+				<p id="poweredby">{{ trans('fluxbb::common.powered_by', array('link' => '<a href="http://fluxbb.org/">FluxBB</a>'.(Config::get('o_show_version') == '1' ? ' '.Config::get('o_cur_version') : ''))) }}</p>
 			</div>
 			<div class="clearer"></div>
 		</div>
