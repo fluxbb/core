@@ -26,7 +26,7 @@
 namespace FluxBB\Core\Providers;
 
 use Illuminate\Foundation\Application,
-	Illuminate\Foundation\Providers\ServiceProvider;
+	Illuminate\Support\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 	 * @param  Illuminate\Foundation\Application  $app
 	 * @return void
 	 */
-	public function register(Application $app)
+	public function register($app)
 	{
 		include __DIR__.'/../../../routes.php';
 	}
