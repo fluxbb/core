@@ -34,8 +34,6 @@ class Auth extends Base
 
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
 		$this->filter('before', 'fluxbb::only_members')->only('logout');
 	}
