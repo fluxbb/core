@@ -44,7 +44,7 @@
 
 @if (Session::has('message'))
 	<div>
-		<p style="color: #9F6000; background-color: #FEEFB3; border: 1px solid #9F6000; padding: 5px; margin-bottom: 10px;">{{ e(Session::get('message')) }}</p>
+		<p style="color: #9F6000; background-color: #FEEFB3; border: 1px solid #9F6000; padding: 5px; margin-bottom: 10px;">{{ Session::get('message') }}</p>{{-- TODO: Escape --}}
 	</div>
 @endif
 
@@ -54,7 +54,12 @@
 		<div class="box">
 			<div class="inbox error-info">
 				<p>The following errors need to be corrected:</p>
-				{{ HTML::ul(Session::get('errors')->all(), array('class' => 'error-list')) }}
+				<ul class="error-list">
+@foreach (Session::get('errors')->all() as $error)
+					<li>{{ $error }}</li>
+@endforeach
+				</ul>
+				{{-- HTML::ul(Session::get('errors')->all(), array('class' => 'error-list')) --}}
 			</div>
 		</div>
 	</div>
