@@ -35,7 +35,8 @@ Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 	Route::any('profile/{num}/{username}', array('as' => 'profile', 'uses' => 'fluxbb::user@profile'));
 	Route::get('user/list', 'FluxBB\\Controllers\\User@get_list');
 	Route::any('register', 'FluxBB\\Controllers\\Auth@get_register'); // TODO: "any" should not route to 'get_register'
-	Route::any('login', 'FluxBB\\Controllers\\Auth@get_login');
+	Route::get('login', 'FluxBB\\Controllers\\Auth@get_login');
+	Route::post('login', 'FluxBB\\Controllers\\Auth@post_login');
 	Route::get('logout', 'FluxBB\\Controllers\\Auth@get_logout');
 	Route::get('search', 'FluxBB\\Controllers\\Search@get_index');
 	Route::any('topic/{num}/reply', 'FluxBB\\Controllers\\Posting@get_reply');
