@@ -24,6 +24,7 @@
  */
 
 View::addNamespace('fluxbb', __DIR__.'/views/');
+Lang::addNamespace('fluxbb', __DIR__.'/language/');
 
 Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 {
