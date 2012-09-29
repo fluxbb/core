@@ -27,15 +27,16 @@ namespace FluxBB\Controllers;
 
 use FluxBB\Models\Config,
 	FluxBB\Models\Group,
-	FluxBB\Models\User;
+	FluxBB\Models\User,
+	View;
 
 class Auth extends Base
 {
 
 	public function __construct()
 	{
-		$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
-		$this->filter('before', 'fluxbb::only_members')->only('logout');
+		//$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
+		//$this->filter('before', 'fluxbb::only_members')->only('logout');
 	}
 	
 	public function get_logout()
