@@ -27,8 +27,7 @@ namespace FluxBB\Controllers;
 
 use FluxBB\Models\Config,
 	FluxBB\Models\Group,
-	FluxBB\Models\User,
-	View;
+	FluxBB\Models\User;
 
 class Auth extends Base
 {
@@ -41,47 +40,47 @@ class Auth extends Base
 	
 	public function get_logout()
 	{
-		Auth::logout();
-		return Redirect::to_action('fluxbb::home@index')->with('message', __('fluxbb::login.message_logout'));
+		\Auth::logout();
+		return \Redirect::action('fluxbb::home@index')->with('message', __('fluxbb::login.message_logout'));
 	}
 	
 	public function get_login()
 	{
-		return View::make('fluxbb::auth.login');
+		return \View::make('fluxbb::auth.login');
 	}
 
 	public function post_login()
 	{
 		$login_data = array(
-			'username'	=> Input::get('req_username'),
-			'password'	=> Input::get('req_password'),
-			'remember'	=> !is_null(Input::get('save_pass')),
-		);
+			'username'	=> \Input::get('req_username'),
+			'password'	=> \Input::get('req_password'),
+			//'remember'	=> !is_null(\Input::get('save_pass')),
+		); // TODO: Add remember me setting once supported by Illuminate
 
-		if (Auth::attempt($login_data))
+		if (\Auth::attempt($login_data))
 		{
 			// Make sure last_visit data is properly updated
-			Session::sweep();
+			\Session::sweep();
 
 			// TODO: This is properly validated in URL::to, right?
-			$redirect_url = Input::get('redirect_url', URL::to_action('fluxbb::home@index'));
-			return Redirect::to($redirect_url)
+			$redirect_url = \Input::get('redirect_url', \URL::action('fluxbb::home@index'));
+			return \Redirect::to($redirect_url)
 				->with('message', 'You were successfully logged in.');
 		}
 		else
 		{
-			$errors = new Laravel\Messages;
+			$errors = new \Illuminate\Validation\MessageBag;
 			$errors->add('login', 'Invalid username / password combination.');
 
-			return Redirect::back()
-				->with_input()
-				->with_errors($errors);
+			return \Redirect::action('fluxbb::auth@login')
+				->withInput(\Input::all())
+				->with('errors', $errors);
 		}
 	}
 
 	public function get_register()
 	{
-		return View::make('fluxbb::auth.register');
+		return \View::make('fluxbb::auth.register');
 	}
 
 	public function post_register()
@@ -105,26 +104,29 @@ class Auth extends Base
 		$validation = $this->make_validator(Input::all(), $rules);
 		if ($validation->fails())
 		{
-			return Redirect::to_action('fluxbb::auth@register')->with_input()->with_errors($validation);
+			return \Redirect::action('fluxbb::auth@register')
+				->withInput(\Input::all())
+				->with('errors', $validation);
 		}
 
 		$user_data = array(
-			'username'			=> Input::get('user'),
+			'username'			=> \Input::get('user'),
 			'group_id'			=> Config::enabled('o_regs_verify') ? Group::UNVERIFIED : Config::get('o_default_user_group'),
-			'password'			=> Input::get('password'),
-			'email'				=> Input::get('email'),
+			'password'			=> \Input::get('password'),
+			'email'				=> \Input::get('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),
 			'timezone'			=> Config::get('o_default_timezone'),
 			'dst'				=> Config::get('o_default_dst'),
 			'language'			=> Config::get('o_default_lang'),
 			'style'				=> Config::get('o_default_style'),
-			'registered'		=> Request::time(),
-			'registration_ip'	=> Request::ip(),
-			'last_visit'		=> Request::time(),
+			'registered'		=> \Request::time(),
+			'registration_ip'	=> \Request::ip(),
+			'last_visit'		=> \Request::time(),
 		);
 		$user = User::create($user_data);
 	
-		return Redirect::to_action('fluxbb::home@index')->with('message', __('fluxbb::register.reg_complete'));
+		return \Redirect::action('fluxbb::home@index')
+			->with('message', __('fluxbb::register.reg_complete'));
 	}
 
 }
