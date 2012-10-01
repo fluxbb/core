@@ -11,7 +11,7 @@
 		<ul>
 @foreach ($cat_info['forums'] as $forum)
 			<li>
-				<a href="{{ URL::action('fluxbb::home@forum', array($forum->id)) }}">{{ $forum->forum_name }}</a>
+				<a href="{{ URL::route('viewforum', array('fid' => $forum->id)) }}">{{ $forum->forum_name }}</a>
 				<em class="forumdesc">{{ $forum->forum_desc }}</em>
 				<ul>
 					<li>{{ $forum->numTopics() }} topics</li>
