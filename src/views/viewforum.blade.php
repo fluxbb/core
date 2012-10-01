@@ -1,27 +1,27 @@
-@layout('fluxbb::layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 
 <div class="linkst">
 	<div class="inbox crumbsplus">
 		<div class="pagepost">
-			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
+			<p class="postlink conr"><a href="{{ URL::route('new_topic', array('fid' => $forum->id)) }}">{{ trans('fluxbb::forum.post_topic') }}</a></p>
 		</div>
 		<div class="clearer"></div>
 	</div>
 </div>
 
 <div id="vf" class="blocktable">
-	<h2><span>{{ e($forum->forum_name) }}</span></h2>
+	<h2><span>{{ ($forum->forum_name) }}</span></h2>{{-- TODO: Escape --}}
 	<div class="box">
 		<div class="inbox">
 			<table cellspacing="0">
 			<thead>
 				<tr>
 					<th class="tcl" scope="col">Topic</th>
-					<th class="tc2" scope="col">{{ __('fluxbb::common.replies') }}</th>
-					<th class="tc3" scope="col">{{ __('fluxbb::forum.views') }}</th> <!-- TODO: Only show if o_topic_views is enabled -->
-					<th class="tcr" scope="col">{{ __('fluxbb::common.last_post') }}</th>
+					<th class="tc2" scope="col">{{ trans('fluxbb::common.replies') }}</th>
+					<th class="tc3" scope="col">{{ trans('fluxbb::forum.views') }}</th> <!-- TODO: Only show if o_topic_views is enabled -->
+					<th class="tcr" scope="col">{{ trans('fluxbb::common.last_post') }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,28 +32,28 @@
 
 $topic_count++;
 $icon_type = 'icon';
-if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Models\User::current()->last_visit && (!isset($tracked_topics['topics'][$topic->id]) || $tracked_topics['topics'][$topic->id] < $topic->last_post) && (!isset($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $topic->last_post) && is_null($topic->moved_to))
+if (fluxbb\Models\User::current()->isMember() && $topic->last_post > fluxbb\Models\User::current()->last_visit && (!isset($tracked_topics['topics'][$topic->id]) || $tracked_topics['topics'][$topic->id] < $topic->last_post) && (!isset($tracked_topics['forums'][$forum->id]) || $tracked_topics['forums'][$forum->id] < $topic->last_post) && is_null($topic->moved_to))
 {
 	// TODO: For obvious reasons, this if statement should not be here in the view (in that form)
 	$icon_type = 'icon icon-new';
 }
 
 ?>
-				<tr class="row{{ HTML::oddeven() }}">
+				<tr class="row">
 					<td class="tcl">
-						<div class="{{ $icon_type }}"><div class="nosize">{{ HTML::number_format($topic_count + $start_from) }}</div></div>
+						<div class="{{ $icon_type }}"><div class="nosize">{{ $topic_count + $start_from }}</div></div>{{-- number_format --}}
 						<div class="tclcon">
 							<div>
-								<a href="{{ URL::to_action('fluxbb::home@topic', array($topic->id)) }}">{{ e($topic->subject) }}</a> <span class="byuser">{{ __('fluxbb::common.by', array('author' => e($topic->poster))) }}</span>
+								<a href="{{ URL::route('viewtopic', array('tid' => $topic->id)) }}">{{ ($topic->subject) }}</a> <span class="byuser">{{ trans('fluxbb::common.by', array('author' => ($topic->poster))) }}</span>{{-- TODO: Escape subject and poster --}}
 							</div>
 						</div>
 					</td>
-					<td class="tc2">{{ $topic->num_replies() }}</td>
-					<td class="tc3">{{ $topic->num_views() }}</td> <!-- TODO: Only show if o_topic_views is enabled -->
-	@if ($topic->was_moved())
+					<td class="tc2">{{ $topic->numReplies() }}</td>
+					<td class="tc3">{{ $topic->numViews() }}</td> <!-- TODO: Only show if o_topic_views is enabled -->
+	@if ($topic->wasMoved())
 					<td class="tcr">- - -</td>
 	@else
-					<td class="tcr"><a href="{{ URL::to_action('fluxbb::home@post', array($topic->last_post_id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ __('fluxbb::common.by', array('author' => e($topic->last_poster))) }}</span></td>
+					<td class="tcr"><a href="{{ URL::route('viewpost', array('pid' => $topic->last_post_id)) }}#p{{ $topic->last_post_id }}">{{ ($topic->last_post) }}</a> <span class="byuser">{{ trans('fluxbb::common.by', array('author' => ($topic->last_poster))) }}</span></td>{{-- TODO: Escape author and format_time for last_post --}}
 	@endif
 				</tr>
 @endforeach
@@ -67,10 +67,10 @@ if (fluxbb\Models\User::current()->is_member() && $topic->last_post > fluxbb\Mod
 <div class="postlinksb">
 	<div class="inbox crumbsplus">
 		<div class="pagepost">
-			<p class="postlink conr"><a href="{{ URL::to_action('fluxbb::posting@topic', array($forum->id)) }}">{{ __('fluxbb::forum.post_topic') }}</a></p>
+			<p class="postlink conr"><a href="{{ URL::route('new_topic', array('fid' => $forum->id)) }}">{{ trans('fluxbb::forum.post_topic') }}</a></p>
 		</div>
 		<div class="clearer"></div>
 	</div>
 </div>
 
-@endsection
+@stop
