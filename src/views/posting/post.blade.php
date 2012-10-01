@@ -1,60 +1,59 @@
-@layout('fluxbb::layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 <div id="postform" class="blockform">
 	<h2><span><?php echo $action ?></span></h2>
 	<div class="box">
 @if (isset($topic))
-		{{ Form::open(URL::to_action('fluxbb::posting@reply', array($topic->id)), 'PUT', array('id' => 'post', 'onsubmit' => 'this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;')) }}
+		<form action="{{ URL::route('reply', array('tid' => $topic->id)) }}" method="PUT" id="post" onsubmit="this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;">
 @else
-		{{ Form::open(URL::to_action('fluxbb::posting@topic', array($forum->id)), 'PUT', array('id' => 'post', 'onsubmit' => 'return process_form(this)')) }}
+		<form action="{{ URL::route('new_topic', array('fid' => $forum->id)) }}" method="PUT" id="post" onsubmit="return process_form(this)">
 @endif
 			<div class="inform">
 				<fieldset>
-					<legend>{{ __('fluxbb::common.write_message_legend') }}</legend>
+					<legend>{{ trans('fluxbb::common.write_message_legend') }}</legend>
 					<div class="infldset txtarea">
-						{{ Form::hidden('form_sent', '1') }}
 <?php
 
 $cur_index = 1;
 
-if (!Auth::check())
+if (!Auth::isAuthed())
 {
-	$email_label = fluxbb\Models\Config::enabled('p_force_guest_email') ? '<strong>'.__('fluxbb::common.email').' <span>'.__('fluxbb::common.required').'</span></strong>' : __('fluxbb::common.email');
-	$email_form_name = fluxbb\Models\Config::enabled('p_force_guest_email') ? 'req_email' : 'email';
+	$email_label = FluxBB\Models\Config::enabled('p_force_guest_email') ? '<strong>'.trans('fluxbb::common.email').' <span>'.trans('fluxbb::common.required').'</span></strong>' : trans('fluxbb::common.email');
+	$email_form_name = FluxBB\Models\Config::enabled('p_force_guest_email') ? 'req_email' : 'email';
 
 ?>
-						<label class="conl required"><strong>{{ __('fluxbb::post.guest_name') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />{{ Form::text('req_username', Input::old('req_username'), array('size' => '25', 'maxlength' => '25', 'tabindex' => $cur_index++)) }}<br /></label>
-						<label class="conl<?php echo fluxbb\Models\Config::enabled('p_force_guest_email') ? ' required' : '' ?>"><?php echo $email_label ?><br />{{ Form::text($email_form_name, Input::old($email_form_name), array('size' => '50', 'maxlength' => '80', 'tabindex' => $cur_index++)) }}<br /></label>
+						<label class="conl required"><strong>{{ trans('fluxbb::post.guest_name') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_username" size="25" maxlength="25" value="{{ Input::old('req_username') }}" /><br /></label> {{-- TODO: Escape --}}
+						<label class="conl<?php echo FluxBB\Models\Config::enabled('p_force_guest_email') ? ' required' : '' ?>"><?php echo $email_label ?><br /><input type="text" name="{{ $email_form_name }}" size="50" maxlength="80" value="{{ Input::old($email_form_name) }}"><br /></label> {{-- TODO: Escape --}}
 						<div class="clearer"></div>
 <?php
 
 }
 
 if (isset($forum)): ?>
-						<label class="required"><strong>{{ __('fluxbb::common.subject') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />{{ Form::text('req_subject', Input::old('req_subject'), array('class' => 'longinput', 'size' => '80', 'tabindex' => $cur_index++)) }}<br /></label>
-<?php endif; ?>						<label class="required"><strong>{{ __('fluxbb::common.message') }} <span>{{ __('fluxbb::common.required') }}</span></strong><br />
-						{{ Form::textarea('req_message', Input::old('req_message'), array('rows' => '20', 'cols' => '95', 'tabindex' => $cur_index++)) }}<br /></label>
+						<label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="{{ Input::old('req_subject') }}" /><br /></label>{{-- TODO: Escape --}}
+<?php endif; ?>						<label class="required"><strong>{{ trans('fluxbb::common.message') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br />
+						<textarea name="req_message" id="req_message" cols="95" rows="20">{{ Input::old('req_message') }}</textarea><br /></label>{{-- TODO: Escape --}}
 						<ul class="bblinks">
-							<li><span><a href="help.php#bbcode" onclick="window.open(this.href); return false;">{{ __('fluxbb::common.bbcode') }}</a> <?php echo fluxbb\Models\Config::enabled('p_message_bbcode') ? __('fluxbb::common.on') : __('fluxbb::common.off'); ?></span></li>
-							<li><span><a href="help.php#url" onclick="window.open(this.href); return false;">{{ __('fluxbb::common.url_tag') }}</a> <?php echo fluxbb\Models\Config::enabled('p_message_bbcode') && fluxbb\Models\User::current()->group->g_post_links == '1' ? __('fluxbb::common.on') : __('fluxbb::common.off'); ?></span></li>
-							<li><span><a href="help.php#img" onclick="window.open(this.href); return false;">{{ __('fluxbb::common.img_tag') }}</a> <?php echo fluxbb\Models\Config::enabled('p_message_bbcode') && fluxbb\Models\Config::enabled('p_message_img_tag') ? __('fluxbb::common.on') : __('fluxbb::common.off'); ?></span></li>
-							<li><span><a href="help.php#smilies" onclick="window.open(this.href); return false;">{{ __('fluxbb::common.smilies') }}</a> <?php echo fluxbb\Models\Config::enabled('o_smilies') ? __('fluxbb::common.on') : __('fluxbb::common.off'); ?></span></li>
+							<li><span><a href="help.php#bbcode" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.bbcode') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
+							<li><span><a href="help.php#url" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.url_tag') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') && FluxBB\Models\User::current()->group->g_post_links == '1' ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
+							<li><span><a href="help.php#img" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.img_tag') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') && FluxBB\Models\Config::enabled('p_message_img_tag') ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
+							<li><span><a href="help.php#smilies" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.smilies') }}</a> <?php echo FluxBB\Models\Config::enabled('o_smilies') ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
 						</ul>
 					</div>
 				</fieldset>
 <?php
 
 $checkboxes = array();
-if (isset($topic) && $topic->forum->is_admmod() || isset($forum) && $forum->is_admmod())
-	$checkboxes[] = '<label><input type="checkbox" name="stick_topic" value="1" tabindex="'.($cur_index++).'"'.(Input::has('stick_topic') ? ' checked="checked"' : '').' />'.__('fluxbb::common.stick_topic').'<br /></label>';
+if (isset($topic) && $topic->forum->isAdmMod() || isset($forum) && $forum->isAdmMod())
+	$checkboxes[] = '<label><input type="checkbox" name="stick_topic" value="1" tabindex="'.($cur_index++).'"'.(Input::has('stick_topic') ? ' checked="checked"' : '').' />'.trans('fluxbb::common.stick_topic').'<br /></label>';
 
-if (Auth::check())
+if (Auth::isAuthed())
 {
-	if (fluxbb\Models\Config::enabled('o_smilies'))
-		$checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'"'.(Input::has('hide_smilies') ? ' checked="checked"' : '').' />'.__('fluxbb::post.hide_smilies').'<br /></label>';
+	if (FluxBB\Models\Config::enabled('o_smilies'))
+		$checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'"'.(Input::has('hide_smilies') ? ' checked="checked"' : '').' />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
 
-	if (fluxbb\Models\Config::enabled('o_topic_subscriptions'))
+	if (FluxBB\Models\Config::enabled('o_topic_subscriptions'))
 	{
 		$is_subscribed = isset($topic) && $topic->is_user_subscribed();
 		$subscr_checked = false;
@@ -63,17 +62,17 @@ if (Auth::check())
 		if (Input::has('preview'))
 			$subscr_checked = Input::has('subscribe');
 		// If auto subscribed
-		else if (fluxbb\Models\User::current()->auto_notify == '1')
+		else if (FluxBB\Models\User::current()->auto_notify == '1')
 			$subscr_checked = true;
 		// If already subscribed to the topic
 		else if ($is_subscribed)
 			$subscr_checked = true;
 
-		$checkboxes[] = '<label><input type="checkbox" name="subscribe" value="1" tabindex="'.($cur_index++).'"'.($subscr_checked ? ' checked="checked"' : '').' />'.($is_subscribed ? __('fluxbb::post.stay_subscribed') : __('fluxbb::post.subscribe')).'<br /></label>';
+		$checkboxes[] = '<label><input type="checkbox" name="subscribe" value="1" tabindex="'.($cur_index++).'"'.($subscr_checked ? ' checked="checked"' : '').' />'.($is_subscribed ? trans('fluxbb::post.stay_subscribed') : trans('fluxbb::post.subscribe')).'<br /></label>';
 	}
 }
-else if (fluxbb\Models\Config::enabled('o_smilies'))
-	$checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'"'.(Input::has('hide_smilies') ? ' checked="checked"' : '').' />'.__('fluxbb::post.hide_smilies').'<br /></label>';
+else if (FluxBB\Models\Config::enabled('o_smilies'))
+	$checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'"'.(Input::has('hide_smilies') ? ' checked="checked"' : '').' />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
 
 if (!empty($checkboxes))
 {
@@ -82,7 +81,7 @@ if (!empty($checkboxes))
 			</div>
 			<div class="inform">
 				<fieldset>
-					<legend>{{ __('fluxbb::common.options') }}</legend>
+					<legend>{{ trans('fluxbb::common.options') }}</legend>
 					<div class="infldset">
 						<div class="rbox">
 							<?php echo implode("\n\t\t\t\t\t\t\t", $checkboxes)."\n" ?>
@@ -95,8 +94,8 @@ if (!empty($checkboxes))
 
 ?>
 			</div>
-			<p class="buttons"><input type="submit" name="submit" value="{{ __('fluxbb::common.submit') }}" tabindex="<?php echo $cur_index++ ?>" accesskey="s" /> <input type="submit" name="preview" value="{{ __('fluxbb::post.preview') }}" tabindex="<?php echo $cur_index++ ?>" accesskey="p" /> <a href="javascript:history.go(-1)">{{ __('fluxbb::common.go_back') }}</a></p>
-		{{ Form::close() }}
+			<p class="buttons"><input type="submit" name="submit" value="{{ trans('fluxbb::common.submit') }}" tabindex="<?php echo $cur_index++ ?>" accesskey="s" /> <input type="submit" name="preview" value="{{ trans('fluxbb::post.preview') }}" tabindex="<?php echo $cur_index++ ?>" accesskey="p" /> <a href="javascript:history.go(-1)">{{ trans('fluxbb::common.go_back') }}</a></p>
+		</form>
 	</div>
 </div>
-@endsection
+@stop
