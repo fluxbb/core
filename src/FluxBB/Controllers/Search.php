@@ -33,7 +33,7 @@ class Search extends Base
 	public function get_index()
 	{
 		$categories = Category::all();
-		return View::make('fluxbb::search.index')
+		return \View::make('fluxbb::search.index')
 				->with('categories', $categories);
 	}
 
