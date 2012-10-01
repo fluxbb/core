@@ -36,18 +36,18 @@ class User extends Base
 
 		if ($user === NULL)
 		{
-			return Event::first('404');
+			return \Event::first('404');
 		}
 		
-		else if (User::current()->id == $id || User::current()->is_admin())
+		else if (User::current()->id == $id || User::current()->isAdmin())
 		{
-			return View::make('fluxbb::user.profile.'.$action)
+			return \View::make('fluxbb::user.profile.'.$action)
 				->with('user', $user);
 		}
 		
 		else
 		{
-			return View::make('fluxbb::user.profile.view')
+			return \View::make('fluxbb::user.profile.view')
 				->with('user', $user);
 		}
 	
@@ -59,47 +59,47 @@ class User extends Base
 		// TODO: Add validation. This can probably wait until we restructure the profile.
 		if ($action == 'essentials')
 		{
-			$user->username = Input::get('username', $user->username);
-			$user->email = Input::get('email', $user->email);
-			$user->timezone = Input::get('timezone', $user->timezone);
-			$user->dst = Input::get('dst', $user->dst);
-			$user->time_format = Input::get('time_format');
-			$user->date_format = Input::get('date_format');
-			$user->admin_note = Input::get('admin_note', $user->admin_note);
+			$user->username = \Input::get('username', $user->username);
+			$user->email = \Input::get('email', $user->email);
+			$user->timezone = \Input::get('timezone', $user->timezone);
+			$user->dst = \Input::get('dst', $user->dst);
+			$user->time_format = \Input::get('time_format');
+			$user->date_format = \Input::get('date_format');
+			$user->admin_note = \Input::get('admin_note', $user->admin_note);
 		}
 		
 		else if ($action == 'messaging')
 		{
-			$user->jabber = Input::get('jabber');
-			$user->icq = Input::get('icq');
-			$user->msn = Input::get('msn');
-			$user->aim = Input::get('aim');
-			$user->yahoo = Input::get('yahoo');
+			$user->jabber = \Input::get('jabber');
+			$user->icq = \Input::get('icq');
+			$user->msn = \Input::get('msn');
+			$user->aim = \Input::get('aim');
+			$user->yahoo = \Input::get('yahoo');
 		}
 		
 		else if ($action == 'personal')
 		{
-			$user->realname = Input::get('realname');
-			$user->title = Input::get('title');
-			$user->location = Input::get('location');
-			$user->url = Input::get('url');
+			$user->realname = \Input::get('realname');
+			$user->title = \Input::get('title');
+			$user->location = \Input::get('location');
+			$user->url = \Input::get('url');
 		}
 		
 		else if ($action == 'personality')
 		{
-			$user->signature = Input::get('signature');
+			$user->signature = \Input::get('signature');
 		}
 		
 		else if ($action == 'display')
 		{
 		//This will give an error if not everything is set -> need to set defaults in database!
-			$user->style = Input::get('style');
-			$user->show_smilies = Input::get('show_smilies');
-			$user->show_sig = Input::get('show_sig');
-			$user->show_avatars = Input::get('show_avatars');
-			$user->show_img = Input::get('show_img');
-			$user->disp_topics = Input::get('disp_topics', $user->disp_topics);
-			$user->disp_posts = Input::get('disp_posts', $user->disp_posts);
+			$user->style = \Input::get('style');
+			$user->show_smilies = \Input::get('show_smilies');
+			$user->show_sig = \Input::get('show_sig');
+			$user->show_avatars = \Input::get('show_avatars');
+			$user->show_img = \Input::get('show_img');
+			$user->disp_topics = \Input::get('disp_topics', $user->disp_topics);
+			$user->disp_posts = \Input::get('disp_posts', $user->disp_posts);
 		}
 		
 		else //if action == privacy
@@ -108,16 +108,16 @@ class User extends Base
 		}
 		
 		$user->save();
-		return View::make('fluxbb::user.profile.'.$action)
+		return \View::make('fluxbb::user.profile.'.$action)
 				->with('user', $user)
-				->with('admin', (User::current()->group_id == 1));
+				->with('admin', User::current()->isAdmin());
 	}
 
 	public function get_list()
 	{
 		$users = User::paginate(20);
 
-		return View::make('fluxbb::user.list')
+		return \View::make('fluxbb::user.list')
 			->with('users', $users);
 	}
 
