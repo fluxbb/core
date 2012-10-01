@@ -30,7 +30,7 @@
 								?>
 								<legend><span>{{ $category->cat_name }}</span></legend>
 								@foreach ($forums as $forum)
-								<?php $idSlugged = Str::slug($forum->forum_name, '-'); ?>
+								<?php $idSlugged = $forum->forum_name; ?>{{-- TODO: Sluggify forum name --}}
 								<div class="checklist-item"><span class="fld-input"><input type="checkbox" name="forums[]" id="{{ $idSlugged }}" value="1"></span> <label for="{{ $idSlugged }}">{{ $forum->forum_name }}</label></div>
 								@endforeach
 							@endforeach
