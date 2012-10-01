@@ -52,10 +52,10 @@ class Forum extends Base
 	public function perms()
 	{
 		// TODO: has_one() with group condition?
-		return $this->hasMany('FluxBB\\Models\\ForumPerms')
-			->where('group_id', '=', User::current()->id)
+		return $this->hasMany('FluxBB\\Models\\ForumPerms');
+			/*->where('group_id', '=', User::current()->id)
 			->whereNull('read_forum')
-			->orWhere('read_forum', '=', '1');
+			->orWhere('read_forum', '=', '1');*/
 	}
 
 
