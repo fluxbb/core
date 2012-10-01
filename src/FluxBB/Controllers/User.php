@@ -25,21 +25,21 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\User;
+use FluxBB\Models\User as u;
 
 class User extends Base
 {
 
 	public function get_profile($id, $action = 'essentials')
 	{
-		$user = User::find($id);
+		$user = u::find($id);
 
 		if ($user === NULL)
 		{
 			return \Event::first('404');
 		}
 		
-		else if (User::current()->id == $id || User::current()->isAdmin())
+		else if (u::current()->id == $id || u::current()->isAdmin())
 		{
 			return \View::make('fluxbb::user.profile.'.$action)
 				->with('user', $user);
@@ -55,7 +55,7 @@ class User extends Base
 	
 	public function put_profile($id, $action = 'essentials')
 	{
-		$user = User::find($id);
+		$user = u::find($id);
 		// TODO: Add validation. This can probably wait until we restructure the profile.
 		if ($action == 'essentials')
 		{
@@ -110,7 +110,7 @@ class User extends Base
 		$user->save();
 		return \View::make('fluxbb::user.profile.'.$action)
 				->with('user', $user)
-				->with('admin', User::current()->isAdmin());
+				->with('admin', u::current()->isAdmin());
 	}
 
 	public function get_list()
