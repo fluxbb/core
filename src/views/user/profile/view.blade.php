@@ -1,4 +1,4 @@
-@layout('fluxbb::layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 <div id="viewprofile" class="block">
@@ -33,38 +33,6 @@
 					</div>
 				</fieldset>
 			</div>
-			@if (!empty($user->jabber) || !empty($user->icq) || !empty($user->msn) || !empty($user->aim) || !empty($user->yahoo))
-			<div class="inform">
-				<fieldset>
-				<legend>Messaging</legend>
-					<div class="infldset">
-						<dl>
-							@if (!empty($user->jabber))
-								<dt>Jabber</dt>
-								<dd>{{$user->jabber}}</dd>
-							@endif
-							@if (!empty($user->icq))
-								<dt>ICQ</dt>
-								<dd>{{$user->icq}}</dd>
-							@endif
-							@if (!empty($user->msn))
-								<dt>Real name</dt>
-								<dd>{{$user->realname}}</dd>
-							@endif
-							@if (!empty($user->realname))
-								<dt>Real name</dt>
-								<dd>{{$user->realname}}</dd>
-							@endif
-							@if (!empty($user->realname))
-								<dt>Real name</dt>
-								<dd>{{$user->realname}}</dd>
-							@endif
-						</dl>
-						<div class="clearer"></div>
-					</div>
-				</fieldset>
-			</div>
-			@endif
 			@if (!empty($user->signature))
 			<div class="inform">
 				<fieldset>
@@ -88,9 +56,9 @@
 							<dt>Posts</dt>
 							<dd>{{$user->num_posts}} - <a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a></dd>
 							<dt>Last post</dt>
-							<dd><?php echo HTML::format_time($user->last_post) ?></dd>
+							<dd><?php echo ($user->last_post) ?></dd>{{-- TODO: format_time --}}
 							<dt>Registered</dt>
-							<dd><?php echo HTML::format_time($user->registered, true) ?></dd>
+							<dd><?php echo ($user->registered) ?></dd>{{-- TODO: format_time --}}
 						</dl>
 						<div class="clearer"></div>
 					</div>
@@ -100,4 +68,4 @@
 		</div>
 	</div>
 </div>
-@endsection
+@stop
