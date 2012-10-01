@@ -29,8 +29,7 @@ use FluxBB\Models\Category,
 	FluxBB\Models\Forum,
 	FluxBB\Models\Post,
 	FluxBB\Models\Topic,
-	FluxBB\Models\User,
-	View;
+	FluxBB\Models\User;
 
 class Home extends Base
 {
@@ -41,7 +40,7 @@ class Home extends Base
 		// Fetch the categories and forums
 		$categories = Category::allForGroup(User::current()->group_id);
 
-		$view = View::make('fluxbb::index');
+		$view = \View::make('fluxbb::index');
 		$view['categories'] = $categories;
 		return $view;
 	}
@@ -57,7 +56,7 @@ class Home extends Base
 
 		if ($forum === NULL)
 		{
-			return Event::first('404');
+			return \Event::first('404');
 		}
 
 		$disp_topics = $this->user()->dispTopics();
@@ -76,7 +75,7 @@ class Home extends Base
 		->take($disp_topics)
 		->get();
 
-		return View::make('fluxbb::viewforum')
+		return \View::make('fluxbb::viewforum')
 			->with('forum', $forum)
 			->with('topics', $topics)
 			->with('start_from', $start_from);
@@ -95,7 +94,7 @@ class Home extends Base
 
 		if ($topic === NULL)
 		{
-			return Event::first('404');
+			return \Event::first('404');
 		}
 
 		$disp_posts = $this->user()->dispPosts();
@@ -117,7 +116,7 @@ class Home extends Base
 		->take($disp_posts)
 		->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
 
-		return View::make('fluxbb::viewtopic')
+		return \View::make('fluxbb::viewtopic')
 			->with('topic', $topic)
 			->with('posts', $posts)
 			->with('start_from', $start_from);
@@ -130,7 +129,7 @@ class Home extends Base
 
 		if ($post === NULL)
 		{
-			return Event::first('404');
+			return \Event::first('404');
 		}
 
 		$tid = $post->topic_id;
