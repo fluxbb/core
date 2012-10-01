@@ -9,31 +9,31 @@
 <div id="brdheader" class="block">
 	<div class="box">
 		<div id="brdtitle" class="inbox">
-			<h1><a href="{{ URL::action('fluxbb::home@index') }}">Board title</a></h1>
+			<h1><a href="{{ URL::route('index') }}">Board title</a></h1>
 			<div id="brddesc">Board description</div>
 		</div>
 		<div id="brdmenu" class="inbox">
 			<ul>
 				<!-- TODO: Class isactive -->
-				<li id="navindex" class="isactive"><a href="{{ URL::action('fluxbb::home@index') }}">{{ trans('fluxbb::common.index') }}</a></li>
+				<li id="navindex" class="isactive"><a href="{{ URL::route('index') }}">{{ trans('fluxbb::common.index') }}</a></li>
 @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_view_users == '1')
-				<li id="navuserlist"><a href="{{ URL::action('fluxbb::user@list') }}">{{ trans('fluxbb::common.user_list') }}</a></li>
+				<li id="navuserlist"><a href="{{ URL::route('userlist') }}">{{ trans('fluxbb::common.user_list') }}</a></li>
 @endif
 @if (FluxBB\Models\Config::enabled('o_rules') && (Auth::check() || FluxBB\Models\User::current()->group->g_read_board == '1' || FluxBB\Models\Config::enabled('o_regs_allow')))
-				<li id="navrules"><a href="{{ URL::action('fluxbb::misc@rules') }}">{{ trans('fluxbb::common.rules') }}</a></li>
+				<li id="navrules"><a href="{{ URL::route('rules') }}">{{ trans('fluxbb::common.rules') }}</a></li>
 @endif
 @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_search == '1')
-				<li id="navsearch"><a href="{{ URL::action('fluxbb::search@index') }}">{{ trans('fluxbb::common.search') }}</a></li>
+				<li id="navsearch"><a href="{{ URL::route('search') }}">{{ trans('fluxbb::common.search') }}</a></li>
 @endif
 @if (Auth::isGuest())
-				<li id="navregister"><a href="{{ URL::action('fluxbb::auth@register') }}">{{ trans('fluxbb::common.register') }}</a></li>
-				<li id="navlogin"><a href="{{ URL::action('fluxbb::auth@login') }}">{{ trans('fluxbb::common.login') }}</a></li>
+				<li id="navregister"><a href="{{ URL::route('register') }}">{{ trans('fluxbb::common.register') }}</a></li>
+				<li id="navlogin"><a href="{{ URL::route('login') }}">{{ trans('fluxbb::common.login') }}</a></li>
 @else
-				<li id="navprofile"><a href="{{ URL::action('fluxbb::user@profile', array(Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
+				<li id="navprofile"><a href="{{ URL::route('profile', array('uid' => Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
 	@if (FluxBB\Models\User::current()->isAdmin())
-				<li id="navadmin"><a href="{{ URL::action('fluxbb::admin@index') }}">{{ trans('fluxbb::common.admin') }}</a></li>
+				<li id="navadmin"><a href="{{ URL::route('admin') }}">{{ trans('fluxbb::common.admin') }}</a></li>
 	@endif
-				<li id="navlogout"><a href="{{ URL::action('fluxbb::auth@logout') }}">{{ trans('fluxbb::common.logout') }}</a></li>
+				<li id="navlogout"><a href="{{ URL::route('logout') }}">{{ trans('fluxbb::common.logout') }}</a></li>
 @endif
 			</ul>
 		</div>
