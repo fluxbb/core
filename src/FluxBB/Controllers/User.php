@@ -115,7 +115,7 @@ class User extends Base
 
 	public function get_list()
 	{
-		$users = User::paginate(20);
+		$users = u::paginate(20);
 
 		return \View::make('fluxbb::user.list')
 			->with('users', $users);
