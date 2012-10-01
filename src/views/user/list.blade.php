@@ -1,4 +1,4 @@
-@layout('fluxbb::layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 <div class="linkst">
@@ -21,7 +21,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach ($users->results as $user): ?>
+			<?php foreach ($users as $user): ?>
 				<tr>
 					<td class="tcl">{{ HTML::link_to_action('fluxbb::user@profile', $user->username, array($user->id)) }}</td>
 					<td class="tc2">{{$user->title}}</td>
@@ -34,4 +34,4 @@
 		</div>
 	</div>
 </div>
-@endsection
+@stop

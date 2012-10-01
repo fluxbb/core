@@ -1,4 +1,4 @@
-@layout('fluxbb::layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 <div id="searchform" class="blockform">
@@ -80,4 +80,4 @@
 		</form>
 	</div>
 </div>
-@endsection
+@stop
