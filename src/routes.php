@@ -28,19 +28,69 @@ Lang::addNamespace('fluxbb', __DIR__.'/language/');
 
 Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 {
-	Route::get('forum/{num}', 'FluxBB\\Controllers\\Home@get_forum');
-	Route::get('topic/{num}', 'FluxBB\\Controllers\\Home@get_topic');
-	Route::get('post/{num}', 'FluxBB\\Controllers\\Home@get_post');
-	Route::get('/', 'FluxBB\\Controllers\\Home@get_index');
-	Route::any('profile/{num}/{username}', array('as' => 'profile', 'uses' => 'fluxbb::user@profile'));
-	Route::get('user/list', 'FluxBB\\Controllers\\User@get_list');
-	Route::any('register', 'FluxBB\\Controllers\\Auth@get_register'); // TODO: "any" should not route to 'get_register'
-	Route::get('login', 'FluxBB\\Controllers\\Auth@get_login');
-	Route::post('login', 'FluxBB\\Controllers\\Auth@post_login');
-	Route::get('logout', 'FluxBB\\Controllers\\Auth@get_logout');
-	Route::get('search', 'FluxBB\\Controllers\\Search@get_index');
-	Route::any('topic/{num}/reply', 'FluxBB\\Controllers\\Posting@get_reply');
-	Route::any('forum/{num}/new_topic', 'FluxBB\\Controllers\\Posting@get_topic');
+	Route::get('forum/{fid}', array(
+		'as'	=> 'viewforum',
+		'uses'	=> 'FluxBB\\Controllers\\Home@get_forum',
+	));
+	Route::get('topic/{tid}', array(
+		'as'	=> 'viewtopic',
+		'uses'	=> 'FluxBB\\Controllers\\Home@get_topic',
+	));
+	Route::get('post/{pid}', array(
+		'as'	=> 'viewpost',
+		'uses'	=> 'FluxBB\\Controllers\\Home@get_post',
+	));
+	Route::get('/', array(
+		'as'	=> 'index',
+		'uses'	=> 'FluxBB\\Controllers\\Home@get_index',
+	));
+	Route::get('profile/{uid}/{username}', array(
+		'as'	=> 'profile',
+		'uses'	=> 'FluxBB\\Controllers\\User@get_profile',
+	));
+	Route::put('profile/{uid}/{username}', array(
+		'uses'	=> 'FluxBB\\Controllers\\User@put_profile',
+	));
+	Route::get('user/list', array(
+		'as'	=> 'userlist',
+		'uses'	=> 'FluxBB\\Controllers\\User@get_list',
+	));
+	Route::get('register', array(
+		'as'	=> 'register',
+		'uses'	=> 'FluxBB\\Controllers\\Auth@get_register',
+	));
+	Route::post('register', array(
+		'uses'	=> 'FluxBB\\Controllers\\Auth@post_register',
+	));
+	Route::get('login', array(
+		'as'	=> 'login',
+		'uses'	=> 'FluxBB\\Controllers\\Auth@get_login',
+	));
+	Route::post('login', array(
+		'uses'	=> 'FluxBB\\Controllers\\Auth@post_login',
+	));
+	Route::get('logout', array(
+		'as'	=> 'logout',
+		'uses'	=> 'FluxBB\\Controllers\\Auth@get_logout',
+	));
+	Route::get('search', array(
+		'as'	=> 'search',
+		'uses'	=> 'FluxBB\\Controllers\\Search@get_index',
+	));
+	Route::get('topic/{tid}/reply', array(
+		'as'	=> 'reply',
+		'uses'	=> 'FluxBB\\Controllers\\Posting@get_reply',
+	));
+	Route::put('topic/{tid}/reply', array(
+		'uses'	=> 'FluxBB\\Controllers\\Posting@put_reply',
+	));
+	Route::get('forum/{fid}/topic/new', array(
+		'as'	=> 'new_topic',
+		'uses'	=> 'FluxBB\\Controllers\\Posting@get_topic',
+	));
+	Route::put('forum/{fid}/topic/new', array(
+		'uses'	=> 'FluxBB\\Controllers\\Posting@put_topic',
+	));
 });
 
 
