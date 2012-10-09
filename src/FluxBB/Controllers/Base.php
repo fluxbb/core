@@ -33,6 +33,9 @@ class Base extends Controller
 {
 	public $restful = true;
 
+	public function __construct()
+	{}
+
 	public function user()
 	{
 		return User::current();
@@ -40,7 +43,7 @@ class Base extends Controller
 
 	public function make_validator($attributes, $rules, $messages = array())
 	{
-		return Validator::make($attributes, $rules, $messages)->bundle('fluxbb');
+		return \Validator::make($attributes, $rules, $messages)->bundle('fluxbb');
 	}
 
 }
