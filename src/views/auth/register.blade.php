@@ -73,7 +73,7 @@
 					<div class="infldset">
 						<label class="required">
 							<strong>{{ trans('fluxbb::register.rules_legend') }} </strong><br /><br />{{ FluxBB\Models\Config::get('o_rules') }}
-							<p class="checkbox"><input type="checkbox" name="rules" />{{ trans('fluxbb::register.agree') }}<span><strong>{{ trans('fluxbb::common.required') }}</strong></p></span>
+							<p class="checkbox"><input type="checkbox" name="rules" value="1" />{{ trans('fluxbb::register.agree') }}<span><strong>{{ trans('fluxbb::common.required') }}</strong></p></span>
 						</label>
 					</div>
 				</fieldset>
