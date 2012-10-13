@@ -87,26 +87,26 @@ class Auth extends Base
 	{
         // TODO: Add agreement to rules here!
 		$rules = array(
-			'user'		=> 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',
+			'user'		=> 'Required|Between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|Unique:users,username|username_not_banned',
 		);
 		
 		// If email confirmation is enabled
 		if (Config::enabled('o_regs_verify'))
 		{
-			$rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
+			$rules['email'] = 'Required|Email|Confirmed|unique:users,email|email_not_banned';
 		}
 		else
 		{
-			$rules['password'] = 'required|min:4|confirmed';
-			$rules['email'] = 'required|email|unique:users,email';
+			$rules['password'] = 'Required|Min:4|Confirmed';
+			$rules['email'] = 'Required|Email|Unique:users,email';
 		}
 
 		$validation = $this->make_validator(\Input::all(), $rules);
 		if ($validation->fails())
 		{
-			return \Redirect::action('fluxbb::auth@register')
+			return \Redirect::route('register')
 				->withInput(\Input::all())
-				->with('errors', $validation);
+				->with('errors', $validation->getMessages());
 		}
 
 		$user_data = array(
