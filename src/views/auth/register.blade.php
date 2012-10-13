@@ -61,10 +61,10 @@
 							<strong>{{ trans('fluxbb::register.confirm_email') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br />
 							<input type="email" name="email_confirmation" size="50" maxlength="80" value="{{ Input::old('email_confirmation') }}" /><br />
 						</label>
+@endif
 					</div>
 				</fieldset>
 			</div>
-@endif
 
 @if (FluxBB\Models\Config::enabled('o_rules'))
 			<div class="inform">
@@ -75,10 +75,12 @@
 							<strong>{{ trans('fluxbb::register.rules_legend') }} </strong><br /><br />{{ FluxBB\Models\Config::get('o_rules') }}
 							<p class="checkbox"><input type="checkbox" name="rules" />{{ trans('fluxbb::register.agree') }}<span><strong>{{ trans('fluxbb::common.required') }}</strong></p></span>
 						</label>
-
-		</div>
-	</div>
+					</div>
+				</fieldset>
+			</div>
 @endif
 			<p class="buttons"><input type="submit" name="register" value="{{ trans('fluxbb::register.register') }}" /></p>
-</form>
+		</form>
+	</div>
+</div>
 @stop
