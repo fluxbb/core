@@ -159,8 +159,8 @@ class Install extends Base
 		// Insert the three preset groups
 		$admin_group = Group::create(array(
 			'g_id'						=> Group::ADMIN,
-			'g_title'					=> __('fluxbb::seed_data.administrators'),
-			'g_user_title'				=> __('fluxbb::seed_data.administrator'),
+			'g_title'					=> trans('fluxbb::seed_data.administrators'),
+			'g_user_title'				=> trans('fluxbb::seed_data.administrator'),
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
 			'g_moderator'				=> 0,
@@ -188,8 +188,8 @@ class Install extends Base
 
 		$moderator_group = Group::create(array(
 			'g_id'						=> Group::MOD,
-			'g_title'					=> __('fluxbb::seed_data.moderators'),
-			'g_user_title'				=> __('fluxbb::seed_data.moderator'),
+			'g_title'					=> trans('fluxbb::seed_data.moderators'),
+			'g_user_title'				=> trans('fluxbb::seed_data.moderator'),
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
 			'g_moderator'				=> 1,
@@ -217,7 +217,7 @@ class Install extends Base
 
 		$member_group = Group::create(array(
 			'g_id'						=> Group::MEMBER,
-			'g_title'					=> __('fluxbb::seed_data.members'),
+			'g_title'					=> trans('fluxbb::seed_data.members'),
 			'g_user_title'				=> null,
 			'g_promote_min_posts'		=> 0,
 			'g_promote_next_group'		=> 0,
@@ -253,8 +253,8 @@ class Install extends Base
 		// Insert config data
 		$config = array(
 			'o_cur_version'				=> FLUXBB_VERSION,
-			'o_board_title'				=> __('fluxbb::seed_data.board_title'),
-			'o_board_desc'				=> __('fluxbb::seed_data.board_desc'),
+			'o_board_title'				=> trans('fluxbb::seed_data.board_title'),
+			'o_board_desc'				=> trans('fluxbb::seed_data.board_desc'),
 			'o_default_timezone'		=> 0,
 			'o_time_format'				=> 'H:i:s',
 			'o_date_format'				=> 'Y-m-d',
@@ -305,11 +305,11 @@ class Install extends Base
 			'o_regs_allow'				=> 1,
 			'o_regs_verify'				=> 0,
 			'o_announcement'			=> 0,
-			'o_announcement_message'	=> __('fluxbb::seed_data.announcement'),
+			'o_announcement_message'	=> trans('fluxbb::seed_data.announcement'),
 			'o_rules'					=> 0,
-			'o_rules_message'			=> __('fluxbb::seed_data.rules'),
+			'o_rules_message'			=> trans('fluxbb::seed_data.rules'),
 			'o_maintenance'				=> 0,
-			'o_maintenance_message'		=> __('fluxbb::seed_data.maintenance_message'),
+			'o_maintenance_message'		=> trans('fluxbb::seed_data.maintenance_message'),
 			'o_default_dst'				=> 0,
 			'o_feed_type'				=> 2,
 			'o_feed_ttl'				=> 0,

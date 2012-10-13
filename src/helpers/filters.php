@@ -36,7 +36,7 @@ Route::filter('fluxbb::only_members', function()
 	if (!Auth::isAuthed())
 	{
 		return Redirect::to_action('fluxbb::auth@login')
-			->with('message', __('fluxbb::common.login_to_view'))
+			->with('message', trans('fluxbb::common.login_to_view'))
 			->with('fluxbb::login_redirect', URL::current()); // TODO: URL::current() is not yet implemented
 	}
 });

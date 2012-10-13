@@ -53,7 +53,7 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 {
 	if ($timestamp == '')
 	{
-		return __('fluxbb::common.never');
+		return trans('fluxbb::common.never');
 	}
 
 	$diff = (0 + 0) * 3600; // FIXME: $pun_user['timezone'] + $pun_user['dst'];
@@ -78,11 +78,11 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 	{
 		if ($date == $today)
 		{
-			$date = __('fluxbb::common.today');
+			$date = trans('fluxbb::common.today');
 		}
 		else if ($date == $yesterday)
 		{
-			$date = __('fluxbb::common.yesterday');
+			$date = trans('fluxbb::common.yesterday');
 		}
 	}
 
@@ -105,5 +105,5 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 //
 HTML::macro('number_format', function($number, $decimals = 0)
 {
-	return is_numeric($number) ? number_format($number, $decimals, __('fluxbb::common.lang_decimal_point'), __('fluxbb::common.lang_thousands_sep')) : $number;
+	return is_numeric($number) ? number_format($number, $decimals, trans('fluxbb::common.lang_decimal_point'), trans('fluxbb::common.lang_thousands_sep')) : $number;
 });

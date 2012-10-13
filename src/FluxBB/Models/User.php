@@ -127,7 +127,7 @@ class User extends Base
 		// If the user is banned
 		else if (in_array(strtolower($this->username), $ban_list))
 		{
-			return __('Banned');
+			return trans('Banned');
 		}
 		// If the user group has a default user title
 		else if ($this->group->g_user_title != '')
@@ -137,12 +137,12 @@ class User extends Base
 		// If the user is a guest
 		else if ($this->isGuest())
 		{
-			return __('Guest');
+			return trans('Guest');
 		}
 		// If nothing else helps, we assign the default
 		else
 		{
-			return __('Member');
+			return trans('Member');
 		}
 	}
 
