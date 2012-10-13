@@ -75,10 +75,10 @@
 							<strong>{{ trans('fluxbb::register.rules_legend') }} </strong><br /><br />{{ FluxBB\Models\Config::get('o_rules') }}
 							<p class="checkbox"><input type="checkbox" name="rules" />{{ trans('fluxbb::register.agree') }}<span><strong>{{ trans('fluxbb::common.required') }}</strong></p></span>
 						</label>
-			</form>
+
 		</div>
 	</div>
 @endif
 			<p class="buttons"><input type="submit" name="register" value="{{ trans('fluxbb::register.register') }}" /></p>
-
+</form>
 @stop
