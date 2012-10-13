@@ -43,7 +43,7 @@ class Base extends Controller
 
 	public function make_validator($attributes, $rules, $messages = array())
 	{
-		return \Validator::make($attributes, $rules, $messages)->bundle('fluxbb');
+		return \Validator::make($attributes, $rules, $messages);//->bundle('fluxbb');
 	}
 
 }
