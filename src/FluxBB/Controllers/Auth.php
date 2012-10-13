@@ -85,8 +85,7 @@ class Auth extends Base
 
 	public function post_register()
 	{
-        // TODO: Add agreement to rules here!
-		$rules = array(
+        $rules = array(
 			'user'		=> 'Required|Between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|Unique:users,username|username_not_banned',
 		);
 		
@@ -99,6 +98,12 @@ class Auth extends Base
 		{
 			$rules['password'] = 'Required|Min:4|Confirmed';
 			$rules['email'] = 'Required|Email|Unique:users,email';
+		}
+
+		// Agree to forum rules
+		if (Config::enabled('o_rules'))
+		{
+			$rules['rules'] = 'Accepted';
 		}
 
 		$validation = $this->make_validator(\Input::all(), $rules);
