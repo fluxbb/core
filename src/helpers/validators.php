@@ -25,7 +25,7 @@
 
 Validator::addExtension('email_not_banned', function($attribute, $value, $parameters)
 {
-	$bans = fluxbb\Models\Ban::all();
+	$bans = FluxBB\Models\Ban::all();
 
 	foreach ($bans as $cur_ban)
 	{
@@ -42,7 +42,7 @@ Validator::addExtension('email_not_banned', function($attribute, $value, $parame
 
 Validator::addExtension('username_not_banned', function($attribute, $value, $parameters)
 {
-	$bans = fluxbb\Models\Ban::all();
+	$bans = FluxBB\Models\Ban::all();
 
 	foreach ($bans as $cur_ban)
 	{
@@ -78,10 +78,10 @@ Validator::addExtension('no_bbcode', function($attribute, $value, $parameters)
 
 Validator::addExtension('not_censored', function($attribute, $value, $parameters)
 {
-	if (fluxbb\Models\Config::disabled('o_censoring'))
+	if (FluxBB\Models\Config::disabled('o_censoring'))
 	{
 		return true;
 	}
 
-	return fluxbb\Models\Censor::is_clean($username);
+	return FluxBB\Models\Censor::is_clean($username);
 });
