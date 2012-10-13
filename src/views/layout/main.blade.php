@@ -19,7 +19,7 @@
 @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_view_users == '1')
 				<li id="navuserlist"><a href="{{ URL::route('userlist') }}">{{ trans('fluxbb::common.user_list') }}</a></li>
 @endif
-@if (FluxBB\Models\Config::enabled('o_rules') && (Auth::check() || FluxBB\Models\User::current()->group->g_read_board == '1' || FluxBB\Models\Config::enabled('o_regs_allow')))
+@if (FluxBB\Models\Config::enabled('o_rules') && (Auth::isAuthed() || FluxBB\Models\User::current()->group->g_read_board == '1' || FluxBB\Models\Config::enabled('o_regs_allow')))
 				<li id="navrules"><a href="{{ URL::route('rules') }}">{{ trans('fluxbb::common.rules') }}</a></li>
 @endif
 @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_search == '1')
