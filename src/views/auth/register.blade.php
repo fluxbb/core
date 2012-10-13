@@ -4,7 +4,7 @@
 <div id="regform" class="blockform">
 	<h2><span>{{ trans('fluxbb::register.register') }}</span></h2>
 	<div class="box">
-		<form id="register" method="post" action="{{ URL::action('fluxbb::auth@register') }}" onsubmit="this.register.disabled=true;if(process_form(this)){return true;}else{this.register.disabled=false;return false;}">
+		<form id="register" method="post" action="{{ URL::route('register') }}" onsubmit="this.register.disabled=true;if(process_form(this)){return true;}else{this.register.disabled=false;return false;}">
 			<div class="inform">
 				<div class="forminfo">
 					<h3>{{ trans('fluxbb::common.important') }}</h3>
