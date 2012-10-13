@@ -41,7 +41,7 @@ class Auth extends Base
 	public function get_logout()
 	{
 		\Auth::logout();
-		return \Redirect::action('fluxbb::home@index')->with('message', __('fluxbb::login.message_logout'));
+		return \Redirect::action('fluxbb::home@index')->with('message', trans('fluxbb::login.message_logout'));
 	}
 	
 	public function get_login()
@@ -126,7 +126,7 @@ class Auth extends Base
 		$user = User::create($user_data);
 	
 		return \Redirect::action('fluxbb::home@index')
-			->with('message', __('fluxbb::register.reg_complete'));
+			->with('message', trans('fluxbb::register.reg_complete'));
 	}
 
 }
