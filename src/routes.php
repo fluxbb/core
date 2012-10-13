@@ -73,6 +73,10 @@ Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 		'as'	=> 'logout',
 		'uses'	=> 'FluxBB\\Controllers\\Auth@get_logout',
 	));
+	Route::get('rules', array(
+		'as'	=> 'rules',
+		'uses'	=> 'FluxBB\\Controllers\\Misc@get_rules',
+	));
 	Route::get('search', array(
 		'as'	=> 'search',
 		'uses'	=> 'FluxBB\\Controllers\\Search@get_index',
