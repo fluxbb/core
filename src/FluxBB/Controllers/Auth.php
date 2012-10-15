@@ -63,7 +63,7 @@ class Auth extends Base
 			// TODO: Implement this!
 
 			// TODO: This is properly validated in URL::to, right?
-			$redirect_url = \Input::get('redirect_url', \URL::action('fluxbb::home@index'));
+			$redirect_url = \Input::get('redirect_url', \URL::route('index'));
 			return \Redirect::to($redirect_url)
 				->with('message', 'You were successfully logged in.');
 		}
@@ -117,7 +117,7 @@ class Auth extends Base
 		$user_data = array(
 			'username'			=> \Input::get('user'),
 			'group_id'			=> Config::enabled('o_regs_verify') ? Group::UNVERIFIED : Config::get('o_default_user_group'),
-			'password'			=> \Input::get('password'),
+			'password'			=> \Hash::make(\Input::get('password')),
 			'email'				=> \Input::get('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),
 			'timezone'			=> Config::get('o_default_timezone'),
