@@ -29,7 +29,7 @@
 				<li id="navregister"><a href="{{ URL::route('register') }}">{{ trans('fluxbb::common.register') }}</a></li>
 				<li id="navlogin"><a href="{{ URL::route('login') }}">{{ trans('fluxbb::common.login') }}</a></li>
 @else
-				<li id="navprofile"><a href="{{ URL::route('profile', array('uid' => Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
+				<li id="navprofile"><a href="{{ URL::route('profile', array('uid' => Auth::user()->id, 'username' => Auth::user()->username)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
 	@if (FluxBB\Models\User::current()->isAdmin())
 				<li id="navadmin"><a href="{{ URL::route('admin') }}">{{ trans('fluxbb::common.admin') }}</a></li>
 	@endif
