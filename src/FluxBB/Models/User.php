@@ -25,10 +25,11 @@
 
 namespace FluxBB\Models;
 
-use Auth,
+use Illuminate\Auth\UserInterface,
+	Auth,
 	Hash;
 
-class User extends Base
+class User extends Base implements UserInterface
 {
 
 	protected $table = 'users';
@@ -221,6 +222,17 @@ class User extends Base
 	{
 		$this->set_attribute('password', Hash::make($password));
 		// TODO: Maybe reset some attributes like confirmation code here?
+	}
+
+
+	public function getAuthIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	public function getAuthPassword()
+	{
+		return $this->password;
 	}
 
 }
