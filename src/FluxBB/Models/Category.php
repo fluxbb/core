@@ -40,7 +40,7 @@ class Category extends Base
 	}
 
 
-	public static function all()
+	public static function all($columns = array())
 	{
 		return Cache::remember('fluxbb.categories', 7 * 24 * 60, function() {
 			$all = array();
