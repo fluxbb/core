@@ -59,7 +59,8 @@ class Auth extends Base
 		if (\Auth::attempt($login_data, \Input::has('save_pass')))
 		{
 			// Make sure last_visit data is properly updated
-			\Session::sweep();
+			//\Session::sweep();
+			// TODO: Implement this!
 
 			// TODO: This is properly validated in URL::to, right?
 			$redirect_url = \Input::get('redirect_url', \URL::action('fluxbb::home@index'));
