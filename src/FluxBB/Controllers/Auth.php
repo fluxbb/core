@@ -72,7 +72,7 @@ class Auth extends Base
 			$errors = new \Illuminate\Validation\MessageBag;
 			$errors->add('login', 'Invalid username / password combination.');
 
-			return \Redirect::action('fluxbb::auth@login')
+			return \Redirect::route('login')
 				->withInput(\Input::all())
 				->with('errors', $errors);
 		}
