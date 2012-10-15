@@ -54,10 +54,9 @@ class Auth extends Base
 		$login_data = array(
 			'username'	=> \Input::get('req_username'),
 			'password'	=> \Input::get('req_password'),
-			//'remember'	=> !is_null(\Input::get('save_pass')),
-		); // TODO: Add remember me setting once supported by Illuminate
+		);
 
-		if (\Auth::attempt($login_data))
+		if (\Auth::attempt($login_data, \Input::has('save_pass')))
 		{
 			// Make sure last_visit data is properly updated
 			\Session::sweep();
