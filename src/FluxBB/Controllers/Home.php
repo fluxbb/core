@@ -25,14 +25,16 @@
 
 namespace FluxBB\Controllers;
 
+use FluxBB\Routing\Controller;
 use FluxBB\Models\Category,
 	FluxBB\Models\Forum,
 	FluxBB\Models\Post,
 	FluxBB\Models\Topic,
 	FluxBB\Models\User;
 
-class Home extends Base
+class Home extends Controller
 {
+
 	public function get_index()
 	{
 		// TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
@@ -40,7 +42,7 @@ class Home extends Base
 		// Fetch the categories and forums
 		$categories = Category::allForGroup(User::current()->group_id);
 
-		$view = \View::make('fluxbb::index');
+		$view = $this->view('index');
 		$view['categories'] = $categories;
 		return $view;
 	}
@@ -56,10 +58,10 @@ class Home extends Base
 
 		if ($forum === NULL)
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
-		$disp_topics = $this->user()->dispTopics();
+		$disp_topics = User::current()->dispTopics();
 		$num_pages = ceil(($forum->num_topics + 1) / $disp_topics);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_topics * ($page - 1);
@@ -75,7 +77,7 @@ class Home extends Base
 		->take($disp_topics)
 		->get();
 
-		return \View::make('fluxbb::viewforum')
+		return $this->view('viewforum')
 			->with('forum', $forum)
 			->with('topics', $topics)
 			->with('start_from', $start_from);
@@ -94,10 +96,10 @@ class Home extends Base
 
 		if ($topic === NULL)
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
-		$disp_posts = $this->user()->dispPosts();
+		$disp_posts = User::current()->dispPosts();
 		$num_pages = ceil(($topic->num_replies + 1) / $disp_posts);
 		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
 		$start_from = $disp_posts * ($page - 1);
@@ -106,17 +108,14 @@ class Home extends Base
 		// TODO: Use paginate?
 		// Fetch post data
 		// TODO: Can we enforce the INNER JOIN here somehow?
-		$posts = Post::with(array(
-			'poster',
-			'poster.group',
-		))
+		$posts = Post::with('author.group')
 		->where('topic_id', '=', $tid)
 		->orderBy('id')
 		->skip($start_from)
 		->take($disp_posts)
 		->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
 
-		return \View::make('fluxbb::viewtopic')
+		return $this->view('viewtopic')
 			->with('topic', $topic)
 			->with('posts', $posts)
 			->with('start_from', $start_from);
@@ -127,9 +126,9 @@ class Home extends Base
 		// If a post ID is specified we determine topic ID and page number so we can show the correct message
 		$post = Post::where('id', '=', $pid)->select(array('topic_id', 'posted'))->first();
 
-		if ($post === NULL)
+		if (is_null($post))
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
 		$tid = $post->topic_id;
@@ -138,8 +137,11 @@ class Home extends Base
 		// Determine on what page the post is located (depending on $forum_user['disp_posts'])
 		$num_posts = Post::where('topic_id', '=', $tid)->where('posted', '<', $posted)->count('id') + 1;
 
-		$disp_posts = $this->user()->dispPosts();
+		$disp_posts = User::current()->dispPosts();
 		$p = ceil($num_posts / $disp_posts);
+
+		// TODO: This depends on https://github.com/illuminate/pagination/pull/2
+		// $this->app['paginator']->setCurrentPage($p);
 
 		// FIXME: second parameter for $page number
 		return $this->get_topic($tid);

@@ -25,11 +25,76 @@
 
 namespace FluxBB\Models;
 
-use Eloquent;
+use ArrayAccess;
+use Illuminate\Cache\Store as CacheStore;
+use Illuminate\Database\Eloquent\Model;
 
-class Base extends Eloquent
+class Base extends Model implements ArrayAccess
 {
 
 	public $timestamps = false;
-	
+
+	protected static $cacheStore;
+
+
+	public static function setCacheStore(CacheStore $store)
+	{
+		static::$cacheStore = $store;
+	}
+
+	public static function getCacheStore()
+	{
+		return static::$cacheStore;
+	}
+
+	protected function getCache()
+	{
+		return static::getCacheStore();
+	}
+
+	/**
+	 * Dynamically retrieve attributes on the model.
+	 *
+	 * @param  string  $key
+	 * @return mixed
+	 */
+	public function offsetGet($key)
+	{
+		return $this->getAttribute($key);
+	}
+
+	/**
+	 * Dynamically set attributes on the model.
+	 *
+	 * @param  string  $key
+	 * @param  mixed   $value
+	 * @return void
+	 */
+	public function offsetSet($key, $value)
+	{
+		$this->setAttribute($key, $value);
+	}
+
+	/**
+	 * Determine if an attribute exists on the model.
+	 *
+	 * @param  string  $key
+	 * @return void
+	 */
+	public function offsetExists($key)
+	{
+		return isset($this->attributes[$key]);
+	}
+
+	/**
+	 * Unset an attribute on the model.
+	 *
+	 * @param  string  $key
+	 * @return void
+	 */
+	public function offsetUnset($key)
+	{
+		unset($this->attributes[$key]);
+	}
+
 }

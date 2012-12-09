@@ -25,46 +25,41 @@
 
 namespace FluxBB\Controllers;
 
+use FluxBB\Routing\Controller;
 use FluxBB\Models\Post,
 	FluxBB\Models\Topic,
 	FluxBB\Models\Forum,
 	FluxBB\Models\User,
 	FluxBB\Models\Config;
 
-class Posting extends Base
+class Posting extends Controller
 {
 
 	public function get_reply($tid)
 	{
-		$topic = Topic::with(array(
-			'forum',
-			'forum.perms',
-		))
-		->where('id', '=', $tid)
-		->first();
+		$topic = Topic::with('forum.perms')
+			->where('id', '=', $tid)
+			->first();
 
-		if ($topic === NULL)
+		if (is_null($topic))
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
-		return \View::make('fluxbb::posting.post')
+		return $this->view('posting.post')
 			->with('topic', $topic)
-			->with('action', trans('fluxbb::post.post_a_reply'));
+			->with('action', t('post.post_a_reply'));
 	}
 
-	public function put_reply($tid)
+	public function post_reply($tid)
 	{
-		$topic = Topic::with(array(
-			'forum',
-			'forum.perms',
-		))
-		->where('id', '=', $tid)
-		->first();
+		$topic = Topic::with('forum.perms')
+			->where('id', '=', $tid)
+			->first();
 
-		if ($topic === NULL)
+		if (is_null($topic))
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
 		// TODO: Flood protection
@@ -74,9 +69,9 @@ class Posting extends Base
 		);
 		// TODO: More validation
 
-		if (\Auth::isGuest())
+		if ($this->guest())
 		{
-			if (Config::enabled('p_force_guest_email') || \Input::get('email') != '')
+			if (Config::enabled('p_force_guest_email') || $this->input('email') != '')
 			{
 				$rules['req_email']	= 'required|email';
 			}
@@ -84,37 +79,37 @@ class Posting extends Base
 			// TODO: banned email
 		}
 
-		$validation = $this->make_validator(\Input::all(), $rules);
+		$validation = $this->validator($this->input(), $rules);
 		if ($validation->fails())
 		{
-			return \Redirect::to_action('fluxbb::posting@reply', array($tid))->with_input()->with_errors($validation);
+			return $this->redirect('posting@reply', array($tid))->withInput()->withErrors($validation);
 		}
 
 		$post_data = array(
 			'poster'			=> User::current()->username,
 			'poster_id'			=> User::current()->id,
-			'poster_ip'			=> \Request::ip(),
-			'message'			=> \Input::get('req_message'),
-			'hide_smilies'		=> \Input::get('hide_smilies') ? '1' : '0',
-			'posted'			=> \Request::time(),
+			'poster_ip'			=> $this->app['request']->getClientIp(),
+			'message'			=> $this->input('req_message'),
+			'hide_smilies'		=> $this->hasInput('hide_smilies') ? '1' : '0',
+			'posted'			=> time(), // TODO: Use SERVER_TIME
 			'topic_id'			=> $tid
 		);
 
-		if (\Auth::isGuest())
+		if ($this->guest())
 		{
-			$post_data['poster'] = \Input::get('req_username');
-			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? \Input::get('req_email') : \Input::get('email');
+			$post_data['poster'] = $this->input('req_username');
+			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? $this->input('req_email') : $this->input('email');
 		}
 
 		// Insert the new post
 		$post = Post::create($post_data);
 
 		// To subscribe or not to subscribe
-		$topic->subscribe(\Input::get('subscribe'));
+		$topic->subscribe($this->hasInput('subscribe'));
 
 		// Update topic
 		$topic->num_replies += 1;
-		$topic->last_post = \Request::time();
+		$topic->last_post = time(); // TODO: REQUEST_TIME
 		$topic->last_post_id = $post->id;
 		$topic->last_poster = $post_data['poster'];
 		$topic->save();
@@ -131,20 +126,21 @@ class Posting extends Base
 
 		// If the posting user is logged in, increment his/her post count
 		$user = User::current();
-		if (\Auth::isAuthed())
+		if ($this->check())
 		{
 			$user->num_posts += 1;
-			$user->last_post = \Request::time();
+			$user->last_post = time(); // TODO: Request_time
 			$user->save();
 			// TODO: Promote this user to a new group if enabled
 		}
 		else
 		{
-			$user->online()->update(array('last_post' => \Request::time()));
+			// TODO: Session!
+			$user->online()->update(array('last_post' => time())); // TODO: REquest_time
 		}
 
 
-		return \Redirect::to_action('fluxbb::post', array($post->id))->with('message', trans('fluxbb::post.post_added'));
+		return $this->redirect('post', array($post->id))->with('message', t('post.post_added'));
 	}
 
 	public function get_topic($fid)
@@ -155,17 +151,17 @@ class Posting extends Base
 		->where('id', '=', $fid)
 		->first();
 
-		if ($forum === NULL)
+		if (is_null($forum))
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
-		return \View::make('fluxbb::posting.post')
+		return $this->view('posting.post')
 			->with('forum', $forum)
-			->with('action', trans('fluxbb::forum.post_topic'));
+			->with('action', t('forum.post_topic'));
 	}
 
-	public function put_topic($fid)
+	public function post_topic($fid)
 	{
 		$forum = Forum::with(array(
 			'perms',
@@ -173,23 +169,23 @@ class Posting extends Base
 		->where('id', '=', $fid)
 		->first();
 
-		if ($forum === NULL)
+		if (is_null($forum))
 		{
-			return \Event::first('404');
+			return $this->show404();
 		}
 
 		// TODO: Flood protection
 		$rules = array(
 			// TODO: censored words, All caps subject
-			'req_subject'	=> 'required|max:70',
+			'req_subject'	=> 'Required|Max:70',
 			// TODO: PUN_MAX_POSTSIZE, censor, All caps message
-			'req_message'	=> 'required',
+			'req_message'	=> 'Required',
 		);
 		// TODO: More validation
 
-		if (\Auth::isGuest())
+		if ($this->guest())
 		{
-			if (Config::enabled('p_force_guest_email') || \Input::get('email') != '')
+			if (Config::enabled('p_force_guest_email') || $this->input('email') != '')
 			{
 				$rules['req_email']	= 'required|email';
 			}
@@ -197,47 +193,47 @@ class Posting extends Base
 			// TODO: banned email
 		}
 
-		$validation = $this->make_validator(Input::all(), $rules);
+		$validation = $this->validator($this->input(), $rules);
 		if ($validation->fails())
 		{
-			return \Redirect::to_action('fluxbb::posting@topic', array($fid))->with_input()->with_errors($validation);
+			return $this->redirect('new_topic', array($fid))->withInput()->withErrors($validation);
 		}
 
 		$topic_data = array(
 			'poster'			=> User::current()->username,
-			'subject'			=> \Input::get('req_subject'),
-			'posted'			=> \Request::time(),
-			'last_post'			=> \Request::time(),
+			'subject'			=> $this->input('req_subject'),
+			'posted'			=> time(),
+			'last_post'			=> time(), // TODO: Use REQUEST_TIME!
 			'last_poster'		=> User::current()->username,
-			'sticky'			=> \Input::get('stick_topic') ? '1' : '0',
+			'sticky'			=> $this->hasInput('stick_topic') ? '1' : '0',
 			'forum_id'			=> $fid,
 		);
 
-		if (\Auth::isGuest())
+		if ($this->guest())
 		{
-			$topic_data['poster'] = $topic_data['last_poster'] = \Input::get('req_username');
+			$topic_data['poster'] = $topic_data['last_poster'] = $this->input('req_username');
 		}
 
 		// Create the topic
 		$topic = Topic::create($topic_data);
 
 		// To subscribe or not to subscribe
-		$topic->subscribe(\Input::get('subscribe'));
+		$topic->subscribe($this->input('subscribe'));
 
 		$post_data = array(
 			'poster'			=> User::current()->username,
 			'poster_id'			=> User::current()->id,
-			'poster_ip'			=> \Request::ip(),
-			'message'			=> \Input::get('req_message'),
-			'hide_smilies'		=> \Input::get('hide_smilies') ? '1' : '0',
-			'posted'			=> \Request::time(),
+			'poster_ip'			=> '127.0.0.1', // TODO: Get IP from request
+			'message'			=> $this->input('req_message'),
+			'hide_smilies'		=> $this->hasInput('hide_smilies') ? '1' : '0',
+			'posted'			=> time(), // TODO: Use REQUEST_TIME
 			'topic_id'			=> $topic->id
 		);
 
-		if (\Auth::isGuest())
+		if (\FluxBB\Auth::guest())
 		{
-			$post_data['poster'] = \Input::get('req_username');
-			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? \Input::get('req_email') : \Input::get('email');
+			$post_data['poster'] = $this->input('req_username');
+			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? $this->input('req_email') : $this->input('email');
 		}
 
 		// Create the post ("topic post")
@@ -256,21 +252,22 @@ class Posting extends Base
 		$forum->save();
 
 		// TODO: update_search_index();
+		$user = User::current();
 
 		// If the posting user is logged in, increment his/her post count
-		$user = User::current();
-		if (\Auth::isAuthed())
+		if ($this->check())
 		{
 			$user->num_posts += 1;
-			$user->last_post = \Request::time();
+			$user->last_post = time(); // TODO: Use request time
 			$user->save();
 			// TODO: Promote this user to a new group if enabled
 		}
 		else
 		{
-			$user->online()->update(array('last_post' => \Request::time()));
+			// TODO: Session!
+			//$this->session->put('last_post', time()); // TODO: Use Request time
 		}
 
-		return \Redirect::to_action('fluxbb::topic', array($topic->id))->with('message', trans('fluxbb::topic.topic_added'));
+		return $this->redirect('viewtopic', $topic)->with('message', t('topic.topic_added'));
 	}
 }

@@ -41,7 +41,7 @@ class Base extends Controller
 		return User::current();
 	}
 
-	public function make_validator($attributes, $rules, $messages = array())
+	public function validator($attributes, $rules, $messages = array())
 	{
 		return \Validator::make($attributes, $rules, $messages);//->bundle('fluxbb');
 	}

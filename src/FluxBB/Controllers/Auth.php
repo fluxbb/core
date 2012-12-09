@@ -27,44 +27,53 @@ namespace FluxBB\Controllers;
 
 use FluxBB\Models\Config,
 	FluxBB\Models\Group,
-	FluxBB\Models\User;
+	FluxBB\Models\User,
+	FluxBB\Routing\Controller;
 
-class Auth extends Base
+class Auth extends Controller
 {
 
 	public function __construct()
 	{
-		//$this->filter('before', 'fluxbb::only_guests')->only(array('login', 'remember'));
-		//$this->filter('before', 'fluxbb::only_members')->only('logout');
+		//$this->filter('before', 'only_guests')->only(array('login', 'remember'));
+		//$this->filter('before', 'only_members')->only('logout');
 	}
 	
 	public function get_logout()
 	{
-		\Auth::logout();
-		return \Redirect::action('fluxbb::home@index')->with('message', trans('fluxbb::login.message_logout'));
+		\FluxBB\Auth::logout();
+		return $this->redirect('index')->with('message', t('login.message_logout'));
 	}
 	
 	public function get_login()
 	{
-		return \View::make('fluxbb::auth.login');
+		return $this->view('auth.login');
 	}
 
 	public function post_login()
 	{
 		$login_data = array(
-			'username'	=> \Input::get('req_username'),
-			'password'	=> \Input::get('req_password'),
+			'username'	=> $this->input('req_username'),
+			'password'	=> $this->input('req_password'),
 		);
 
-		if (\Auth::attempt($login_data, \Input::has('save_pass')))
+		if (\FluxBB\Auth::attempt($login_data, $this->hasInput('save_pass')))
 		{
 			// Make sure last_visit data is properly updated
 			//\Session::sweep();
 			// TODO: Implement this!
 
-			// TODO: This is properly validated in URL::to, right?
-			$redirect_url = \Input::get('redirect_url', \URL::route('index'));
-			return \Redirect::to($redirect_url)
+			if ($this->app['session']->has('redirect_url'))
+			{
+				$redirectUrl = $this->app['session']->has('redirect_url');
+			}
+			else
+			{
+				$redirectUrl = route('index');
+			}
+
+			// FIXME: Redirect to $redirectUrl
+			return $this->redirect('index')
 				->with('message', 'You were successfully logged in.');
 		}
 		else
@@ -72,27 +81,27 @@ class Auth extends Base
 			$errors = new \Illuminate\Validation\MessageBag;
 			$errors->add('login', 'Invalid username / password combination.');
 
-			return \Redirect::route('login')
-				->withInput(\Input::all())
+			return $this->redirect('login')
+				->withInput($this->input())
 				->with('errors', $errors);
 		}
 	}
 
 	public function get_register()
 	{
-		return \View::make('fluxbb::auth.register');
+		return $this->view('auth.register');
 	}
 
 	public function post_register()
 	{
         $rules = array(
-			'user'		=> 'Required|Between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|Unique:users,username|username_not_banned',
+			'user'		=> 'Required|Between:2,25|UsernameNotGuest|NoIp|UsernameNotReserved|NoBBcode|NotCensored|Unique:users,username|UsernameNotBanned',
 		);
 		
 		// If email confirmation is enabled
 		if (Config::enabled('o_regs_verify'))
 		{
-			$rules['email'] = 'Required|Email|Confirmed|unique:users,email|email_not_banned';
+			$rules['email'] = 'Required|Email|Confirmed|Unique:users,email|EmailNotBanned';
 		}
 		else
 		{
@@ -106,32 +115,32 @@ class Auth extends Base
 			$rules['rules'] = 'Accepted';
 		}
 
-		$validation = $this->make_validator(\Input::all(), $rules);
+		$validation = $this->validator($this->input(), $rules);
 		if ($validation->fails())
 		{
-			return \Redirect::route('register')
-				->withInput(\Input::all())
+			return $this->redirect('register')
+				->withInput($this->input())
 				->with('errors', $validation->getMessages());
 		}
 
 		$user_data = array(
-			'username'			=> \Input::get('user'),
+			'username'			=> $this->input('user'),
 			'group_id'			=> Config::enabled('o_regs_verify') ? Group::UNVERIFIED : Config::get('o_default_user_group'),
-			'password'			=> \Hash::make(\Input::get('password')),
-			'email'				=> \Input::get('email'),
+			'password'			=> $this->input('password'),
+			'email'				=> $this->input('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),
 			'timezone'			=> Config::get('o_default_timezone'),
 			'dst'				=> Config::get('o_default_dst'),
 			'language'			=> Config::get('o_default_lang'),
 			'style'				=> Config::get('o_default_style'),
-			'registered'		=> \Request::time(),
-			'registration_ip'	=> \Request::ip(),
-			'last_visit'		=> \Request::time(),
+			'registered'		=> $this->app['request']->server('REQUEST_TIME', time()),
+			'registration_ip'	=> $this->app['request']->getClientIp(),
+			'last_visit'		=> $this->app['request']->server('REQUEST_TIME', time()),
 		);
 		$user = User::create($user_data);
 	
-		return \Redirect::action('fluxbb::home@index')
-			->with('message', trans('fluxbb::register.reg_complete'));
+		return $this->redirect('index')
+			->with('message', t('register.reg_complete'));
 	}
 
 }

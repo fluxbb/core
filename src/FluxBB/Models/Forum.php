@@ -25,8 +25,6 @@
 
 namespace FluxBB\Models;
 
-use Cache;
-
 class Forum extends Base
 {
 
@@ -61,7 +59,7 @@ class Forum extends Base
 
 	public static function ids()
 	{
-		return Cache::remember('FluxBB.forum_ids', 7 * 24 * 60, function() {
+		return static::getCacheStore()->remember('FluxBB.forum_ids', 7 * 24 * 60, function() {
 			return Forum::lists('id');
 		});
 	}
@@ -85,7 +83,7 @@ class Forum extends Base
 
 	public function isUserSubscribed()
 	{
-		return \Auth::isAuthed() && !is_null($this->subscription);
+		return \FluxBB\Auth::check() && !is_null($this->subscription);
 	}
 
 	public function moderators()
@@ -136,7 +134,7 @@ class Forum extends Base
 	public function subscribe($subscribe = true)
 	{
 		// To subscribe or not to subscribe, that ...
-		if (!Config::enabled('o_forum_subscriptions') || !Auth::isAuthed())
+		if (!Config::enabled('o_forum_subscriptions') || !FluxBB\Auth::check())
 		{
 			return false;
 		}

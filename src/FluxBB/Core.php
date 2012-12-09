@@ -23,14 +23,26 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace fluxbb;
+namespace FluxBB;
 
-class Core
+use Illuminate\Support\Facade;
+
+class Core extends Facade
 {
 
-	public static function installed()
+	protected static function getFacadeAccessor()
 	{
-		return is_dir(path('app').'config/fluxbb');
+		return static::$app;
+	}
+
+	public static function isInstalled()
+	{
+		return file_exists(fluxbb()->make('path').'/config/database.php');
+	}
+
+	public static function version()
+	{
+		return '2.0.0-alpha1';
 	}
 
 }

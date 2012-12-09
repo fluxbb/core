@@ -26,8 +26,9 @@
 namespace FluxBB\Controllers;
 
 use FluxBB\Models\User as u;
+use FluxBB\Routing\Controller;
 
-class User extends Base
+class User extends Controller
 {
 
 	public function get_profile($id, $action = 'essentials')
@@ -41,13 +42,13 @@ class User extends Base
 		
 		else if (u::current()->id == $id || u::current()->isAdmin())
 		{
-			return \View::make('fluxbb::user.profile.'.$action)
+			return $this->view('user.profile.'.$action)
 				->with('user', $user);
 		}
 		
 		else
 		{
-			return \View::make('fluxbb::user.profile.view')
+			return $this->view('user.profile.view')
 				->with('user', $user);
 		}
 	
@@ -108,7 +109,7 @@ class User extends Base
 		}
 		
 		$user->save();
-		return \View::make('fluxbb::user.profile.'.$action)
+		return $this->view('user.profile.'.$action)
 				->with('user', $user)
 				->with('admin', u::current()->isAdmin());
 	}
@@ -117,7 +118,7 @@ class User extends Base
 	{
 		$users = u::paginate(20);
 
-		return \View::make('fluxbb::user.list')
+		return $this->view('user.list')
 			->with('users', $users);
 	}
 

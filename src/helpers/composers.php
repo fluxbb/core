@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-View::composer('fluxbb::layout.main', function($view)
+View::composer('layout.main', function($view)
 {
 	$view->with('language', 'en')
 		->with('direction', 'ltr')
@@ -36,9 +36,9 @@ View::composer('fluxbb::layout.main', function($view)
 		->with('announcement', '');
 });
 
-View::composer('fluxbb::auth.login', function($view)
+View::composer('auth.login', function($view)
 {
-	$redirect_url = Session::get('fluxbb::login_redirect', URL::to_action('fluxbb::home@index'));
+	$redirect_url = Session::get('login_redirect', URL::to_action('home@index'));
 
 	$view->with('redirect_url', $redirect_url);
 });

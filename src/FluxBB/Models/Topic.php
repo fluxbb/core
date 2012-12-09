@@ -25,7 +25,7 @@
 
 namespace FluxBB\Models;
 
-use Auth;
+use FluxBB\Auth;
 
 class Topic extends Base
 {
@@ -44,8 +44,8 @@ class Topic extends Base
 
 	public function subscription()
 	{
-		return $this->hasOne('FluxBB\\Models\\TopicSubscription')
-			->where('user_id', '=', User::current()->id);
+		return $this->hasOne('FluxBB\\Models\\TopicSubscription');
+	//		->where('user_id', '=', User::current()->id);
 	}
 
 	public function numReplies()
@@ -60,7 +60,7 @@ class Topic extends Base
 
 	public function isUserSubscribed()
 	{
-		return Auth::isAuthed() && !is_null($this->subscription);
+		return Auth::check() && !is_null($this->subscription);
 	}
 
 	public function wasMoved()
@@ -71,7 +71,7 @@ class Topic extends Base
 	public function subscribe($subscribe = true)
 	{
 		// To subscribe or not to subscribe, that ...
-		if (!Config::enabled('o_topic_subscriptions') || !Auth::isAuthed())
+		if (!Config::enabled('o_topic_subscriptions') || !Auth::check())
 		{
 			return false;
 		}

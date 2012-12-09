@@ -26,7 +26,7 @@
 namespace FluxBB\Models;
 
 use Illuminate\Auth\UserInterface,
-	Auth,
+	FluxBB\Auth,
 	Hash;
 
 class User extends Base implements UserInterface
@@ -39,22 +39,22 @@ class User extends Base implements UserInterface
 
 	public function group()
 	{
-		return $this->belongsTo('FluxBB\\Models\\Group');
+		return $this->belongsTo('FluxBB\Models\Group');
 	}
 
 	public function bans()
 	{
-		return $this->hasMany('FluxBB\\Models\\Ban');
+		return $this->hasMany('FluxBB\Models\Ban');
 	}
 
 	public function posts()
 	{
-		return $this->hasMany('FluxBB\\Models\\Post', 'poster_id');
+		return $this->hasMany('FluxBB\Models\Post', 'poster_id');
 	}
 
 	public function sessions()
 	{
-		return $this->hasMany('FluxBB\\Models\\Session');
+		return $this->hasMany('FluxBB\Models\Session', 'user_id');
 	}
 
 
@@ -62,11 +62,11 @@ class User extends Base implements UserInterface
 	{
 		static $current = null;
 
-		if (Auth::isGuest())
+		if (Auth::guest())
 		{
 			if (!isset($current))
 			{
-				$current = static::find(static::GUEST);
+				$current = new Guest;
 			}
 
 			return $current;
@@ -76,14 +76,14 @@ class User extends Base implements UserInterface
 		return Auth::user();
 	}
 
-	public function isGuest()
+	public function guest()
 	{
 		return $this->id == static::GUEST;
 	}
 
 	public function isMember()
 	{
-		return !$this->isGuest();
+		return !$this->guest();
 	}
 
 	// TODO: Better name
@@ -136,7 +136,7 @@ class User extends Base implements UserInterface
 			return $this->group->g_user_title;
 		}
 		// If the user is a guest
-		else if ($this->isGuest())
+		else if ($this->guest())
 		{
 			return trans('Guest');
 		}
@@ -218,9 +218,11 @@ class User extends Base implements UserInterface
 		return $this->disp_posts ?: Config::get('o_disp_posts_default');
 	}
 
-	public function set_password($password)
+	protected function setPassword($password)
 	{
-		$this->set_attribute('password', Hash::make($password));
+		// TODO: Make this prettier.
+		$app = fluxbb();
+		return $app['hash']->make($password);
 		// TODO: Maybe reset some attributes like confirmation code here?
 	}
 

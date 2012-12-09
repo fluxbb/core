@@ -25,9 +25,10 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\Config;
+use FluxBB\Models\Config,
+	FluxBB\Routing\Controller;
 
-class Misc extends Base
+class Misc extends Controller
 {
 
 	public function get_rules()
@@ -40,7 +41,7 @@ class Misc extends Base
 			return \Response::error('404');
 		}
 
-		return \View::make('fluxbb::misc.rules')
+		return \View::make('misc.rules')
 			->with('rules', Config::get('o_rules_message'));
 	}
 
