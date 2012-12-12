@@ -25,14 +25,20 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Routing\Controller;
 use FluxBB\Models\Post,
 	FluxBB\Models\Topic,
 	FluxBB\Models\Forum,
 	FluxBB\Models\User,
 	FluxBB\Models\Config;
+use Auth;
+use Input;
+use Redirect;
+use Request;
+use Validator;
+use View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Posting extends Controller
+class Posting extends Base
 {
 
 	public function get_reply($tid)
@@ -43,12 +49,12 @@ class Posting extends Controller
 
 		if (is_null($topic))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
-		return $this->view('posting.post')
+		return View::make('fluxbb::posting.post')
 			->with('topic', $topic)
-			->with('action', t('post.post_a_reply'));
+			->with('action', trans('fluxbb::post.post_a_reply'));
 	}
 
 	public function post_reply($tid)
@@ -59,7 +65,7 @@ class Posting extends Controller
 
 		if (is_null($topic))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
 		// TODO: Flood protection
@@ -71,7 +77,7 @@ class Posting extends Controller
 
 		if ($this->guest())
 		{
-			if (Config::enabled('p_force_guest_email') || $this->input('email') != '')
+			if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
 			{
 				$rules['req_email']	= 'required|email';
 			}
@@ -79,33 +85,33 @@ class Posting extends Controller
 			// TODO: banned email
 		}
 
-		$validation = $this->validator($this->input(), $rules);
+		$validation = Validator::make(Input::get(), $rules);
 		if ($validation->fails())
 		{
-			return $this->redirect('posting@reply', array($tid))->withInput()->withErrors($validation);
+			return Redirect::route('posting@reply', array($tid))->withInput()->withErrors($validation);
 		}
 
 		$post_data = array(
 			'poster'			=> User::current()->username,
 			'poster_id'			=> User::current()->id,
-			'poster_ip'			=> $this->app['request']->getClientIp(),
-			'message'			=> $this->input('req_message'),
-			'hide_smilies'		=> $this->hasInput('hide_smilies') ? '1' : '0',
+			'poster_ip'			=> Request::getClientIp(),
+			'message'			=> Input::get('req_message'),
+			'hide_smilies'		=> Input::has('hide_smilies') ? '1' : '0',
 			'posted'			=> time(), // TODO: Use SERVER_TIME
 			'topic_id'			=> $tid
 		);
 
 		if ($this->guest())
 		{
-			$post_data['poster'] = $this->input('req_username');
-			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? $this->input('req_email') : $this->input('email');
+			$post_data['poster'] = Input::get('req_username');
+			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
 		}
 
 		// Insert the new post
 		$post = Post::create($post_data);
 
 		// To subscribe or not to subscribe
-		$topic->subscribe($this->hasInput('subscribe'));
+		$topic->subscribe(Input::has('subscribe'));
 
 		// Update topic
 		$topic->num_replies += 1;
@@ -140,38 +146,34 @@ class Posting extends Controller
 		}
 
 
-		return $this->redirect('post', array($post->id))->with('message', t('post.post_added'));
+		return Redirect::route('viewpost', array('id' => $post->id))->with('message', trans('fluxbb::post.post_added'));
 	}
 
 	public function get_topic($fid)
 	{
-		$forum = Forum::with(array(
-			'perms',
-		))
-		->where('id', '=', $fid)
-		->first();
+		$forum = Forum::with('perms')
+			->where('id', $fid)
+			->first();
 
 		if (is_null($forum))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
-		return $this->view('posting.post')
+		return View::make('fluxbb::posting.post')
 			->with('forum', $forum)
-			->with('action', t('forum.post_topic'));
+			->with('action', trans('fluxbb::forum.post_topic'));
 	}
 
 	public function post_topic($fid)
 	{
-		$forum = Forum::with(array(
-			'perms',
-		))
-		->where('id', '=', $fid)
-		->first();
+		$forum = Forum::with('perms')
+			->where('id', '=', $fid)
+			->first();
 
 		if (is_null($forum))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
 		// TODO: Flood protection
@@ -185,7 +187,7 @@ class Posting extends Controller
 
 		if ($this->guest())
 		{
-			if (Config::enabled('p_force_guest_email') || $this->input('email') != '')
+			if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
 			{
 				$rules['req_email']	= 'required|email';
 			}
@@ -193,47 +195,49 @@ class Posting extends Controller
 			// TODO: banned email
 		}
 
-		$validation = $this->validator($this->input(), $rules);
+		$validation = Validator::make(Input::get(), $rules);
 		if ($validation->fails())
 		{
-			return $this->redirect('new_topic', array($fid))->withInput()->withErrors($validation);
+			return Redirect::route('new_topic', array('id' => $fid))
+				->withInput()
+				->withErrors($validation);
 		}
 
 		$topic_data = array(
 			'poster'			=> User::current()->username,
-			'subject'			=> $this->input('req_subject'),
+			'subject'			=> Input::get('req_subject'),
 			'posted'			=> time(),
 			'last_post'			=> time(), // TODO: Use REQUEST_TIME!
 			'last_poster'		=> User::current()->username,
-			'sticky'			=> $this->hasInput('stick_topic') ? '1' : '0',
+			'sticky'			=> Input::has('stick_topic') ? '1' : '0',
 			'forum_id'			=> $fid,
 		);
 
-		if ($this->guest())
+		if (Auth::guest())
 		{
-			$topic_data['poster'] = $topic_data['last_poster'] = $this->input('req_username');
+			$topic_data['poster'] = $topic_data['last_poster'] = Input::get('req_username');
 		}
 
 		// Create the topic
 		$topic = Topic::create($topic_data);
 
 		// To subscribe or not to subscribe
-		$topic->subscribe($this->input('subscribe'));
+		$topic->subscribe(Input::get('subscribe'));
 
 		$post_data = array(
 			'poster'			=> User::current()->username,
 			'poster_id'			=> User::current()->id,
 			'poster_ip'			=> '127.0.0.1', // TODO: Get IP from request
-			'message'			=> $this->input('req_message'),
-			'hide_smilies'		=> $this->hasInput('hide_smilies') ? '1' : '0',
+			'message'			=> Input::get('req_message'),
+			'hide_smilies'		=> Input::has('hide_smilies') ? '1' : '0',
 			'posted'			=> time(), // TODO: Use REQUEST_TIME
 			'topic_id'			=> $topic->id
 		);
 
-		if (\FluxBB\Auth::guest())
+		if (Auth::guest())
 		{
-			$post_data['poster'] = $this->input('req_username');
-			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? $this->input('req_email') : $this->input('email');
+			$post_data['poster'] = Input::get('req_username');
+			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
 		}
 
 		// Create the post ("topic post")
@@ -268,6 +272,7 @@ class Posting extends Controller
 			//$this->session->put('last_post', time()); // TODO: Use Request time
 		}
 
-		return $this->redirect('viewtopic', $topic)->with('message', t('topic.topic_added'));
+		return Redirect::route('viewtopic', array('id' => $topic->id))
+			->with('message', trans('fluxbb::topic.topic_added'));
 	}
 }
