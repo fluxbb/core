@@ -1,27 +1,26 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
-	<?php $currentItem = 'Personal'; ?>
 
 	<div id="profile" class="block2col">
-		@include('user.profile.menu')
+		@include('fluxbb::user.profile.menu')
 		<div class="blockform">
 			<h2><span>Personal</span></h2>
 			<div class="box">
-				{{ Form::open(URL::to_action('user@profile', array($user->id, 'personal')), 'PUT', array('id' => 'profile2', 'onsubmit' => 'return process_form(this)')) }}
+				<form action="{{ route('profile', array('id' => $user->id, 'action' => 'personal')) }}" method="post">
 					<div class="inform">
 						<fieldset>
 							<legend>Enter your personal details</legend>
 							<div class="infldset">
-								<label>Real name<br>{{ Form::text('realname', $user->realname, array('size' => '40', 'maxlength' => '40')) }}<br></label>
-								<label>Title <em>(Leave blank to use forum default.)</em><br>{{ Form::text('title', $user->title, array('size' => '30', 'maxlength' => '50')) }}<br></label>
-								<label>Location<br>{{ Form::text('location', $user->location, array('size' => '30', 'maxlength' => '30')) }}<br></label>
-								<label>Website<br>{{ Form::text('url', $user->url, array('size' => '50', 'maxlength' => '80')) }}<br></label>
+								<label>Real name<br><input type="text" name="realname" size="40" maxlength="40" value="{{ $user->realname }}" /><br></label><!-- TODO: Escape fields -->
+								<label>Title <em>(Leave blank to use forum default.)</em><br><input type="text" name="title" size="30" maxlength="50" value="{{ $user->title }}" /><br></label>
+								<label>Location<br><input type="text" name="location" size="30" maxlength="30" value="{{ $user->location }}" /><br></label>
+								<label>Website<br><input type="text" name="url" size="50" maxlength="80" value="{{ $user->url }}" /><br></label>
 							</div>
 						</fieldset>
 					</div>
-					<p class="buttons">{{ Form::submit('Submit', array('name' => 'update')) }} When you update your profile, you will be redirected back to this page.</p>
-				{{ Form::close() }}
+					<p class="buttons"><input type="submit" value="Submit" /> When you update your profile, you will be redirected back to this page.</p>
+				</form>
 			</div>
 		</div>
 		<div class="clearer"></div>

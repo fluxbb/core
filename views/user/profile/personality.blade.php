@@ -1,14 +1,13 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
-<?php $currentItem = 'Personality'; ?>
 
 <div id="profile" class="block2col">
-	@include('user.profile.menu')
+	@include('fluxbb::user.profile.menu')
 	<div class="blockform">
 		<h2><span>Personality</span></h2>
 		<div class="box">
-			<form id="profile4" method="post" action="{{ URL::to_action('user@profile', array($user->id, 'personality')) }}">
+			<form method="post" action="{{ route('profile', array('id' => $user->id, 'action' => 'personality')) }}">
 				<div class="inform">
 					<fieldset id="profileavatar">
 						<legend>Set your avatar display options</legend>

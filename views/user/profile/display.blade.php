@@ -1,14 +1,13 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
-<?php $currentItem = 'Display'; ?>
 
 <div id="profile" class="block2col">
-	@include('user.profile.menu')
+	@include('fluxbb::user.profile.menu')
 	<div class="blockform">
 		<h2><span>Display</span></h2>
 		<div class="box">
-			{{ Form::open(URL::to_action('user@profile', array($user->id, 'display')), 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
+			<form action="{{ route('profile', array('id' => $user->id, 'action' => 'display')) }}" method="post">
 				<div class="inform">
 					<fieldset>
 						<legend>Select your preferred style</legend>
@@ -54,8 +53,8 @@
 						</div>
 					</fieldset>
 				</div>
-				<p class="buttons">{{ Form::submit('Submit', array('name' => 'update')) }} When you update your profile, you will be redirected back to this page.</p>
-			{{ Form::close() }}
+				<p class="buttons"><input type="submit" value="Submit" /> When you update your profile, you will be redirected back to this page.</p>
+			</form>
 		</div>
 	</div>
 	<div class="clearer"></div>

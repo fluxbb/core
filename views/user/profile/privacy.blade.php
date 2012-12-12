@@ -1,10 +1,10 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 <?php $currentItem = 'Privacy'; ?>
 
 <div id="profile" class="block2col">
-	@include('user.profile.menu')
+	@include('fluxbb::user.profile.menu')
 	<div class="blockform">
 		<h2><span>Privacy</span></h2>
 		<div class="box">

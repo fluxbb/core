@@ -1,22 +1,21 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
-<?php $currentItem = 'Essentials'; ?>
 
 <div id="profile" class="block2col">
-	@include('user.profile.menu')
+	@include('fluxbb::user.profile.menu')
 	<div class="blockform">
 		<h2><span>Essentials</span></h2>
 		<div class="box">
-			{{ Form::open(URL::to_action('user@profile', array($user->id, 'essentials')), 'PUT', array('id' => 'profile', 'onsubmit' => 'return process_form(this)')) }}
+			<form action="{{ route('profile', array('id' => $user->id, 'action' => 'essentials')) }}" method="post">
 				<div class="inform">
 					<fieldset>
 						<legend>Enter your username and password</legend>
 						<div class="infldset">
 							<input type="hidden" name="form_sent" value="1">
 							<label class="required"><strong>Username <span>(Required)</span></strong><br>
-							@if ($user->is_admin())
-							{{ Form::text('username', $user->username, array('size' =>  "25", 'maxlength' => "25")) }}
+							@if ($user->isAdmin())
+								<input type="text" name="username" size="25" maxlength="25" value="{{ $user->username }}" /><!-- TODO: Escape -->
 							@else
 							{{ $user->username }}
 							@endif
@@ -29,7 +28,7 @@
 					<fieldset>
 						<legend>Enter a valid email address</legend>
 						<div class="infldset">
-							<label class="required"><strong>Email <span>(Required)</span></strong><br>{{ Form::text('email', $user->email, array('size' => "40", "maxlength" => "80")) }}<br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
+							<label class="required"><strong>Email <span>(Required)</span></strong><br><input type="text" name="email" size="40" maxlength="80" value="{{ $user->email }}" /><!-- TODO: Escape --><br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
 						</div>
 					</fieldset>
 				</div>
@@ -111,21 +110,21 @@
 					<fieldset>
 						<legend>User activity</legend>
 						<div class="infldset">
-							<p>Registered: {{ HTML::format_time($user->registered, true, "Y-m-d") }}</p>
-							<p>Last post: {{ HTML::format_time($user->last_post) }}</p>
-							<p>Last visit: {{ HTML::format_time($user->last_visit) }}</p>
+							<p>Registered: {{ format_time($user->registered, true, "Y-m-d") }}</p>
+							<p>Last post: {{ format_time($user->last_post) }}</p>
+							<p>Last visit: {{ format_time($user->last_visit) }}</p>
 							<label>Posts: {{ $user->num_posts }}<br></label><p class="actions">
 							{{--- TODO: add input field for posts when admin + add links to controller actions --}}
 							<a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
-							@if ($user->is_admin())
+							@if ($user->isAdmin())
 							<label>Admin note<br>
-							{{ Form::text('admin_note', $user->admin_note, array('size' => '30', 'maxlength' => '30', 'id' => "admin_note")) }}<br></label>
+							<input type="text" name="admin_note" size="30" maxlength="30" value="{{ $user->admin_note }}" /><br></label><!-- TODO: Escape! -->
 							@endif
 						</div>
 					</fieldset>
 				</div>
-				<p class="buttons">{{ Form::submit('Submit', array('name' => 'update')) }} When you update your profile, you will be redirected back to this page.</p>
-			{{ Form::close() }}
+				<p class="buttons"><input type="submit" name="update" value="Submit" /> When you update your profile, you will be redirected back to this page.</p>
+			</form>
 		</div>
 	</div>
 	<div class="clearer"></div>

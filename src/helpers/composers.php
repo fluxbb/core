@@ -42,3 +42,23 @@ View::composer('auth.login', function($view)
 
 	$view->with('redirect_url', $redirect_url);
 });
+
+View::composer('fluxbb::user.profile.menu', function($view)
+{
+	$items = array(
+		'essentials'	=> 'Essentials',
+		'personal'		=> 'Personal',
+		'personality'	=> 'Personality',
+		'display'		=> 'Display',
+		'privacy'		=> 'Privacy',
+	);
+
+	if (Auth::check() && Auth::user()->isAdmin())
+	{
+		$items['admin'] = 'Administration';
+	}
+
+	// TODO: Determine current action
+	$view->with('action', 'profile')
+		->with('items', $items);
+});
