@@ -25,6 +25,8 @@
 
 namespace FluxBB\Models;
 
+use Cache;
+
 class Category extends Base
 {
 
@@ -40,7 +42,7 @@ class Category extends Base
 
 	public static function all($columns = array())
 	{
-		return static::getCacheStore()->remember('fluxbb.categories', 7 * 24 * 60, function() {
+		return Cache::remember('fluxbb.categories', 7 * 24 * 60, function() {
 			$all = array();
 			$categories = Category::orderBy('disp_position', 'ASC')
 				->orderBy('id', 'ASC')

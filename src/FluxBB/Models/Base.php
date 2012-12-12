@@ -34,24 +34,6 @@ class Base extends Model implements ArrayAccess
 
 	public $timestamps = false;
 
-	protected static $cacheStore;
-
-
-	public static function setCacheStore(CacheStore $store)
-	{
-		static::$cacheStore = $store;
-	}
-
-	public static function getCacheStore()
-	{
-		return static::$cacheStore;
-	}
-
-	protected function getCache()
-	{
-		return static::getCacheStore();
-	}
-
 	/**
 	 * Dynamically retrieve attributes on the model.
 	 *

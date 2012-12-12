@@ -25,6 +25,8 @@
 
 namespace FluxBB\Models;
 
+use Cache;
+
 class Forum extends Base
 {
 
@@ -59,7 +61,7 @@ class Forum extends Base
 
 	public static function ids()
 	{
-		return static::getCacheStore()->remember('FluxBB.forum_ids', 7 * 24 * 60, function() {
+		return Cache::remember('FluxBB.forum_ids', 7 * 24 * 60, function() {
 			return Forum::lists('id');
 		});
 	}
