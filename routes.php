@@ -44,11 +44,11 @@ Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 		'as'	=> 'index',
 		'uses'	=> 'FluxBB\Controllers\Home@get_index',
 	));
-	Route::get('profile/{id}/{username}', array(
+	Route::get('profile/{id}', array(
 		'as'	=> 'profile',
 		'uses'	=> 'FluxBB\Controllers\User@get_profile',
 	));
-	Route::put('profile/{id}/{username}', array(
+	Route::post('profile/{id}', array(
 		'uses'	=> 'FluxBB\Controllers\User@put_profile',
 	));
 	Route::get('users', array(
@@ -109,14 +109,14 @@ Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 		'as'	=> 'reply',
 		'uses'	=> 'FluxBB\Controllers\Posting@get_reply',
 	));
-	Route::put('topic/{id}/reply', array(
+	Route::post('topic/{id}/reply', array(
 		'uses'	=> 'FluxBB\Controllers\Posting@put_reply',
 	));
 	Route::get('forum/{id}/topic/new', array(
 		'as'	=> 'new_topic',
 		'uses'	=> 'FluxBB\Controllers\Posting@get_topic',
 	));
-	Route::put('forum/{id}/topic/new', array(
+	Route::post('forum/{id}/topic/new', array(
 		'uses'	=> 'FluxBB\Controllers\Posting@put_topic',
 	));
 });
