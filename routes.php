@@ -28,15 +28,15 @@ Lang::addNamespace('fluxbb', __DIR__.'/language/');
 
 Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 {
-	Route::get('forum/{fid}', array(
+	Route::get('forum/{id}', array(
 		'as'	=> 'viewforum',
 		'uses'	=> 'FluxBB\Controllers\Home@get_forum',
 	));
-	Route::get('topic/{tid}', array(
+	Route::get('topic/{id}', array(
 		'as'	=> 'viewtopic',
 		'uses'	=> 'FluxBB\Controllers\Home@get_topic',
 	));
-	Route::get('post/{pid}', array(
+	Route::get('post/{id}', array(
 		'as'	=> 'viewpost',
 		'uses'	=> 'FluxBB\Controllers\Home@get_post',
 	));
@@ -44,11 +44,11 @@ Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 		'as'	=> 'index',
 		'uses'	=> 'FluxBB\Controllers\Home@get_index',
 	));
-	Route::get('profile/{uid}/{username}', array(
+	Route::get('profile/{id}/{username}', array(
 		'as'	=> 'profile',
 		'uses'	=> 'FluxBB\Controllers\User@get_profile',
 	));
-	Route::put('profile/{uid}/{username}', array(
+	Route::put('profile/{id}/{username}', array(
 		'uses'	=> 'FluxBB\Controllers\User@put_profile',
 	));
 	Route::get('users', array(
@@ -105,18 +105,18 @@ Route::group(array('NOTbefore' => 'fluxbb::is_installed'), function()
 		'as'	=> 'post_quote',
 		'uses'	=> 'FluxBB\Controllers\Posting@get_quote',
 	));
-	Route::get('topic/{tid}/reply', array(
+	Route::get('topic/{id}/reply', array(
 		'as'	=> 'reply',
 		'uses'	=> 'FluxBB\Controllers\Posting@get_reply',
 	));
-	Route::put('topic/{tid}/reply', array(
+	Route::put('topic/{id}/reply', array(
 		'uses'	=> 'FluxBB\Controllers\Posting@put_reply',
 	));
-	Route::get('forum/{fid}/topic/new', array(
+	Route::get('forum/{id}/topic/new', array(
 		'as'	=> 'new_topic',
 		'uses'	=> 'FluxBB\Controllers\Posting@get_topic',
 	));
-	Route::put('forum/{fid}/topic/new', array(
+	Route::put('forum/{id}/topic/new', array(
 		'uses'	=> 'FluxBB\Controllers\Posting@put_topic',
 	));
 });
@@ -132,4 +132,4 @@ Route::filter('fluxbb::is_installed', function()
 });
 
 // Load our helpers (composers, macros, validators etc.)
-include __DIR__.'/helpers.php';
+include __DIR__.'/src/helpers.php';

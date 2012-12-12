@@ -34,12 +34,19 @@ class RouteServiceProvider extends ServiceProvider
 	/**
 	 * Register the service provider.
 	 *
-	 * @param  Illuminate\Foundation\Application  $app
 	 * @return void
 	 */
-	public function register($app)
+	public function register()
+	{ }
+
+	/**
+	 * Bootstrap the application events.
+	 * 
+	 * @return void
+	 */
+	public function boot()
 	{
-		include __DIR__.'/../../../routes.php';
+		include __DIR__.'/../../../../routes.php';
 	}
 
 }
