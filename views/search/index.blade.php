@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 <h2>Search</h2>

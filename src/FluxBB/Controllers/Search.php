@@ -26,15 +26,15 @@
 namespace FluxBB\Controllers;
 
 use FluxBB\Models\Category;
-use FluxBB\Routing\Controller;
+use View;
  
-class Search extends Controller
+class Search extends Base
 {
 
 	public function get_index()
 	{
 		$categories = Category::all();
-		return $this->view('search.index')
+		return View::make('fluxbb::search.index')
 				->with('categories', $categories);
 	}
 
