@@ -25,7 +25,7 @@
 
 namespace FluxBB;
 
-use Illuminate\Support\Facade;
+use Illuminate\Support\Facades\Facade;
 
 class Auth extends Facade
 {
