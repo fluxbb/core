@@ -64,7 +64,7 @@ Validator::extend('UsernameNotBanned', function($attribute, $value, $parameters)
 
 Validator::extend('UsernameNotGuest', function($attribute, $value, $parameters)
 {
-	return strcasecmp($value, 'Guest') && strcasecmp($value, t('common.guest'));
+	return strcasecmp($value, 'Guest') && strcasecmp($value, trans('fluxbb::common.guest'));
 });
 
 Validator::extend('UsernameNotReserved', function($attribute, $value, $parameters)

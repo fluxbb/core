@@ -27,10 +27,16 @@ namespace FluxBB\Controllers;
 
 use FluxBB\Models\Config,
 	FluxBB\Models\Group,
-	FluxBB\Models\User,
-	FluxBB\Routing\Controller;
+	FluxBB\Models\User;
+use Auth as a;
+use Input;
+use Redirect;
+use Request;
+use Session;
+use Validator;
+use View;
 
-class Auth extends Controller
+class Auth extends Base
 {
 
 	public function __construct()
@@ -41,31 +47,32 @@ class Auth extends Controller
 	
 	public function get_logout()
 	{
-		\FluxBB\Auth::logout();
-		return $this->redirect('index')->with('message', t('login.message_logout'));
+		a::logout();
+		return Redirect::route('index')
+			->with('message', trans('fluxbb::login.message_logout'));
 	}
 	
 	public function get_login()
 	{
-		return $this->view('auth.login');
+		return View::make('fluxbb::auth.login');
 	}
 
 	public function post_login()
 	{
-		$login_data = array(
-			'username'	=> $this->input('req_username'),
-			'password'	=> $this->input('req_password'),
+		$loginData = array(
+			'username'	=> Input::get('req_username'),
+			'password'	=> Input::get('req_password'),
 		);
 
-		if (\FluxBB\Auth::attempt($login_data, $this->hasInput('save_pass')))
+		if (a::attempt($loginData, Input::has('save_pass')))
 		{
 			// Make sure last_visit data is properly updated
 			//\Session::sweep();
 			// TODO: Implement this!
 
-			if ($this->app['session']->has('redirect_url'))
+			if (Session::has('redirect_url'))
 			{
-				$redirectUrl = $this->app['session']->has('redirect_url');
+				$redirectUrl = Session::get('redirect_url');
 			}
 			else
 			{
@@ -73,7 +80,7 @@ class Auth extends Controller
 			}
 
 			// FIXME: Redirect to $redirectUrl
-			return $this->redirect('index')
+			return Redirect::route('index')
 				->with('message', 'You were successfully logged in.');
 		}
 		else
@@ -81,15 +88,15 @@ class Auth extends Controller
 			$errors = new \Illuminate\Validation\MessageBag;
 			$errors->add('login', 'Invalid username / password combination.');
 
-			return $this->redirect('login')
-				->withInput($this->input())
+			return Redirect::route('login')
+				->withInput(Input::get())
 				->with('errors', $errors);
 		}
 	}
 
 	public function get_register()
 	{
-		return $this->view('auth.register');
+		return View::make('fluxbb::auth.register');
 	}
 
 	public function post_register()
@@ -115,32 +122,32 @@ class Auth extends Controller
 			$rules['rules'] = 'Accepted';
 		}
 
-		$validation = $this->validator($this->input(), $rules);
+		$validation = Validator::make(Input::get(), $rules);
 		if ($validation->fails())
 		{
-			return $this->redirect('register')
-				->withInput($this->input())
+			return Redirect::route('register')
+				->withInput(Input::get())
 				->with('errors', $validation->getMessages());
 		}
 
 		$user_data = array(
-			'username'			=> $this->input('user'),
+			'username'			=> Input::get('user'),
 			'group_id'			=> Config::enabled('o_regs_verify') ? Group::UNVERIFIED : Config::get('o_default_user_group'),
-			'password'			=> $this->input('password'),
-			'email'				=> $this->input('email'),
+			'password'			=> Input::get('password'),
+			'email'				=> Input::get('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),
 			'timezone'			=> Config::get('o_default_timezone'),
 			'dst'				=> Config::get('o_default_dst'),
 			'language'			=> Config::get('o_default_lang'),
 			'style'				=> Config::get('o_default_style'),
-			'registered'		=> $this->app['request']->server('REQUEST_TIME', time()),
-			'registration_ip'	=> $this->app['request']->getClientIp(),
-			'last_visit'		=> $this->app['request']->server('REQUEST_TIME', time()),
+			'registered'		=> Request::server('REQUEST_TIME', time()),
+			'registration_ip'	=> Request::getClientIp(),
+			'last_visit'		=> Request::server('REQUEST_TIME', time()),
 		);
 		$user = User::create($user_data);
 	
-		return $this->redirect('index')
-			->with('message', t('register.reg_complete'));
+		return Redirect::route('index')
+			->with('message', trans('fluxbb::register.reg_complete'));
 	}
 
 }
