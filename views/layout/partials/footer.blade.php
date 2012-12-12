@@ -1,5 +1,5 @@
 <div id="brdfooter">
-	<h2>{{ t('common.board_footer') }}</h2>
+	<h2>{{ trans('fluxbb::common.board_footer') }}</h2>
 <?php
 /*
 if (isset($footer_style) && ($footer_style == 'viewforum' || $footer_style == 'viewtopic') && $is_admmod)
@@ -64,5 +64,5 @@ else if ($footer_style == 'viewtopic')
 }
 */
 ?>
-	<p id="poweredby">{{ t('common.powered_by', array('link' => '<a href="http://fluxbb.org/">FluxBB</a>'.(FluxBB\Models\Config::get('o_show_version') == '1' ? ' '.FluxBB\Models\Config::get('o_cur_version') : ''))) }}</p>
+	<p id="poweredby">{{ trans('fluxbb::common.powered_by', array('link' => '<a href="http://fluxbb.org/">FluxBB</a>'.(FluxBB\Models\Config::get('o_show_version') == '1' ? ' '.FluxBB\Models\Config::get('o_cur_version') : ''))) }}</p>
 </div>
