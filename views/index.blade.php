@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('fluxbb::layout.main')
 
 @section('main')
 
@@ -11,7 +11,7 @@
 		<ul>
 @foreach ($cat_info['forums'] as $forum)
 			<li>
-				<a href="{{ route('viewforum', $forum) }}">{{ $forum->forum_name }}</a>
+				<a href="{{ route('viewforum', array('id' => $forum->id)) }}">{{ $forum->forum_name }}</a>
 				<em>{{ $forum->forum_desc }}</em>
 				<ul>
 					<li>{{ $forum->numTopics() }} topics</li>

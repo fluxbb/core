@@ -25,14 +25,16 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Routing\Controller;
+use FluxBB\Controllers\Base;
 use FluxBB\Models\Category,
 	FluxBB\Models\Forum,
 	FluxBB\Models\Post,
 	FluxBB\Models\Topic,
 	FluxBB\Models\User;
+use View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Home extends Controller
+class Home extends Base
 {
 
 	public function get_index()
@@ -42,7 +44,7 @@ class Home extends Controller
 		// Fetch the categories and forums
 		$categories = Category::allForGroup(User::current()->group_id);
 
-		$view = $this->view('index');
+		$view = View::make('fluxbb::index');
 		$view['categories'] = $categories;
 		return $view;
 	}
@@ -56,89 +58,90 @@ class Home extends Controller
 			->where('id', '=', $fid)
 			->first();
 
-		if ($forum === NULL)
+		if (is_null($forum))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
-		$disp_topics = User::current()->dispTopics();
-		$num_pages = ceil(($forum->num_topics + 1) / $disp_topics);
-		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
-		$start_from = $disp_topics * ($page - 1);
+		$dispTopics = User::current()->dispTopics();
+		$numPages = ceil(($forum->num_topics + 1) / $dispTopics);
+		$page = ($page <= 1 || $page > $numPages) ? 1 : intval($page);
+		$startFrom = $dispTopics * ($page - 1);
 
 		// FIXME: Do we have to fetch just IDs first (performance)?
 		// TODO: If logged in, with "the dot" subquery
 		// Fetch topic data
 		$topics = Topic::where('forum_id', '=', $fid)
-		->orderBy('sticky', 'DESC')
-		->orderBy($forum->sortColumn(), $forum->sortDirection())
-		->orderBy('id', 'DESC')
-		->skip($start_from)
-		->take($disp_topics)
-		->get();
+			->orderBy('sticky', 'DESC')
+			->orderBy($forum->sortColumn(), $forum->sortDirection())
+			->orderBy('id', 'DESC')
+			->skip($startFrom)
+			->take($dispTopics)
+			->get();
 
-		return $this->view('viewforum')
+		return View::make('fluxbb::viewforum')
 			->with('forum', $forum)
 			->with('topics', $topics)
-			->with('start_from', $start_from);
+			->with('start_from', $startFrom);
 	}
 
 	public function get_topic($tid, $page = 1)
 	{
 		// Fetch some info about the topic
-		$topic = Topic::with(array(
-			'forum',
-			'forum.perms',
-		))
-		->where('id', '=', $tid)
-		->whereNull('moved_to')
-		->first();
+		$topic = Topic::with('forum.perms')
+			->where('id', '=', $tid)
+			->whereNull('moved_to')
+			->first();
 
-		if ($topic === NULL)
+		if (is_null($topic))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
-		$disp_posts = User::current()->dispPosts();
-		$num_pages = ceil(($topic->num_replies + 1) / $disp_posts);
-		$page = ($page <= 1 || $page > $num_pages) ? 1 : intval($page);
-		$start_from = $disp_posts * ($page - 1);
+		$dispPosts = User::current()->dispPosts();
+		$numPages = ceil(($topic->num_replies + 1) / $dispPosts);
+		$page = ($page <= 1 || $page > $numPages) ? 1 : intval($page);
+		$startFrom = $dispPosts * ($page - 1);
 
 
 		// TODO: Use paginate?
 		// Fetch post data
 		// TODO: Can we enforce the INNER JOIN here somehow?
 		$posts = Post::with('author.group')
-		->where('topic_id', '=', $tid)
-		->orderBy('id')
-		->skip($start_from)
-		->take($disp_posts)
-		->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
+			->where('topic_id', '=', $tid)
+			->orderBy('id')
+			->skip($startFrom)
+			->take($dispPosts)
+			->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
 
-		return $this->view('viewtopic')
+		return View::make('fluxbb::viewtopic')
 			->with('topic', $topic)
 			->with('posts', $posts)
-			->with('start_from', $start_from);
+			->with('start_from', $startFrom);
 	}
 
 	public function get_post($pid)
 	{
 		// If a post ID is specified we determine topic ID and page number so we can show the correct message
-		$post = Post::where('id', '=', $pid)->select(array('topic_id', 'posted'))->first();
+		$post = Post::where('id', '=', $pid)
+			->select(array('topic_id', 'posted'))
+			->first();
 
 		if (is_null($post))
 		{
-			return $this->show404();
+			throw new NotFoundHttpException;
 		}
 
 		$tid = $post->topic_id;
 		$posted = $post->posted;
 
 		// Determine on what page the post is located (depending on $forum_user['disp_posts'])
-		$num_posts = Post::where('topic_id', '=', $tid)->where('posted', '<', $posted)->count('id') + 1;
+		$numPosts = Post::where('topic_id', '=', $tid)
+			->where('posted', '<', $posted)
+			->count('id') + 1;
 
-		$disp_posts = User::current()->dispPosts();
-		$p = ceil($num_posts / $disp_posts);
+		$dispPosts = User::current()->dispPosts();
+		$p = ceil($numPosts / $dispPosts);
 
 		// TODO: This depends on https://github.com/illuminate/pagination/pull/2
 		// $this->app['paginator']->setCurrentPage($p);
