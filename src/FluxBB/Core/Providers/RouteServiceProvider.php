@@ -25,8 +25,7 @@
 
 namespace FluxBB\Core\Providers;
 
-use Illuminate\Foundation\Application,
-	Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
