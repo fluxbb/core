@@ -25,7 +25,7 @@
 
 namespace FluxBB\Migrations\Install;
 
-use FluxBB\Schema;
+use Schema;
 use Illuminate\Database\Migrations\Migration;
 
 class ForumSubscriptions extends Migration
