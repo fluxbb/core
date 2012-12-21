@@ -25,7 +25,7 @@
 
 namespace FluxBB\Models;
 
-use FluxBB\Auth;
+use Auth;
 
 class Topic extends Base
 {
