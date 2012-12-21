@@ -142,7 +142,7 @@ class Posting extends Base
 		else
 		{
 			// TODO: Session!
-			$user->online()->update(array('last_post' => time())); // TODO: REquest_time
+			//$user->online()->update(array('last_post' => time())); // TODO: REquest_time
 		}
 
 
