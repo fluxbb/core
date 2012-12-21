@@ -26,7 +26,7 @@
 namespace FluxBB\Models;
 
 use Illuminate\Auth\UserInterface,
-	FluxBB\Auth,
+	Auth,
 	Hash;
 
 class User extends Base implements UserInterface

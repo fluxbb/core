@@ -23,8 +23,6 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB;
-
 use FluxBB\Models\Ban;
 use FluxBB\Models\Censor;
 use FluxBB\Models\Config;
