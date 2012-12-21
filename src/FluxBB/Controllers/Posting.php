@@ -75,7 +75,7 @@ class Posting extends Base
 		);
 		// TODO: More validation
 
-		if ($this->guest())
+		if (Auth::guest())
 		{
 			if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
 			{
@@ -101,7 +101,7 @@ class Posting extends Base
 			'topic_id'			=> $tid
 		);
 
-		if ($this->guest())
+		if (Auth::guest())
 		{
 			$post_data['poster'] = Input::get('req_username');
 			$post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
@@ -132,7 +132,7 @@ class Posting extends Base
 
 		// If the posting user is logged in, increment his/her post count
 		$user = User::current();
-		if ($this->check())
+		if (Auth::check())
 		{
 			$user->num_posts += 1;
 			$user->last_post = time(); // TODO: Request_time
@@ -185,7 +185,7 @@ class Posting extends Base
 		);
 		// TODO: More validation
 
-		if ($this->guest())
+		if (Auth::guest())
 		{
 			if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
 			{
@@ -259,7 +259,7 @@ class Posting extends Base
 		$user = User::current();
 
 		// If the posting user is logged in, increment his/her post count
-		if ($this->check())
+		if (Auth::check())
 		{
 			$user->num_posts += 1;
 			$user->last_post = time(); // TODO: Use request time
