@@ -25,7 +25,7 @@
 
 namespace FluxBB\Session;
 
-use FluxBB\Auth,
+use Auth,
 	FluxBB\Models\Config,
 	FluxBB\Models\User,
 	Illuminate\Http\Request,
