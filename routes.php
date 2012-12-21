@@ -26,6 +26,8 @@
 // Load our helpers (composers, macros, validators etc.)
 include __DIR__.'/src/helpers.php';
 
+include __DIR__.'/start.php';
+
 View::addNamespace('fluxbb', __DIR__.'/views/');
 Lang::addNamespace('fluxbb', __DIR__.'/lang/');
 

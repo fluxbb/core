@@ -23,19 +23,13 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-define('FLUXBB_VERSION', '2.0-alpha1');
-
-
-Autoloader::namespaces(array(
-	'fluxbb'	=> __DIR__ . DS . 'classes',
-));
-
-
-if (fluxbb\Core::installed())
+if (FluxBB\Core::isInstalled())
 {
-	Request::set_env('fluxbb');
+	Config::set('database.connections.fluxbb', Config::get('fluxbb.database'));
+	DB::setDefaultConnection('fluxbb');
 }
 
+/*
 // Set up our custom session handler
 if (!Request::cli() && !Session::started())
 {
@@ -48,16 +42,4 @@ if (!Request::cli() && !Session::started())
 
 	Session::load();	
 }
-
-
-// View composers
-require 'helpers/composers.php';
-
-// Route filters
-require 'helpers/filters.php';
-
-// HTML helpers
-require 'helpers/html.php';
-
-// Validators
-require 'helpers/validator.php';
+*/
