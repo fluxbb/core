@@ -9,7 +9,7 @@
 
 	<h1>Not installed</h1>
 	<p>It looks like FluxBB has not been installed yet.</p>
-	<p>Please visit index.php/install to install the software.</p>
+	<p>Please <a href="{{ URL::to('install') }}">run the installer</a> in order to get started.</p>
 
 </body>
 
