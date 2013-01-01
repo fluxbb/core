@@ -143,8 +143,8 @@ class Home extends Base
 		$dispPosts = User::current()->dispPosts();
 		$p = ceil($numPosts / $dispPosts);
 
-		// TODO: This depends on https://github.com/illuminate/pagination/pull/2
-		// $this->app['paginator']->setCurrentPage($p);
+		// Tell the paginator which page we're on
+		Paginator::setCurrentPage($p);
 
 		// FIXME: second parameter for $page number
 		return $this->get_topic($tid);
