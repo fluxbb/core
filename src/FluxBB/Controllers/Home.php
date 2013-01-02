@@ -31,6 +31,7 @@ use FluxBB\Models\Category,
 	FluxBB\Models\Post,
 	FluxBB\Models\Topic,
 	FluxBB\Models\User;
+use Paginator;
 use View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
