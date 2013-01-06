@@ -116,5 +116,13 @@ Route::group(array('before' => 'fluxbb_is_installed'), function()
 	Route::post('forum/{id}/topic/new', array(
 		'uses'	=> 'FluxBB\Controllers\Posting@post_topic',
 	));
+
+	Route::get('admin', array(
+		'as'	=> 'admin',
+		'do'	=> function()
+		{
+			return View::make('fluxbb::admin.index');
+		},
+	));
 });
 

@@ -28,7 +28,7 @@
 @else
 			<li id="navprofile"><a href="{{ route('profile', array('id' => Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
 	@if (FluxBB\Models\User::current()->isAdmin())
-			<li id="navadmin"><a href="#">{{ trans('fluxbb::common.admin') }}</a></li>
+			<li id="navadmin"><a href="{{ route('admin') }}">{{ trans('fluxbb::common.admin') }}</a></li>
 	@endif
 			<li id="navlogout"><a href="{{ route('logout') }}">{{ trans('fluxbb::common.logout') }}</a></li>
 @endif
