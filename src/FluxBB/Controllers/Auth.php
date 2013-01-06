@@ -127,7 +127,7 @@ class Auth extends Base
 		{
 			return Redirect::route('register')
 				->withInput(Input::get())
-				->with('errors', $validation->messages());
+				->with('errors', $validation->getMessages());
 		}
 
 		$user_data = array(
@@ -145,6 +145,9 @@ class Auth extends Base
 			'last_visit'		=> Request::server('REQUEST_TIME', time()),
 		);
 		$user = User::create($user_data);
+
+		// Notify the user about his new account!
+		$user->sendWelcomeMail();
 	
 		return Redirect::route('index')
 			->with('message', trans('fluxbb::register.reg_complete'));

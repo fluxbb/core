@@ -34,4 +34,6 @@ return array(
 'info_email'				=>	'You must enter a valid email address as your randomly generated password will be sent to that address.',
 'confirm_email'				=>	'Confirm email address',
 
+'mail_welcome_subject'		=> 'Welcome to :board',
+
 );
