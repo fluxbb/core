@@ -30,7 +30,7 @@ class Group extends Base
 
 	protected $table = 'groups';
 
-	protected $key = 'g_id';
+	protected $primaryKey = 'g_id';
 
 
 	const UNVERIFIED = 0;
