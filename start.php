@@ -35,6 +35,9 @@ include __DIR__.'/src/helpers.php';
 View::addNamespace('fluxbb', __DIR__.'/views/');
 Lang::addNamespace('fluxbb', __DIR__.'/lang/');
 
+// Add another namespace for localized mail templates
+View::addNamespace('fluxbb:mail', __DIR__.'/lang/'.Config::get('app.locale').'/mail/');
+
 /*
 // Set up our custom session handler
 if (!Request::cli() && !Session::started())
