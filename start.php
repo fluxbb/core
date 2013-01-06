@@ -29,6 +29,12 @@ if (FluxBB\Core::isInstalled())
 	DB::setDefaultConnection('fluxbb');
 }
 
+// Load our helpers (composers, macros, validators etc.)
+include __DIR__.'/src/helpers.php';
+
+View::addNamespace('fluxbb', __DIR__.'/views/');
+Lang::addNamespace('fluxbb', __DIR__.'/lang/');
+
 /*
 // Set up our custom session handler
 if (!Request::cli() && !Session::started())

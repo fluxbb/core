@@ -23,14 +23,6 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-// Load our helpers (composers, macros, validators etc.)
-include __DIR__.'/src/helpers.php';
-
-include __DIR__.'/start.php';
-
-View::addNamespace('fluxbb', __DIR__.'/views/');
-Lang::addNamespace('fluxbb', __DIR__.'/lang/');
-
 Route::group(array('before' => 'fluxbb_is_installed'), function()
 {
 	Route::get('forum/{id}', array(
