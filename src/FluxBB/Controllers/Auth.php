@@ -85,7 +85,7 @@ class Auth extends Base
 		}
 		else
 		{
-			$errors = new \Illuminate\Validation\MessageBag;
+			$errors = new \Illuminate\Support\MessageBag;
 			$errors->add('login', 'Invalid username / password combination.');
 
 			return Redirect::route('login')
