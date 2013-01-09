@@ -2,15 +2,26 @@
 <html lang="en" dir="ltr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendor/fluxbb/core/assets/css/admin.css') }}" />
 </head>
 
 <body>
 
-<div id="admin-main">
+<div id="flux-admin">
 
-@yield('alerts')
+	@include('fluxbb::admin.layout.header')
 
-@yield('main')
+	@include('fluxbb::admin.layout.sidemenu')
+
+	@include('fluxbb::admin.layout.menu')
+	
+	<div class="content">
+		
+		@yield('alerts')
+
+		@yield('main')
+
+	</div>
 
 </div>
 

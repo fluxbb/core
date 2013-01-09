@@ -23,6 +23,8 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
+use FluxBB\Models\Config;
+
 View::composer('fluxbb::layout.main', function($event)
 {
 	$view = $event->view;
@@ -66,4 +68,11 @@ View::composer('fluxbb::user.profile.menu', function($event)
 	// TODO: Determine current action
 	$view->with('action', 'profile')
 	     ->with('items', $items);
+});
+
+View::composer('fluxbb::admin.layout.header', function($event)
+{
+	$view = $event->view;
+	$view->with('board_title', Config::get('o_board_title'))
+	     ->with('board_description', Config::get('o_board_desc'));
 });
