@@ -23,28 +23,33 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-View::composer('layout.main', function($view)
+View::composer('fluxbb::layout.main', function($event)
 {
+	$view = $event->view;
+
 	$view->with('language', 'en')
-		->with('direction', 'ltr')
-		->with('head', '')
-		->with('page', 'index')
-		->with('title', 'My FluxBB Forum')
-		->with('desc', '<p><span>Unfortunately no one can be told what FluxBB is - you have to see it for yourself.</span></p>')
-		->with('navlinks', '<ul><li><a href="#">Home</a></li></ul>')
-		->with('status', 'You are not logged in.')
-		->with('announcement', '');
+	     ->with('direction', 'ltr')
+	     ->with('head', '')
+	     ->with('page', 'index')
+	     ->with('title', 'My FluxBB Forum')
+	     ->with('desc', '<p><span>Unfortunately no one can be told what FluxBB is - you have to see it for yourself.</span></p>')
+	     ->with('navlinks', '<ul><li><a href="#">Home</a></li></ul>')
+	     ->with('status', 'You are not logged in.')
+	     ->with('announcement', '');
 });
 
-View::composer('auth.login', function($view)
+View::composer('fluxbb::auth.login', function($event)
 {
-	$redirect_url = Session::get('login_redirect', URL::to_action('home@index'));
+	$view = $event->view;
 
+	$redirect_url = Session::get('login_redirect', URL::to_action('home@index'));
 	$view->with('redirect_url', $redirect_url);
 });
 
-View::composer('fluxbb::user.profile.menu', function($view)
+View::composer('fluxbb::user.profile.menu', function($event)
 {
+	$view = $event->view;
+
 	$items = array(
 		'essentials'	=> 'Essentials',
 		'personal'		=> 'Personal',
@@ -60,5 +65,5 @@ View::composer('fluxbb::user.profile.menu', function($view)
 
 	// TODO: Determine current action
 	$view->with('action', 'profile')
-		->with('items', $items);
+	     ->with('items', $items);
 });
