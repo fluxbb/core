@@ -44,7 +44,7 @@ View::composer('fluxbb::auth.login', function($event)
 {
 	$view = $event->view;
 
-	$redirect_url = Session::get('login_redirect', URL::to_action('home@index'));
+	$redirect_url = Session::get('login_redirect', route('index'));
 	$view->with('redirect_url', $redirect_url);
 });
 
