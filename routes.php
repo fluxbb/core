@@ -119,10 +119,7 @@ Route::group(array('before' => 'fluxbb_is_installed'), function()
 
 	Route::get('admin', array(
 		'as'	=> 'admin',
-		'do'	=> function()
-		{
-			return View::make('fluxbb::admin.index');
-		},
+		'uses'	=> 'FluxBB\Controllers\Admin\Dashboard@get_index',
 	));
 });
 
