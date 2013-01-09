@@ -7,8 +7,8 @@
 <body>
 
 <div id="brdheader">
-	<h1><a href="{{ route('index') }}">Board title</a></h1>
-	<div id="brddesc">Board description</div>
+	<h1><a href="{{ route('index') }}">{{ $board_title }}</a></h1>
+	<div id="brddesc">{{ $board_description }}</div>
 	<div id="brdmenu">
 		<ul>
 			<!-- TODO: Class isactive -->
