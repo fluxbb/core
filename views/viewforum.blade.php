@@ -6,8 +6,6 @@
 
 <h2>{{ ($forum->forum_name) }}</h2>
 
-Pages: {{ $topics->links() }}
-
 <table cellspacing="0">
 	<thead>
 		<tr>
@@ -20,7 +18,7 @@ Pages: {{ $topics->links() }}
 	<tbody>
 
 <?php $topic_count = 0; ?>
-@foreach ($topics as $topic)
+@foreach ($forum->topics as $topic)
 <?php
 
 $topic_count++;

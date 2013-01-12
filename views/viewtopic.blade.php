@@ -3,12 +3,11 @@
 @section('main')
 
 <a href="{{ route('reply', array('id' => $topic->id)) }}">{{ trans('fluxbb::topic.post_reply') }}</a>
-Pages: {{ $posts->links() }}
 
 <?php $post_count = 0; ?>
 
 <!-- TODO: Maybe use "render_each" here? (What about counting?) -->
-@foreach ($posts as $post)
+@foreach ($topic->posts as $post)
 <?php
 
 $post_count++;

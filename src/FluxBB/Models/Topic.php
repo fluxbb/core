@@ -34,7 +34,8 @@ class Topic extends Base
 
 	public function posts()
 	{
-		return $this->hasMany('FluxBB\\Models\\Post');
+		return $this->hasMany('FluxBB\\Models\\Post')
+		            ->orderBy('id');
 	}
 
 	public function forum()

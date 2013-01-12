@@ -36,7 +36,10 @@ class Forum extends Base
 
 	public function topics()
 	{
-		return $this->hasMany('FluxBB\\Models\\Topic');
+		return $this->hasMany('FluxBB\\Models\\Topic')
+		            ->orderBy('sticky', 'DESC')
+		            ->orderBy($this->sortColumn(), $this->sortDirection())
+		            ->orderBy('id', 'DESC');
 	}
 
 	public function subscriptions()
@@ -47,7 +50,7 @@ class Forum extends Base
 	public function subscription()
 	{
 		return $this->hasOne('FluxBB\\Models\\ForumSubscription')
-			->where('user_id', '=', User::current()->id);
+		            ->where('user_id', '=', User::current()->id);
 	}
 
 	public function perms()

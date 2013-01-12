@@ -45,91 +45,59 @@ class Home extends Base
 		// Fetch the categories and forums
 		$categories = Category::allForGroup(User::current()->group_id);
 
-		$view = View::make('fluxbb::index');
-		$view['categories'] = $categories;
-		return $view;
+		return View::make('fluxbb::index')->with('categories', $categories);
 	}
 
-	public function get_forum($fid, $page = 1)
+	public function get_forum($fid)
 	{
-		$page = intval($page);
-
 		// Fetch some info about the forum
-		$forum = Forum::with('perms')
-			->where('id', '=', $fid)
-			->first();
+		$forum = Forum::find($fid);
 
 		if (is_null($forum))
 		{
 			throw new NotFoundHttpException;
 		}
 
-		// FIXME: Do we have to fetch just IDs first (performance)?
-		// TODO: If logged in, with "the dot" subquery
-		// Fetch topic data
-		$topics = Topic::where('forum_id', '=', $fid)
-			->orderBy('sticky', 'DESC')
-			->orderBy($forum->sortColumn(), $forum->sortDirection())
-			->orderBy('id', 'DESC')
-			->paginate(20);
-
-		return View::make('fluxbb::viewforum')
-			->with('forum', $forum)
-			->with('topics', $topics);
+		return View::make('fluxbb::viewforum')->with('forum', $forum);
 	}
 
 	public function get_topic($tid, $page = 1)
 	{
 		// Fetch some info about the topic
-		$topic = Topic::with('forum.perms')
-			->where('id', '=', $tid)
-			->whereNull('moved_to')
-			->first();
+		$topic = Topic::find($tid);
 
 		if (is_null($topic))
 		{
 			throw new NotFoundHttpException;
 		}
 
-		// Fetch post data
-		// TODO: Can we enforce the INNER JOIN here somehow?
-		$posts = Post::with('author.group')
-			->where('topic_id', '=', $tid)
-			->orderBy('id')
-			->paginate(20);	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
+		// Make sure post authors and their groups are all loaded
+		$topic->posts->load('author.group');
 
-		return View::make('fluxbb::viewtopic')
-			->with('topic', $topic)
-			->with('posts', $posts);
+		return View::make('fluxbb::viewtopic')->with('topic', $topic);
 	}
 
 	public function get_post($pid)
 	{
 		// If a post ID is specified we determine topic ID and page number so we can show the correct message
-		$post = Post::where('id', '=', $pid)
-			->select(array('topic_id', 'posted'))
-			->first();
+		$post = Post::find($pid);
 
 		if (is_null($post))
 		{
 			throw new NotFoundHttpException;
 		}
 
-		$tid = $post->topic_id;
-		$posted = $post->posted;
-
-		// Determine on what page the post is located (depending on $forum_user['disp_posts'])
-		$numPosts = Post::where('topic_id', '=', $tid)
-			->where('posted', '<', $posted)
-			->count('id') + 1;
+		// Determine on which page the post is located
+		$numPosts = Post::where('topic_id', '=', $post->topic_id)
+		                ->where('posted', '<', $post->posted)
+		                ->count('id') + 1;
 
 		$dispPosts = User::current()->dispPosts();
-		$p = ceil($numPosts / $dispPosts);
+		$page = ceil($numPosts / $dispPosts);
 
 		// Tell the paginator which page we're on
-		Paginator::setCurrentPage($p);
+		Paginator::setCurrentPage($page);
 
-		// FIXME: second parameter for $page number
 		return $this->get_topic($tid);
 	}
 
