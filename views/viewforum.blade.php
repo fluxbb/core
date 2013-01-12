@@ -6,6 +6,8 @@
 
 <h2>{{ ($forum->forum_name) }}</h2>
 
+Pages: {{ $topics->links() }}
+
 <table cellspacing="0">
 	<thead>
 		<tr>

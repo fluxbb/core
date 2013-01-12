@@ -3,6 +3,7 @@
 @section('main')
 
 <a href="{{ route('reply', array('id' => $topic->id)) }}">{{ trans('fluxbb::topic.post_reply') }}</a>
+Pages: {{ $posts->links() }}
 
 <?php $post_count = 0; ?>
 
@@ -17,7 +18,7 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 
 ?>
 <div id="p{{ $post->id }}">
-	<h2><span class="conr">#{{ $start_from + $post_count }}</span> <a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ ($post->posted) }}</a></h2>{{-- TODO: format_time for posted --}}
+	<h2><a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ ($post->posted) }}</a></h2>{{-- TODO: format_time for posted --}}
 	<dl>
 	@if (fluxbb\Models\User::current()->canViewUsers())
 		<dt><strong><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{ ($post->author->username) }}</a></strong></dt>{{-- TODO: Escape username --}}

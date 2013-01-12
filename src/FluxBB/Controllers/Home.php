@@ -64,11 +64,6 @@ class Home extends Base
 			throw new NotFoundHttpException;
 		}
 
-		$dispTopics = User::current()->dispTopics();
-		$numPages = ceil(($forum->num_topics + 1) / $dispTopics);
-		$page = ($page <= 1 || $page > $numPages) ? 1 : intval($page);
-		$startFrom = $dispTopics * ($page - 1);
-
 		// FIXME: Do we have to fetch just IDs first (performance)?
 		// TODO: If logged in, with "the dot" subquery
 		// Fetch topic data
@@ -76,14 +71,11 @@ class Home extends Base
 			->orderBy('sticky', 'DESC')
 			->orderBy($forum->sortColumn(), $forum->sortDirection())
 			->orderBy('id', 'DESC')
-			->skip($startFrom)
-			->take($dispTopics)
-			->get();
+			->paginate(20);
 
 		return View::make('fluxbb::viewforum')
 			->with('forum', $forum)
-			->with('topics', $topics)
-			->with('start_from', $startFrom);
+			->with('topics', $topics);
 	}
 
 	public function get_topic($tid, $page = 1)
@@ -99,26 +91,16 @@ class Home extends Base
 			throw new NotFoundHttpException;
 		}
 
-		$dispPosts = User::current()->dispPosts();
-		$numPages = ceil(($topic->num_replies + 1) / $dispPosts);
-		$page = ($page <= 1 || $page > $numPages) ? 1 : intval($page);
-		$startFrom = $dispPosts * ($page - 1);
-
-
-		// TODO: Use paginate?
 		// Fetch post data
 		// TODO: Can we enforce the INNER JOIN here somehow?
 		$posts = Post::with('author.group')
 			->where('topic_id', '=', $tid)
 			->orderBy('id')
-			->skip($startFrom)
-			->take($dispPosts)
-			->get();	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
+			->paginate(20);	// TODO: Or do I need to fetch the IDs here first, since those big results will otherwise have to be filtered after fetching by LIMIT / OFFSET?
 
 		return View::make('fluxbb::viewtopic')
 			->with('topic', $topic)
-			->with('posts', $posts)
-			->with('start_from', $startFrom);
+			->with('posts', $posts);
 	}
 
 	public function get_post($pid)
