@@ -2,7 +2,7 @@
 	"name": "fluxbb/core",
 	"type": "library",
 	"description": "The FluxBB forum core",
-	"keywords": ["forum"],
+	"keywords": ["forum", "laravel"],
 	"homepage": "http://fluxbb.org",
 	"license": "GPL-3.0+",
 	"authors": [
@@ -22,6 +22,9 @@
 		"laravel/framework": "4.0.*"
 	},
 	"autoload": {
+		"classmap": [
+			"src/migrations"
+		],
 		"psr-0": {
 			"FluxBB": "src"
 		}

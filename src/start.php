@@ -23,29 +23,29 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB\Core\Providers;
-
-use Illuminate\Support\ServiceProvider;
-
-class RouteServiceProvider extends ServiceProvider
+if (FluxBB\Core::isInstalled())
 {
-
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{ }
-
-	/**
-	 * Bootstrap the application events.
-	 * 
-	 * @return void
-	 */
-	public function boot()
-	{
-		include __DIR__.'/../../../../routes.php';
-	}
-
+	Config::set('database.connections.fluxbb', Config::get('fluxbb.database'));
+	DB::setDefaultConnection('fluxbb');
 }
+
+// Load our helpers (composers, macros, validators etc.)
+include __DIR__.'/helpers.php';
+
+// Add another namespace for localized mail templates
+View::addNamespace('fluxbb:mail', __DIR__.'/lang/'.Config::get('app.locale').'/mail/');
+
+/*
+// Set up our custom session handler
+if (!Request::cli() && !Session::started())
+{
+	Session::extend('fluxbb::session', function()
+	{
+		return new fluxbb\Session\Driver(Laravel\Database::connection());
+	});
+
+	Config::set('session.driver', 'fluxbb::session');
+
+	Session::load();	
+}
+*/

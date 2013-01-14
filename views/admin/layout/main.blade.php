@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendor/fluxbb/core/assets/css/admin.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendor/fluxbb/core/public/css/admin.css') }}" />
 </head>
 
 <body>
