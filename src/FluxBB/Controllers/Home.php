@@ -98,7 +98,7 @@ class Home extends Base
 		// Tell the paginator which page we're on
 		Paginator::setCurrentPage($page);
 
-		return $this->get_topic($tid);
+		return $this->get_topic($post->topic_id);
 	}
 
 }
