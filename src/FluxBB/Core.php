@@ -26,6 +26,7 @@
 namespace FluxBB;
 
 use Illuminate\Support\Facades\Facade;
+use Config;
 
 class Core extends Facade
 {
@@ -38,7 +39,7 @@ class Core extends Facade
 	public static function isInstalled()
 	{
 		$app = static::$app;
-		return file_exists($app['path'].'/config/fluxbb.php');
+		return Config::has('fluxbb');
 	}
 
 	public static function version()
