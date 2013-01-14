@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB;
+namespace FluxBB\Core;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -46,8 +46,8 @@ class CoreServiceProvider extends ServiceProvider
 	{
 		$this->package('fluxbb/core', 'fluxbb');
 
-		include __DIR__.'/../start.php';
-		include __DIR__.'/../routes.php';
+		include __DIR__.'/../../start.php';
+		include __DIR__.'/../../routes.php';
 	}
 
 	/**
