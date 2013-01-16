@@ -221,7 +221,7 @@ class User extends Base implements UserInterface
 
 	protected function setPassword($password)
 	{
-		return Hash::make($password);
+		$this->attributes['password'] = Hash::make($password);
 		// TODO: Maybe reset some attributes like confirmation code here?
 	}
 
