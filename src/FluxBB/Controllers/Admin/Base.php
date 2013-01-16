@@ -25,14 +25,9 @@
 
 namespace FluxBB\Controllers\Admin;
 
-use View;
+use FluxBB\Controllers\Base as Controller;
 
-class Dashboard extends Base
+class Base extends Controller
 {
-
-	public function get_index()
-	{
-		return View::make('fluxbb::admin.index');
-	}
 
 }
