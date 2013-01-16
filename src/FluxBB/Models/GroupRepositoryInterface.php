@@ -25,33 +25,11 @@
 
 namespace FluxBB\Models;
 
-class Group extends Base
+interface GroupRepositoryInterface
 {
 
-	protected $table = 'groups';
-
-
-	public function users()
-	{
-		return $this->hasMany('FluxBB\Models\User');
-	}
-
-	public function parent()
-	{
-		return $this->belongsTo('FluxBB\Models\Group', 'parent_id');
-	}
-
-	public function perms()
-	{
-		return $this->hasMany('FluxBB\Models\GroupPermission');
-	}
-
-
-	public function getPermissions()
-	{
-		return array_map(function($permission) {
-			return $permission->name;
-		}, $this->perms->all());
-	}
+	public function getHierarchy();
+	public function find($id);
+	public function getPermissions($id);
 
 }

@@ -25,33 +25,15 @@
 
 namespace FluxBB\Models;
 
-class Group extends Base
+class GroupPermission extends Base
 {
 
-	protected $table = 'groups';
+	protected $table = 'group_permissions';
 
 
-	public function users()
+	public function group()
 	{
-		return $this->hasMany('FluxBB\Models\User');
-	}
-
-	public function parent()
-	{
-		return $this->belongsTo('FluxBB\Models\Group', 'parent_id');
-	}
-
-	public function perms()
-	{
-		return $this->hasMany('FluxBB\Models\GroupPermission');
-	}
-
-
-	public function getPermissions()
-	{
-		return array_map(function($permission) {
-			return $permission->name;
-		}, $this->perms->all());
+		return $this->belongsTo('FluxBB\Models\Group', 'group_id');
 	}
 
 }
