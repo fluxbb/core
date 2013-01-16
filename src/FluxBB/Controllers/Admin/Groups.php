@@ -23,55 +23,49 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB\Core;
+namespace FluxBB\Controllers\Admin;
 
-use Illuminate\Support\ServiceProvider;
-use FluxBB\Models\GroupRepository;
+use App;
+use View;
+use FluxBB\Models\GroupRepositoryInterface;
 
-class CoreServiceProvider extends ServiceProvider
+class Groups extends Base
 {
 
 	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
+	 * The groups repository
+	 * 
+	 * @var GroupRepositoryInterface
 	 */
-	protected $defer = false;
-	
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->package('fluxbb/core', 'fluxbb');
+	protected $groups;
 
-		include __DIR__.'/../../start.php';
-		include __DIR__.'/../../routes.php';
+
+	public function __construct(GroupRepositoryInterface $groups)
+	{
+		$this->groups = $groups;
 	}
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
+	public function get_index()
 	{
-		$this->app->bind('FluxBB\Models\GroupRepositoryInterface', function($app)
+		$groups = $this->groups->getHierarchy();
+
+		return View::make('fluxbb::admin.groups.index')
+		           ->with('groups', $groups);
+	}
+
+	public function get_edit($id)
+	{
+		$group = $this->groups->find($id);
+		$perms = $this->groups->getPermissions($id);
+
+		if (is_null($group))
 		{
-			return new GroupRepository($app['cache']);
-		});
-	}
+			App::abort(404);
+		}
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array();
+		return View::make('fluxbb::admin.groups.edit')
+		           ->with('group', $group)
+		           ->with('perms', $perms);
 	}
 
 }

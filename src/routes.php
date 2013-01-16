@@ -121,5 +121,13 @@ Route::group(array('before' => 'fluxbb_is_installed'), function()
 		'as'	=> 'admin',
 		'uses'	=> 'FluxBB\Controllers\Admin\Dashboard@get_index',
 	));
+	Route::get('admin/groups', array(
+		'as'	=> 'admin_groups',
+		'uses'	=> 'FluxBB\Controllers\Admin\Groups@get_index',
+	));
+	Route::get('admin/groups/{id}', array(
+		'as'	=> 'admin_groups_edit',
+		'uses'	=> 'FluxBB\Controllers\Admin\Groups@get_edit',
+	));
 });
 
