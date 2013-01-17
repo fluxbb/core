@@ -96,7 +96,7 @@ class User extends Base implements UserInterface
 
 	public function isAdmin()
 	{
-		return $this->group_id == Group::ADMIN;
+		return $this->group->isAdmin();
 	}
 
 	public function isModerator()

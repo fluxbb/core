@@ -54,4 +54,9 @@ class Group extends Base
 		}, $this->perms->all());
 	}
 
+	public function isAdmin()
+	{
+		return true;
+	}
+
 }
