@@ -132,7 +132,7 @@ class Auth extends Base
 
 		$user_data = array(
 			'username'			=> Input::get('user'),
-			'group_id'			=> Config::enabled('o_regs_verify') ? Group::UNVERIFIED : Config::get('o_default_user_group'),
+			'group_id'			=> Config::get('o_default_user_group'),
 			'password'			=> Input::get('password'),
 			'email'				=> Input::get('email'),
 			'email_setting'		=> Config::get('o_default_email_setting'),
