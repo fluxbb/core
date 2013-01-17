@@ -56,7 +56,6 @@ class Groups extends Base
 	public function get_edit($id)
 	{
 		$group = $this->groups->find($id);
-		$perms = $this->groups->getPermissions($id);
 
 		if (is_null($group))
 		{
@@ -64,8 +63,7 @@ class Groups extends Base
 		}
 
 		return View::make('fluxbb::admin.groups.edit')
-		           ->with('group', $group)
-		           ->with('perms', $perms);
+		           ->with('group', $group);
 	}
 
 }

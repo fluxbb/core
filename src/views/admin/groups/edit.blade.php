@@ -9,8 +9,8 @@
 <h3>Permissions</h3>
 
 <ul>
-@foreach ($perms as $permission)
-	<li>{{ $permission }}</li>
+@foreach ($group->permissions as $permission)
+	<li>{{ $permission->name }}</li>
 @endforeach
 </ul>
 

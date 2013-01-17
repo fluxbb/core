@@ -30,6 +30,5 @@ interface GroupRepositoryInterface
 
 	public function getHierarchy();
 	public function find($id);
-	public function getPermissions($id);
 
 }

@@ -41,18 +41,11 @@ class Group extends Base
 		return $this->belongsTo('FluxBB\Models\Group', 'parent_id');
 	}
 
-	public function perms()
+	public function permissions()
 	{
 		return $this->hasMany('FluxBB\Models\GroupPermission');
 	}
 
-
-	public function getPermissions()
-	{
-		return array_map(function($permission) {
-			return $permission->name;
-		}, $this->perms->all());
-	}
 
 	public function isAdmin()
 	{

@@ -26,6 +26,7 @@
 namespace FluxBB\Models;
 
 use Illuminate\Cache\CacheManager;
+use Illuminate\Database\Eloquent\Collection;
 
 class GroupRepository implements GroupRepositoryInterface
 {
@@ -51,26 +52,31 @@ class GroupRepository implements GroupRepositoryInterface
 		return $this->retrieve($id);
 	}
 
-	public function getPermissions($id)
-	{
-		$group = $this->retrieve($id);
-
-		if (!$this->hasCachedPermissions($id))
-		{
-			return $this->cachePermissions($group);
-		}
-
-		return $this->getCachedPermissions($group);
-	}
-
 	protected function retrieve($id)
 	{
 		if (!isset($this->retrieved[$id]))
 		{
-			$this->retrieved[$id] = Group::find($id);
+			$this->retrieved[$id] = $group = Group::find($id);
+
+			$this->loadPermissions($group);
 		}
 
 		return $this->retrieved[$id];
+	}
+
+	protected function loadPermissions($group)
+	{
+		if ($this->hasCachedPermissions($group->id))
+		{
+			$permissions = $this->getCachedPermissions($group);
+		}
+		else
+		{
+			$permissions = $this->cachePermissions($group);
+		}
+
+		$collection = new Collection($permissions);
+		$group->setRelation('permissions', $collection);
 	}
 
 	protected function hasCachedPermissions($id)
@@ -85,10 +91,10 @@ class GroupRepository implements GroupRepositoryInterface
 		// Overwrite parent permissions if those are set
 		if ($group->parent_id)
 		{
-			$permissions = $this->getPermissions($group->parent_id);
+			$permissions = $this->cachePermissions($group->parent);
 		}
 
-		$permissions = array_unique(array_merge($permissions, $group->getPermissions()));
+		$permissions = array_unique(array_merge($permissions, $group->permissions()->get()->all()));
 
 		// Cache for 14 days
 		$this->cache->put('fluxbb.group.permissions.'.$group->id, $permissions, 20160);
