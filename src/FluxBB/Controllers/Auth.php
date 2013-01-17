@@ -127,7 +127,7 @@ class Auth extends Base
 		{
 			return Redirect::route('register')
 				->withInput(Input::get())
-				->with('errors', $validation->getMessages());
+				->with('errors', $validation->messages());
 		}
 
 		$user_data = array(
