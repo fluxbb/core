@@ -16,6 +16,32 @@
 
 #flux-admin header h1 {
 	font: 2.8em/1.25em "Trebuchet MS", helvetica, arial, sans-serif;
+	margin-right: 20px;
+}
+
+#flux-admin header h1, #board-info, #board-info p {
+	display: inline;
+}
+
+#flux-admin header p.title {
+	font-size: 2.0em;
+	padding-right: 10px;
+}
+
+#flux-admin header p.description {
+	font-size: 1.5em;
+}
+
+#flux-admin header #board-info input {
+	display: none;
+}
+
+#flux-admin header #board-info.edit input {
+	display: inline-block;
+}
+
+#flux-admin header #board-info.edit p {
+	display: none;
 }
 
 #flux-admin nav#sidemenu {
