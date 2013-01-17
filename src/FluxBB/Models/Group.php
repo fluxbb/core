@@ -30,6 +30,11 @@ class Group extends Base
 
 	protected $table = 'groups';
 
+	const ADMIN 	= 1;
+
+	const MOD 		= 2;
+
+	const MEMBER 	= 3;
 
 	public function users()
 	{
