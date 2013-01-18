@@ -37,7 +37,7 @@ class Groups extends Migration
 		{
 			$table->create();
 
-			$table->increments('g_id');
+			$table->increments('id');
 			$table->string('g_title', 50)->default('');
 			$table->string('g_user_title')->nullable();
 			$table->integer('g_promote_min_posts')->unsigned()->default(0);
