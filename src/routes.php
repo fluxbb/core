@@ -23,7 +23,9 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-Route::group(array('before' => 'fluxbb_is_installed'), function()
+$prefix = Config::get('fluxbb.route_prefix', '');
+
+Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function()
 {
 	Route::get('forum/{id}', array(
 		'as'	=> 'viewforum',
@@ -128,6 +130,11 @@ Route::group(array('before' => 'fluxbb_is_installed'), function()
 	Route::get('admin/groups/{id}', array(
 		'as'	=> 'admin_groups_edit',
 		'uses'	=> 'FluxBB\Controllers\Admin\Groups@get_edit',
+	));
+
+	Route::post('admin/ajax/board_config', array(
+		'as'	=> 'admin_ajax_board_config',
+		'uses'	=> 'FluxBB\Controllers\Admin\Ajax@post_board_config',
 	));
 });
 
