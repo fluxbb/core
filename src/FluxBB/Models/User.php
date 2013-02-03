@@ -219,7 +219,7 @@ class User extends Base implements UserInterface
 		return $this->disp_posts ?: Config::get('o_disp_posts_default');
 	}
 
-	protected function setPassword($password)
+	protected function takePassword($password)
 	{
 		$this->attributes['password'] = Hash::make($password);
 		// TODO: Maybe reset some attributes like confirmation code here?
