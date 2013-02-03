@@ -179,9 +179,9 @@ class Posting extends Base
 		// TODO: Flood protection
 		$rules = array(
 			// TODO: censored words, All caps subject
-			'req_subject'	=> 'Required|Max:70',
+			'req_subject'	=> 'required|max:70',
 			// TODO: PUN_MAX_POSTSIZE, censor, All caps message
-			'req_message'	=> 'Required',
+			'req_message'	=> 'required',
 		);
 		// TODO: More validation
 

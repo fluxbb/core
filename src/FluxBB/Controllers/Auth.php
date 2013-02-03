@@ -102,24 +102,24 @@ class Auth extends Base
 	public function post_register()
 	{
         $rules = array(
-			'user'		=> 'Required|Between:2,25|UsernameNotGuest|NoIp|UsernameNotReserved|NoBBcode|NotCensored|Unique:users,username|UsernameNotBanned',
+			'user'		=> 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',
 		);
 		
 		// If email confirmation is enabled
 		if (Config::enabled('o_regs_verify'))
 		{
-			$rules['email'] = 'Required|Email|Confirmed|Unique:users,email|EmailNotBanned';
+			$rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
 		}
 		else
 		{
-			$rules['password'] = 'Required|Min:4|Confirmed';
-			$rules['email'] = 'Required|Email|Unique:users,email';
+			$rules['password'] = 'required|min:4|confirmed';
+			$rules['email'] = 'required|email|unique:users,email';
 		}
 
 		// Agree to forum rules
 		if (Config::enabled('o_rules'))
 		{
-			$rules['rules'] = 'Accepted';
+			$rules['rules'] = 'accepted';
 		}
 
 		$validation = Validator::make(Input::get(), $rules);
