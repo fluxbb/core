@@ -12,5 +12,16 @@ $(document).ready(function() {
 			element.innerHTML = $(element).next().val();
 		});
 		$(this).parent().removeClass('edit');
+
+		$.ajax({
+			type: "POST",
+			url: "http://fluxbb.dev/index.php/admin/ajax/board_config",
+			data: {
+				board_title: $('#board-info input.title').val(),
+				board_description: $('#board-info input.description').val()
+			}
+		}).done(function(data) {
+			alert('saved');
+		});
 	});
 });
