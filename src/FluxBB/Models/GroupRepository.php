@@ -42,9 +42,44 @@ class GroupRepository implements GroupRepositoryInterface
 
 	public function getHierarchy()
 	{
-		return Group::whereNull('parent_group_id')
-		            ->orderBy('id')
-		            ->get();
+		if ($this->cache->has('fluxbb.groups.hierarchy'))
+		{
+			return $this->cache->get('fluxbb.groups.hierarchy');
+		}
+
+		$allGroups = Group::orderBy('id')->get()->all();
+
+		$keyedGroups = array();
+		foreach ($allGroups as $group)
+		{
+			$keyedGroups[$group->id] = $group;
+		}
+
+		// Collect root groups and groups with parent by key
+		$rootGroups = $groupsByParent = array();
+		foreach ($keyedGroups as $key => $group)
+		{
+			if ($group->hasParent())
+			{
+				$groupsByParent[$group->parent_group_id][] = $group;
+			}
+			else
+			{
+				$rootGroups[] = $group;
+			}
+		}
+
+		// Now set up the children relationships for all leftover groups
+		foreach ($groupsByParent as $parentGroupId => $subgroups)
+		{
+			$collection = new Collection($subgroups);
+			$keyedGroups[$parentGroupId]->setRelation('children', $collection);
+		}
+
+		// Cache for 14 days
+		$this->cache->put('fluxbb.groups.hierarchy', $rootGroups, 20160);
+
+		return $rootGroups;
 	}
 
 	public function find($id)
