@@ -42,7 +42,7 @@ class GroupRepository implements GroupRepositoryInterface
 
 	public function getHierarchy()
 	{
-		return Group::whereNull('parent_id')
+		return Group::whereNull('parent_group_id')
 		            ->orderBy('id')
 		            ->get();
 	}
