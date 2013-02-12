@@ -27,9 +27,9 @@ use FluxBB\Models\Config;
 
 View::composer('fluxbb::layout.main', function($event)
 {
-	$view = $event->view;
+ 
 
-	$view->with('language', 'en')
+	$event->with('language', 'en')
 	     ->with('direction', 'ltr')
 	     ->with('head', '')
 	     ->with('page', 'index')
@@ -50,7 +50,7 @@ View::composer('fluxbb::auth.login', function($event)
 
 View::composer('fluxbb::user.profile.menu', function($event)
 {
-	$view = $event->view;
+	 
 
 	$items = array(
 		'essentials'	=> 'Essentials',
@@ -66,13 +66,13 @@ View::composer('fluxbb::user.profile.menu', function($event)
 	}
 
 	// TODO: Determine current action
-	$view->with('action', 'profile')
+	$event->with('action', 'profile')
 	     ->with('items', $items);
 });
 
 View::composer('fluxbb::admin.layout.header', function($event)
 {
-	$view = $event->view;
-	$view->with('board_title', Config::get('o_board_title'))
+	 
+	$event->with('board_title', Config::get('o_board_title'))
 	     ->with('board_description', Config::get('o_board_desc'));
 });
