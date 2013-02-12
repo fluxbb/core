@@ -28,27 +28,27 @@ namespace FluxBB\Migrations\Install;
 use Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class Groups extends Migration
+class GroupPermissions extends Migration
 {
 
 	public function up()
 	{
-		Schema::table('groups', function($table)
+		Schema::table('group_permissions', function($table)
 		{
 			$table->create();
 
 			$table->increments('id');
-			$table->string('title', 50)->default('');
+			$table->integer('group_id')->unsigned();
+			$table->string('name', 50);
+			$table->boolean('value');
 			
-			$table->integer('parent_group_id')->unsigned()->nullable();
-
 			$table->timestamps();
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('groups');
+		Schema::drop('group_permissions');
 	}
 
 }

@@ -43,7 +43,7 @@ class Group extends Base
 
 	public function parent()
 	{
-		return $this->belongsTo('FluxBB\Models\Group', 'parent_id');
+		return $this->belongsTo('FluxBB\Models\Group', 'parent_group_id');
 	}
 
 	public function permissions()
