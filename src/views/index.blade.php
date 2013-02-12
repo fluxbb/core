@@ -2,7 +2,6 @@
 
 @section('main')
 
-{{-- TODO: Escape all the variables!!! --}}
 <ul>
 @foreach ($categories as $cat_info)
 <?php $category = $cat_info['category']; ?>

@@ -20,22 +20,22 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 	<h2><a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ ($post->posted) }}</a></h2>{{-- TODO: format_time for posted --}}
 	<dl>
 	@if (fluxbb\Models\User::current()->canViewUsers())
-		<dt><strong><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{ ($post->author->username) }}</a></strong></dt>{{-- TODO: Escape username --}}
+		<dt><strong><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{ ($post->author->username) }}</a></strong></dt>
 	@else
-		<dt><strong>{{ ($post->author->username) }}</strong></dt><!-- TODO: linkify if logged in and g_view_users is enabled for this group and escape username! -->
+		<dt><strong>{{ ($post->author->username) }}</strong></dt><!-- TODO: linkify if logged in and g_view_users is enabled for this group -->
 	@endif
-		<dd class="usertitle"><strong>{{ ($post->author->title()) }}</strong></dd>{{-- TODO: Escape title --}}
+		<dd class="usertitle"><strong>{{ ($post->author->title()) }}</strong></dd>
 	@if ($post->author->hasAvatar())
 		<dd class="postavatar">{{ ($post->author->avatar) }}</dd>{{-- TODO: HTML::avatar() --}}
 	@endif
 	@if ($post->author->hasLocation()) <!-- TODO: and if user is allowed to view this (logged in and show_user_info -->
-		<dd>{{ trans('fluxbb::topic.from', array('name' => ($post->author->location))) }}</dd>{{-- TODO: Escape location --}}
+		<dd>{{ trans('fluxbb::topic.from', array('name' => ($post->author->location))) }}</dd>
 	@endif
 		<dd>{{ trans('fluxbb::topic.registered', array('time' => ($post->author->registered))) }}</dd>{{-- TODO: format_time for registered --}}
 		<dd>{{ trans('fluxbb::topic.posts', array('count' => ($post->author->num_posts))) }}</dd>{{-- TODO: number_format --}}
 		<dd><a href="get_host_for_pid" title="{{ $post->author->ip }}">{{ trans('fluxbb::topic.ip_address_logged') }}</a></dd>
 	@if ($post->author->hasAdminNote())
-		<dd>{{ trans('fluxbb::topic.note') }} <strong>{{ ($post->author->admin_note) }}</strong></dd>{{-- TODO: Escape --}}
+		<dd>{{ trans('fluxbb::topic.note') }} <strong>{{ ($post->author->admin_note) }}</strong></dd>
 	@endif
 
 		<dd class="usercontacts">
@@ -48,11 +48,11 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 
 	</dl>
 
-	<h3><?php if ($post->id != $topic->first_post_id) echo trans('fluxbb::topic.re').' '; ?>{{ ($topic->subject) }}</h3>{{-- TODO: Escape subject --}}
+	<h3><?php if ($post->id != $topic->first_post_id) echo trans('fluxbb::topic.re').' '; ?>{{ ($topic->subject) }}</h3>
 	<div class="postmsg">
 		{{ $post->message() }}
 	@if ($post->wasEdited())
-		<p class="postedit"><em>{{ trans('fluxbb::topic.last_edit').' '.($post->edited_by).' ('.($post->edited) }})</em></p>{{-- TODO: Escape edited_by, format_time for edited --}}
+		<p class="postedit"><em>{{ trans('fluxbb::topic.last_edit').' '.($post->edited_by).' ('.($post->edited) }})</em></p>{{-- TODO: format_time for edited --}}
 	@endif
 	</div>
 @if ($post->author->hasSignature())

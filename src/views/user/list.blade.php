@@ -1,7 +1,7 @@
 @extends('fluxbb::layout.main')
 
 @section('main')
-Pages: {{ $users->links() }}
+Pages: {{{ $users->links() }}}
 <h2>User list</h2>
 
 <table cellspacing="0">
@@ -17,7 +17,7 @@ Pages: {{ $users->links() }}
 
 @foreach ($users as $user)
 		<tr>
-			<td><a href="{{ route('profile', array('id' => $user->id)) }}">{{ $user->username }}</a></td>{{-- TODO: Escape username --}}
+			<td><a href="{{ route('profile', array('id' => $user->id)) }}">{{ $user->username }}</a></td>
 			<td>{{$user->title}}</td>
 			<td>{{$user->num_posts}}</td>
 			<td>{{ ($user->registered) }}</td>{{-- HTML::format_time(registered, true) --}}

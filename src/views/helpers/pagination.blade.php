@@ -4,6 +4,6 @@
 
 <div class="pagination">
 	<ul>
-		{{ $presenter->render() }}
+		{{{ $presenter->render() }}}
 	</ul>
 </div>

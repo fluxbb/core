@@ -15,7 +15,7 @@
 							<input type="hidden" name="form_sent" value="1">
 							<label class="required"><strong>Username <span>(Required)</span></strong><br>
 							@if ($user->isAdmin())
-								<input type="text" name="username" size="25" maxlength="25" value="{{ $user->username }}" /><!-- TODO: Escape -->
+								<input type="text" name="username" size="25" maxlength="25" value="{{ $user->username }}" />
 							@else
 							{{ $user->username }}
 							@endif
@@ -28,7 +28,7 @@
 					<fieldset>
 						<legend>Enter a valid email address</legend>
 						<div class="infldset">
-							<label class="required"><strong>Email <span>(Required)</span></strong><br><input type="text" name="email" size="40" maxlength="80" value="{{ $user->email }}" /><!-- TODO: Escape --><br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
+							<label class="required"><strong>Email <span>(Required)</span></strong><br><input type="text" name="email" size="40" maxlength="80" value="{{ $user->email }}" /><br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
 						</div>
 					</fieldset>
 				</div>
@@ -118,7 +118,7 @@
 							<a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
 							@if ($user->isAdmin())
 							<label>Admin note<br>
-							<input type="text" name="admin_note" size="30" maxlength="30" value="{{ $user->admin_note }}" /><br></label><!-- TODO: Escape! -->
+							<input type="text" name="admin_note" size="30" maxlength="30" value="{{ $user->admin_note }}" /><br></label>
 							@endif
 						</div>
 					</fieldset>

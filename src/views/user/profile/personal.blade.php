@@ -12,7 +12,7 @@
 						<fieldset>
 							<legend>Enter your personal details</legend>
 							<div class="infldset">
-								<label>Real name<br><input type="text" name="realname" size="40" maxlength="40" value="{{ $user->realname }}" /><br></label><!-- TODO: Escape fields -->
+								<label>Real name<br><input type="text" name="realname" size="40" maxlength="40" value="{{ $user->realname }}" /><br></label>
 								<label>Title <em>(Leave blank to use forum default.)</em><br><input type="text" name="title" size="30" maxlength="50" value="{{ $user->title }}" /><br></label>
 								<label>Location<br><input type="text" name="location" size="30" maxlength="30" value="{{ $user->location }}" /><br></label>
 								<label>Website<br><input type="text" name="url" size="50" maxlength="80" value="{{ $user->url }}" /><br></label>
