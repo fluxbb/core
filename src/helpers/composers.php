@@ -25,11 +25,9 @@
 
 use FluxBB\Models\Config;
 
-View::composer('fluxbb::layout.main', function($event)
+View::composer('fluxbb::layout.main', function($view)
 {
- 
-
-	$event->with('language', 'en')
+	$view->with('language', 'en')
 	     ->with('direction', 'ltr')
 	     ->with('head', '')
 	     ->with('page', 'index')
@@ -40,18 +38,14 @@ View::composer('fluxbb::layout.main', function($event)
 	     ->with('announcement', '');
 });
 
-View::composer('fluxbb::auth.login', function($event)
+View::composer('fluxbb::auth.login', function($view)
 {
-	$view = $event->view;
-
 	$redirect_url = Session::get('login_redirect', route('index'));
 	$view->with('redirect_url', $redirect_url);
 });
 
-View::composer('fluxbb::user.profile.menu', function($event)
+View::composer('fluxbb::user.profile.menu', function($view)
 {
-	 
-
 	$items = array(
 		'essentials'	=> 'Essentials',
 		'personal'		=> 'Personal',
@@ -66,13 +60,12 @@ View::composer('fluxbb::user.profile.menu', function($event)
 	}
 
 	// TODO: Determine current action
-	$event->with('action', 'profile')
+	$view->with('action', 'profile')
 	     ->with('items', $items);
 });
 
-View::composer('fluxbb::admin.layout.header', function($event)
+View::composer('fluxbb::admin.layout.header', function($view)
 {
-	 
-	$event->with('board_title', Config::get('o_board_title'))
+	$view->with('board_title', Config::get('o_board_title'))
 	     ->with('board_description', Config::get('o_board_desc'));
 });
