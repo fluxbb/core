@@ -30,9 +30,9 @@ use FluxBB\Models\Category,
 	FluxBB\Models\Post,
 	FluxBB\Models\Topic,
 	FluxBB\Models\User;
+use App;
 use Paginator;
 use View;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HomeController extends BaseController
 {
@@ -54,7 +54,7 @@ class HomeController extends BaseController
 
 		if (is_null($forum))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		return View::make('fluxbb::viewforum')->with('forum', $forum);
@@ -67,7 +67,7 @@ class HomeController extends BaseController
 
 		if (is_null($topic))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		// Make sure post authors and their groups are all loaded
@@ -83,7 +83,7 @@ class HomeController extends BaseController
 
 		if (is_null($post))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		// Determine on which page the post is located

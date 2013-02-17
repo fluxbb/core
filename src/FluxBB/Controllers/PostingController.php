@@ -30,13 +30,13 @@ use FluxBB\Models\Post,
 	FluxBB\Models\Forum,
 	FluxBB\Models\User,
 	FluxBB\Models\Config;
+use App;
 use Auth;
 use Input;
 use Redirect;
 use Request;
 use Validator;
 use View;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostingController extends BaseController
 {
@@ -49,7 +49,7 @@ class PostingController extends BaseController
 
 		if (is_null($topic))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		return View::make('fluxbb::posting.post')
@@ -65,7 +65,7 @@ class PostingController extends BaseController
 
 		if (is_null($topic))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		// TODO: Flood protection
@@ -157,7 +157,7 @@ class PostingController extends BaseController
 
 		if (is_null($forum))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		return View::make('fluxbb::posting.post')
@@ -173,7 +173,7 @@ class PostingController extends BaseController
 
 		if (is_null($forum))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 
 		// TODO: Flood protection

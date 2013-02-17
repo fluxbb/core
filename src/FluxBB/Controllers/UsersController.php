@@ -26,9 +26,9 @@
 namespace FluxBB\Controllers;
 
 use FluxBB\Models\User;
+use App;
 use Input;
 use View;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UsersController extends BaseController
 {
@@ -40,7 +40,7 @@ class UsersController extends BaseController
 
 		if (is_null($user))
 		{
-			throw new NotFoundHttpException;
+			App::abort(404);
 		}
 		
 		else if (User::current()->id != $id && !User::current()->isAdmin())
