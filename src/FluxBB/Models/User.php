@@ -236,7 +236,7 @@ class User extends Base implements UserInterface
 			'login_url'		=> route('login'),
 		);
 
-		Mail::send('fluxbb:mail::welcome', $data, function($mail) use ($user)
+		Mail::plain('fluxbb:mail::welcome', $data, function($mail) use ($user)
 		{
 			$subject = trans('fluxbb::register.mail_welcome_subject', array(':board' => Config::get('o_board_title')));
 
