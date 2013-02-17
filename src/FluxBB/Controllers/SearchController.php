@@ -28,7 +28,7 @@ namespace FluxBB\Controllers;
 use FluxBB\Models\Category;
 use View;
  
-class Search extends Base
+class SearchController extends BaseController
 {
 
 	public function get_index()

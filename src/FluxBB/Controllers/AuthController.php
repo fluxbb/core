@@ -28,7 +28,7 @@ namespace FluxBB\Controllers;
 use FluxBB\Models\Config,
 	FluxBB\Models\Group,
 	FluxBB\Models\User;
-use Auth as a;
+use Auth;
 use Input;
 use Redirect;
 use Request;
@@ -36,7 +36,7 @@ use Session;
 use Validator;
 use View;
 
-class Auth extends Base
+class AuthController extends BaseController
 {
 
 	public function __construct()
@@ -47,7 +47,7 @@ class Auth extends Base
 	
 	public function get_logout()
 	{
-		a::logout();
+		Auth::logout();
 		return Redirect::route('index')
 			->with('message', trans('fluxbb::login.message_logout'));
 	}
@@ -64,7 +64,7 @@ class Auth extends Base
 			'password'	=> Input::get('req_password'),
 		);
 
-		if (a::attempt($loginData, Input::has('save_pass')))
+		if (Auth::attempt($loginData, Input::has('save_pass')))
 		{
 			// Make sure last_visit data is properly updated
 			//\Session::sweep();

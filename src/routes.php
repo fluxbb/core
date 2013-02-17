@@ -29,112 +29,112 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 {
 	Route::get('forum/{id}', array(
 		'as'	=> 'viewforum',
-		'uses'	=> 'FluxBB\Controllers\Home@get_forum',
+		'uses'	=> 'FluxBB\Controllers\HomeController@get_forum',
 	));
 	Route::get('topic/{id}', array(
 		'as'	=> 'viewtopic',
-		'uses'	=> 'FluxBB\Controllers\Home@get_topic',
+		'uses'	=> 'FluxBB\Controllers\HomeController@get_topic',
 	));
 	Route::get('post/{id}', array(
 		'as'	=> 'viewpost',
-		'uses'	=> 'FluxBB\Controllers\Home@get_post',
+		'uses'	=> 'FluxBB\Controllers\HomeController@get_post',
 	));
 	Route::get('/', array(
 		'as'	=> 'index',
-		'uses'	=> 'FluxBB\Controllers\Home@get_index',
+		'uses'	=> 'FluxBB\Controllers\HomeController@get_index',
 	));
 	Route::get('profile/{id}', array(
 		'as'	=> 'profile',
-		'uses'	=> 'FluxBB\Controllers\User@get_profile',
+		'uses'	=> 'FluxBB\Controllers\UsersController@get_profile',
 	));
 	Route::post('profile/{id}', array(
-		'uses'	=> 'FluxBB\Controllers\User@post_profile',
+		'uses'	=> 'FluxBB\Controllers\UsersController@post_profile',
 	));
 	Route::get('users', array(
 		'as'	=> 'userlist',
-		'uses'	=> 'FluxBB\Controllers\User@get_list',
+		'uses'	=> 'FluxBB\Controllers\UsersController@get_list',
 	));
 	Route::get('register', array(
 		'as'	=> 'register',
-		'uses'	=> 'FluxBB\Controllers\Auth@get_register',
+		'uses'	=> 'FluxBB\Controllers\AuthController@get_register',
 	));
 	Route::post('register', array(
-		'uses'	=> 'FluxBB\Controllers\Auth@post_register',
+		'uses'	=> 'FluxBB\Controllers\AuthController@post_register',
 	));
 	Route::get('login', array(
 		'as'	=> 'login',
-		'uses'	=> 'FluxBB\Controllers\Auth@get_login',
+		'uses'	=> 'FluxBB\Controllers\AuthController@get_login',
 	));
 	Route::post('login', array(
-		'uses'	=> 'FluxBB\Controllers\Auth@post_login',
+		'uses'	=> 'FluxBB\Controllers\AuthController@post_login',
 	));
 	Route::get('forgot_password.html', array(
 		'as'	=> 'forgot_password',
-		'uses'	=> 'FluxBB\Controllers\Auth@get_forgot',
+		'uses'	=> 'FluxBB\Controllers\AuthController@get_forgot',
 	));
 	Route::get('logout', array(
 		'as'	=> 'logout',
-		'uses'	=> 'FluxBB\Controllers\Auth@get_logout',
+		'uses'	=> 'FluxBB\Controllers\AuthController@get_logout',
 	));
 	Route::get('rules', array(
 		'as'	=> 'rules',
-		'uses'	=> 'FluxBB\Controllers\Misc@get_rules',
+		'uses'	=> 'FluxBB\Controllers\MiscController@get_rules',
 	));
 	Route::get('email/{id}', array(
 		'as'	=> 'email',
-		'uses'	=> 'FluxBB\Controllers\Misc@get_email',
+		'uses'	=> 'FluxBB\Controllers\MiscController@get_email',
 	));
 	Route::get('search', array(
 		'as'	=> 'search',
-		'uses'	=> 'FluxBB\Controllers\Search@get_index',
+		'uses'	=> 'FluxBB\Controllers\SearchController@get_index',
 	));
 	Route::get('post/{id}/report', array(
 		'as'	=> 'post_report',
-		'uses'	=> 'FluxBB\Controllers\Posting@get_report',
+		'uses'	=> 'FluxBB\Controllers\PostingController@get_report',
 	));
 	Route::get('post/{id}/delete', array(
 		'as'	=> 'post_delete',
-		'uses'	=> 'FluxBB\Controllers\Posting@get_delete',
+		'uses'	=> 'FluxBB\Controllers\PostingController@get_delete',
 	));
 	Route::get('post/{id}/edit', array(
 		'as'	=> 'post_edit',
-		'uses'	=> 'FluxBB\Controllers\Posting@get_edit',
+		'uses'	=> 'FluxBB\Controllers\PostingController@get_edit',
 	));
 	Route::get('post/{id}/quote', array(
 		'as'	=> 'post_quote',
-		'uses'	=> 'FluxBB\Controllers\Posting@get_quote',
+		'uses'	=> 'FluxBB\Controllers\PostingController@get_quote',
 	));
 	Route::get('topic/{id}/reply', array(
 		'as'	=> 'reply',
-		'uses'	=> 'FluxBB\Controllers\Posting@get_reply',
+		'uses'	=> 'FluxBB\Controllers\PostingController@get_reply',
 	));
 	Route::post('topic/{id}/reply', array(
-		'uses'	=> 'FluxBB\Controllers\Posting@post_reply',
+		'uses'	=> 'FluxBB\Controllers\PostingController@post_reply',
 	));
 	Route::get('forum/{id}/topic/new', array(
 		'as'	=> 'new_topic',
-		'uses'	=> 'FluxBB\Controllers\Posting@get_topic',
+		'uses'	=> 'FluxBB\Controllers\PostingController@get_topic',
 	));
 	Route::post('forum/{id}/topic/new', array(
-		'uses'	=> 'FluxBB\Controllers\Posting@post_topic',
+		'uses'	=> 'FluxBB\Controllers\PostingController@post_topic',
 	));
 
 	Route::get('admin', array(
 		'as'	=> 'admin',
-		'uses'	=> 'FluxBB\Controllers\Admin\Dashboard@get_index',
+		'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',
 	));
 	Route::get('admin/groups', array(
 		'as'	=> 'admin_groups',
-		'uses'	=> 'FluxBB\Controllers\Admin\Groups@get_index',
+		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@get_index',
 	));
 	Route::get('admin/groups/{id}', array(
 		'as'	=> 'admin_groups_edit',
-		'uses'	=> 'FluxBB\Controllers\Admin\Groups@get_edit',
+		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@get_edit',
 	));
 
 	Route::post('admin/ajax/board_config', array(
 		'as'	=> 'admin_ajax_board_config',
-		'uses'	=> 'FluxBB\Controllers\Admin\Ajax@post_board_config',
+		'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
 	));
 });
 

@@ -38,7 +38,7 @@ use Validator;
 use View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Posting extends Base
+class PostingController extends BaseController
 {
 
 	public function get_reply($tid)

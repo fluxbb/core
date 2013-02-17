@@ -25,7 +25,6 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Controllers\Base;
 use FluxBB\Models\Category,
 	FluxBB\Models\Forum,
 	FluxBB\Models\Post,
@@ -35,7 +34,7 @@ use Paginator;
 use View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Home extends Base
+class HomeController extends BaseController
 {
 
 	public function get_index()

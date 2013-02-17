@@ -23,16 +23,25 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB\Controllers\Admin;
+namespace FluxBB\Controllers;
 
-use View;
+use FluxBB\Models\Config;
 
-class Dashboard extends Base
+class MiscController extends BaseController
 {
 
-	public function get_index()
+	public function get_rules()
 	{
-		return View::make('fluxbb::admin.index');
+		// TODO: Move to filter and use roles / permissions
+		// TODO2: Also apply this filter (current OR this)
+		// ($pun_user['is_guest'] && $pun_user['g_read_board'] == '0' && $pun_config['o_regs_allow'] == '0')
+		if (Config::disabled('o_rules'))
+		{
+			return \Response::error('404');
+		}
+
+		return \View::make('misc.rules')
+			->with('rules', Config::get('o_rules_message'));
 	}
 
 }

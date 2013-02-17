@@ -23,26 +23,38 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB\Controllers;
+namespace FluxBB\Controllers\Admin;
 
-use FluxBB\Models\Config,
-	FluxBB\Routing\Controller;
+use Input;
+use Response;
+use Validator;
+use FluxBB\Models\Config;
 
-class Misc extends Controller
+class AjaxController extends BaseController
 {
 
-	public function get_rules()
+	public function post_board_config()
 	{
-		// TODO: Move to filter and use roles / permissions
-		// TODO2: Also apply this filter (current OR this)
-		// ($pun_user['is_guest'] && $pun_user['g_read_board'] == '0' && $pun_config['o_regs_allow'] == '0')
-		if (Config::disabled('o_rules'))
+		$rules = array(
+			'board_title'		=> 'required',
+			'board_description'	=> 'required',
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+
+		if ($validation->fails())
 		{
-			return \Response::error('404');
+			return Response::json(array(
+				'status'	=> 'failed',
+				'errors'	=> $validation->errors(),
+			));
 		}
 
-		return \View::make('misc.rules')
-			->with('rules', Config::get('o_rules_message'));
+		Config::set('o_board_title', Input::get('board_title'));
+		Config::set('o_board_desc', Input::get('board_description'));
+		Config::save();
+
+		return 'success';
 	}
 
 }

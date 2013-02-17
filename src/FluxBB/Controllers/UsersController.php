@@ -25,17 +25,17 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\User as u;
+use FluxBB\Models\User;
 use Input;
 use View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class User extends Base
+class UsersController extends BaseController
 {
 
 	public function get_profile($id)
 	{
-		$user = u::find($id);
+		$user = User::find($id);
 		$action = Input::get('action', 'essentials');
 
 		if (is_null($user))
@@ -43,7 +43,7 @@ class User extends Base
 			throw new NotFoundHttpException;
 		}
 		
-		else if (u::current()->id != $id && !u::current()->isAdmin())
+		else if (User::current()->id != $id && !User::current()->isAdmin())
 		{
 			$action = 'view';
 		}
@@ -56,7 +56,7 @@ class User extends Base
 	
 	public function post_profile($id, $action = 'essentials')
 	{
-		$user = u::find($id);
+		$user = User::find($id);
 		// TODO: Add validation. This can probably wait until we restructure the profile.
 		if ($action == 'essentials')
 		{
@@ -102,12 +102,12 @@ class User extends Base
 		$user->save();
 		return View::make('fluxbb::user.profile.'.$action)
 				->with('user', $user)
-				->with('admin', u::current()->isAdmin());
+				->with('admin', User::current()->isAdmin());
 	}
 
 	public function get_list()
 	{
-		$users = u::paginate(20);
+		$users = User::paginate(20);
 
 		return View::make('fluxbb::user.list')
 			->with('users', $users);

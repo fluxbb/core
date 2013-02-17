@@ -29,7 +29,7 @@ use App;
 use View;
 use FluxBB\Models\GroupRepositoryInterface;
 
-class Groups extends Base
+class GroupsController extends BaseController
 {
 
 	/**

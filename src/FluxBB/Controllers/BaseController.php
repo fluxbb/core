@@ -29,7 +29,7 @@ use FluxBB\Models\User,
 	Illuminate\Routing\Controllers\Controller,
 	Illuminate\Validation\Validator;
 
-class Base extends Controller
+class BaseController extends Controller
 {
 	public $restful = true;
 
