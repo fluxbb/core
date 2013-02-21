@@ -119,17 +119,27 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 		'uses'	=> 'FluxBB\Controllers\PostingController@post_topic',
 	));
 
+	Route::bind('group', function($value, $route)
+	{
+		return App::make('FluxBB\Models\GroupRepositoryInterface')->find($value);
+	});
+
 	Route::get('admin', array(
 		'as'	=> 'admin',
 		'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',
 	));
+
 	Route::get('admin/groups', array(
-		'as'	=> 'admin_groups',
-		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@get_index',
+		'as'	=> 'admin_groups_index',
+		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@index',
 	));
-	Route::get('admin/groups/{id}', array(
+	Route::get('admin/groups/{group}/edit', array(
 		'as'	=> 'admin_groups_edit',
-		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@get_edit',
+		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@edit',
+	));
+	Route::get('admin/groups/{group}/delete', array(
+		'as'	=> 'admin_groups_delete',
+		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@delete',
 	));
 
 	Route::post('admin/ajax/board_config', array(
