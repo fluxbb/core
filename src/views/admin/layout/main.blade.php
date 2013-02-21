@@ -2,9 +2,9 @@
 <html lang="en" dir="ltr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendor/fluxbb/core/public/css/admin.css') }}" />
-	<script type="text/javascript" src="{{ URL::asset('vendor/fluxbb/core/public/js/jquery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ URL::asset('vendor/fluxbb/core/public/js/admin.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('packages/fluxbb/core/css/admin.css') }}" />
+	<script type="text/javascript" src="{{ URL::asset('packages/fluxbb/core/js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('packages/fluxbb/core/js/admin.js') }}"></script>
 </head>
 
 <body>
