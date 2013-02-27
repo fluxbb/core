@@ -87,11 +87,25 @@ class GroupRepository implements GroupRepositoryInterface
 		return $this->retrieve($id);
 	}
 
+	public function delete(Group $group)
+	{
+		$this->clearCache();
+		$this->deletePermissions($group);
+
+		// TODO: Handle child groups!
+		return $group->delete();
+	}
+
 	protected function retrieve($id)
 	{
 		if (!isset($this->retrieved[$id]))
 		{
 			$this->retrieved[$id] = $group = Group::find($id);
+
+			if (is_null($group))
+			{
+				return;
+			}
 
 			$this->loadPermissions($group);
 		}
@@ -119,7 +133,7 @@ class GroupRepository implements GroupRepositoryInterface
 		return $this->cache->has('fluxbb.group.permissions.'.$id);
 	}
 
-	protected function cachePermissions($group)
+	protected function cachePermissions(Group $group)
 	{
 		$permissions = array();
 
@@ -137,9 +151,21 @@ class GroupRepository implements GroupRepositoryInterface
 		return $permissions;
 	}
 
-	protected function getCachedPermissions($group)
+	protected function getCachedPermissions(Group $group)
 	{
 		return $this->cache->get('fluxbb.group.permissions.'.$group->id);
+	}
+
+	protected function deletePermissions(Group $group)
+	{
+		GroupPermission::where('group_id', $group->id)->delete();
+
+		$this->cache->forget('fluxbb.group.permissions.'.$group->id);		
+	}
+
+	protected function clearCache()
+	{
+		$this->cache->forget('fluxbb.groups.hierarchy');
 	}
 
 }
