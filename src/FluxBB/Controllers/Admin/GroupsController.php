@@ -25,8 +25,10 @@
 
 namespace FluxBB\Controllers\Admin;
 
-use App;
+use Redirect;
+use Validator;
 use View;
+use FluxBB\Models\Group;
 use FluxBB\Models\GroupRepositoryInterface;
 
 class GroupsController extends BaseController
@@ -45,7 +47,7 @@ class GroupsController extends BaseController
 		$this->groups = $groups;
 	}
 
-	public function get_index()
+	public function index()
 	{
 		$groups = $this->groups->getHierarchy();
 
@@ -53,17 +55,47 @@ class GroupsController extends BaseController
 		           ->with('groups', $groups);
 	}
 
-	public function get_edit($id)
+	public function edit(Group $group)
 	{
-		$group = $this->groups->find($id);
-
-		if (is_null($group))
-		{
-			App::abort(404);
-		}
-
 		return View::make('fluxbb::admin.groups.edit')
 		           ->with('group', $group);
+	}
+
+	public function update(Group $group)
+	{
+		$rules = array(
+			'name'	=> 'required',
+		);
+
+		$validation = Validator::make(Input::all(), $rules);
+
+		if ($validation->fails())
+		{
+			return Redirect::route('admin_groups_edit', array('group' => $group))
+			               ->withInput()
+			               ->withErrors($validation);
+		}
+		else
+		{
+			$group->fill(Input::all());
+			$group->save();
+
+			return Redirect::route('admin_groups_edit', array('group' => $group))
+			               ->with('success', 'Group was updated successfully.');
+		}
+	}
+
+	public function delete(Group $group)
+	{
+		return View::make('fluxbb::admin.groups.delete')
+		           ->with('group', $group);
+	}
+
+	public function remove(Group $group)
+	{
+		$this->groups->delete($group);
+
+		return Redirect::route('admin_groups_index');
 	}
 
 }

@@ -141,6 +141,9 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 		'as'	=> 'admin_groups_delete',
 		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@delete',
 	));
+	Route::post('admin/groups/{group}/delete', array(
+		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@remove',
+	));
 
 	Route::post('admin/ajax/board_config', array(
 		'as'	=> 'admin_ajax_board_config',
