@@ -30,6 +30,8 @@ class Group extends Base
 
 	protected $table = 'groups';
 
+	protected $fillable = array('name', 'parent_group_id');
+
 	const ADMIN 	= 1;
 
 	const MOD 		= 2;
