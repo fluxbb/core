@@ -1,10 +1,10 @@
-<header>
-	<h1>FluxBB</h1>
-	<div id="board-info" title="Click to edit.">
-		<p class="title">{{ $board_title }}</p>
-		<input type="text" class="title" />
-		<p class="description">{{ $board_description }}</p>
-		<input type="text" class="description" />
-		<input type="submit" class="submit" value="Save" />
+<div class="header">
+	<div class="logo"></div>
+	<div id="menu">
+		<ul>
+			<li><a href="#">Your profile</a></li>
+			<li><a href="#">Your forum</a></li>
+			<li><a href="index.html">Home</a></li>
+		</ul>
 	</div>
-</header>
+</div>
