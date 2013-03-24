@@ -276,34 +276,34 @@ input[type="reset"] {
 	font-size: 14px;
 	line-height: 1.2;
 	color: #fff;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.35);
 }
 
 .m-message {
-	background: #00a0db;
-	background: linear-gradient(to bottom, #00a0db 0%,#0085b6 100%);
-	border: #006d95 1px solid;
+	background: #00aeee;
+	background: linear-gradient(to bottom, #26c4ff 0%,#00aeee 100%);
+	border: #0094cb 1px solid;
 	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-error {
-	background: #e6a200;
-	background: linear-gradient(to bottom, #e6a200 0%,#c88d00 100%);
-	border: #986b00 1px solid;
+	background: #e5a100;
+	background: linear-gradient(to bottom, #ffb400 0%,#e5a100 100%);
+	border: #c48a00 1px solid;
 	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-tick {
-	background: #81bc00;
-	background: linear-gradient(to bottom, #81bc00 0%,#689800 100%);
-	border: #4d7100 1px solid;
-	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
+	background: #7ab300;
+	background: linear-gradient(to bottom, #94d800 0%,#7ab300 100%);
+	border: #689800 1px solid;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.4),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-cross {
-	background: #e63100;
-	background: linear-gradient(to bottom, #e63100 0%,#c42a00 100%);
-	border: #9c2100 1px solid;
+	background: #d92e00;
+	background: linear-gradient(to bottom, #f63400 0%,#d92e00 100%);
+	border: #bc2800 1px solid;
 	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
 
