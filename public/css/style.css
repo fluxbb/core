@@ -85,6 +85,7 @@ ul.nav {
 	list-style: none;
 	border-top: 2px solid #4475ab;
 	margin-bottom: 15px;
+	margin-top: 3px;
 }
 
 ul.nav li {
@@ -92,7 +93,7 @@ ul.nav li {
 }
 
 ul.nav a, ul.nav a:visited {
-	padding: 4px 5px 5px 5px;
+	padding: 4px 6px 5px 6px;
 	display: block;
 	font-weight: 900;
 	width: 200px;
@@ -114,34 +115,6 @@ h6 {
 	margin-bottom: 3px;
 }
 
-/* List nav */
-ul.pnav {
-	list-style: none;
-	border-top: 1px solid #999;
-}
-
-ul.pnav li {
-	width: 670px;
-	margin-left: -40px;
-	border-bottom: 1px solid #999;
-}
-
-ul.pnav a, ul.pnav a:visited {
-	padding: 5px 5px 6px 5px;
-	display: block;
-	font-weight: 900;
-	width: 660px;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-size: 12px;
-	color: #42413C;
-}
-
-ul.pnav a:hover, ul.pnav a:active, ul.pnav a:focus {
-	background-color: #f3f3f3;
-	color: #222222;
-}
-
 /* Forms */
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
 	display: inline-block;
@@ -151,7 +124,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 	font-size: 14px;
 	line-height: 20px;
 	color: #555;
-	border-radius: 4px;
 	vertical-align: middle;
 }
 
@@ -170,7 +142,6 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 
 input[type="file"] {
 	box-shadow: none;
-	border-radius: 4px;
 }
 
 input[type="radio"], input[type="checkbox"] {
@@ -251,7 +222,6 @@ input[type="button"] {
 	border: 1px solid #1b5da6;
 	*border: 0;
 	border-bottom-color: #15457b;
-	border-radius: 4px;
 	*margin-left: .3em;
 	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
@@ -268,7 +238,7 @@ input[type="reset"] {
 	cursor: pointer;
 	color: #fff;
 	text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
-	background-color: #4475ab;
+	background-color: #e45023;
 	background-image: linear-gradient(to bottom,#e45023,#c62f00);
 	background-repeat: repeat-x;
 	border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
@@ -276,7 +246,6 @@ input[type="reset"] {
 	border: 1px solid #e73600;
 	*border: 0;
 	border-bottom-color: #932300;
-	border-radius: 4px;
 	*margin-left: .3em;
 	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
@@ -303,37 +272,39 @@ input[type="reset"] {
 /* Alerts and messages */
 .message {
 	margin-top: 3px;
-	padding: 6px 10px 2px 10px;
-	font-size: 13px;
-	line-height: 1.6;
+	padding: 6px 7px 2px 0;
+	font-size: 14px;
+	line-height: 1.2;
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.35);
 }
 
 .m-message {
-	background: #cbf2ff url("../img/icons/information.png") no-repeat;
-	background-position: 8px 50%;
-	border-top: #00baff 3px solid;
-	color: #00baff;
+	background: #00aeee;
+	background: linear-gradient(to bottom, #26c4ff 0%,#00aeee 100%);
+	border: #0094cb 1px solid;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-error {
-	background: #ffefad url("../img/icons/error.png") no-repeat;
-	background-position: 8px 50%;
-	border-top: #ffb400 3px solid;
-	color: #e3a000;
+	background: #e5a100;
+	background: linear-gradient(to bottom, #ffb400 0%,#e5a100 100%);
+	border: #c48a00 1px solid;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-tick {
-	background: #daff89 url("../img/icons/tick.png") no-repeat;
-	background-position: 8px 50%;
-	border-top: #7ab200 3px solid;
-	color: #7ab200;
+	background: #7ab300;
+	background: linear-gradient(to bottom, #94d800 0%,#7ab300 100%);
+	border: #689800 1px solid;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.4),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-cross {
-	background: #ffa891 url("../img/icons/cross.png") no-repeat;
-	background-position: 8px 50%;
-	border-top: #ff3600 3px solid;
-	color: #ff3600;
+	background: #d92e00;
+	background: linear-gradient(to bottom, #f63400 0%,#d92e00 100%);
+	border: #bc2800 1px solid;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);
 }
 
 .m-content {
@@ -396,7 +367,6 @@ a:hover, a:active, a:focus {
 	padding: 0 15px 15px 40px;
 }
 
-
 .fltrt {
 	float: right;
 	margin-left: 8px;
@@ -410,18 +380,4 @@ a:hover, a:active, a:focus {
 	height:0;
 	font-size: 1px;
 	line-height: 0px;
-}
-
-@media (max-width: 910px) {
-	.container, .header, .content2, .footer, .menu {
-		width: 670px;
-	}
-	
-	.pageheader {
-		display: none;
-	}
-	
-	.sidebar {
-		display: none;
-	}
 }
