@@ -24,4 +24,26 @@ $(document).ready(function() {
 			alert('saved');
 		});
 	});
+
+	$('.setting input').focus(function() {
+		console.log("focused");
+		$(this).removeClass("saved");
+		$(this).removeClass("failed");
+	});
+
+	$('.setting').change(function() {
+		console.log('change');
+		key = $(this).data('key');
+		value = $(this).find('input').val();
+		$.ajax({
+			type: "POST",
+			url: "/index.php/admin/settings/" + key,
+			data: {
+				value: value
+			}
+		}).done(function(data) {
+			console.log('saved');
+			$(this).addClass("saved");
+		});
+	});
 });

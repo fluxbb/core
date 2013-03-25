@@ -23,61 +23,43 @@
  * @license		http://www.gnu.org/licenses/gpl.html	GNU General Public License
  */
 
-namespace FluxBB\Core;
+namespace FluxBB\Controllers\Admin;
 
-use Illuminate\Support\ServiceProvider;
-use FluxBB\Models\GroupRepository;
-use FluxBB\Models\ConfigRepository;
+use Input;
+use Response;
+use View;
+use FluxBB\Models\ConfigRepositoryInterface;
 
-class CoreServiceProvider extends ServiceProvider
+class SettingsController extends BaseController
 {
 
 	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
+	 * The config repository instance
+	 * 
+	 * @var ConfigRepositoryInterface
 	 */
-	protected $defer = false;
-	
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->package('fluxbb/core', 'fluxbb');
+	protected $config;
 
-		include __DIR__.'/../../start.php';
-		include __DIR__.'/../../routes.php';
+
+	public function __construct(ConfigRepositoryInterface $config)
+	{
+		$this->config = $config;
 	}
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
+	public function getGlobal()
 	{
-		$this->app->bind('FluxBB\Models\GroupRepositoryInterface', function($app)
-		{
-			return new GroupRepository($app['cache']);
-		});
+		$globalConfig = $this->config->getGlobal();
 
-		$this->app->bind('FluxBB\Models\ConfigRepositoryInterface', function($app)
-		{
-			return new ConfigRepository($app['cache']);
-		});
+		return View::make('fluxbb::admin.settings.global')
+		           ->with('config', $globalConfig);
 	}
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
+	public function setOption($key)
 	{
-		return array();
+		$value = Input::get('value');
+		$status = $this->config->set($key, $value);
+
+		return Response::json($status);
 	}
 
 }

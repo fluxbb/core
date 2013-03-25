@@ -145,6 +145,14 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 		'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@remove',
 	));
 
+	Route::get('admin/settings', array(
+		'as'	=> 'admin_settings_global',
+		'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@getGlobal',
+	));
+	Route::post('admin/settings/{key}', array(
+		'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@setOption'
+	));
+
 	Route::post('admin/ajax/board_config', array(
 		'as'	=> 'admin_ajax_board_config',
 		'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
