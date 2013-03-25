@@ -35,7 +35,7 @@ class GroupsController extends BaseController
 {
 
 	/**
-	 * The groups repository
+	 * The groups repository instance
 	 * 
 	 * @var GroupRepositoryInterface
 	 */
