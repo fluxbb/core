@@ -312,8 +312,6 @@ input[type="reset"] {
 	margin-bottom: 7px;
 }
 
-
-
 /* Text */
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 0;
@@ -333,7 +331,7 @@ h1 {
 }
 
 a:link, a:visited {
-	color: #76b300;
+	color: #4475ab;
 	text-decoration: none;
 }
 
@@ -351,12 +349,8 @@ a:hover, a:active, a:focus {
 	margin: -21px 6px -4px 0;
 }
 
-#right a:link, #right a:visited {
-	color: #000000;
-}
-
-#right a:hover, #right a:active, #right a:focus {
-	color: #76b300;
+#right a:link, #right a:visited, #right a:hover, #right a:active, #right a:focus {
+	color: #4475ab;
 }
 	
 /* Other */
