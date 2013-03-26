@@ -16,26 +16,31 @@ body {
 
 .header {
 	margin: 0 auto;
-	width: 960px;
+	width: 75%;
+	max-width: 1100px;
+	min-width: 900px;
 	height: 80px;
 	background: url("../img/logo.png") no-repeat left center;
 }
 
 .container {
-	width: 960px;
+	width: 75%;
+	max-width: 1100px;
+	min-width: 900px;
 	background-color: #fff;
 	margin: 0 auto;
 }
 
 .sidebar {
 	float: left;
-	width: 210px;
+	width: 25%;
 	padding-bottom: 10px;
 }
 
 .content {
 	padding: 0;
-	width: 730px;
+	width: 74%;
+	min-width: 670px;
 	float: right;
 }
 
@@ -46,7 +51,9 @@ body {
 	position: relative;
 	clear: both; 
 	margin: 0 auto;
-	width: 960px;
+	width: 75%;
+	min-width: 900px;
+	max-width: 1100px;
 	color: #000000;
 	margin-bottom: 10px;
 }
@@ -93,14 +100,14 @@ ul.nav li {
 }
 
 ul.nav a, ul.nav a:visited {
-	padding: 4px 6px 5px 6px;
+	padding: 5px 6px 6px 6px;
 	display: block;
 	font-weight: 900;
-	width: 200px;
+	width: 95.3%;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-size: 12px;
-	color: #42413C;
+	color: #42413c;
 }
 
 ul.nav a:hover, ul.nav a:active, ul.nav a:focus {
@@ -349,7 +356,7 @@ a:hover, a:active, a:focus {
 	margin: -21px 6px -4px 0;
 }
 
-#right a:link, #right a:visited, #right a:hover, #right a:active, #right a:focus {
+#right a {
 	color: #4475ab;
 }
 	
