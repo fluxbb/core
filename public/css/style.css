@@ -312,7 +312,35 @@ input[type="reset"] {
 	margin-bottom: 7px;
 }
 
+
+
 /* Text */
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	font-weight: 500;
+	margin-bottom: 3px;
+}
+
+p, blockquote, ul.list li {
+	font-size: 13px;
+	line-height: 1.6;
+	margin-top: 0;
+	font-weight: 400;
+}
+
+h1 {
+	border-bottom: 2px solid #4475ab;
+}
+
+a:link, a:visited {
+	color: #76b300;
+	text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+	text-decoration: underline;
+}
+
 .footer p {
 	padding: 0;
 	margin: -5px 0 0 6px;
@@ -336,46 +364,27 @@ ul, ol, dl {
 	padding: 0;
 	margin: 0;
 }
-h1, h2, h3, h4, h5, h6 {
-	margin-top: 0;
-	font-weight: 500;
-	margin-bottom: 3px;
-}
-p, blockquote, ul.list li {
-	font-size: 13px;
-	line-height: 1.6;
-	margin-top: 0;
-	font-weight: 400;
-}
-blockquote:first-line {
-	font-weight: bold !important;
-}
 	
 a img {
 	border: none;
 }
 
-a:link, a:visited {
-	color: #76b300;
-	text-decoration: none;
-}
-a:hover, a:active, a:focus {
-	text-decoration: underline;
+/* Multiple use */
+.noborder { /* Removes every border */
+	border: none;
 }
 
-.content ul, .content ol { 
-	padding: 0 15px 15px 40px;
-}
-
-.fltrt {
+.fltrt { /* Float right */
 	float: right;
 	margin-left: 8px;
 }
-.fltlft {
+
+.fltlft { /* Float left */
 	float: left;
 	margin-right: 8px;
 }
-.clearfloat {
+
+.clearfloat { /* Float reset */
 	clear:both;
 	height:0;
 	font-size: 1px;
