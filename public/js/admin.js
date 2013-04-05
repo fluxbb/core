@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "http://fluxbb.dev/index.php/admin/ajax/board_config",
+			url: baseUrl + "/admin/ajax/board_config",
 			data: {
 				board_title: $('#board-info input.title').val(),
 				board_description: $('#board-info input.description').val()
@@ -33,17 +33,18 @@ $(document).ready(function() {
 
 	$('.setting').change(function() {
 		console.log('change');
-		key = $(this).data('key');
-		value = $(this).find('input').val();
+		$field = $(this);
+		key = $field.data('key');
+		value = $field.find('input').val();
 		$.ajax({
 			type: "POST",
-			url: "/index.php/admin/settings/" + key,
+			url: baseUrl + "/admin/settings/" + key,
 			data: {
 				value: value
 			}
 		}).done(function(data) {
 			console.log('saved');
-			$(this).addClass("saved");
+			$field.addClass("saved");
 		});
 	});
 });

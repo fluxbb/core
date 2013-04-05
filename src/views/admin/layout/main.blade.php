@@ -5,6 +5,9 @@
 	<title>FluxBB</title>
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('packages/fluxbb/core/css/style.css') }}" />
 	<script type="text/javascript" src="{{ URL::asset('packages/fluxbb/core/js/jquery.min.js') }}"></script>
+	<script type="text/javascript">
+		var baseUrl = "{{ Request::root() }}";
+	</script>
 	<script type="text/javascript" src="{{ URL::asset('packages/fluxbb/core/js/admin.js') }}"></script>
 </head>
 
