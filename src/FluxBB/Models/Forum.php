@@ -33,6 +33,8 @@ class Forum extends Base
 
 	protected $table = 'forums';
 
+	protected $fillable = array('forum_name', 'forum_desc', 'disp_position');
+
 
 	public function topics()
 	{

@@ -32,6 +32,8 @@ class Category extends Base
 
 	protected $table = 'categories';
 
+	protected $fillable = array('cat_name', 'disp_position');
+
 
 	public function forums()
 	{
