@@ -57,7 +57,9 @@ class SettingsController extends BaseController
 	public function setOption($key)
 	{
 		$value = Input::get('value');
-		$status = $this->config->set($key, $value);
+		
+		$this->config->set($key, $value);
+		$status = $this->config->save();
 
 		return Response::json($status);
 	}
