@@ -140,7 +140,6 @@ class AuthController extends BaseController
 			'dst'				=> Config::get('o_default_dst'),
 			'language'			=> Config::get('o_default_lang'),
 			'style'				=> Config::get('o_default_style'),
-			'registered'		=> Request::server('REQUEST_TIME', time()),
 			'registration_ip'	=> Request::getClientIp(),
 			'last_visit'		=> Request::server('REQUEST_TIME', time()),
 		);
