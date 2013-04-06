@@ -35,6 +35,21 @@ class User extends Base implements UserInterface
 
 	protected $table = 'users';
 
+	// TODO: Review
+	protected $fillable = array(
+		'username',
+		'group_id',
+		'password',
+		'email',
+		'email_setting',
+		'timezone',
+		'dst',
+		'language',
+		'style',
+		'registration_ip',
+		'last_visit',
+	);
+
 	const GUEST = 1;
 
 
