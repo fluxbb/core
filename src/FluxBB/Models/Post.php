@@ -29,6 +29,7 @@ class Post extends Base
 {
 
 	protected $table = 'posts';
+	protected $fillable = array('poster', 'poster_id', 'poster_ip', 'message', 'hide_smilies', 'posted', 'topic_id');
 
 
 	public function topic()
