@@ -31,6 +31,7 @@ class Topic extends Base
 {
 
 	protected $table = 'topics';
+	protected $fillable = array('poster', 'subject', 'posted', 'last_post', 'last_poster', 'sticky', 'forum_id');
 
 	public function posts()
 	{
