@@ -76,7 +76,7 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 		<li><a href="{{ route('post_quote', array('id' => $post->id)) }}">{{ trans('fluxbb::topic.quote') }}</a></li>
 	</ul>
 @endif
-
+</div>
 @endforeach
 
 <a href="{{ route('reply', array('id' => $topic->id)) }}">{{ trans('fluxbb::topic.post_reply') }}</a>
