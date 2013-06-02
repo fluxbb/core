@@ -287,8 +287,8 @@ class PostingController extends BaseController
 			App::abort(404);
 		}
 
-		// TODO: Allow moderators too
-		if ($post->author->id != Auth::user()->id)
+		// Check is the user is the author, or a moderator
+		if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod())
 		{
 			 App::abort(404);
 		}
@@ -309,8 +309,8 @@ class PostingController extends BaseController
 			App::abort(404);
 		}
 
-		// TODO: Allow moderators too
-		if ($post->author->id !=Auth::user()->id)
+		// Check is the user is the author, or a moderator
+		if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod())
 		{
 			 App::abort(404);
 		}
