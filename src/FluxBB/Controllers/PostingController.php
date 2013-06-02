@@ -278,7 +278,7 @@ class PostingController extends BaseController
 
 	public function get_edit($pid)
 	{
-		$post = Post::with('author')
+		$post = Post::with('author', 'topic')
 			->where('id', $pid)
 			->first();
 
@@ -321,6 +321,12 @@ class PostingController extends BaseController
 			'req_message'		=> 'required',
 		);
 
+		// if the post if the first of the topic, the title is editable too
+		if ($post->isFirstPostOfTopic())
+		{
+			$rules['req_subject'] = 'required|max:70';
+		}
+
 		$validation = Validator::make(Input::get(), $rules);
 		if ($validation->fails())
 		{
@@ -337,6 +343,13 @@ class PostingController extends BaseController
 		// update the post
 		$post->update($post_data);
 
+		// update the topic
+		if ($post->isFirstPostOfTopic())
+		{
+			$post->topic->update(array(
+				'subject' => Input::get('req_subject')
+			));
+		}
 
 		// To subscribe or not to subscribe
 		$post->topic->subscribe(Input::has('subscribe'));

@@ -49,6 +49,16 @@ class Post extends Base
 		return $this->message;
 	}
 
+	/**
+	 * Check if the post if the first post of it's topic
+	 *
+	 * return boolean true if it is the first post of the topic, else false
+	 */
+	public function isFirstPostOfTopic()
+	{
+		return $this->id == $this->topic->first_post_id;
+	}
+
 	public function wasEdited()
 	{
 		return !empty($this->edited);

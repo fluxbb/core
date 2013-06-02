@@ -27,8 +27,10 @@ if (Auth::guest())
 
 }
 
-if (isset($forum)): ?>
-		<label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="" /><br /></label>
+if (isset($forum) || (isset($post) && $post->isFirstPostOfTopic()) ):
+    $defaultSubject = isset($post) ? $post->topic->subject : '';
+?>
+		<label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="{{ Input::old('req_subject', $defaultSubject) }}" /><br /></label>
 <?php endif; ?>
 
 		<label class="required"><strong>{{ trans('fluxbb::common.message') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /></label>
