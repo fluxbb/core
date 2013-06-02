@@ -100,6 +100,9 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 		'as'	=> 'post_edit',
 		'uses'	=> 'FluxBB\Controllers\PostingController@get_edit',
 	));
+	Route::post('post/{id}/edit', array(
+		'uses'  => 'FluxBB\Controllers\PostingController@post_edit',
+	));
 	Route::get('post/{id}/quote', array(
 		'as'	=> 'post_quote',
 		'uses'	=> 'FluxBB\Controllers\PostingController@get_quote',
