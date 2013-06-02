@@ -12,6 +12,7 @@ return array(
 'mod_controls'	=>	'Moderator controls',
 'is_subscribed'	=>	'You are currently subscribed to this forum',
 'unsubscribe'	=>	'Unsubscribe',
-'subscribe'		=>	'Subscribe to this forum'
+'subscribe'     =>  'Subscribe to this forum',
+'edit_post'     =>  'Edit topic',
 
 );

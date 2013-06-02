@@ -4,6 +4,8 @@
 <h2><?php echo $action ?></h2>
 @if (isset($topic))
 <form action="{{ route('reply', array('id' => $topic->id)) }}" method="POST" id="post">
+@elseif (isset($post))
+<form action="{{ route('post_edit', array('id' => $post->id)) }}" method="POST" id="post">
 @else
 <form action="{{ route('new_topic', array('id' => $forum->id)) }}" method="POST" id="post">
 @endif
@@ -25,12 +27,14 @@ if (Auth::guest())
 
 }
 
-if (isset($forum)): ?>
-		<label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="" /><br /></label>
-<?php endif; ?>						
+if (isset($forum) || (isset($post) && $post->isFirstPostOfTopic()) ):
+    $defaultSubject = isset($post) ? $post->topic->subject : '';
+?>
+		<label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="{{ Input::old('req_subject', $defaultSubject) }}" /><br /></label>
+<?php endif; ?>
 
 		<label class="required"><strong>{{ trans('fluxbb::common.message') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /></label>
-		<textarea name="req_message" id="req_message" cols="95" rows="20"></textarea><br /></label>
+        <textarea name="req_message" id="req_message" cols="95" rows="20"><?php if (isset($post)) echo $post->message; ?></textarea><br /></label>
 		<ul class="bblinks">
 			<li><span><a href="help.php#bbcode" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.bbcode') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
 			<li><span><a href="help.php#url" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.url_tag') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') && FluxBB\Models\User::current()->group->g_post_links == '1' ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
