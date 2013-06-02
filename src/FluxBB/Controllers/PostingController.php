@@ -278,7 +278,8 @@ class PostingController extends BaseController
 
 	public function get_edit($pid)
 	{
-		$post = Post::where('id', $pid)
+		$post = Post::with('author')
+			->where('id', $pid)
 			->first();
 
 		if (is_null($post))
@@ -286,7 +287,11 @@ class PostingController extends BaseController
 			App::abort(404);
 		}
 
-		// TODO: Can user edit this message ?
+		// TODO: Allow moderators too
+		if ($post->author->id != Auth::user()->id)
+		{
+			 App::abort(404);
+		}
 
 		return View::make('fluxbb::posting.post')
 			->with('post', $post)
@@ -304,7 +309,11 @@ class PostingController extends BaseController
 			App::abort(404);
 		}
 
-		// TODO: Can user edit this message ?
+		// TODO: Allow moderators too
+		if ($post->author->id !=Auth::user()->id)
+		{
+			 App::abort(404);
+		}
 
 		// TODO: Flood protection
 		$rules = array(
