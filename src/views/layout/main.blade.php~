@@ -1,5 +1,11 @@
 @include('fluxbb::layout.partials.header')
 
+
+
+
+
+
+
 <div id="brdmain">
 
 @yield('alerts')
