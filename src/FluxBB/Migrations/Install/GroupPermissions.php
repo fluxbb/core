@@ -41,8 +41,6 @@ class GroupPermissions extends Migration
 			$table->integer('group_id')->unsigned();
 			$table->string('name', 50);
 			$table->boolean('value');
-			
-			$table->timestamps();
 		});
 	}
 
