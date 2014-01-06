@@ -126,7 +126,9 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 	{
 		return App::make('FluxBB\Models\GroupRepositoryInterface')->find($value);
 	});
-
+	
+Route::group(array('before' => 'auth'), function()
+{
 	Route::get('admin', array(
 		'as'	=> 'admin',
 		'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',
@@ -161,4 +163,9 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 		'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
 	));
 });
+
+	
+});
+
+
 
