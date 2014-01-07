@@ -74,9 +74,11 @@ class SettingsController extends BaseController
 		return View::make('fluxbb::admin.settings.maintenance');
 	}
 	
-	public function getLogs()
+	//comited out below function to avoid errors 
+	/* public function getLogs()
 	{
 		return View::make('fluxbb::admin.settings.logs');
 	}
-
+	*/
+	
 }
