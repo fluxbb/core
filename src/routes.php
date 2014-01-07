@@ -162,6 +162,19 @@ Route::group(array('before' => 'auth'), function()
 		'as'	=> 'admin_ajax_board_config',
 		'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
 	));
+	Route::get('admin/settings/email', array(
+		'as' => 'admin_settings_email',
+		'uses' => 'FluxBB\Controllers\Admin\SettingsController@getEmail',
+	));
+	Route::get('admin/settings/maintenance', array(
+		'as' => 'admin_settings_maintenance',
+		'uses' => 'FluxBB\Controllers\Admin\SettingsController@getMaintenance',
+	));
+	Route::get('admin/settings/logs', array(
+		'as' => 'admin_settings_logs',
+		'uses' => 'FluxBB\Controllers\Admin\SettingsController@getLogs',
+	));
+	
 });
 
 	
