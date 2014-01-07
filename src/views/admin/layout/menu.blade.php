@@ -73,9 +73,9 @@
 					<li id="subnav-settings"<?php echo ( in_array( 'settings', array() ) ? ' class="active"' : '' ); ?>>
 						<ul class="nav">
 							<li><a href="{{ route('admin_settings_global') }}"><i class="icon-list-alt"></i> Global</a></li>
-							<li><a href="/settings/email/"><i class="icon-envelope-alt"></i> Email</a></li>
-							<li><a href="/settings/maintenance/"><i class="icon-bell-alt"></i> Maintenance</a></li>
-							<li><a href="/settings/logs/"><i class="icon-shield"></i> Logs</a></li>
+							<li><a href="{{ route('admin_settings_email') }}"><i class="icon-envelope-alt"></i> Email</a></li>
+							<li><a href="{{ route('admin_settings_maintenance') }}"><i class="icon-bell-alt"></i> Maintenance</a></li>
+							<li><a href="{{ route('admin_settings_logs') }}"><i class="icon-shield"></i> Logs</a></li>
 						</ul>
 					</li>
 					<li id="subnav-extensions"<?php echo ( in_array( 'extensions', array() ) ? ' class="active"' : '' ); ?>>
