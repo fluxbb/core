@@ -1,4 +1,4 @@
-<div id="navbar" class="navbar navbar-static-top">
+<nav id="navbar" class="navbar navbar-static-top">
 	<div class="navbar-inner navbar-inner-light">
 		<div class="container">
 			<a class="btw btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -11,22 +11,24 @@
 				<ul class="nav">
 					<li<?php echo ( in_array( 'dashboard', array() ) ? ' class="current active"' : '' ); ?> id="nav-dashboard"><a href="#"><i class="icon-dashboard"></i> Dashboard</a></li>
 					<li<?php echo ( in_array( 'content', array() ) ? ' class="current active"' : '' ); ?> id="nav-content"><a href="#"><i class="icon-folder-open"></i> Content</a></li>
-					<li<?php echo ( in_array( 'users', array() ) ? ' class="current active"' : '' ); ?> id="nav-users"><a href="/users/"><i class="icon-user"></i> Users</a></li>
+					<li<?php echo ( in_array( 'users', array() ) ? ' class="current active"' : '' ); ?> id="nav-users"><a href="#"><i class="icon-user"></i> Users</a></li>
 					<li<?php echo ( in_array( 'settings', array() ) ? ' class="current active"' : '' ); ?> id="nav-settings"><a href="#"><i class="icon-cogs"></i> Settings</a></li>
 					<li<?php echo ( in_array( 'extensions', array() ) ? ' class="current active"' : '' ); ?> id="nav-extensions"><a href="#"><i class="icon-wrench"></i> Extensions</a></li>
 				</ul>
 				<ul class="nav pull-right">
+					@if(Auth::user())
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, user! <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{ Auth::user()->username }} <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Profile</a></li>
 							<li><a href="#">Forum</a></li>
 							<li class="divider"></li>
 							<li><a href="#">Support</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Logout</a></li>
+							<li><a href="{{ route('logout') }}">Logout</a></li>
 						</ul>
 					</li>
+					@endif
 				</ul>
 			</div>
 		</div> <!-- /container -->
@@ -86,7 +88,7 @@
 			</div>
 		</div> <!-- /container -->
 	</div> <!-- /navbar-inner -->
-</div> <!-- /navbar -->
+</nav> <!-- /navbar -->
 
 <div class="intro">
 
