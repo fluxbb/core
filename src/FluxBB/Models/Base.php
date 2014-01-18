@@ -1,7 +1,4 @@
-
-<?php
-
-namespace FluxBB\Models;
+<?php namespace FluxBB\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
