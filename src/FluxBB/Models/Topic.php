@@ -8,7 +8,16 @@ class Topic extends Base
 {
 
 	protected $table = 'topics';
+
 	protected $fillable = array('poster', 'subject', 'posted', 'last_post', 'last_poster', 'sticky', 'forum_id');
+
+	/**
+	 * The relationships that should be touched on save.
+	 *
+	 * @var array
+	 */
+	protected $touches = array('forum');
+
 
 	public function posts()
 	{
@@ -25,6 +34,16 @@ class Topic extends Base
 	{
 		return $this->hasOne('FluxBB\\Models\\TopicSubscription');
 	//		->where('user_id', '=', User::current()->id);
+	}
+
+	public function addReply(Post $post)
+	{
+		$post->topic()->associate($this);
+		$this->last_post()->associate($post);
+		$this->forum->last_post()->associate($post);
+
+		$this->num_replies += 1;
+		$this->forum->num_posts += 1;
 	}
 
 	public function numReplies()
