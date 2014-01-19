@@ -40,11 +40,11 @@
 				<ul class="nav subnav">
 					<li id="subnav-dashboard"<?php echo ( in_array( 'dashboard', array() ) ? ' class="active"' : '' ); ?>>
 						<ul class="nav">
-							<li><a href="/dashboard/updates/"><i class="icon-refresh"></i> Update check</a></li>
-							<li><a href="/dashboard/stats/"><i class="icon-bar-chart"></i> Stats</a></li>
-							<li><a href="/dashboard/reports/"><i class="icon-flag"></i> Reported posts</a></li>
-							<li><a href="/dashboard/notes/"><i class="icon-edit-sign"></i> Notes</a></li>
-							<li><a href="/dashboard/backup/"><i class="icon-save"></i> Backup</a></li>
+							<li><a href="{{ route('admin_dashboard_updates') }}"><i class="icon-refresh"></i> Update check</a></li>
+							<li><a href="{{ route('admin_dashboard_stats') }}"><i class="icon-bar-chart"></i> Stats</a></li>
+							<li><a href="{{ route('admin_dashboard_reports') }}"><i class="icon-flag"></i> Reported posts</a></li>
+							<li><a href="{{ route('admin_dashboard_notes') }}"><i class="icon-edit-sign"></i> Notes</a></li>
+							<li><a href="{{ route('admin_dashboard_backup') }}"><i class="icon-save"></i> Backup</a></li>
 						</ul>
 					</li>
 					<li id="subnav-content"<?php echo ( in_array( 'content', array() ) ? ' class="active"' : '' ); ?>>
@@ -73,9 +73,9 @@
 					<li id="subnav-settings"<?php echo ( in_array( 'settings', array() ) ? ' class="active"' : '' ); ?>>
 						<ul class="nav">
 							<li><a href="{{ route('admin_settings_global') }}"><i class="icon-list-alt"></i> Global</a></li>
-							<li><a href="/settings/email/"><i class="icon-envelope-alt"></i> Email</a></li>
-							<li><a href="/settings/maintenance/"><i class="icon-bell-alt"></i> Maintenance</a></li>
-							<li><a href="/settings/logs/"><i class="icon-shield"></i> Logs</a></li>
+							<li><a href="{{ route('admin_settings_email') }}"><i class="icon-envelope-alt"></i> Email</a></li>
+							<li><a href="{{ route('admin_settings_maintenance') }}"><i class="icon-bell-alt"></i> Maintenance</a></li>
+							<li><a href="#"><i class="icon-shield"></i> Logs</a></li>
 						</ul>
 					</li>
 					<li id="subnav-extensions"<?php echo ( in_array( 'extensions', array() ) ? ' class="active"' : '' ); ?>>
