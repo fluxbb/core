@@ -3,7 +3,7 @@
 namespace FluxBB\Controllers;
 
 use FluxBB\Models\User,
-	Illuminate\Routing\Controllers\Controller,
+	Illuminate\Routing\Controller,
 	Illuminate\Validation\Validator;
 
 class BaseController extends Controller
