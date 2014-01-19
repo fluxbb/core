@@ -3,11 +3,11 @@
 namespace FluxBB\Controllers;
 
 use FluxBB\Models\Post;
-use FluxBB\Models\Topic;
 use FluxBB\Repositories\Topics;
 use FluxBB\Services\CreateReply;
 use FluxBB\Services\CreateReplyObserver;
 use Illuminate\Support\MessageBag;
+use Auth;
 use Input;
 use Redirect;
 
@@ -20,9 +20,7 @@ class PostsController extends BaseController implements
 		$topic = $this->topics->find($tid); // TODO: 404?
 
 		$service = new CreateReply($this, $this->topics);
-		return $service->createReply(array(
-			'message'	=> Input::get('req_message'),
-		));
+		return $service->createReply($topic, Auth::user(), Input::get('req_message'));
 	}
 
 	public function replyCreated(Post $post)
@@ -30,9 +28,9 @@ class PostsController extends BaseController implements
 		return Redirect::route('viewpost', array('id' => $post->id));
 	}
 
-	public function replyValidationFailed(Topic $topic, MessageBag $errors)
+	public function replyValidationFailed(Post $post, MessageBag $errors)
 	{
-		return Redirect::route('posting@reply', array($topic->id))
+		return Redirect::route('posting@reply', array($post->topic_id))
 		               ->withInput()
 		               ->withErrors($errors);
 	}
