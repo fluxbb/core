@@ -40,5 +40,22 @@ class SettingsController extends BaseController
 
 		return Response::json($status);
 	}
-
+	
+	public function getEmail()
+	{
+		return View::make('fluxbb::admin.settings.email');
+	}
+	
+	public function getMaintenance()
+	{
+		return View::make('fluxbb::admin.settings.maintenance');
+	}
+	
+	//comited out below function to avoid errors 
+	/* public function getLogs()
+	{
+		return View::make('fluxbb::admin.settings.logs');
+	}
+	*/
+	
 }
