@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Censoring extends Migration
 {
-
     public function up()
     {
         Schema::table('censoring', function($table) {
@@ -23,5 +22,4 @@ class Censoring extends Migration
     {
         Schema::drop('censoring');
     }
-
 }

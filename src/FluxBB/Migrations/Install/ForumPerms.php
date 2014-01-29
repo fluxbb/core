@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class ForumPerms extends Migration
 {
-
     public function up()
     {
         Schema::table('forum_perms', function($table) {
@@ -27,5 +26,4 @@ class ForumPerms extends Migration
     {
         Schema::drop('forum_perms');
     }
-
 }

@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Groups extends Migration
 {
-
     public function up()
     {
         Schema::table('groups', function($table) {
@@ -24,5 +23,4 @@ class Groups extends Migration
     {
         Schema::drop('groups');
     }
-
 }

@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class TopicSubscriptions extends Schema
 {
-
     public function up()
     {
         Schema::table('topic_subscriptions', function($table) {
@@ -24,5 +23,4 @@ class TopicSubscriptions extends Schema
     {
         Schema::drop('topic_subscriptions');
     }
-
 }

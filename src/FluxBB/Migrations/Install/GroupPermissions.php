@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class GroupPermissions extends Migration
 {
-
     public function up()
     {
         Schema::table('group_permissions', function($table) {
@@ -24,5 +23,4 @@ class GroupPermissions extends Migration
     {
         Schema::drop('group_permissions');
     }
-
 }

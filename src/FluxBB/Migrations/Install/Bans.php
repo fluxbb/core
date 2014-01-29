@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Bans extends Migration
 {
-
     public function up()
     {
         Schema::table('bans', function($table) {
@@ -29,5 +28,4 @@ class Bans extends Migration
     {
         Schema::drop('bans');
     }
-
 }

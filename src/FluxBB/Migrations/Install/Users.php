@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Users extends Migration
 {
-
     public function up()
     {
         Schema::table('users', function($table) {
@@ -60,5 +59,4 @@ class Users extends Migration
     {
         Schema::drop('users');
     }
-
 }

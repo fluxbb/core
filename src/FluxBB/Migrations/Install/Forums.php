@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Forums extends Migration
 {
-
     public function up()
     {
         Schema::table('forums', function($table) {
@@ -32,5 +31,4 @@ class Forums extends Migration
     {
         Schema::drop('forums');
     }
-
 }

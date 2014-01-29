@@ -7,7 +7,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Config extends Migration
 {
-
     public function up()
     {
         Schema::table('config', function($table) {
@@ -24,5 +23,4 @@ class Config extends Migration
     {
         Schema::drop('config');
     }
-
 }
