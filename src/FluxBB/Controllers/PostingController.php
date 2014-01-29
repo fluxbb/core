@@ -17,7 +17,6 @@ use View;
 
 class PostingController extends BaseController
 {
-
     public function get_reply($tid)
     {
         $topic = Topic::with('forum.perms')

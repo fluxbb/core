@@ -10,7 +10,6 @@ use FluxBB\Models\GroupRepositoryInterface;
 
 class GroupsController extends BaseController
 {
-
     /**
      * The groups repository instance
      *
@@ -71,5 +70,4 @@ class GroupsController extends BaseController
 
         return Redirect::route('admin_groups_index');
     }
-
 }

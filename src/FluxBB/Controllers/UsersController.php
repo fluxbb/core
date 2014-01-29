@@ -9,7 +9,6 @@ use View;
 
 class UsersController extends BaseController
 {
-
     public function get_profile($id)
     {
         $user = User::find($id);
@@ -72,5 +71,4 @@ class UsersController extends BaseController
         return View::make('fluxbb::user.list')
             ->with('users', $users);
     }
-
 }

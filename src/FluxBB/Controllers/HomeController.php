@@ -13,7 +13,6 @@ use View;
 
 class HomeController extends BaseController
 {
-
     public function get_index()
     {
         // TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
@@ -73,5 +72,4 @@ class HomeController extends BaseController
 
         return $this->get_topic($post->topic_id);
     }
-
 }

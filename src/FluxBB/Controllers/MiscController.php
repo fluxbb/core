@@ -6,7 +6,6 @@ use FluxBB\Models\Config;
 
 class MiscController extends BaseController
 {
-
     public function get_rules()
     {
         // TODO: Move to filter and use roles / permissions
@@ -19,5 +18,4 @@ class MiscController extends BaseController
         return \View::make('misc.rules')
             ->with('rules', Config::get('o_rules_message'));
     }
-
 }

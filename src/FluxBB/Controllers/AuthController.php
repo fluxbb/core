@@ -15,7 +15,6 @@ use View;
 
 class AuthController extends BaseController
 {
-
     public function __construct()
     {
         //$this->filter('before', 'only_guests')->only(array('login', 'remember'));
@@ -117,5 +116,4 @@ class AuthController extends BaseController
         return Redirect::route('index')
             ->with('message', trans('fluxbb::register.reg_complete'));
     }
-
 }

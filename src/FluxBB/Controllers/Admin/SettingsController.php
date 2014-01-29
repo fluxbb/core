@@ -9,7 +9,6 @@ use FluxBB\Models\ConfigRepositoryInterface;
 
 class SettingsController extends BaseController
 {
-
     /**
      * The config repository instance
      *
@@ -57,5 +56,4 @@ class SettingsController extends BaseController
         return View::make('fluxbb::admin.settings.logs');
     }
     */
-
 }

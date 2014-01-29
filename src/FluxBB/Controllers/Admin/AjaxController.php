@@ -9,7 +9,6 @@ use FluxBB\Models\Config;
 
 class AjaxController extends BaseController
 {
-
     public function post_board_config()
     {
         $rules = array(
@@ -32,5 +31,4 @@ class AjaxController extends BaseController
 
         return 'success';
     }
-
 }

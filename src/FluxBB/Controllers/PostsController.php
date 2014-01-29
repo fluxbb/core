@@ -14,7 +14,6 @@ use Redirect;
 class PostsController extends BaseController implements
     CreateReplyObserver
 {
-
     public function postReply($tid)
     {
         $topic = $this->topics->find($tid); // TODO: 404?
@@ -34,5 +33,4 @@ class PostsController extends BaseController implements
                        ->withInput()
                        ->withErrors($errors);
     }
-
 }

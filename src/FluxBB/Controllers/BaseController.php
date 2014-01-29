@@ -22,5 +22,4 @@ class BaseController extends Controller
     {
         return \Validator::make($attributes, $rules, $messages);//->bundle('fluxbb');
     }
-
 }
