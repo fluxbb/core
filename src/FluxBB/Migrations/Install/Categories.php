@@ -10,8 +10,7 @@ class Categories extends Migration
 
     public function up()
     {
-        Schema::table('categories', function($table)
-        {
+        Schema::table('categories', function($table) {
             $table->create();
 
             $table->increments('id');

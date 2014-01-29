@@ -27,8 +27,7 @@ class Category extends Base
                 ->orderBy('id', 'ASC')
                 ->get();
 
-            foreach ($categories as $category)
-            {
+            foreach ($categories as $category) {
                 $all[$category->id] = $category;
             }
             return $all;
@@ -42,13 +41,10 @@ class Category extends Base
         $forums = Forum::allForGroup($group_id);
 
         /*usort($forums, function($forum1, $forum2) {
-            if ($forum1->cat_id == $forum2->cat_id)
-            {
+            if ($forum1->cat_id == $forum2->cat_id) {
                 // Same category: forum's disp_position value decides
                 return $forum1->disp_position - $forum2->disp_position;
-            }
-            else
-            {
+            } else {
                 // ...else the categories' disp_position values are compared
                 return $categories[$forum1->cat_id]->disp_position - $categories[$forum2->cat_id]->disp_position;
             }
@@ -56,10 +52,8 @@ class Category extends Base
 
         // FIXME: Yuck!!!
         $forums_by_cat = array();
-        foreach ($forums as $forum)
-        {
-            if (!isset($forums_by_cat[$forum->cat_id]))
-            {
+        foreach ($forums as $forum) {
+            if (!isset($forums_by_cat[$forum->cat_id])) {
                 $forums_by_cat[$forum->cat_id] = array(
                     'category'	=> $categories[$forum->cat_id],
                     'forums'	=> array(),

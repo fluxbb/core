@@ -41,27 +41,21 @@ class AuthController extends BaseController
             'password'	=> Input::get('req_password'),
         );
 
-        if (Auth::attempt($loginData, Input::has('save_pass')))
-        {
+        if (Auth::attempt($loginData, Input::has('save_pass'))) {
             // Make sure last_visit data is properly updated
             //\Session::sweep();
             // TODO: Implement this!
 
-            if (Session::has('redirect_url'))
-            {
+            if (Session::has('redirect_url')) {
                 $redirectUrl = Session::get('redirect_url');
-            }
-            else
-            {
+            } else {
                 $redirectUrl = route('index');
             }
 
             // FIXME: Redirect to $redirectUrl
             return Redirect::route('index')
                 ->with('message', 'You were successfully logged in.');
-        }
-        else
-        {
+        } else {
             $errors = new \Illuminate\Support\MessageBag;
             $errors->add('login', 'Invalid username / password combination.');
 
@@ -83,25 +77,20 @@ class AuthController extends BaseController
         );
 
         // If email confirmation is enabled
-        if (Config::enabled('o_regs_verify'))
-        {
+        if (Config::enabled('o_regs_verify')) {
             $rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
-        }
-        else
-        {
+        } else {
             $rules['password'] = 'required|min:4|confirmed';
             $rules['email'] = 'required|email|unique:users,email';
         }
 
         // Agree to forum rules
-        if (Config::enabled('o_rules'))
-        {
+        if (Config::enabled('o_rules')) {
             $rules['rules'] = 'accepted';
         }
 
         $validation = Validator::make(Input::get(), $rules);
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return Redirect::route('register')
                 ->withInput(Input::get())
                 ->with('errors', $validation->messages());

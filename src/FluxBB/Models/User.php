@@ -55,10 +55,8 @@ class User extends Base implements UserInterface
     {
         static $current = null;
 
-        if (Auth::guest())
-        {
-            if (!isset($current))
-            {
+        if (Auth::guest()) {
+            if (!isset($current)) {
                 $current = new Guest;
             }
 
@@ -101,41 +99,34 @@ class User extends Base implements UserInterface
         static $ban_list;
 
         // If not already built in a previous call, build an array of lowercase banned usernames
-        if (empty($ban_list))
-        {
+        if (empty($ban_list)) {
             $ban_list = array();
 
             // FIXME: Retrieve $bans (former $pun_bans)
             $bans = array();
-            foreach ($bans as $cur_ban)
-            {
+            foreach ($bans as $cur_ban) {
                 $ban_list[] = strtolower($cur_ban['username']);
             }
         }
 
         // If the user has a custom title
-        if ($this->title != '')
-        {
+        if ($this->title != '') {
             return $this->title;
         }
         // If the user is banned
-        else if (in_array(strtolower($this->username), $ban_list))
-        {
+        else if (in_array(strtolower($this->username), $ban_list)) {
             return trans('Banned');
         }
         // If the user group has a default user title
-        else if ($this->group->g_user_title != '')
-        {
+        else if ($this->group->g_user_title != '') {
             return $this->group->g_user_title;
         }
         // If the user is a guest
-        else if ($this->guest())
-        {
+        else if ($this->guest()) {
             return trans('Guest');
         }
         // If nothing else helps, we assign the default
-        else
-        {
+        else {
             return trans('Member');
         }
     }
@@ -145,13 +136,11 @@ class User extends Base implements UserInterface
         // TODO: We might want to cache this result
         $filetypes = array('jpg', 'gif', 'png');
 
-        foreach ($filetypes as $cur_type)
-        {
+        foreach ($filetypes as $cur_type) {
             // FIXME: Prepend base path for upload dir
             $path = '/'.$this->id.'.'.$cur_type;
 
-            if (file_exists($path))
-            {
+            if (file_exists($path)) {
                 return $path;
             }
         }
@@ -228,8 +217,7 @@ class User extends Base implements UserInterface
             'login_url'		=> route('login'),
         );
 
-        Mail::plain('fluxbb:mail::welcome', $data, function($mail) use ($user)
-        {
+        Mail::plain('fluxbb:mail::welcome', $data, function($mail) use ($user) {
             $subject = trans('fluxbb::register.mail_welcome_subject', array(':board' => Config::get('o_board_title')));
 
             $mail->to($user->email)

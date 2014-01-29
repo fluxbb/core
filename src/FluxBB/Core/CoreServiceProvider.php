@@ -36,13 +36,11 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('FluxBB\Models\GroupRepositoryInterface', function($app)
-        {
+        $this->app->bind('FluxBB\Models\GroupRepositoryInterface', function($app) {
             return new GroupRepository($app['cache']);
         });
 
-        $this->app->bind('FluxBB\Models\ConfigRepositoryInterface', function($app)
-        {
+        $this->app->bind('FluxBB\Models\ConfigRepositoryInterface', function($app) {
             return new ConfigRepository($app['cache']);
         });
     }

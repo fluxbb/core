@@ -10,8 +10,7 @@ class Sessions extends Migration
 
     public function up()
     {
-        Schema::table('sessions', function($table)
-        {
+        Schema::table('sessions', function($table) {
             $table->create();
 
             $table->string('id', 40);

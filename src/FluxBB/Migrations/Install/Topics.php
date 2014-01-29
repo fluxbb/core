@@ -10,8 +10,7 @@ class Topics extends Migration
 
     public function up()
     {
-        Schema::table('topics', function($table)
-        {
+        Schema::table('topics', function($table) {
             $table->create();
 
             $table->increments('id');

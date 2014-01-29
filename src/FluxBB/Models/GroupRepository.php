@@ -19,36 +19,29 @@ class GroupRepository implements GroupRepositoryInterface
 
     public function getHierarchy()
     {
-        if ($this->cache->has('fluxbb.groups.hierarchy'))
-        {
+        if ($this->cache->has('fluxbb.groups.hierarchy')) {
             return $this->cache->get('fluxbb.groups.hierarchy');
         }
 
         $allGroups = Group::orderBy('id')->get()->all();
 
         $keyedGroups = array();
-        foreach ($allGroups as $group)
-        {
+        foreach ($allGroups as $group) {
             $keyedGroups[$group->id] = $group;
         }
 
         // Collect root groups and groups with parent by key
         $rootGroups = $groupsByParent = array();
-        foreach ($keyedGroups as $key => $group)
-        {
-            if ($group->hasParent())
-            {
+        foreach ($keyedGroups as $key => $group) {
+            if ($group->hasParent()) {
                 $groupsByParent[$group->parent_group_id][] = $group;
-            }
-            else
-            {
+            } else {
                 $rootGroups[] = $group;
             }
         }
 
         // Now set up the children relationships for all leftover groups
-        foreach ($groupsByParent as $parentGroupId => $subgroups)
-        {
+        foreach ($groupsByParent as $parentGroupId => $subgroups) {
             $collection = new Collection($subgroups);
             $keyedGroups[$parentGroupId]->setRelation('children', $collection);
         }
@@ -75,12 +68,10 @@ class GroupRepository implements GroupRepositoryInterface
 
     protected function retrieve($id)
     {
-        if (!isset($this->retrieved[$id]))
-        {
+        if (!isset($this->retrieved[$id])) {
             $this->retrieved[$id] = $group = Group::find($id);
 
-            if (is_null($group))
-            {
+            if (is_null($group)) {
                 return;
             }
 
@@ -92,12 +83,9 @@ class GroupRepository implements GroupRepositoryInterface
 
     protected function loadPermissions($group)
     {
-        if ($this->hasCachedPermissions($group->id))
-        {
+        if ($this->hasCachedPermissions($group->id)) {
             $permissions = $this->getCachedPermissions($group);
-        }
-        else
-        {
+        } else {
             $permissions = $this->cachePermissions($group);
         }
 
@@ -115,8 +103,7 @@ class GroupRepository implements GroupRepositoryInterface
         $permissions = array();
 
         // Overwrite parent permissions if those are set
-        if ($group->parent_id)
-        {
+        if ($group->parent_id) {
             $permissions = $this->cachePermissions($group->parent);
         }
 

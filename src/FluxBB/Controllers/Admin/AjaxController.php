@@ -19,8 +19,7 @@ class AjaxController extends BaseController
 
         $validation = Validator::make(Input::all(), $rules);
 
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return Response::json(array(
                 'status'	=> 'failed',
                 'errors'	=> $validation->errors(),

@@ -31,8 +31,7 @@ class CreateReply
             'posted'	=> Carbon::now(),
         ));
 
-        if ($post->invalid())
-        {
+        if ($post->invalid()) {
             return $this->observer->replyValidationFailed($post, $post->getErrors());
         }
 

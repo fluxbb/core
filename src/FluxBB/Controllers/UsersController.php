@@ -15,13 +15,9 @@ class UsersController extends BaseController
         $user = User::find($id);
         $action = Input::get('action', 'essentials');
 
-        if (is_null($user))
-        {
+        if (is_null($user)) {
             App::abort(404);
-        }
-
-        else if (User::current()->id != $id && !User::current()->isAdmin())
-        {
+        } else if (User::current()->id != $id && !User::current()->isAdmin()) {
             $action = 'view';
         }
 
@@ -35,8 +31,7 @@ class UsersController extends BaseController
     {
         $user = User::find($id);
         // TODO: Add validation. This can probably wait until we restructure the profile.
-        if ($action == 'essentials')
-        {
+        if ($action == 'essentials') {
             $user->username = Input::get('username', $user->username);
             $user->email = Input::get('email', $user->email);
             $user->timezone = Input::get('timezone', $user->timezone);
@@ -44,23 +39,14 @@ class UsersController extends BaseController
             $user->time_format = Input::get('time_format');
             $user->date_format = Input::get('date_format');
             $user->admin_note = Input::get('admin_note', $user->admin_note);
-        }
-
-        else if ($action == 'personal')
-        {
+        } else if ($action == 'personal') {
             $user->realname = Input::get('realname');
             $user->title = Input::get('title');
             $user->location = Input::get('location');
             $user->url = Input::get('url');
-        }
-
-        else if ($action == 'personality')
-        {
+        } else if ($action == 'personality') {
             $user->signature = Input::get('signature');
-        }
-
-        else if ($action == 'display')
-        {
+        } else if ($action == 'display') {
         //This will give an error if not everything is set -> need to set defaults in database!
             $user->style = Input::get('style');
             $user->show_smilies = Input::get('show_smilies');
@@ -69,10 +55,7 @@ class UsersController extends BaseController
             $user->show_img = Input::get('show_img');
             $user->disp_topics = Input::get('disp_topics', $user->disp_topics);
             $user->disp_posts = Input::get('disp_posts', $user->disp_posts);
-        }
-
-        else //if action == privacy
-        {
+        } else { //if action == privacy
             //TODO
         }
 

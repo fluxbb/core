@@ -1,7 +1,6 @@
 <?php
 
-if (FluxBB\Core::isInstalled())
-{
+if (FluxBB\Core::isInstalled()) {
     Config::set('database.connections.fluxbb', Config::get('fluxbb.database'));
     DB::setDefaultConnection('fluxbb');
 }
@@ -14,10 +13,8 @@ View::addNamespace('fluxbb:mail', __DIR__.'/lang/'.Config::get('app.locale').'/m
 
 /*
 // Set up our custom session handler
-if (!Request::cli() && !Session::started())
-{
-    Session::extend('fluxbb::session', function()
-    {
+if (!Request::cli() && !Session::started()) {
+    Session::extend('fluxbb::session', function() {
         return new fluxbb\Session\Driver(Laravel\Database::connection());
     });
 

@@ -29,8 +29,7 @@ class HomeController extends BaseController
         // Fetch some info about the forum
         $forum = Forum::find($fid);
 
-        if (is_null($forum))
-        {
+        if (is_null($forum)) {
             App::abort(404);
         }
 
@@ -42,8 +41,7 @@ class HomeController extends BaseController
         // Fetch some info about the topic
         $topic = Topic::find($tid);
 
-        if (is_null($topic))
-        {
+        if (is_null($topic)) {
             App::abort(404);
         }
 
@@ -58,8 +56,7 @@ class HomeController extends BaseController
         // If a post ID is specified we determine topic ID and page number so we can show the correct message
         $post = Post::find($pid);
 
-        if (is_null($post))
-        {
+        if (is_null($post)) {
             App::abort(404);
         }
 

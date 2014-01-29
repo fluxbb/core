@@ -10,8 +10,7 @@ class Bans extends Migration
 
     public function up()
     {
-        Schema::table('bans', function($table)
-        {
+        Schema::table('bans', function($table) {
             $table->create();
 
             $table->increments('id');

@@ -10,8 +10,7 @@ class TopicSubscriptions extends Schema
 
     public function up()
     {
-        Schema::table('topic_subscriptions', function($table)
-        {
+        Schema::table('topic_subscriptions', function($table) {
             $table->create();
 
             $table->integer('user_id')->unsigned();

@@ -25,8 +25,7 @@ class Driver extends Database implements Sweeper
     {
         $session = $this->table()->find($id);
 
-        if (!is_null($session))
-        {
+        if (!is_null($session)) {
             return array(
                 'id'            => $session->id,
                 'last_activity' => $session->last_visit,
@@ -45,16 +44,13 @@ class Driver extends Database implements Sweeper
      */
     public function save($session, $config, $exists)
     {
-        if ($exists)
-        {
+        if ($exists) {
             $this->table()->where('id', '=', $session['id'])->update(array(
                 'last_visit'	=> $session['last_activity'],
                 'last_ip'		=> Request::ip(),
                 'data'          => serialize($session['data']),
             ));
-        }
-        else
-        {
+        } else {
             $this->table()->insert(array(
                 'id'            => $session['id'],
                 'user_id'		=> 1,
@@ -91,15 +87,13 @@ class Driver extends Database implements Sweeper
         $result = $this->table()->where('user_id', '!=', 1)->where('last_visit', '<', $expiration)->get();
 
         $delete_ids = array();
-        foreach ($result as $cur_session)
-        {
+        foreach ($result as $cur_session) {
             $delete_ids[] = $cur_session->id;
             $result = $this->connection->table('users')->where_id($cur_session->user_id)->update(array('last_visit' => $cur_session->last_visit));
         }
 
         // Make sure logged-in users have no more than ten sessions alive
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $uid = User::current()->id;
 
             $session_ids = $this->table()->where_user_id($uid)->order_by('last_visit', 'desc')->lists('id');
@@ -108,8 +102,7 @@ class Driver extends Database implements Sweeper
             $delete_ids = array_merge($delete_ids, $prune_ids);
         }
 
-        if (!empty($delete_ids))
-        {
+        if (!empty($delete_ids)) {
             $this->table()->where_in('id', $delete_ids)->or_where('last_visit', '<', $expiration)->delete();
         }
     }
@@ -130,12 +123,9 @@ class Driver extends Database implements Sweeper
         // We will simply generate an empty session payload array, using an ID
         // that is either not currently assigned to any existing session or
         // that belongs to a guest with the same IP address.
-        if (is_null($old_guest_session))
-        {
+        if (is_null($old_guest_session)) {
             $id = $this->id();
-        }
-        else
-        {
+        } else {
             $id = $old_guest_session->id;
             Session::instance()->exists = true;
         }

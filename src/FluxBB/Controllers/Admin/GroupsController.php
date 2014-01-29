@@ -46,14 +46,11 @@ class GroupsController extends BaseController
 
         $validation = Validator::make(Input::all(), $rules);
 
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return Redirect::route('admin_groups_edit', array('group' => $group))
                            ->withInput()
                            ->withErrors($validation);
-        }
-        else
-        {
+        } else {
             $group->fill(Input::all());
             $group->save();
 

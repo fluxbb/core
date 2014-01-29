@@ -2,8 +2,7 @@
 
 use FluxBB\Models\Config;
 
-View::composer('fluxbb::layout.main', function($view)
-{
+View::composer('fluxbb::layout.main', function($view) {
     $view->with('language', 'en')
          ->with('direction', 'ltr')
          ->with('head', '')
@@ -15,14 +14,12 @@ View::composer('fluxbb::layout.main', function($view)
          ->with('announcement', '');
 });
 
-View::composer('fluxbb::auth.login', function($view)
-{
+View::composer('fluxbb::auth.login', function($view) {
     $redirect_url = Session::get('login_redirect', route('index'));
     $view->with('redirect_url', $redirect_url);
 });
 
-View::composer('fluxbb::user.profile.menu', function($view)
-{
+View::composer('fluxbb::user.profile.menu', function($view) {
     $items = array(
         'essentials'	=> 'Essentials',
         'personal'		=> 'Personal',
@@ -31,8 +28,7 @@ View::composer('fluxbb::user.profile.menu', function($view)
         'privacy'		=> 'Privacy',
     );
 
-    if (Auth::check() && Auth::user()->isAdmin())
-    {
+    if (Auth::check() && Auth::user()->isAdmin()) {
         $items['admin'] = 'Administration';
     }
 
@@ -41,8 +37,7 @@ View::composer('fluxbb::user.profile.menu', function($view)
          ->with('items', $items);
 });
 
-View::composer('fluxbb::admin.layout.header', function($view)
-{
+View::composer('fluxbb::admin.layout.header', function($view) {
     $view->with('board_title', Config::get('o_board_title'))
          ->with('board_description', Config::get('o_board_desc'));
 });

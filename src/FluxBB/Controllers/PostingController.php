@@ -24,8 +24,7 @@ class PostingController extends BaseController
             ->where('id', '=', $tid)
             ->first();
 
-        if (is_null($topic))
-        {
+        if (is_null($topic)) {
             App::abort(404);
         }
 
@@ -40,8 +39,7 @@ class PostingController extends BaseController
             ->where('id', '=', $tid)
             ->first();
 
-        if (is_null($topic))
-        {
+        if (is_null($topic)) {
             App::abort(404);
         }
 
@@ -52,10 +50,8 @@ class PostingController extends BaseController
         );
         // TODO: More validation
 
-        if (Auth::guest())
-        {
-            if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
-            {
+        if (Auth::guest()) {
+            if (Config::enabled('p_force_guest_email') || Input::get('email') != '') {
                 $rules['req_email']	= 'required|email';
             }
 
@@ -63,8 +59,7 @@ class PostingController extends BaseController
         }
 
         $validation = Validator::make(Input::get(), $rules);
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return Redirect::route('posting@reply', array($tid))->withInput()->withErrors($validation);
         }
 
@@ -78,8 +73,7 @@ class PostingController extends BaseController
             'topic_id'			=> $tid
         );
 
-        if (Auth::guest())
-        {
+        if (Auth::guest()) {
             $post_data['poster'] = Input::get('req_username');
             $post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
         }
@@ -109,15 +103,12 @@ class PostingController extends BaseController
 
         // If the posting user is logged in, increment his/her post count
         $user = User::current();
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $user->num_posts += 1;
             $user->last_post = time(); // TODO: Request_time
             $user->save();
             // TODO: Promote this user to a new group if enabled
-        }
-        else
-        {
+        } else {
             // TODO: Session!
             //$user->online()->update(array('last_post' => time())); // TODO: REquest_time
         }
@@ -132,8 +123,7 @@ class PostingController extends BaseController
             ->where('id', $fid)
             ->first();
 
-        if (is_null($forum))
-        {
+        if (is_null($forum)) {
             App::abort(404);
         }
 
@@ -148,8 +138,7 @@ class PostingController extends BaseController
             ->where('id', '=', $fid)
             ->first();
 
-        if (is_null($forum))
-        {
+        if (is_null($forum)) {
             App::abort(404);
         }
 
@@ -162,10 +151,8 @@ class PostingController extends BaseController
         );
         // TODO: More validation
 
-        if (Auth::guest())
-        {
-            if (Config::enabled('p_force_guest_email') || Input::get('email') != '')
-            {
+        if (Auth::guest()) {
+            if (Config::enabled('p_force_guest_email') || Input::get('email') != '') {
                 $rules['req_email']	= 'required|email';
             }
 
@@ -173,8 +160,7 @@ class PostingController extends BaseController
         }
 
         $validation = Validator::make(Input::get(), $rules);
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return Redirect::route('new_topic', array('id' => $fid))
                 ->withInput()
                 ->withErrors($validation);
@@ -190,8 +176,7 @@ class PostingController extends BaseController
             'forum_id'			=> $fid,
         );
 
-        if (Auth::guest())
-        {
+        if (Auth::guest()) {
             $topic_data['poster'] = $topic_data['last_poster'] = Input::get('req_username');
         }
 
@@ -211,8 +196,7 @@ class PostingController extends BaseController
             'topic_id'			=> $topic->id
         );
 
-        if (Auth::guest())
-        {
+        if (Auth::guest()) {
             $post_data['poster'] = Input::get('req_username');
             $post_data['poster_email'] = Config::enabled('p_force_guest_email') ? Input::get('req_email') : Input::get('email');
         }
@@ -236,15 +220,12 @@ class PostingController extends BaseController
         $user = User::current();
 
         // If the posting user is logged in, increment his/her post count
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $user->num_posts += 1;
             $user->last_post = time(); // TODO: Use request time
             $user->save();
             // TODO: Promote this user to a new group if enabled
-        }
-        else
-        {
+        } else {
             // TODO: Session!
             //$this->session->put('last_post', time()); // TODO: Use Request time
         }
@@ -259,14 +240,12 @@ class PostingController extends BaseController
             ->where('id', $pid)
             ->first();
 
-        if (is_null($post))
-        {
+        if (is_null($post)) {
             App::abort(404);
         }
 
         // Check is the user is the author, or a moderator
-        if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod())
-        {
+        if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod()) {
              App::abort(404);
         }
 
@@ -281,14 +260,12 @@ class PostingController extends BaseController
             ->where('id', $pid)
             ->first();
 
-        if (is_null($post))
-        {
+        if (is_null($post)) {
             App::abort(404);
         }
 
         // Check is the user is the author, or a moderator
-        if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod())
-        {
+        if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod()) {
              App::abort(404);
         }
 
@@ -299,14 +276,12 @@ class PostingController extends BaseController
         );
 
         // if the post if the first of the topic, the title is editable too
-        if ($post->isFirstPostOfTopic())
-        {
+        if ($post->isFirstPostOfTopic()) {
             $rules['req_subject'] = 'required|max:70';
         }
 
         $validation = Validator::make(Input::get(), $rules);
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return Redirect::route('posting@edit', array($pid))->withInput()->withErrors($validation);
         }
 
@@ -321,8 +296,7 @@ class PostingController extends BaseController
         $post->update($post_data);
 
         // update the topic
-        if ($post->isFirstPostOfTopic())
-        {
+        if ($post->isFirstPostOfTopic()) {
             $post->topic->update(array(
                 'subject' => Input::get('req_subject')
             ));

@@ -88,8 +88,7 @@ class Forum extends Base
 
     public function sortColumn()
     {
-        switch ($this->sort_by)
-        {
+        switch ($this->sort_by) {
             case 0:
                 return 'last_post';
             case 1:
@@ -103,8 +102,7 @@ class Forum extends Base
 
     public function sortDirection()
     {
-        switch ($this->sort_by)
-        {
+        switch ($this->sort_by) {
             case 0:
                 return 'DESC';
             case 1:
@@ -119,17 +117,13 @@ class Forum extends Base
     public function subscribe($subscribe = true)
     {
         // To subscribe or not to subscribe, that ...
-        if (!Config::enabled('o_forum_subscriptions') || !Auth::check())
-        {
+        if (!Config::enabled('o_forum_subscriptions') || !Auth::check()) {
             return false;
         }
 
-        if ($subscribe && !$this->isUserSubscribed())
-        {
+        if ($subscribe && !$this->isUserSubscribed()) {
             $this->subscription()->insert(array('user_id' => User::current()->id));
-        }
-        else if (!$subscribe && $this->isUserSubscribed())
-        {
+        } else if (!$subscribe && $this->isUserSubscribed()) {
             $this->subscription()->delete();
         }
     }

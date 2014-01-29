@@ -10,8 +10,7 @@ class ForumPerms extends Migration
 
     public function up()
     {
-        Schema::table('forum_perms', function($table)
-        {
+        Schema::table('forum_perms', function($table) {
             $table->create();
 
             $table->integer('group_id')->unsigned();

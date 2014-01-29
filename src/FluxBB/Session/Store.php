@@ -86,15 +86,13 @@ class Store extends DatabaseStore implements Sweeper
         $result = $this->table()->where('user_id', '!=', 1)->where('last_visit', '<', $expiration)->get();
 
         $deleteIds = array();
-        foreach ($result as $curSession)
-        {
+        foreach ($result as $curSession) {
             $deleteIds[] = $curSession->id;
             $result = $this->connection->table('users')->where('id', '=', $curSession->user_id)->update(array('last_visit' => $curSession->last_visit));
         }
 
         // Make sure logged-in users have no more than ten sessions alive
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $uid = User::current()->id;
 
             $sessionIds = $this->table()->where('user_id', '=', $uid)->orderBy('last_visit', 'desc')->lists('id');
@@ -103,8 +101,7 @@ class Store extends DatabaseStore implements Sweeper
             $deleteIds = array_merge($deleteIds, $pruneIds);
         }
 
-        if (!empty($deleteIds))
-        {
+        if (!empty($deleteIds)) {
             $this->table()->whereIn('id', $deleteIds)->orWhere('last_visit', '<', $expiration)->delete();
         }
     }
@@ -136,12 +133,9 @@ class Store extends DatabaseStore implements Sweeper
         // We will simply generate an empty session payload array, using an ID
         // that is either not currently assigned to any existing session or
         // that belongs to a guest with the same IP address.
-        if (is_null($oldGuestSession))
-        {
+        if (is_null($oldGuestSession)) {
             $id = $this->createSessionID();
-        }
-        else
-        {
+        } else {
             $id = $oldGuestSession->id;
             $this->exists = true;
         }

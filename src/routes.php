@@ -2,8 +2,7 @@
 
 $prefix = Config::get('fluxbb.route_prefix', '');
 
-Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function()
-{
+Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function() {
     Route::get('forum/{id}', array(
         'as'	=> 'viewforum',
         'uses'	=> 'FluxBB\Controllers\HomeController@get_forum',
@@ -99,13 +98,11 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'uses'	=> 'FluxBB\Controllers\PostingController@post_topic',
     ));
 
-    Route::bind('group', function($value, $route)
-    {
+    Route::bind('group', function($value, $route) {
         return App::make('FluxBB\Models\GroupRepositoryInterface')->find($value);
     });
 
-Route::group(array('before' => 'auth'), function()
-{
+Route::group(array('before' => 'auth'), function() {
     Route::get('admin', array(
         'as'	=> 'admin',
         'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',

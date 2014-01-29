@@ -20,8 +20,7 @@ class Install extends Base
 
     public function config($arguments = array())
     {
-        if (count($arguments) < 4)
-        {
+        if (count($arguments) < 4) {
             throw new BadMethodCallException('At least four arguments expected.');
         }
 
@@ -54,8 +53,7 @@ class Install extends Base
         $dir_exists = File::mkdir($conf_dir);
         $file_exists = File::put($conf_dir.'database.php', $config);
 
-        if (!$dir_exists || !$file_exists)
-        {
+        if (!$dir_exists || !$file_exists) {
             throw new RuntimeException('Unable to write config file. Please create the file "'.$conf_file.'" with the following contents:'."\n\n".$config);
         }
     }
@@ -70,8 +68,7 @@ class Install extends Base
 
     public function admin($arguments = array())
     {
-        if (count($arguments) != 3)
-        {
+        if (count($arguments) != 3) {
             throw new BadMethodCallException('Exactly three arguments expected.');
         }
 
@@ -94,8 +91,7 @@ class Install extends Base
 
         $admin_group = Group::find(Group::ADMIN);
 
-        if (is_null($admin_group))
-        {
+        if (is_null($admin_group)) {
             throw new LogicException('Could not find admin group.');
         }
 
@@ -104,8 +100,7 @@ class Install extends Base
 
     public function board($arguments = array())
     {
-        if (count($arguments) != 2)
-        {
+        if (count($arguments) != 2) {
             throw new BadMethodCallException('Exactly two arguments expected.');
         }
 
@@ -117,8 +112,7 @@ class Install extends Base
 
     protected function structure()
     {
-        foreach (new FilesystemIterator($this->migration_path()) as $file)
-        {
+        foreach (new FilesystemIterator($this->migration_path()) as $file) {
             $migration = basename($file->getFileName(), '.php');
 
             $this->log('Install '.$migration.'...');
@@ -304,8 +298,7 @@ class Install extends Base
             'p_force_guest_email'		=> 1
         );
 
-        foreach ($config as $conf_name => $conf_value)
-        {
+        foreach ($config as $conf_name => $conf_value) {
             Config::set($conf_name, $conf_value);
         }
 

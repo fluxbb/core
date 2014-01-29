@@ -10,8 +10,7 @@ class GroupPermissions extends Migration
 
     public function up()
     {
-        Schema::table('group_permissions', function($table)
-        {
+        Schema::table('group_permissions', function($table) {
             $table->create();
 
             $table->increments('id');

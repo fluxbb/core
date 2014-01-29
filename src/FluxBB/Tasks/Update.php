@@ -13,12 +13,9 @@ class Update extends Base
         $cur_version = $this->cur_version();
         $target_version = isset($arguments[0]) ? $arguments[0] : FLUXBB_VERSION;
 
-        if (version_compare($cur_version, $target_version, '='))
-        {
+        if (version_compare($cur_version, $target_version, '=')) {
             $this->log('Already up-to-date.');
-        }
-        else
-        {
+        } else {
             $this->migrate($cur_version, $target_version);
 
             $this->log('Updating database...');
@@ -50,33 +47,28 @@ class Update extends Base
         $run_versions = array();
 
         $files = new FilesystemIterator($this->path());
-        foreach ($files as $file)
-        {
+        foreach ($files as $file) {
             $version = basename($file->getFileName());
 
-            if ($this->version_between($version, $from, $to))
-            {
+            if ($this->version_between($version, $from, $to)) {
                 $run_versions[] = $version;
             }
         }
 
         // Sort the versions by name and then run their migrations in the correct order
         usort($run_versions, 'version_compare');
-        if ($direction == 'down')
-        {
+        if ($direction == 'down') {
             $run_versions = array_reverse($run_versions);
         }
 
-        foreach ($run_versions as $run_version)
-        {
+        foreach ($run_versions as $run_version) {
             $this->{$direction.'_version'}($run_version);
         }
     }
 
     protected function version_between($version, $start, $end)
     {
-        if (version_compare($start, $end, '>'))
-        {
+        if (version_compare($start, $end, '>')) {
             $temp = $start;
             $start = $end;
             $end = $temp;
@@ -101,8 +93,7 @@ class Update extends Base
 
     protected function foreach_migration($version, $method)
     {
-        foreach (new FilesystemIterator($this->path().$version) as $file)
-        {
+        foreach (new FilesystemIterator($this->path().$version) as $file) {
             $cur_migration = basename($file->getFileName(), '.php');
 
             $this->run_migration($version, $cur_migration, $method);

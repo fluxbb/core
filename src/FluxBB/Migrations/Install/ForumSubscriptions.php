@@ -10,8 +10,7 @@ class ForumSubscriptions extends Migration
 
     public function up()
     {
-        Schema::table('forum_subscriptions', function($table)
-        {
+        Schema::table('forum_subscriptions', function($table) {
             $table->create();
 
             $table->integer('user_id')->unsigned();

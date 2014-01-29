@@ -16,8 +16,7 @@
                             <label class="required"><strong>Username <span>(Required)</span></strong><br>
                             @if ($user->isAdmin())
                                 <input type="text" name="username" size="25" maxlength="25" value="{{ $user->username }}" />
-                            @else
-                            {{ $user->username }}
+                            @else {{ $user->username }}
                             @endif
                             <br></label>
                             <p class="actions"><span><a href="#">Change password</a></span></p>

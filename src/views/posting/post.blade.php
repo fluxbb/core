@@ -15,8 +15,7 @@
 
 $cur_index = 1;
 
-if (Auth::guest())
-{
+if (Auth::guest()) {
     $email_label = FluxBB\Models\Config::enabled('p_force_guest_email') ? '<strong>'.trans('fluxbb::common.email').' <span>'.trans('fluxbb::common.required').'</span></strong>' : trans('fluxbb::common.email');
     $email_form_name = FluxBB\Models\Config::enabled('p_force_guest_email') ? 'req_email' : 'email';
 
@@ -48,13 +47,11 @@ $checkboxes = array();
 if (isset($topic) && $topic->forum->isAdmMod() || isset($forum) && $forum->isAdmMod())
     $checkboxes[] = '<label><input type="checkbox" name="stick_topic" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::common.stick_topic').'<br /></label>';
 
-if (Auth::check())
-{
+if (Auth::check()) {
     if (FluxBB\Models\Config::enabled('o_smilies'))
         $checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
 
-    if (FluxBB\Models\Config::enabled('o_topic_subscriptions'))
-    {
+    if (FluxBB\Models\Config::enabled('o_topic_subscriptions')) {
         $is_subscribed = isset($topic) && $topic->isUserSubscribed();
         $subscr_checked = false;
 
@@ -70,8 +67,7 @@ if (Auth::check())
 
         $checkboxes[] = '<label><input type="checkbox" name="subscribe" value="1" tabindex="'.($cur_index++).'"'.($subscr_checked ? ' checked="checked"' : '').' />'.($is_subscribed ? trans('fluxbb::post.stay_subscribed') : trans('fluxbb::post.subscribe')).'<br /></label>';
     }
-}
-else if (FluxBB\Models\Config::enabled('o_smilies'))
+} else if (FluxBB\Models\Config::enabled('o_smilies'))
     $checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
 
 ?>

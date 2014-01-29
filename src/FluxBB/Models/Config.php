@@ -17,18 +17,15 @@ class Config
 
     protected static function loadData()
     {
-        if (static::$loaded)
-        {
+        if (static::$loaded) {
             return;
         }
 
-        static::$data = static::$original = Cache::remember('fluxbb.config', 24 * 60, function()
-        {
+        static::$data = static::$original = Cache::remember('fluxbb.config', 24 * 60, function() {
             $data = DB::table('config')->get();
             $cache = array();
 
-            foreach ($data as $row)
-            {
+            foreach ($data as $row) {
                 $cache[$row->conf_name] = $row->conf_value;
             }
 
@@ -42,8 +39,7 @@ class Config
     {
         static::loadData();
 
-        if (array_key_exists($key, static::$data))
-        {
+        if (array_key_exists($key, static::$data)) {
             return static::$data[$key];
         }
 
@@ -80,10 +76,8 @@ class Config
         $changed = array_diff_assoc(static::$data, static::$original);
 
         $insert_values = array();
-        foreach ($changed as $name => $value)
-        {
-            if (!array_key_exists($name, static::$original))
-            {
+        foreach ($changed as $name => $value) {
+            if (!array_key_exists($name, static::$original)) {
                 $insert_values[] = array(
                     'conf_name'		=> $name,
                     'conf_value'	=> $value,
@@ -93,20 +87,17 @@ class Config
             }
         }
 
-        if (!empty($insert_values))
-        {
+        if (!empty($insert_values)) {
             DB::table('config')->insert($insert_values);
         }
 
-        foreach ($changed as $name => $value)
-        {
+        foreach ($changed as $name => $value) {
             DB::table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
         }
 
         // Deleted keys
         $deleted_keys = array_keys(array_diff_key(static::$original, static::$data));
-        if (!empty($deleted_keys))
-        {
+        if (!empty($deleted_keys)) {
             DB::table('config')->whereIn('conf_name', $deleted_keys)->delete();
         }
 

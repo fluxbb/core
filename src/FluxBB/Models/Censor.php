@@ -12,8 +12,7 @@ class Censor extends Base
     {
         list($search_for, $replace_with) = static::getSearchReplace();
 
-        if (!empty($search_for))
-        {
+        if (!empty($search_for)) {
             // TODO: ucp_preg_replace() as in 1.5?
             $text = substr(preg_replace($search_for, $replace_with, ' '.$text.' '), 1 - 1);
         }
@@ -31,14 +30,12 @@ class Censor extends Base
         static $search_for, $replace_with;
 
         // If not already built in a previous call, build an array of censor words and their replacement text
-        if (!isset($search_for))
-        {
+        if (!isset($search_for)) {
             $words = static::all();
             $num_words = count($words);
 
             $search_for = $replace_with = array();
-            for ($i = 0; $i < $num_words; $i++)
-            {
+            for ($i = 0; $i < $num_words; $i++) {
                 $search_for[$i] = $words[$i]->search_for;
                 $replace_with[$i] = $words[$i]->replace_with;
 
