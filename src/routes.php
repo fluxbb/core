@@ -102,81 +102,81 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         return App::make('FluxBB\Models\GroupRepositoryInterface')->find($value);
     });
 
-Route::group(array('before' => 'auth'), function () {
-    Route::get('admin', array(
-        'as'	=> 'admin',
-        'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',
-    ));
+    Route::group(array('before' => 'auth'), function () {
+        Route::get('admin', array(
+            'as'	=> 'admin',
+            'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',
+        ));
 
-    Route::get('admin/groups', array(
-        'as'	=> 'admin_groups_index',
-        'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@index',
-    ));
-    Route::get('admin/groups/{group}/edit', array(
-        'as'	=> 'admin_groups_edit',
-        'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@edit',
-    ));
-    Route::get('admin/groups/{group}/delete', array(
-        'as'	=> 'admin_groups_delete',
-        'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@delete',
-    ));
-    Route::post('admin/groups/{group}/delete', array(
-        'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@remove',
-    ));
+        Route::get('admin/groups', array(
+            'as'	=> 'admin_groups_index',
+            'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@index',
+        ));
+        Route::get('admin/groups/{group}/edit', array(
+            'as'	=> 'admin_groups_edit',
+            'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@edit',
+        ));
+        Route::get('admin/groups/{group}/delete', array(
+            'as'	=> 'admin_groups_delete',
+            'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@delete',
+        ));
+        Route::post('admin/groups/{group}/delete', array(
+            'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@remove',
+        ));
 
-    Route::get('admin/settings', array(
-        'as'	=> 'admin_settings_global',
-        'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@getGlobal',
-    ));
-    Route::post('admin/settings/{key}', array(
-        'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@setOption'
-    ));
+        Route::get('admin/settings', array(
+            'as'	=> 'admin_settings_global',
+            'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@getGlobal',
+        ));
+        Route::post('admin/settings/{key}', array(
+            'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@setOption'
+        ));
 
-    Route::post('admin/ajax/board_config', array(
-        'as'	=> 'admin_ajax_board_config',
-        'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
-    ));
-    Route::get('admin/settings/email', array(
-        'as' => 'admin_settings_email',
-        'uses' => 'FluxBB\Controllers\Admin\SettingsController@getEmail',
-    ));
-    Route::get('admin/settings/maintenance', array(
-        'as' => 'admin_settings_maintenance',
-        'uses' => 'FluxBB\Controllers\Admin\SettingsController@getMaintenance',
-    ));
+        Route::post('admin/ajax/board_config', array(
+            'as'	=> 'admin_ajax_board_config',
+            'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
+        ));
+        Route::get('admin/settings/email', array(
+            'as' => 'admin_settings_email',
+            'uses' => 'FluxBB\Controllers\Admin\SettingsController@getEmail',
+        ));
+        Route::get('admin/settings/maintenance', array(
+            'as' => 'admin_settings_maintenance',
+            'uses' => 'FluxBB\Controllers\Admin\SettingsController@getMaintenance',
+        ));
 
-    /* Route::get('admin/settings/logs', array(
-        'as' => 'admin_settings_logs',
-        'uses' => 'FluxBB\Controllers\Admin\SettingsController@getLogs',
-    ));
-    */
+        /* Route::get('admin/settings/logs', array(
+            'as' => 'admin_settings_logs',
+            'uses' => 'FluxBB\Controllers\Admin\SettingsController@getLogs',
+        ));
+        */
 
-    Route::get('admin/dashboard/updates', array(
-        'as' => 'admin_dashboard_updates',
-        'uses' => 'FluxBB\Controllers\Admin\DashboardController@getUpdates',
-    ));
+        Route::get('admin/dashboard/updates', array(
+            'as' => 'admin_dashboard_updates',
+            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getUpdates',
+        ));
 
-    Route::get('admin/dashboard/stats', array(
-        'as' => 'admin_dashboard_stats',
-        'uses' => 'FluxBB\Controllers\Admin\DashboardController@getStats',
-    ));
+        Route::get('admin/dashboard/stats', array(
+            'as' => 'admin_dashboard_stats',
+            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getStats',
+        ));
 
-    Route::get('admin/dashboard/reports', array(
-        'as' => 'admin_dashboard_reports',
-        'uses' => 'FluxBB\Controllers\Admin\DashboardController@getReports',
-    ));
+        Route::get('admin/dashboard/reports', array(
+            'as' => 'admin_dashboard_reports',
+            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getReports',
+        ));
 
-    Route::get('admin/dashboard/notes', array(
-        'as' => 'admin_dashboard_notes',
-        'uses' => 'FluxBB\Controllers\Admin\DashboardController@getNotes',
-    ));
+        Route::get('admin/dashboard/notes', array(
+            'as' => 'admin_dashboard_notes',
+            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getNotes',
+        ));
 
-    Route::get('admin/dashboard/backup', array(
-        'as' => 'admin_dashboard_backup',
-        'uses' => 'FluxBB\Controllers\Admin\DashboardController@getBackup',
-    ));
+        Route::get('admin/dashboard/backup', array(
+            'as' => 'admin_dashboard_backup',
+            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getBackup',
+        ));
 
-});
+    });
 
 
 });
