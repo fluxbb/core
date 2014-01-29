@@ -1,6 +1,6 @@
 <?php
 
-HTML::macro('oddeven', function($name = 'default') {
+HTML::macro('oddeven', function ($name = 'default') {
     static $status = array();
 
     if (!isset($status[$name])) {
@@ -11,7 +11,7 @@ HTML::macro('oddeven', function($name = 'default') {
     return ($status[$name] % 2 == 0) ? 'even' : 'odd';
 });
 
-HTML::macro('avatar', function(fluxbb\Models\User $user) {
+HTML::macro('avatar', function (fluxbb\Models\User $user) {
     // TODO: We might want to cache this result per user
     $path = $user->get_avatar_file();
 
@@ -22,7 +22,7 @@ HTML::macro('avatar', function(fluxbb\Models\User $user) {
     return '';
 });
 
-HTML::macro('format_time', function($timestamp, $date_only = false, $date_format = null, $time_format = null, $time_only = false, $no_text = false) {
+HTML::macro('format_time', function ($timestamp, $date_only = false, $date_format = null, $time_format = null, $time_only = false, $no_text = false) {
     if ($timestamp == '') {
         return trans('common.never');
     }
@@ -63,6 +63,6 @@ HTML::macro('format_time', function($timestamp, $date_only = false, $date_format
 //
 // A wrapper for PHP's number_format function
 //
-HTML::macro('number_format', function($number, $decimals = 0) {
+HTML::macro('number_format', function ($number, $decimals = 0) {
     return is_numeric($number) ? number_format($number, $decimals, trans('common.lang_decimal_point'), trans('common.lang_thousands_sep')) : $number;
 });
