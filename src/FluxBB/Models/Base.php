@@ -16,7 +16,9 @@ class Base extends Model
 
     public function valid()
     {
-        if (empty($this->rules)) return true;
+        if (empty($this->rules)) {
+            return true;
+        }
 
         $v = Validator::make($this->attributes, $this->rules);
         return $v->passes();
