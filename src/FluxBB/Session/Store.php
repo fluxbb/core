@@ -12,7 +12,6 @@ use Auth,
 
 class Store extends DatabaseStore implements Sweeper
 {
-
     /**
      * The request instance.
      *
@@ -144,5 +143,4 @@ class Store extends DatabaseStore implements Sweeper
 
         return array('id' => $id, 'data' => $flash);
     }
-
 }

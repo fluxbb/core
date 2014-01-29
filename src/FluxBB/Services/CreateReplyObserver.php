@@ -7,8 +7,6 @@ use Illuminate\Support\MessageBag;
 
 interface CreateReplyObserver
 {
-
     public function replyCreated(Post $post);
     public function replyValidationFailed(Post $post, MessageBag $errors);
-
 }

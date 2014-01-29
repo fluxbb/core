@@ -10,7 +10,6 @@ use FluxBB\Repositories\Topics;
 
 class CreateReply
 {
-
     protected $observer;
 
     protected $topics;
@@ -44,5 +43,4 @@ class CreateReply
 
         return $this->observer->replyCreated($post);
     }
-
 }

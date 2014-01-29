@@ -7,7 +7,6 @@ use FluxBB\Models\Config,
 
 class Update extends Base
 {
-
     public function run($arguments = array())
     {
         $cur_version = $this->cur_version();
@@ -128,5 +127,4 @@ class Update extends Base
     {
         return Bundle::path('fluxbb').'migrations'.DS.'update'.DS;
     }
-
 }

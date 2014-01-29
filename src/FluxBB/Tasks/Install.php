@@ -12,7 +12,6 @@ use FluxBB\Models\Category,
 
 class Install extends Base
 {
-
     public function run($arguments = array())
     {
         // Nothing here. Move on.
@@ -309,5 +308,4 @@ class Install extends Base
     {
         return Bundle::path('fluxbb').'migrations'.DS.'install'.DS;
     }
-
 }

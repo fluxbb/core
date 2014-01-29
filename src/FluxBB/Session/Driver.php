@@ -12,7 +12,6 @@ use Laravel\Auth,
 
 class Driver extends Database implements Sweeper
 {
-
     /**
      * Load a session from storage by a given ID.
      *
@@ -145,5 +144,4 @@ class Driver extends Database implements Sweeper
     {
         return $this->connection->table('sessions');
     }
-
 }
