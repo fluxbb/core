@@ -46,14 +46,14 @@ HTML::macro('format_time', function ($timestamp, $date_only = false, $date_forma
     if (!$no_text) {
         if ($date == $today) {
             $date = trans('common.today');
-        } else if ($date == $yesterday) {
+        } elseif ($date == $yesterday) {
             $date = trans('common.yesterday');
         }
     }
 
     if ($date_only) {
         return $date;
-    } else if ($time_only) {
+    } elseif ($time_only) {
         return gmdate($time_format, $timestamp);
     } else {
         return $date.' '.gmdate($time_format, $timestamp);

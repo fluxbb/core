@@ -74,7 +74,7 @@ class Topic extends Base
 
         if ($subscribe && !$this->isUserSubscribed()) {
             $this->subscription()->insert(array('user_id' => User::current()->id));
-        } else if (!$subscribe && $this->isUserSubscribed()) {
+        } elseif (!$subscribe && $this->isUserSubscribed()) {
             $this->subscription()->delete();
         }
     }

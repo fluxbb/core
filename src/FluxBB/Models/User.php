@@ -111,11 +111,11 @@ class User extends Base implements UserInterface
         // If the user has a custom title
         if ($this->title != '') {
             return $this->title;
-        } else if (in_array(strtolower($this->username), $ban_list)) { // If the user is banned
+        } elseif (in_array(strtolower($this->username), $ban_list)) { // If the user is banned
             return trans('Banned');
-        } else if ($this->group->g_user_title != '') { // If the user group has a default user title
+        } elseif ($this->group->g_user_title != '') { // If the user group has a default user title
             return $this->group->g_user_title;
-        } else if ($this->guest()) { // If the user is a guest
+        } elseif ($this->guest()) { // If the user is a guest
             return trans('Guest');
         } else { // If nothing else helps, we assign the default
             return trans('Member');

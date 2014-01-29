@@ -5,6 +5,7 @@ include __DIR__.'/helpers/filters.php';
 //include __DIR__.'/helpers/html.php';
 include __DIR__.'/helpers/validators.php';
 
+// TODO: Remove this, it's a HTML macro.
 function format_time($timestamp, $date_only = false, $date_format = null, $time_format = null, $time_only = false, $no_text = false)
 {
     if ($timestamp == '') {
@@ -30,14 +31,14 @@ function format_time($timestamp, $date_only = false, $date_format = null, $time_
     if (!$no_text) {
         if ($date == $today) {
             $date = trans('fluxbb::common.today');
-        } else if ($date == $yesterday) {
+        } elseif ($date == $yesterday) {
             $date = trans('fluxbb::common.yesterday');
         }
     }
 
     if ($date_only) {
         return $date;
-    } else if ($time_only) {
+    } elseif ($time_only) {
         return gmdate($time_format, $timestamp);
     } else {
         return $date.' '.gmdate($time_format, $timestamp);

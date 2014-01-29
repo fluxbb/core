@@ -16,7 +16,7 @@ class UsersController extends BaseController
 
         if (is_null($user)) {
             App::abort(404);
-        } else if (User::current()->id != $id && !User::current()->isAdmin()) {
+        } elseif (User::current()->id != $id && !User::current()->isAdmin()) {
             $action = 'view';
         }
 
@@ -38,14 +38,14 @@ class UsersController extends BaseController
             $user->time_format = Input::get('time_format');
             $user->date_format = Input::get('date_format');
             $user->admin_note = Input::get('admin_note', $user->admin_note);
-        } else if ($action == 'personal') {
+        } elseif ($action == 'personal') {
             $user->realname = Input::get('realname');
             $user->title = Input::get('title');
             $user->location = Input::get('location');
             $user->url = Input::get('url');
-        } else if ($action == 'personality') {
+        } elseif ($action == 'personality') {
             $user->signature = Input::get('signature');
-        } else if ($action == 'display') {
+        } elseif ($action == 'display') {
         //This will give an error if not everything is set -> need to set defaults in database!
             $user->style = Input::get('style');
             $user->show_smilies = Input::get('show_smilies');

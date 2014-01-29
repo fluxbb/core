@@ -66,13 +66,13 @@ if (Auth::check()) {
         /* else */
         if (FluxBB\Models\User::current()->auto_notify == '1') {
             $subscr_checked = true;
-        } else if ($is_subscribed) { // If already subscribed to the topic
+        } elseif ($is_subscribed) { // If already subscribed to the topic
             $subscr_checked = true;
         }
 
         $checkboxes[] = '<label><input type="checkbox" name="subscribe" value="1" tabindex="'.($cur_index++).'"'.($subscr_checked ? ' checked="checked"' : '').' />'.($is_subscribed ? trans('fluxbb::post.stay_subscribed') : trans('fluxbb::post.subscribe')).'<br /></label>';
     }
-} else if (FluxBB\Models\Config::enabled('o_smilies')) {
+} elseif (FluxBB\Models\Config::enabled('o_smilies')) {
     $checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
 }
 
