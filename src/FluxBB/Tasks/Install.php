@@ -61,8 +61,8 @@ class Install extends Base
     {
         $this->structure();
 
-        $this->seed_groups();
-        $this->seed_config();
+        $this->seedGroups();
+        $this->seedConfig();
     }
 
     public function admin($arguments = array())
@@ -111,7 +111,7 @@ class Install extends Base
 
     protected function structure()
     {
-        foreach (new FilesystemIterator($this->migration_path()) as $file) {
+        foreach (new FilesystemIterator($this->migrationPath()) as $file) {
             $migration = basename($file->getFileName(), '.php');
 
             $this->log('Install '.$migration.'...');
@@ -124,7 +124,7 @@ class Install extends Base
         }
     }
 
-    protected function seed_groups()
+    protected function seedGroups()
     {
         // Insert the three preset groups
         $admin_group = Group::create(array(
@@ -215,7 +215,7 @@ class Install extends Base
         ));
     }
 
-    protected function seed_config()
+    protected function seedConfig()
     {
         // Enable/disable avatars depending on file_uploads setting in PHP configuration
         $avatars = in_array(strtolower(@ini_get('file_uploads')), array('on', 'true', '1')) ? 1 : 0;
@@ -304,7 +304,7 @@ class Install extends Base
         Config::save();
     }
 
-    protected function migration_path()
+    protected function migrationPath()
     {
         return Bundle::path('fluxbb').'migrations'.DS.'install'.DS;
     }

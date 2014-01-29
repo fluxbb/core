@@ -9,34 +9,34 @@ class Update extends Base
 {
     public function run($arguments = array())
     {
-        $cur_version = $this->cur_version();
+        $curVersion = $this->curVersion();
         $target_version = isset($arguments[0]) ? $arguments[0] : FLUXBB_VERSION;
 
-        if (version_compare($cur_version, $target_version, '=')) {
+        if (version_compare($curVersion, $target_version, '=')) {
             $this->log('Already up-to-date.');
         } else {
-            $this->migrate($cur_version, $target_version);
+            $this->migrate($curVersion, $target_version);
 
             $this->log('Updating database...');
-            $this->update_version($target_version);
+            $this->updateVersion($target_version);
             $this->log('Done.');
         }
     }
 
     public function up($arguments = array())
     {
-        $version = $this->cur_version();
+        $version = $this->curVersion();
         $migration = $arguments[0];
 
-        $this->run_migration($version, $migration, 'up');
+        $this->runMigration($version, $migration, 'up');
     }
 
     public function down($arguments = array())
     {
-        $version = $this->cur_version();
+        $version = $this->curVersion();
         $migration = $arguments[0];
 
-        $this->run_migration($version, $migration, 'down');
+        $this->runMigration($version, $migration, 'down');
     }
 
     protected function migrate($from, $to)
@@ -49,7 +49,7 @@ class Update extends Base
         foreach ($files as $file) {
             $version = basename($file->getFileName());
 
-            if ($this->version_between($version, $from, $to)) {
+            if ($this->versionBetween($version, $from, $to)) {
                 $run_versions[] = $version;
             }
         }
@@ -65,7 +65,7 @@ class Update extends Base
         }
     }
 
-    protected function version_between($version, $start, $end)
+    protected function versionBetween($version, $start, $end)
     {
         if (version_compare($start, $end, '>')) {
             $temp = $start;
@@ -76,30 +76,30 @@ class Update extends Base
         return version_compare($start, $version, '<') && version_compare($version, $end, '<=');
     }
 
-    protected function up_version($version)
+    protected function upVersion($version)
     {
         $this->log('Update to v'.$version.'...');
 
-        $this->foreach_migration($version, 'up');
+        $this->foreachMigration($version, 'up');
     }
 
-    protected function down_version($version)
+    protected function downVersion($version)
     {
         $this->log('Rollback from v'.$version.'...');
 
-        $this->foreach_migration($version, 'down');
+        $this->foreachMigration($version, 'down');
     }
 
-    protected function foreach_migration($version, $method)
+    protected function foreachMigration($version, $method)
     {
         foreach (new FilesystemIterator($this->path().$version) as $file) {
             $cur_migration = basename($file->getFileName(), '.php');
 
-            $this->run_migration($version, $cur_migration, $method);
+            $this->runMigration($version, $cur_migration, $method);
         }
     }
 
-    protected function run_migration($version, $migration, $method)
+    protected function runMigration($version, $migration, $method)
     {
         $file = $this->path().$version.DS.$migration.'.php';
 
@@ -112,12 +112,12 @@ class Update extends Base
         $instance->$method();
     }
 
-    protected function cur_version()
+    protected function curVersion()
     {
         return Config::get('o_cur_version');
     }
 
-    protected function update_version($new_version)
+    protected function updateVersion($new_version)
     {
         Config::set('o_cur_version', $new_version);
         Config::save();
