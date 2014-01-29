@@ -428,7 +428,7 @@
                                         <label class="conl"><input type="radio" name="form[regs_allow]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
                                         <label class="conl"><input type="radio" name="form[regs_allow]" value="0">&nbsp;<strong>No</strong></label>
                                         <span class="clearb">Controls whether this board accepts new registrations. Disable only under special circumstances.</span>
-                                    </td> 
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Verify registrations</th>

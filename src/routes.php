@@ -103,7 +103,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     {
         return App::make('FluxBB\Models\GroupRepositoryInterface')->find($value);
     });
-    
+
 Route::group(array('before' => 'auth'), function()
 {
     Route::get('admin', array(
@@ -147,41 +147,41 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'admin_settings_maintenance',
         'uses' => 'FluxBB\Controllers\Admin\SettingsController@getMaintenance',
     ));
-    
+
     /* Route::get('admin/settings/logs', array(
         'as' => 'admin_settings_logs',
         'uses' => 'FluxBB\Controllers\Admin\SettingsController@getLogs',
     ));
     */
-    
+
     Route::get('admin/dashboard/updates', array(
         'as' => 'admin_dashboard_updates',
         'uses' => 'FluxBB\Controllers\Admin\DashboardController@getUpdates',
     ));
-    
+
     Route::get('admin/dashboard/stats', array(
         'as' => 'admin_dashboard_stats',
         'uses' => 'FluxBB\Controllers\Admin\DashboardController@getStats',
     ));
-    
+
     Route::get('admin/dashboard/reports', array(
         'as' => 'admin_dashboard_reports',
         'uses' => 'FluxBB\Controllers\Admin\DashboardController@getReports',
     ));
-    
+
     Route::get('admin/dashboard/notes', array(
         'as' => 'admin_dashboard_notes',
         'uses' => 'FluxBB\Controllers\Admin\DashboardController@getNotes',
     ));
-    
+
     Route::get('admin/dashboard/backup', array(
         'as' => 'admin_dashboard_backup',
         'uses' => 'FluxBB\Controllers\Admin\DashboardController@getBackup',
     ));
-    
+
 });
 
-    
+
 });
 
 

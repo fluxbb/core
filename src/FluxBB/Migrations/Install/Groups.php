@@ -16,7 +16,7 @@ class Groups extends Migration
 
             $table->increments('id');
             $table->string('title', 50)->default('');
-            
+
             $table->integer('parent_group_id')->unsigned()->nullable();
         });
     }

@@ -4,7 +4,7 @@ namespace FluxBB\Controllers;
 
 use FluxBB\Models\Category;
 use View;
- 
+
 class SearchController extends BaseController
 {
 

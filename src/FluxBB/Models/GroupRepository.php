@@ -137,7 +137,7 @@ class GroupRepository implements GroupRepositoryInterface
     {
         GroupPermission::where('group_id', $group->id)->delete();
 
-        $this->cache->forget('fluxbb.group.permissions.'.$group->id);		
+        $this->cache->forget('fluxbb.group.permissions.'.$group->id);
     }
 
     protected function clearCache()

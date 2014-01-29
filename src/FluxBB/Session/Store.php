@@ -81,7 +81,7 @@ class Store extends DatabaseStore implements Sweeper
     public function sweep($expiration)
     {
         $expiration = $this->request->server('REQUEST_TIME', time()) - Config::get('o_timeout_online');
-        
+
         // Fetch all sessions that are older than o_timeout_online
         $result = $this->table()->where('user_id', '!=', 1)->where('last_visit', '<', $expiration)->get();
 
@@ -150,5 +150,5 @@ class Store extends DatabaseStore implements Sweeper
 
         return array('id' => $id, 'data' => $flash);
     }
-    
+
 }

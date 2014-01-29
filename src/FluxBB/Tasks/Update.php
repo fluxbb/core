@@ -7,7 +7,7 @@ use FluxBB\Models\Config,
 
 class Update extends Base
 {
-    
+
     public function run($arguments = array())
     {
         $cur_version = $this->cur_version();

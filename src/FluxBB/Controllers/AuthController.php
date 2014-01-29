@@ -21,14 +21,14 @@ class AuthController extends BaseController
         //$this->filter('before', 'only_guests')->only(array('login', 'remember'));
         //$this->filter('before', 'only_members')->only('logout');
     }
-    
+
     public function get_logout()
     {
         Auth::logout();
         return Redirect::route('index')
             ->with('message', trans('fluxbb::login.message_logout'));
     }
-    
+
     public function get_login()
     {
         return View::make('fluxbb::auth.login');
@@ -81,7 +81,7 @@ class AuthController extends BaseController
         $rules = array(
             'user'		=> 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',
         );
-        
+
         // If email confirmation is enabled
         if (Config::enabled('o_regs_verify'))
         {
@@ -124,7 +124,7 @@ class AuthController extends BaseController
 
         // Notify the user about his new account!
         $user->sendWelcomeMail();
-    
+
         return Redirect::route('index')
             ->with('message', trans('fluxbb::register.reg_complete'));
     }

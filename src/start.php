@@ -23,6 +23,6 @@ if (!Request::cli() && !Session::started())
 
     Config::set('session.driver', 'fluxbb::session');
 
-    Session::load();	
+    Session::load();
 }
 */

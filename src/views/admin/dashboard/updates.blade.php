@@ -12,7 +12,7 @@
 
                 <!-- begin dashbox -->
                 <div class="dashbox">
-                    
+
                     <p>You are working with an old version of FluxBB! Please update to a newer version right away! You can download FluxBB and update manualy or let FluxBB update itself. You can also re-install your current installation.</p>
                     <div class="btn-toolbar">
                         <div class="btn-group">
@@ -97,14 +97,14 @@
                         </tbody>
                     </table>
                     <button class="btn btn-success">Update all templates</button>
-                    
+
                 </div>
                 <!-- end dashbox -->
 
-            </div> 
+            </div>
             <!-- end container -->
 
-        </div> 
+        </div>
         <!-- end main div -->
 
 @stop

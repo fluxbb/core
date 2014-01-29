@@ -12,7 +12,7 @@ use FluxBB\Models\Category,
 
 class Install extends Base
 {
-    
+
     public function run($arguments = array())
     {
         // Nothing here. Move on.
@@ -78,7 +78,7 @@ class Install extends Base
         $username = $arguments[0];
         $password = $arguments[1];
         $email = $arguments[2];
-        
+
         // Create admin user
         $admin_user = User::create(array(
             'username'			=> $username,

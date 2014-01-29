@@ -138,5 +138,5 @@ class Forum extends Base
     {
         return $this->subscribe(false);
     }
-    
+
 }

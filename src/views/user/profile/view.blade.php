@@ -23,7 +23,7 @@
                             @if (!empty($user->location))
                                 <dt>Location</dt>
                                 <dd>{{$user->location}}</dd>
-                            @endif							
+                            @endif
                             @if (!empty($user->url))
                                 <dt>Website</dt>
                                 <dd><span class="website"><a href="adf">{{$user->url}}</a></span></dd>
@@ -52,7 +52,7 @@
                 <legend>User activity</legend>
                     <div class="infldset">
                         <dl>
-                        
+
                             <dt>Posts</dt>
                             <dd>{{$user->num_posts}} - <a href="#">Show all topics</a> - <a href="#">Show all posts</a></dd>
                             <dt>Last post</dt>

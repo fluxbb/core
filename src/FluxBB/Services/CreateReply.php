@@ -42,7 +42,7 @@ class CreateReply
         $creator->last_posted = Carbon::now();
         $creator->num_posts += 1;
         $creator->save();
-        
+
         return $this->observer->replyCreated($post);
     }
 

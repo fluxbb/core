@@ -62,7 +62,7 @@ class Driver extends Database implements Sweeper
                 'last_visit'	=> $session['last_activity'],
                 'last_ip'		=> Request::ip(),
                 'data'          => serialize($session['data']),
-            ));			
+            ));
         }
     }
 
@@ -86,7 +86,7 @@ class Driver extends Database implements Sweeper
     public function sweep($expiration)
     {
         $expiration = Request::time() - Config::get('o_timeout_online');
-        
+
         // Fetch all sessions that are older than o_timeout_online
         $result = $this->table()->where('user_id', '!=', 1)->where('last_visit', '<', $expiration)->get();
 
@@ -126,7 +126,7 @@ class Driver extends Database implements Sweeper
             ->where_user_id(1)
             ->where_last_ip(Request::ip())
             ->first();
-        
+
         // We will simply generate an empty session payload array, using an ID
         // that is either not currently assigned to any existing session or
         // that belongs to a guest with the same IP address.
@@ -153,7 +153,7 @@ class Driver extends Database implements Sweeper
      */
     private function table()
     {
-        return $this->connection->table('sessions');		
+        return $this->connection->table('sessions');
     }
-    
+
 }

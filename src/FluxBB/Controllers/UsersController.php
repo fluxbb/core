@@ -19,7 +19,7 @@ class UsersController extends BaseController
         {
             App::abort(404);
         }
-        
+
         else if (User::current()->id != $id && !User::current()->isAdmin())
         {
             $action = 'view';
@@ -28,9 +28,9 @@ class UsersController extends BaseController
         return View::make('fluxbb::user.profile.'.$action)
             ->with('action', $action)
             ->with('user', $user);
-    
+
     }
-    
+
     public function post_profile($id, $action = 'essentials')
     {
         $user = User::find($id);
@@ -45,7 +45,7 @@ class UsersController extends BaseController
             $user->date_format = Input::get('date_format');
             $user->admin_note = Input::get('admin_note', $user->admin_note);
         }
-        
+
         else if ($action == 'personal')
         {
             $user->realname = Input::get('realname');
@@ -53,12 +53,12 @@ class UsersController extends BaseController
             $user->location = Input::get('location');
             $user->url = Input::get('url');
         }
-        
+
         else if ($action == 'personality')
         {
             $user->signature = Input::get('signature');
         }
-        
+
         else if ($action == 'display')
         {
         //This will give an error if not everything is set -> need to set defaults in database!
@@ -70,12 +70,12 @@ class UsersController extends BaseController
             $user->disp_topics = Input::get('disp_topics', $user->disp_topics);
             $user->disp_posts = Input::get('disp_posts', $user->disp_posts);
         }
-        
+
         else //if action == privacy
         {
             //TODO
         }
-        
+
         $user->save();
         return View::make('fluxbb::user.profile.'.$action)
                 ->with('user', $user)

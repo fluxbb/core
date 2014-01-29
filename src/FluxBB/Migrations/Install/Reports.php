@@ -23,7 +23,7 @@ class Reports extends Migration
             $table->text('message')->nullable();
             $table->integer('zapped')->unsigned()->nullable();
             $table->integer('zapped_by')->unsigned()->nullable();
-            
+
             $table->index('zapped');
         });
     }

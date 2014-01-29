@@ -17,7 +17,7 @@
             <div class="checklist">
                 <fieldset>
                 @foreach ($categories as $category)
-                    <?php 
+                    <?php
                     $forums = $category->forums;
                     ?>
                     <legend><span>{{ $category->cat_name }}</span></legend>

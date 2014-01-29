@@ -4,7 +4,7 @@
 
     <!-- begin main div -->
     <div class="main">
-        
+
         <!-- begin container -->
         <div class="container">
 
@@ -48,13 +48,13 @@
                     </div>
                     <p class="text-center"><input type="submit" class="btn btn-success" value="Rebuild index"></p>
 
-                </div> 
+                </div>
                 <!-- end dashbox -->
-                
-            </div> 
+
+            </div>
             <!-- end container -->
 
         </div>
         <!-- end main div -->
-   
+
 @stop

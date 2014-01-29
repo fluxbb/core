@@ -8,7 +8,7 @@
         <!-- begin container -->
         <div class="container">
 
-        
+
             <h3>Email Settings</h3>
 
                 <!-- begin dashbox -->
@@ -86,13 +86,13 @@
                         </fieldset>
                     </div>
 
-                </div> 
+                </div>
                 <!-- end dashbox -->
 
             </div>
             <!-- end container -->
 
-        </div> 
+        </div>
         <!-- end main div -->
 
 @stop
