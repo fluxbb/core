@@ -2,11 +2,11 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\Category,
-    FluxBB\Models\Forum,
-    FluxBB\Models\Post,
-    FluxBB\Models\Topic,
-    FluxBB\Models\User;
+use FluxBB\Models\Category;
+use FluxBB\Models\Forum;
+use FluxBB\Models\Post;
+use FluxBB\Models\Topic;
+use FluxBB\Models\User;
 use App;
 use Paginator;
 use View;

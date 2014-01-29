@@ -2,9 +2,9 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\Config,
-    FluxBB\Models\Group,
-    FluxBB\Models\User;
+use FluxBB\Models\Config;
+use FluxBB\Models\Group;
+use FluxBB\Models\User;
 use Auth;
 use Input;
 use Redirect;

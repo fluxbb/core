@@ -2,11 +2,11 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\Post,
-    FluxBB\Models\Topic,
-    FluxBB\Models\Forum,
-    FluxBB\Models\User,
-    FluxBB\Models\Config;
+use FluxBB\Models\Post;
+use FluxBB\Models\Topic;
+use FluxBB\Models\Forum;
+use FluxBB\Models\User;
+use FluxBB\Models\Config;
 use App;
 use Auth;
 use Input;

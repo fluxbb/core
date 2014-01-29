@@ -2,9 +2,9 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\User,
-    Illuminate\Routing\Controller,
-    Illuminate\Validation\Validator;
+use FluxBB\Models\User;
+use Illuminate\Routing\Controller;
+use Illuminate\Validation\Validator;
 
 class BaseController extends Controller
 {
