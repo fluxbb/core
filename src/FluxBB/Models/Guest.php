@@ -2,8 +2,8 @@
 
 namespace FluxBB\Models;
 
-use Auth,
-    Hash;
+use Auth;
+use Hash;
 
 class Guest extends User
 {

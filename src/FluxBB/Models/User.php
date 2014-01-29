@@ -2,10 +2,10 @@
 
 namespace FluxBB\Models;
 
-use Illuminate\Auth\UserInterface,
-    Auth,
-    Hash,
-    Mail;
+use Illuminate\Auth\UserInterface;
+use Auth;
+use Hash;
+use Mail;
 
 class User extends Base implements UserInterface
 {
