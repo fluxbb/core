@@ -19,21 +19,23 @@ if (Auth::guest()) {
     $email_label = FluxBB\Models\Config::enabled('p_force_guest_email') ? '<strong>'.trans('fluxbb::common.email').' <span>'.trans('fluxbb::common.required').'</span></strong>' : trans('fluxbb::common.email');
     $email_form_name = FluxBB\Models\Config::enabled('p_force_guest_email') ? 'req_email' : 'email';
 
-?>
+    ?>
         <label><strong>{{ trans('fluxbb::post.guest_name') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_username" size="25" maxlength="25" value="" /><br /></label>
         <label class="conl<?php echo FluxBB\Models\Config::enabled('p_force_guest_email') ? ' required' : '' ?>"><?php echo $email_label ?><br /><input type="text" name="{{ $email_form_name }}" size="50" maxlength="80" value=""><br /></label>
-<?php
+    <?php
 
 }
 
-if (isset($forum) || (isset($post) && $post->isFirstPostOfTopic()) ):
+if (isset($forum) || (isset($post) && $post->isFirstPostOfTopic())) {
     $defaultSubject = isset($post) ? $post->topic->subject : '';
+}
+
 ?>
         <label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="{{ Input::old('req_subject', $defaultSubject) }}" /><br /></label>
 <?php endif; ?>
 
         <label class="required"><strong>{{ trans('fluxbb::common.message') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /></label>
-        <textarea name="req_message" id="req_message" cols="95" rows="20"><?php if (isset($post)) echo $post->message; ?></textarea><br /></label>
+        <textarea name="req_message" id="req_message" cols="95" rows="20">{{ isset($post) ? $post->message : '' }}</textarea><br /></label>
         <ul class="bblinks">
             <li><span><a href="help.php#bbcode" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.bbcode') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
             <li><span><a href="help.php#url" onclick="window.open(this.href); return false;">{{ trans('fluxbb::common.url_tag') }}</a> <?php echo FluxBB\Models\Config::enabled('p_message_bbcode') && FluxBB\Models\User::current()->group->g_post_links == '1' ? trans('fluxbb::common.on') : trans('fluxbb::common.off'); ?></span></li>
@@ -44,12 +46,14 @@ if (isset($forum) || (isset($post) && $post->isFirstPostOfTopic()) ):
 <?php
 
 $checkboxes = array();
-if (isset($topic) && $topic->forum->isAdmMod() || isset($forum) && $forum->isAdmMod())
+if (isset($topic) && $topic->forum->isAdmMod() || isset($forum) && $forum->isAdmMod()) {
     $checkboxes[] = '<label><input type="checkbox" name="stick_topic" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::common.stick_topic').'<br /></label>';
+}
 
 if (Auth::check()) {
-    if (FluxBB\Models\Config::enabled('o_smilies'))
+    if (FluxBB\Models\Config::enabled('o_smilies')) {
         $checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
+    }
 
     if (FluxBB\Models\Config::enabled('o_topic_subscriptions')) {
         $is_subscribed = isset($topic) && $topic->isUserSubscribed();
@@ -59,16 +63,18 @@ if (Auth::check()) {
         //if (Input::has('preview'))
             //$subscr_checked = Input::has('subscribe');
         // If auto subscribed
-        /* else */ if (FluxBB\Models\User::current()->auto_notify == '1')
+        /* else */
+        if (FluxBB\Models\User::current()->auto_notify == '1') {
             $subscr_checked = true;
-        // If already subscribed to the topic
-        else if ($is_subscribed)
+        } else if ($is_subscribed) { // If already subscribed to the topic
             $subscr_checked = true;
+        }
 
         $checkboxes[] = '<label><input type="checkbox" name="subscribe" value="1" tabindex="'.($cur_index++).'"'.($subscr_checked ? ' checked="checked"' : '').' />'.($is_subscribed ? trans('fluxbb::post.stay_subscribed') : trans('fluxbb::post.subscribe')).'<br /></label>';
     }
-} else if (FluxBB\Models\Config::enabled('o_smilies'))
+} else if (FluxBB\Models\Config::enabled('o_smilies')) {
     $checkboxes[] = '<label><input type="checkbox" name="hide_smilies" value="1" tabindex="'.($cur_index++).'" />'.trans('fluxbb::post.hide_smilies').'<br /></label>';
+}
 
 ?>
 

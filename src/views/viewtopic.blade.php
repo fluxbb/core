@@ -12,8 +12,12 @@
 
 $post_count++;
 $post_classes = 'row';
-if ($post->id == $topic->first_post_id) $post_classes .= ' firstpost';
-if ($post_count == 1) $post_classes .= ' blockpost1';
+if ($post->id == $topic->first_post_id) {
+    $post_classes .= ' firstpost';
+}
+if ($post_count == 1) {
+    $post_classes .= ' blockpost1';
+}
 
 ?>
 <div id="p{{ $post->id }}">
@@ -48,7 +52,7 @@ if ($post_count == 1) $post_classes .= ' blockpost1';
 
     </dl>
 
-    <h3><?php if ($post->id != $topic->first_post_id) echo trans('fluxbb::topic.re').' '; ?>{{ ($topic->subject) }}</h3>
+    <h3>{{ ($post->id != $topic->fist_post_id) ? trans('fluxbb::topic.re').' ' : '' }}{{ $topic->subject }}</h3>
     <div class="postmsg">
         {{ $post->message() }}
     @if ($post->wasEdited())

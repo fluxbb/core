@@ -9,11 +9,11 @@
             <a class="brand" href="{{ route('admin') }}">FluxBB</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li<?php echo ( in_array( 'dashboard', array() ) ? ' class="current active"' : '' ); ?> id="nav-dashboard"><a href="#"><i class="icon-dashboard"></i> Dashboard</a></li>
-                    <li<?php echo ( in_array( 'content', array() ) ? ' class="current active"' : '' ); ?> id="nav-content"><a href="#"><i class="icon-folder-open"></i> Content</a></li>
-                    <li<?php echo ( in_array( 'users', array() ) ? ' class="current active"' : '' ); ?> id="nav-users"><a href="#"><i class="icon-user"></i> Users</a></li>
-                    <li<?php echo ( in_array( 'settings', array() ) ? ' class="current active"' : '' ); ?> id="nav-settings"><a href="#"><i class="icon-cogs"></i> Settings</a></li>
-                    <li<?php echo ( in_array( 'extensions', array() ) ? ' class="current active"' : '' ); ?> id="nav-extensions"><a href="#"><i class="icon-wrench"></i> Extensions</a></li>
+                    <li<?php echo (in_array('dashboard', array()) ? ' class="current active"' : '' ); ?> id="nav-dashboard"><a href="#"><i class="icon-dashboard"></i> Dashboard</a></li>
+                    <li<?php echo (in_array('content', array()) ? ' class="current active"' : '' ); ?> id="nav-content"><a href="#"><i class="icon-folder-open"></i> Content</a></li>
+                    <li<?php echo (in_array('users', array()) ? ' class="current active"' : '' ); ?> id="nav-users"><a href="#"><i class="icon-user"></i> Users</a></li>
+                    <li<?php echo (in_array('settings', array()) ? ' class="current active"' : '' ); ?> id="nav-settings"><a href="#"><i class="icon-cogs"></i> Settings</a></li>
+                    <li<?php echo (in_array('extensions', array()) ? ' class="current active"' : '' ); ?> id="nav-extensions"><a href="#"><i class="icon-wrench"></i> Extensions</a></li>
                 </ul>
                 <ul class="nav pull-right">
                     @if(Auth::user())
@@ -38,7 +38,7 @@
         <div class="container">
             <div class="nav-collapse collapse">
                 <ul class="nav subnav">
-                    <li id="subnav-dashboard"<?php echo ( in_array( 'dashboard', array() ) ? ' class="active"' : '' ); ?>>
+                    <li id="subnav-dashboard"<?php echo (in_array('dashboard', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
                             <li><a href="{{ route('admin_dashboard_updates') }}"><i class="icon-refresh"></i> Update check</a></li>
                             <li><a href="{{ route('admin_dashboard_stats') }}"><i class="icon-bar-chart"></i> Stats</a></li>
@@ -47,7 +47,7 @@
                             <li><a href="{{ route('admin_dashboard_backup') }}"><i class="icon-save"></i> Backup</a></li>
                         </ul>
                     </li>
-                    <li id="subnav-content"<?php echo ( in_array( 'content', array() ) ? ' class="active"' : '' ); ?>>
+                    <li id="subnav-content"<?php echo (in_array('content', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
                             <li><a href="/content/forums/"><i class="icon-cog"></i> Forums</a></li>
                             <li><a href="/content/bbcode/"><i class="icon-code"></i> BBCode</a></li>
@@ -59,7 +59,7 @@
                             <li><a href="/content/"><i class="icon-plus"></i> Add new category</a></li>
                         </ul>-->
                     </li>
-                    <li id="subnav-users"<?php echo ( in_array( 'users', array() ) ? ' class="active"' : '' ); ?>>
+                    <li id="subnav-users"<?php echo (in_array('users', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
                             <li><a href="/users/users/"><i class="icon-cog"></i> Manage users</a></li>
                             <li><a href="{{ route('admin_groups_index') }}"><i class="icon-cog"></i> Manage groups</a></li>
@@ -70,7 +70,7 @@
                             <li><a href="#"><i class="icon-plus"></i> Add new group</a></li>
                         </ul>-->
                     </li>
-                    <li id="subnav-settings"<?php echo ( in_array( 'settings', array() ) ? ' class="active"' : '' ); ?>>
+                    <li id="subnav-settings"<?php echo (in_array('settings', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
                             <li><a href="{{ route('admin_settings_global') }}"><i class="icon-list-alt"></i> Global</a></li>
                             <li><a href="{{ route('admin_settings_email') }}"><i class="icon-envelope-alt"></i> Email</a></li>
@@ -78,7 +78,7 @@
                             <li><a href="#"><i class="icon-shield"></i> Logs</a></li>
                         </ul>
                     </li>
-                    <li id="subnav-extensions"<?php echo ( in_array( 'extensions', array() ) ? ' class="active"' : '' ); ?>>
+                    <li id="subnav-extensions"<?php echo (in_array('extensions', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
                             <li><a href="/extensions/manage/"><i class="icon-cog"></i> Manage</a></li>
                             <li><a href="/extensions/install/"><i class="icon-download-alt"></i> Install</a></li>
