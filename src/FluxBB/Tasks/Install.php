@@ -2,13 +2,13 @@
 
 namespace FluxBB\Tasks;
 
-use FluxBB\Models\Category,
-    FluxBB\Models\Config,
-    FluxBB\Models\Forum,
-    FluxBB\Models\Group,
-    FluxBB\Models\Post,
-    FluxBB\Models\Topic,
-    FluxBB\Models\User;
+use FluxBB\Models\Category;
+use FluxBB\Models\Config;
+use FluxBB\Models\Forum;
+use FluxBB\Models\Group;
+use FluxBB\Models\Post;
+use FluxBB\Models\Topic;
+use FluxBB\Models\User;
 
 class Install extends Base
 {

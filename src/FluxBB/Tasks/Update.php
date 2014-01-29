@@ -2,8 +2,8 @@
 
 namespace FluxBB\Tasks;
 
-use FluxBB\Models\Config,
-    Laravel\Str;
+use FluxBB\Models\Config;
+use Laravel\Str;
 
 class Update extends Base
 {

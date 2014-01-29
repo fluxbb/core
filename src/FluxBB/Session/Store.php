@@ -2,13 +2,13 @@
 
 namespace FluxBB\Session;
 
-use Auth,
-    FluxBB\Models\Config,
-    FluxBB\Models\User,
-    Illuminate\Http\Request,
-    Illuminate\Session\DatabaseStore,
-    Illuminate\Session\Sweeper,
-    Symfony\Component\HttpFoundation\Response;
+use Auth;
+use FluxBB\Models\Config;
+use FluxBB\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Session\DatabaseStore:
+use Illuminate\Session\Sweeper;
+use Symfony\Component\HttpFoundation\Response;
 
 class Store extends DatabaseStore implements Sweeper
 {

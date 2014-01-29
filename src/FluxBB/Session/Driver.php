@@ -2,13 +2,13 @@
 
 namespace FluxBB\Session;
 
-use Laravel\Auth,
-    Laravel\Session,
-    Laravel\Session\Drivers\Database,
-    Laravel\Session\Drivers\Sweeper,
-    Laravel\Request,
-    fluxbb\Models\Config,
-    fluxbb\Models\User;
+use Laravel\Auth;
+use Laravel\Session;
+use Laravel\Session\Drivers\Database;
+use Laravel\Session\Drivers\Sweeper;
+use Laravel\Request;
+use fluxbb\Models\Config;
+use fluxbb\Models\User;
 
 class Driver extends Database implements Sweeper
 {
