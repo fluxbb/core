@@ -9,7 +9,7 @@ class Users extends Migration
 {
     public function up()
     {
-        Schema::table('users', function($table) {
+        Schema::table('users', function ($table) {
             $table->create();
 
             $table->increments('id');

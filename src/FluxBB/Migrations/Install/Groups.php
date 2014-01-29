@@ -9,7 +9,7 @@ class Groups extends Migration
 {
     public function up()
     {
-        Schema::table('groups', function($table) {
+        Schema::table('groups', function ($table) {
             $table->create();
 
             $table->increments('id');

@@ -9,7 +9,7 @@ class Posts extends Migration
 {
     public function up()
     {
-        Schema::table('posts', function($table) {
+        Schema::table('posts', function ($table) {
             $table->create();
 
             $table->increments('id');

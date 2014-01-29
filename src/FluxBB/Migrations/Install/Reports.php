@@ -9,7 +9,7 @@ class Reports extends Migration
 {
     public function up()
     {
-        Schema::table('reports', function($table) {
+        Schema::table('reports', function ($table) {
             $table->create();
 
             $table->increments('id');

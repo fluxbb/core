@@ -9,7 +9,7 @@ class Config extends Migration
 {
     public function up()
     {
-        Schema::table('config', function($table) {
+        Schema::table('config', function ($table) {
             $table->create();
 
             $table->string('conf_name', 255)->default('');

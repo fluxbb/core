@@ -9,7 +9,7 @@ class Censoring extends Migration
 {
     public function up()
     {
-        Schema::table('censoring', function($table) {
+        Schema::table('censoring', function ($table) {
             $table->create();
 
             $table->increments('id');

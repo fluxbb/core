@@ -9,7 +9,7 @@ class Forums extends Migration
 {
     public function up()
     {
-        Schema::table('forums', function($table) {
+        Schema::table('forums', function ($table) {
             $table->create();
 
             $table->increments('id');
