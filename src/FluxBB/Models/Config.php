@@ -20,7 +20,7 @@ class Config
             return;
         }
 
-        static::$data = static::$original = Cache::remember('fluxbb.config', 24 * 60, function() {
+        static::$data = static::$original = Cache::remember('fluxbb.config', 24 * 60, function () {
             $data = DB::table('config')->get();
             $cache = array();
 

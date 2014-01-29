@@ -7,7 +7,6 @@ use Auth,
 
 class Guest extends User
 {
-
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
@@ -85,5 +84,4 @@ class Guest extends User
     {
         return Config::get('o_disp_posts_default');
     }
-
 }

@@ -20,7 +20,7 @@ class Category extends Base
 
     public static function all($columns = array())
     {
-        return Cache::remember('fluxbb.categories', 7 * 24 * 60, function() {
+        return Cache::remember('fluxbb.categories', 7 * 24 * 60, function () {
             $all = array();
             $categories = Category::orderBy('disp_position', 'ASC')
                 ->orderBy('id', 'ASC')
@@ -39,7 +39,7 @@ class Category extends Base
 
         $forums = Forum::allForGroup($group_id);
 
-        /*usort($forums, function($forum1, $forum2) {
+        /*usort($forums, function ($forum1, $forum2) {
             if ($forum1->cat_id == $forum2->cat_id) {
                 // Same category: forum's disp_position value decides
                 return $forum1->disp_position - $forum2->disp_position;

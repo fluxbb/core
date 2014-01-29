@@ -22,7 +22,7 @@ class ForumPerms extends Base
 
     public static function forumsForGroup($group_id)
     {
-        return Cache::remember('fluxbb.forums_for_group.'.$group_id, 7 * 24 * 60, function() use($group_id) {
+        return Cache::remember('fluxbb.forums_for_group.'.$group_id, 7 * 24 * 60, function () use ($group_id) {
             $disallowed = ForumPerms::where('group_id', '=', $group_id)->where('read_forum', '=', 0)->lists('forum_id');
             $all_forum_ids = Forum::ids();
             return array_diff($all_forum_ids, $disallowed);

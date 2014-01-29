@@ -27,7 +27,7 @@ class ConfigRepository implements ConfigRepositoryInterface
             return;
         }
 
-        $this->data = $this->original = $this->cache->remember('fluxbb.config', 24 * 60, function() {
+        $this->data = $this->original = $this->cache->remember('fluxbb.config', 24 * 60, function () {
             $data = DB::table('config')->get();
             $cache = array();
 
