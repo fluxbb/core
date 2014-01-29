@@ -268,9 +268,9 @@ class Install extends Base
             'o_webmaster_email'			=> 'email', // FIXME
             'o_forum_subscriptions'		=> 1,
             'o_topic_subscriptions'		=> 1,
-            'o_smtp_host'				=> NULL,
-            'o_smtp_user'				=> NULL,
-            'o_smtp_pass'				=> NULL,
+            'o_smtp_host'				=> null,
+            'o_smtp_user'				=> null,
+            'o_smtp_pass'				=> null,
             'o_smtp_ssl'				=> 0,
             'o_regs_allow'				=> 1,
             'o_regs_verify'				=> 0,
