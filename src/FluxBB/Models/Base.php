@@ -8,29 +8,29 @@ use Validator;
 class Base extends Model
 {
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $rules = array();
+    protected $rules = array();
 
-	protected $errors = array();
+    protected $errors = array();
 
 
-	public function valid()
-	{
-		if (empty($this->rules)) return true;
+    public function valid()
+    {
+        if (empty($this->rules)) return true;
 
-		$v = Validator::make($this->attributes, $this->rules);
-		return $v->passes();
-	}
+        $v = Validator::make($this->attributes, $this->rules);
+        return $v->passes();
+    }
 
-	public function invalid()
-	{
-		return ! $this->valid();
-	}
+    public function invalid()
+    {
+        return ! $this->valid();
+    }
 
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 
 }

@@ -9,90 +9,90 @@ class ConfigRepository implements ConfigRepositoryInterface
 {
 
 
-	protected $loaded = false;
+    protected $loaded = false;
 
-	protected $cache;
+    protected $cache;
 
-	public function __construct(CacheManager $cache)
-	{
-		$this->cache = $cache;
-	}
+    public function __construct(CacheManager $cache)
+    {
+        $this->cache = $cache;
+    }
 
-	public function getGlobal()
-	{
-		return array();
-	}
+    public function getGlobal()
+    {
+        return array();
+    }
 
-	protected function loadData()
-	{
-		if ($this->loaded)
-		{
-			return;
-		}
+    protected function loadData()
+    {
+        if ($this->loaded)
+        {
+            return;
+        }
 
-		$this->data = $this->original = $this->cache->remember('fluxbb.config', 24 * 60, function()
-		{
-			$data = DB::table('config')->get();
-			$cache = array();
+        $this->data = $this->original = $this->cache->remember('fluxbb.config', 24 * 60, function()
+        {
+            $data = DB::table('config')->get();
+            $cache = array();
 
-			foreach ($data as $row)
-		    {
-				$cache[$row->conf_name] = $row->conf_value;
-			}
+            foreach ($data as $row)
+            {
+                $cache[$row->conf_name] = $row->conf_value;
+            }
 
-			return $cache;
-		});
+            return $cache;
+        });
 
-		$this->loaded = true;
-	}
+        $this->loaded = true;
+    }
 
-	public function set($key, $value)
-	{
-		$this->loadData();
-		$this->data[$key] = $value;
-	}
+    public function set($key, $value)
+    {
+        $this->loadData();
+        $this->data[$key] = $value;
+    }
 
-	public function save()
-	{
-		// New and changed keys
-		$changed = array_diff_assoc($this->data, $this->original);
+    public function save()
+    {
+        // New and changed keys
+        $changed = array_diff_assoc($this->data, $this->original);
 
-		$insert_values = array();
-		foreach ($changed as $name => $value)
-		{
-			if (!array_key_exists($name, $this->original))
-			{
-				$insert_values[] = array(
-					'conf_name'		=> $name,
-					'conf_value'	=> $value,
-				);
+        $insert_values = array();
+        foreach ($changed as $name => $value)
+        {
+            if (!array_key_exists($name, $this->original))
+            {
+                $insert_values[] = array(
+                    'conf_name'		=> $name,
+                    'conf_value'	=> $value,
+                );
 
-				unset($changed[$name]);
-			}
-		}
+                unset($changed[$name]);
+            }
+        }
 
-		if (!empty($insert_values))
-		{
-			DB::table('config')->insert($insert_values);
-		}
+        if (!empty($insert_values))
+        {
+            DB::table('config')->insert($insert_values);
+        }
 
-		foreach ($changed as $name => $value)
-		{
-			DB::table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
-		}
+        foreach ($changed as $name => $value)
+        {
+            DB::table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
+        }
 
-		// Deleted keys
-		$deleted_keys = array_keys(array_diff_key($this->original, $this->data));
-		if (!empty($deleted_keys))
-		{
-			DB::table('config')->whereIn('conf_name', $deleted_keys)->delete();
-		}
+        // Deleted keys
+        $deleted_keys = array_keys(array_diff_key($this->original, $this->data));
+        if (!empty($deleted_keys))
+        {
+            DB::table('config')->whereIn('conf_name', $deleted_keys)->delete();
+        }
 
-		// No need to cache old values anymore
-		$this->original = $this->data;
+        // No need to cache old values anymore
+        $this->original = $this->data;
 
-		// Delete the cache so that it will be regenerated on the next request
-		$this->cache->forget('fluxbb.config');
-	}
+        // Delete the cache so that it will be regenerated on the next request
+        $this->cache->forget('fluxbb.config');
+    }
 
 }

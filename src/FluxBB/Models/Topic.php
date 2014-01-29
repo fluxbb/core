@@ -7,86 +7,86 @@ use Auth;
 class Topic extends Base
 {
 
-	protected $table = 'topics';
+    protected $table = 'topics';
 
-	protected $fillable = array('poster', 'subject', 'posted', 'last_post', 'last_poster', 'sticky', 'forum_id');
+    protected $fillable = array('poster', 'subject', 'posted', 'last_post', 'last_poster', 'sticky', 'forum_id');
 
-	/**
-	 * The relationships that should be touched on save.
-	 *
-	 * @var array
-	 */
-	protected $touches = array('forum');
+    /**
+     * The relationships that should be touched on save.
+     *
+     * @var array
+     */
+    protected $touches = array('forum');
 
 
-	public function posts()
-	{
-		return $this->hasMany('FluxBB\\Models\\Post')
-		            ->orderBy('id');
-	}
+    public function posts()
+    {
+        return $this->hasMany('FluxBB\\Models\\Post')
+                    ->orderBy('id');
+    }
 
-	public function forum()
-	{
-		return $this->belongsTo('FluxBB\\Models\\Forum');
-	}
+    public function forum()
+    {
+        return $this->belongsTo('FluxBB\\Models\\Forum');
+    }
 
-	public function subscription()
-	{
-		return $this->hasOne('FluxBB\\Models\\TopicSubscription');
-	//		->where('user_id', '=', User::current()->id);
-	}
+    public function subscription()
+    {
+        return $this->hasOne('FluxBB\\Models\\TopicSubscription');
+    //		->where('user_id', '=', User::current()->id);
+    }
 
-	public function addReply(Post $post)
-	{
-		$post->topic()->associate($this);
-		$this->last_post()->associate($post);
-		$this->forum->last_post()->associate($post);
+    public function addReply(Post $post)
+    {
+        $post->topic()->associate($this);
+        $this->last_post()->associate($post);
+        $this->forum->last_post()->associate($post);
 
-		$this->num_replies += 1;
-		$this->forum->num_posts += 1;
-	}
+        $this->num_replies += 1;
+        $this->forum->num_posts += 1;
+    }
 
-	public function numReplies()
-	{
-		return is_null($this->moved_to) ? $this->num_replies : '-';
-	}
+    public function numReplies()
+    {
+        return is_null($this->moved_to) ? $this->num_replies : '-';
+    }
 
-	public function numViews()
-	{
-		return is_null($this->moved_to) ? $this->num_views : '-';
-	}
+    public function numViews()
+    {
+        return is_null($this->moved_to) ? $this->num_views : '-';
+    }
 
-	public function isUserSubscribed()
-	{
-		return Auth::check() && !is_null($this->subscription);
-	}
+    public function isUserSubscribed()
+    {
+        return Auth::check() && !is_null($this->subscription);
+    }
 
-	public function wasMoved()
-	{
-		return !is_null($this->moved_to);
-	}
+    public function wasMoved()
+    {
+        return !is_null($this->moved_to);
+    }
 
-	public function subscribe($subscribe = true)
-	{
-		// To subscribe or not to subscribe, that ...
-		if (!Config::enabled('o_topic_subscriptions') || !Auth::check())
-		{
-			return false;
-		}
+    public function subscribe($subscribe = true)
+    {
+        // To subscribe or not to subscribe, that ...
+        if (!Config::enabled('o_topic_subscriptions') || !Auth::check())
+        {
+            return false;
+        }
 
-		if ($subscribe && !$this->isUserSubscribed())
-		{
-			$this->subscription()->insert(array('user_id' => User::current()->id));
-		}
-		else if (!$subscribe && $this->isUserSubscribed())
-		{
-			$this->subscription()->delete();
-		}
-	}
+        if ($subscribe && !$this->isUserSubscribed())
+        {
+            $this->subscription()->insert(array('user_id' => User::current()->id));
+        }
+        else if (!$subscribe && $this->isUserSubscribed())
+        {
+            $this->subscription()->delete();
+        }
+    }
 
-	public function unsubscribe()
-	{
-		return $this->subscribe(false);
-	}
+    public function unsubscribe()
+    {
+        return $this->subscribe(false);
+    }
 
 }

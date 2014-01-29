@@ -8,22 +8,22 @@ use Illuminate\Database\Migrations\Migration;
 class Config extends Migration
 {
 
-	public function up()
-	{
-		Schema::table('config', function($table)
-		{
-			$table->create();
+    public function up()
+    {
+        Schema::table('config', function($table)
+        {
+            $table->create();
 
-			$table->string('conf_name', 255)->default('');
-			$table->text('conf_value')->nullable();
+            $table->string('conf_name', 255)->default('');
+            $table->text('conf_value')->nullable();
 
-			$table->primary('conf_name');
-		});
-	}
+            $table->primary('conf_name');
+        });
+    }
 
-	public function down()
-	{
-		Schema::drop('config');
-	}
+    public function down()
+    {
+        Schema::drop('config');
+    }
 
 }

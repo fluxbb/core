@@ -10,7 +10,7 @@
 
 <ul>
 @foreach ($group->permissions as $permission)
-	<li>{{ $permission->name }}</li>
+    <li>{{ $permission->name }}</li>
 @endforeach
 </ul>
 

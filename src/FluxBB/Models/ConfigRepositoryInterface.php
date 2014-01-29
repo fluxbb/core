@@ -5,7 +5,7 @@ namespace FluxBB\Models;
 interface ConfigRepositoryInterface
 {
 
-	public function getGlobal();
-	public function set($key, $value);
+    public function getGlobal();
+    public function set($key, $value);
 
 }
