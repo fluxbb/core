@@ -11,7 +11,8 @@ class BaseController extends Controller
     public $restful = true;
 
     public function __construct()
-    {}
+    {
+    }
 
     public function user()
     {
