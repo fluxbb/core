@@ -6,7 +6,6 @@ use Cache;
 
 class ForumPerms extends Base
 {
-
     protected $table = 'forum_perms';
 
 
@@ -29,5 +28,4 @@ class ForumPerms extends Base
             return array_diff($all_forum_ids, $disallowed);
         });
     }
-
 }

@@ -9,7 +9,6 @@ use Illuminate\Auth\UserInterface,
 
 class User extends Base implements UserInterface
 {
-
     protected $table = 'users';
 
     // TODO: Review
@@ -235,5 +234,4 @@ class User extends Base implements UserInterface
     {
         return $this->password;
     }
-
 }

@@ -7,7 +7,6 @@ use Cache;
 
 class Forum extends Base
 {
-
     protected $table = 'forums';
 
     protected $fillable = array('forum_name', 'forum_desc', 'disp_position');
@@ -132,5 +131,4 @@ class Forum extends Base
     {
         return $this->subscribe(false);
     }
-
 }

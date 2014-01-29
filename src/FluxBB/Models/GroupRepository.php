@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GroupRepository implements GroupRepositoryInterface
 {
-
     protected $cache;
 
     protected $retrieved = array();
@@ -131,5 +130,4 @@ class GroupRepository implements GroupRepositoryInterface
     {
         $this->cache->forget('fluxbb.groups.hierarchy');
     }
-
 }

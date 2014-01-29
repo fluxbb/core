@@ -7,8 +7,6 @@ use DB;
 
 class ConfigRepository implements ConfigRepositoryInterface
 {
-
-
     protected $loaded = false;
 
     protected $cache;
@@ -86,5 +84,4 @@ class ConfigRepository implements ConfigRepositoryInterface
         // Delete the cache so that it will be regenerated on the next request
         $this->cache->forget('fluxbb.config');
     }
-
 }

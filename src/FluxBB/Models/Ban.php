@@ -5,7 +5,6 @@ namespace FluxBB\Models;
 
 class Ban extends Base
 {
-
     protected $table = 'bans';
 
 
@@ -13,5 +12,4 @@ class Ban extends Base
     {
         return $this->belongsTo('FluxBB\\Models\\User', 'ban_creator');
     }
-
 }

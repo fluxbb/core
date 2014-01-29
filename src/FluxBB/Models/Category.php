@@ -6,7 +6,6 @@ use Cache;
 
 class Category extends Base
 {
-
     protected $table = 'categories';
 
     protected $fillable = array('cat_name', 'disp_position');
@@ -65,5 +64,4 @@ class Category extends Base
 
         return $forums_by_cat;
     }
-
 }

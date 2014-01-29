@@ -7,7 +7,6 @@ use DB;
 
 class Config
 {
-
     protected static $loaded = false;
 
     protected static $data = array();
@@ -107,5 +106,4 @@ class Config
         // Delete the cache so that it will be regenerated on the next request
         Cache::forget('fluxbb.config');
     }
-
 }

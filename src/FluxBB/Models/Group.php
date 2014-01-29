@@ -4,7 +4,6 @@ namespace FluxBB\Models;
 
 class Group extends Base
 {
-
     protected $table = 'groups';
 
     protected $fillable = array('name', 'parent_group_id');
@@ -45,5 +44,4 @@ class Group extends Base
     {
         return true;
     }
-
 }

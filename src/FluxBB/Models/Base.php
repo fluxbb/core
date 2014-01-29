@@ -7,7 +7,6 @@ use Validator;
 
 class Base extends Model
 {
-
     public $timestamps = false;
 
     protected $rules = array();
@@ -32,5 +31,4 @@ class Base extends Model
     {
         return $this->errors;
     }
-
 }

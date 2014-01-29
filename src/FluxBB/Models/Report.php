@@ -4,7 +4,6 @@ namespace FluxBB\Models;
 
 class Report extends Base
 {
-
     protected $table = 'reports';
 
     public function post()
@@ -31,5 +30,4 @@ class Report extends Base
     {
         return $this->belongsTo('FluxBB\\Models\\User', 'zapped_by');
     }
-
 }

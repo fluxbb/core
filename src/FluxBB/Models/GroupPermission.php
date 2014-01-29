@@ -4,7 +4,6 @@ namespace FluxBB\Models;
 
 class GroupPermission extends Base
 {
-
     protected $table = 'group_permissions';
 
 
@@ -12,5 +11,4 @@ class GroupPermission extends Base
     {
         return $this->belongsTo('FluxBB\Models\Group', 'group_id');
     }
-
 }

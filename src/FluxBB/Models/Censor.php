@@ -4,7 +4,6 @@ namespace FluxBB\Models;
 
 class Censor extends Base
 {
-
     protected $table = 'censoring';
 
 
@@ -45,5 +44,4 @@ class Censor extends Base
 
         return array($search_for, $replace_with);
     }
-
 }
