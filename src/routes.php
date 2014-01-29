@@ -183,6 +183,3 @@ Route::group(array('before' => 'auth'), function()
 
 
 });
-
-
-

@@ -9,5 +9,3 @@
 </div>
 
 @include('fluxbb::layout.partials.footer')
-
-
