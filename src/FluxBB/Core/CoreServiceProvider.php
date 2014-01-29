@@ -8,7 +8,6 @@ use FluxBB\Models\ConfigRepository;
 
 class CoreServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -54,5 +53,4 @@ class CoreServiceProvider extends ServiceProvider
     {
         return array();
     }
-
 }

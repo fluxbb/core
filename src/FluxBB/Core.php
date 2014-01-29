@@ -7,7 +7,6 @@ use Config;
 
 class Core extends Facade
 {
-
     protected static function getFacadeAccessor()
     {
         return static::$app;
@@ -25,5 +24,4 @@ class Core extends Facade
     {
         return '2.0.0-alpha1';
     }
-
 }
