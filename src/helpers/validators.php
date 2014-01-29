@@ -10,8 +10,8 @@ Validator::extend('email_not_banned', function ($attribute, $value, $parameters)
     foreach ($bans as $cur_ban) {
         if (!empty($cur_ban->email) &&
             ($value == $cur_ban->email ||
-            (!str_contains($cur_ban->email, '@') && str_contains(strtolower($value), '@'.$cur_ban->email))))
-        {
+            (!str_contains($cur_ban->email, '@') && str_contains(strtolower($value), '@'.$cur_ban->email)))
+        ) {
             return false;
         }
     }
