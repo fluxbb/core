@@ -7,7 +7,7 @@ use View;
 
 class SearchController extends BaseController
 {
-    public function get_index()
+    public function getIndex()
     {
         $categories = Category::all();
         return View::make('fluxbb::search.index')

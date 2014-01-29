@@ -13,7 +13,7 @@ use View;
 
 class HomeController extends BaseController
 {
-    public function get_index()
+    public function getIndex()
     {
         // TODO: Get list of forums and topics with new posts since last visit & get all topics that were marked as read
 
@@ -23,7 +23,7 @@ class HomeController extends BaseController
         return View::make('fluxbb::index')->with('categories', $categories);
     }
 
-    public function get_forum($fid)
+    public function getForum($fid)
     {
         // Fetch some info about the forum
         $forum = Forum::find($fid);
@@ -35,7 +35,7 @@ class HomeController extends BaseController
         return View::make('fluxbb::viewforum')->with('forum', $forum);
     }
 
-    public function get_topic($tid, $page = 1)
+    public function getTopic($tid, $page = 1)
     {
         // Fetch some info about the topic
         $topic = Topic::find($tid);
@@ -50,7 +50,7 @@ class HomeController extends BaseController
         return View::make('fluxbb::viewtopic')->with('topic', $topic);
     }
 
-    public function get_post($pid)
+    public function getPost($pid)
     {
         // If a post ID is specified we determine topic ID and page number so we can show the correct message
         $post = Post::find($pid);

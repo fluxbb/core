@@ -9,7 +9,7 @@ use View;
 
 class UsersController extends BaseController
 {
-    public function get_profile($id)
+    public function getProfile($id)
     {
         $user = User::find($id);
         $action = Input::get('action', 'essentials');
@@ -26,7 +26,7 @@ class UsersController extends BaseController
 
     }
 
-    public function post_profile($id, $action = 'essentials')
+    public function postProfile($id, $action = 'essentials')
     {
         $user = User::find($id);
         // TODO: Add validation. This can probably wait until we restructure the profile.
@@ -64,7 +64,7 @@ class UsersController extends BaseController
                 ->with('admin', User::current()->isAdmin());
     }
 
-    public function get_list()
+    public function getList()
     {
         $users = User::paginate(20);
 

@@ -6,7 +6,7 @@ use View;
 
 class DashboardController extends BaseController
 {
-    public function get_index()
+    public function getIndex()
     {
         return View::make('fluxbb::admin.index');
     }

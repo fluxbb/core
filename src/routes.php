@@ -5,97 +5,97 @@ $prefix = Config::get('fluxbb.route_prefix', '');
 Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function () {
     Route::get('forum/{id}', array(
         'as'	=> 'viewforum',
-        'uses'	=> 'FluxBB\Controllers\HomeController@get_forum',
+        'uses'	=> 'FluxBB\Controllers\HomeController@getForum',
     ));
     Route::get('topic/{id}', array(
         'as'	=> 'viewtopic',
-        'uses'	=> 'FluxBB\Controllers\HomeController@get_topic',
+        'uses'	=> 'FluxBB\Controllers\HomeController@getTopic',
     ));
     Route::get('post/{id}', array(
         'as'	=> 'viewpost',
-        'uses'	=> 'FluxBB\Controllers\HomeController@get_post',
+        'uses'	=> 'FluxBB\Controllers\HomeController@getPost',
     ));
     Route::get('/', array(
         'as'	=> 'index',
-        'uses'	=> 'FluxBB\Controllers\HomeController@get_index',
+        'uses'	=> 'FluxBB\Controllers\HomeController@getIndex',
     ));
     Route::get('profile/{id}', array(
         'as'	=> 'profile',
-        'uses'	=> 'FluxBB\Controllers\UsersController@get_profile',
+        'uses'	=> 'FluxBB\Controllers\UsersController@getProfile',
     ));
     Route::post('profile/{id}', array(
-        'uses'	=> 'FluxBB\Controllers\UsersController@post_profile',
+        'uses'	=> 'FluxBB\Controllers\UsersController@postProfile',
     ));
     Route::get('users', array(
         'as'	=> 'userlist',
-        'uses'	=> 'FluxBB\Controllers\UsersController@get_list',
+        'uses'	=> 'FluxBB\Controllers\UsersController@getList',
     ));
     Route::get('register', array(
         'as'	=> 'register',
-        'uses'	=> 'FluxBB\Controllers\AuthController@get_register',
+        'uses'	=> 'FluxBB\Controllers\AuthController@getRegister',
     ));
     Route::post('register', array(
-        'uses'	=> 'FluxBB\Controllers\AuthController@post_register',
+        'uses'	=> 'FluxBB\Controllers\AuthController@postRegister',
     ));
     Route::get('login', array(
         'as'	=> 'login',
-        'uses'	=> 'FluxBB\Controllers\AuthController@get_login',
+        'uses'	=> 'FluxBB\Controllers\AuthController@getLogin',
     ));
     Route::post('login', array(
-        'uses'	=> 'FluxBB\Controllers\AuthController@post_login',
+        'uses'	=> 'FluxBB\Controllers\AuthController@postLogin',
     ));
     Route::get('forgot_password.html', array(
         'as'	=> 'forgot_password',
-        'uses'	=> 'FluxBB\Controllers\AuthController@get_forgot',
+        'uses'	=> 'FluxBB\Controllers\AuthController@getForgot',
     ));
     Route::get('logout', array(
         'as'	=> 'logout',
-        'uses'	=> 'FluxBB\Controllers\AuthController@get_logout',
+        'uses'	=> 'FluxBB\Controllers\AuthController@getLogout',
     ));
     Route::get('rules', array(
         'as'	=> 'rules',
-        'uses'	=> 'FluxBB\Controllers\MiscController@get_rules',
+        'uses'	=> 'FluxBB\Controllers\MiscController@getRules',
     ));
     Route::get('email/{id}', array(
         'as'	=> 'email',
-        'uses'	=> 'FluxBB\Controllers\MiscController@get_email',
+        'uses'	=> 'FluxBB\Controllers\MiscController@getEmail',
     ));
     Route::get('search', array(
         'as'	=> 'search',
-        'uses'	=> 'FluxBB\Controllers\SearchController@get_index',
+        'uses'	=> 'FluxBB\Controllers\SearchController@getIndex',
     ));
     Route::get('post/{id}/report', array(
         'as'	=> 'post_report',
-        'uses'	=> 'FluxBB\Controllers\PostingController@get_report',
+        'uses'	=> 'FluxBB\Controllers\PostingController@getReport',
     ));
     Route::get('post/{id}/delete', array(
         'as'	=> 'post_delete',
-        'uses'	=> 'FluxBB\Controllers\PostingController@get_delete',
+        'uses'	=> 'FluxBB\Controllers\PostingController@getDelete',
     ));
     Route::get('post/{id}/edit', array(
         'as'	=> 'post_edit',
-        'uses'	=> 'FluxBB\Controllers\PostingController@get_edit',
+        'uses'	=> 'FluxBB\Controllers\PostingController@getEdit',
     ));
     Route::post('post/{id}/edit', array(
-        'uses'  => 'FluxBB\Controllers\PostingController@post_edit',
+        'uses'  => 'FluxBB\Controllers\PostingController@postEdit',
     ));
     Route::get('post/{id}/quote', array(
         'as'	=> 'post_quote',
-        'uses'	=> 'FluxBB\Controllers\PostingController@get_quote',
+        'uses'	=> 'FluxBB\Controllers\PostingController@getQuote',
     ));
     Route::get('topic/{id}/reply', array(
         'as'	=> 'reply',
-        'uses'	=> 'FluxBB\Controllers\PostingController@get_reply',
+        'uses'	=> 'FluxBB\Controllers\PostingController@getReply',
     ));
     Route::post('topic/{id}/reply', array(
-        'uses'	=> 'FluxBB\Controllers\PostingController@post_reply',
+        'uses'	=> 'FluxBB\Controllers\PostingController@postReply',
     ));
     Route::get('forum/{id}/topic/new', array(
         'as'	=> 'new_topic',
-        'uses'	=> 'FluxBB\Controllers\PostingController@get_topic',
+        'uses'	=> 'FluxBB\Controllers\PostingController@getTopic',
     ));
     Route::post('forum/{id}/topic/new', array(
-        'uses'	=> 'FluxBB\Controllers\PostingController@post_topic',
+        'uses'	=> 'FluxBB\Controllers\PostingController@postTopic',
     ));
 
     Route::bind('group', function ($value, $route) {
@@ -105,7 +105,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     Route::group(array('before' => 'auth'), function () {
         Route::get('admin', array(
             'as'	=> 'admin',
-            'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@get_index',
+            'uses'	=> 'FluxBB\Controllers\Admin\DashboardController@getIndex',
         ));
 
         Route::get('admin/groups', array(
@@ -134,7 +134,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 
         Route::post('admin/ajax/board_config', array(
             'as'	=> 'admin_ajax_board_config',
-            'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@post_board_config',
+            'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@postBoardConfig',
         ));
         Route::get('admin/settings/email', array(
             'as' => 'admin_settings_email',

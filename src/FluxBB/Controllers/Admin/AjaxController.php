@@ -9,7 +9,7 @@ use FluxBB\Models\Config;
 
 class AjaxController extends BaseController
 {
-    public function post_board_config()
+    public function postBoardConfig()
     {
         $rules = array(
             'board_title'		=> 'required',

@@ -21,19 +21,19 @@ class AuthController extends BaseController
         //$this->filter('before', 'only_members')->only('logout');
     }
 
-    public function get_logout()
+    public function getLogout()
     {
         Auth::logout();
         return Redirect::route('index')
             ->with('message', trans('fluxbb::login.message_logout'));
     }
 
-    public function get_login()
+    public function getLogin()
     {
         return View::make('fluxbb::auth.login');
     }
 
-    public function post_login()
+    public function postLogin()
     {
         $loginData = array(
             'username'	=> Input::get('req_username'),
@@ -64,12 +64,12 @@ class AuthController extends BaseController
         }
     }
 
-    public function get_register()
+    public function getRegister()
     {
         return View::make('fluxbb::auth.register');
     }
 
-    public function post_register()
+    public function postRegister()
     {
         $rules = array(
             'user'		=> 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',

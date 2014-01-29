@@ -6,7 +6,7 @@ use FluxBB\Models\Config;
 
 class MiscController extends BaseController
 {
-    public function get_rules()
+    public function getRules()
     {
         // TODO: Move to filter and use roles / permissions
         // TODO2: Also apply this filter (current OR this)

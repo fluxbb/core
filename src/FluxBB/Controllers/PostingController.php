@@ -17,7 +17,7 @@ use View;
 
 class PostingController extends BaseController
 {
-    public function get_reply($tid)
+    public function getReply($tid)
     {
         $topic = Topic::with('forum.perms')
             ->where('id', '=', $tid)
@@ -32,7 +32,7 @@ class PostingController extends BaseController
             ->with('action', trans('fluxbb::post.post_a_reply'));
     }
 
-    public function post_reply($tid)
+    public function postReply($tid)
     {
         $topic = Topic::with('forum.perms')
             ->where('id', '=', $tid)
@@ -116,7 +116,7 @@ class PostingController extends BaseController
         return Redirect::route('viewpost', array('id' => $post->id))->with('message', trans('fluxbb::post.post_added'));
     }
 
-    public function get_topic($fid)
+    public function getTopic($fid)
     {
         $forum = Forum::with('perms')
             ->where('id', $fid)
@@ -131,7 +131,7 @@ class PostingController extends BaseController
             ->with('action', trans('fluxbb::forum.post_topic'));
     }
 
-    public function post_topic($fid)
+    public function postTopic($fid)
     {
         $forum = Forum::with('perms')
             ->where('id', '=', $fid)
@@ -233,7 +233,7 @@ class PostingController extends BaseController
             ->with('message', trans('fluxbb::topic.topic_added'));
     }
 
-    public function get_edit($pid)
+    public function getEdit($pid)
     {
         $post = Post::with('author', 'topic')
             ->where('id', $pid)
@@ -253,7 +253,7 @@ class PostingController extends BaseController
             ->with('action', trans('fluxbb::forum.edit_post'));
     }
 
-    public function post_edit($pid)
+    public function postEdit($pid)
     {
         $post = Post::with('author', 'topic')
             ->where('id', $pid)
