@@ -56,9 +56,9 @@
                             <dt>Posts</dt>
                             <dd>{{$user->num_posts}} - <a href="#">Show all topics</a> - <a href="#">Show all posts</a></dd>
                             <dt>Last post</dt>
-                            <dd><?php echo ($user->last_post) ?></dd>{{-- TODO: format_time --}}
+                            <dd>{{ HTML::format_time($user->last_post) }}</dd>
                             <dt>Registered</dt>
-                            <dd><?php echo ($user->registered) ?></dd>{{-- TODO: format_time --}}
+                            <dd>{{ HTML::format_time($user->registered) }}</dd>
                         </dl>
                         <div class="clearer"></div>
                     </div>

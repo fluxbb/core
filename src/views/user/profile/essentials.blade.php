@@ -109,9 +109,9 @@
                     <fieldset>
                         <legend>User activity</legend>
                         <div class="infldset">
-                            <p>Registered: {{ format_time($user->registered, true, "Y-m-d") }}</p>
-                            <p>Last post: {{ format_time($user->last_post) }}</p>
-                            <p>Last visit: {{ format_time($user->last_visit) }}</p>
+                            <p>Registered: {{ HTML::format_time($user->registered, true, "Y-m-d") }}</p>
+                            <p>Last post: {{ HTML::format_time($user->last_post) }}</p>
+                            <p>Last visit: {{ HTML::format_time($user->last_visit) }}</p>
                             <label>Posts: {{ $user->num_posts }}<br></label><p class="actions">
                             {{--- TODO: add input field for posts when admin + add links to controller actions --}}
                             <a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>

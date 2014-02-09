@@ -21,7 +21,7 @@ if ($post_count == 1) {
 
 ?>
 <div id="p{{ $post->id }}">
-    <h2><a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ ($post->posted) }}</a></h2>{{-- TODO: format_time for posted --}}
+    <h2><a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a></h2>
     <dl>
     @if (fluxbb\Models\User::current()->canViewUsers())
         <dt><strong><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{ ($post->author->username) }}</a></strong></dt>
@@ -35,8 +35,8 @@ if ($post_count == 1) {
     @if ($post->author->hasLocation()) <!-- TODO: and if user is allowed to view this (logged in and show_user_info -->
         <dd>{{ trans('fluxbb::topic.from', array('name' => ($post->author->location))) }}</dd>
     @endif
-        <dd>{{ trans('fluxbb::topic.registered', array('time' => ($post->author->registered))) }}</dd>{{-- TODO: format_time for registered --}}
-        <dd>{{ trans('fluxbb::topic.posts', array('count' => ($post->author->num_posts))) }}</dd>{{-- TODO: number_format --}}
+        <dd>{{ trans('fluxbb::topic.registered', array('time' => HTML::format_time($post->author->registered))) }}</dd>
+        <dd>{{ trans('fluxbb::topic.posts', array('count' => HTML::number_format($post->author->num_posts))) }}</dd>
         <dd><a href="get_host_for_pid" title="{{ $post->author->ip }}">{{ trans('fluxbb::topic.ip_address_logged') }}</a></dd>
     @if ($post->author->hasAdminNote())
         <dd>{{ trans('fluxbb::topic.note') }} <strong>{{ ($post->author->admin_note) }}</strong></dd>
@@ -56,7 +56,7 @@ if ($post_count == 1) {
     <div class="postmsg">
         {{ $post->message() }}
     @if ($post->wasEdited())
-        <p class="postedit"><em>{{ trans('fluxbb::topic.last_edit').' '.($post->edited_by).' ('.($post->edited) }})</em></p>{{-- TODO: format_time for edited --}}
+        <p class="postedit"><em>{{ trans('fluxbb::topic.last_edit').' '.($post->edited_by).' ('.HTML::format_time($post->edited) }})</em></p>
     @endif
     </div>
 @if ($post->author->hasSignature())
