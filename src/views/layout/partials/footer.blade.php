@@ -1,3 +1,4 @@
+<!-- begin board footer -->
 <div id="brdfooter">
 	<h2>{{ trans('fluxbb::common.board_footer') }}</h2>
 <?php
@@ -66,5 +67,11 @@ else if ($footer_style == 'viewtopic')
 ?>
 	<p id="poweredby">{{{ trans('fluxbb::common.powered_by', array('link' => '<a href="http://fluxbb.org/">FluxBB</a>'.(FluxBB\Models\Config::get('o_show_version') == '1' ? ' '.FluxBB\Models\Config::get('o_cur_version') : ''))) }}}</p>
 </div>
+<!-- end board footer -->
+	
+</div>
+<!-- end forum container -->
+
 </body>
+
 </html>
