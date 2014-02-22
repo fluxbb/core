@@ -8,8 +8,6 @@ use Illuminate\Validation\Validator;
 
 class BaseController extends Controller
 {
-    public $restful = true;
-
     public function __construct()
     {
     }
