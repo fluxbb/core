@@ -10,13 +10,6 @@ class Topic extends Base
 
     protected $fillable = array('poster', 'subject', 'posted', 'last_post', 'last_poster', 'sticky', 'forum_id');
 
-    /**
-     * The relationships that should be touched on save.
-     *
-     * @var array
-     */
-    protected $touches = array('forum');
-
 
     public function posts()
     {

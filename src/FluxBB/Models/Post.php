@@ -9,14 +9,6 @@ class Post extends Base
     protected $fillable = array('poster', 'poster_id', 'poster_ip', 'message', 'hide_smilies', 'posted', 'topic_id', 'edited', 'edited_by');
 
 
-    /**
-     * The relationships that should be touched on save.
-     *
-     * @var array
-     */
-    protected $touches = array('topic');
-
-
     public function topic()
     {
         return $this->belongsTo('FluxBB\\Models\\Topic');
