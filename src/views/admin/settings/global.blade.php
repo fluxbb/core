@@ -16,7 +16,6 @@
             <li><a href="#tab-time" data-toggle="tab" class="text-center"><i class="icon-time"></i> Time and timeouts</a></li>
             <li><a href="#tab-display" data-toggle="tab" class="text-center"><i class="icon-desktop"></i> Display</a></li>
             <li><a href="#tab-features" data-toggle="tab" class="text-center"><i class="icon-asterisk"></i> Features</a></li>
-            <li><a href="#tab-syndication" data-toggle="tab" class="text-center"><i class="icon-rss"></i> Syndication</a></li>
             <li><a href="#tab-reports" data-toggle="tab" class="text-center"><i class="icon-flag"></i> Reports</a></li>
             <li><a href="#tab-avatars" data-toggle="tab" class="text-center"><i class="icon-picture"></i> Avatars</a></li>
             <li><a href="#tab-registration" data-toggle="tab" class="text-center"><i class="icon-terminal"></i> Registration</a></li>
@@ -191,22 +190,6 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <th scope="row">User info in posts</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[show_user_info]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[show_user_info]" value="0">&nbsp;<strong>No</strong></label>
-                                        <span class="clearb">Show information about the poster under the username in topic view. The information affected is location, register date, post count and the contact links (email and URL).</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">User post count</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[show_post_count]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[show_post_count]" value="0">&nbsp;<strong>No</strong></label>
-                                        <span class="clearb">Show the number of posts a user has made (affects topic view, profile and user list).</span>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th scope="row">Make clickable links</th>
                                     <td>
                                         <label class="conl"><input type="radio" name="form[make_links]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
@@ -280,50 +263,6 @@
                                         <label class="conl"><input type="radio" name="form[topic_views]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
                                         <label class="conl"><input type="radio" name="form[topic_views]" value="0">&nbsp;<strong>No</strong></label>
                                         <span class="clearb">Keep track of the number of views a topic has. Disable if you are experiencing high server load in a busy forum.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Search all forums</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[search_all_forums]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[search_all_forums]" value="0">&nbsp;<strong>No</strong></label>
-                                        <span class="clearb">When disabled, searches will only be allowed in one forum at a time. Disable if server load is high due to excessive searching.</span>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </fieldset>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="tab-syndication">
-              <div class="fakeform">
-                <div class="inform">
-                    <fieldset>
-                        <legend>Syndication</legend>
-                        <div class="infldset">
-                            <table class="table">
-                                <tbody><tr>
-                                    <th scope="row">Default feed type</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[feed_type]" value="0" checked="checked">&nbsp;<strong>None</strong></label>
-                                        <label class="conl"><input type="radio" name="form[feed_type]" value="1">&nbsp;<strong>RSS</strong></label>
-                                        <label class="conl"><input type="radio" name="form[feed_type]" value="2">&nbsp;<strong>Atom</strong></label>
-                                        <span class="clearb">Select the type of syndication feed to display. Note: Choosing none will not disable feeds, only hide them by default.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Duration to cache feeds</th>
-                                    <td>
-                                        <select name="form[feed_ttl]">
-                                            <option value="0" selected="selected">Don't cache</option>
-                                            <option value="5">5 minutes</option>
-                                            <option value="15">15 minutes</option>
-                                            <option value="30">30 minutes</option>
-                                            <option value="60">60 minutes</option>
-                                        </select>
-                                        <span>Feeds can be cached to lower the resource usage of feeds.</span>
                                     </td>
                                 </tr>
                             </tbody></table>
