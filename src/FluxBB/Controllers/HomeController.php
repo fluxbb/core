@@ -70,6 +70,6 @@ class HomeController extends BaseController
         // Tell the paginator which page we're on
         Paginator::setCurrentPage($page);
 
-        return $this->get_topic($post->topic_id);
+        return $this->getTopic($post->topic_id);
     }
 }
