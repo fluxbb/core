@@ -20,8 +20,6 @@
             <li><a href="#tab-reports" data-toggle="tab" class="text-center"><i class="icon-flag"></i> Reports</a></li>
             <li><a href="#tab-avatars" data-toggle="tab" class="text-center"><i class="icon-picture"></i> Avatars</a></li>
             <li><a href="#tab-registration" data-toggle="tab" class="text-center"><i class="icon-terminal"></i> Registration</a></li>
-            <li><a href="#tab-announcement" data-toggle="tab" class="text-center"><i class="icon-bullhorn"></i> Announcements</a></li>
-            <li><a href="#tab-maintenance" data-toggle="tab" class="text-center"><i class="icon-bell-alt"></i> Maintenance</a></li>
           </ul> <!-- /nav-tabs -->
 
           <div class="tab-content">
@@ -474,65 +472,6 @@
                         </div>
                     </fieldset>
                 </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="tab-announcement">
-              <div class="fakeform">
-                <div class="inform">
-                    <fieldset>
-                        <legend>Announcements</legend>
-                        <div class="infldset">
-                            <table class="table">
-                                <tbody><tr>
-                                    <th scope="row">Display announcement</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[announcement]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[announcement]" value="0">&nbsp;<strong>No</strong></label>
-                                        <span class="clearb">Enable this to display the below message in the board.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Announcement message</th>
-                                    <td>
-                                        <textarea name="form[announcement_message]" rows="5" cols="55"></textarea>
-                                        <span>This text will not be parsed like regular posts and thus may contain HTML.</span>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </fieldset>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="tab-maintenance">
-              <div class="fakeform">
-                <div class="inform">
-                    <fieldset>
-                        <legend>Maintenance</legend>
-                        <div class="infldset">
-                            <table class="table">
-                                <tbody><tr>
-                                    <th scope="row"><a name="maintenance"></a>Maintenance mode</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[maintenance]" value="1">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[maintenance]" value="0" checked="checked">&nbsp;<strong>No</strong></label>
-                                        <span class="clearb">When enabled, the board will only be available to administrators. This should be used if the board needs to be taken down temporarily for maintenance. <strong>WARNING! Do not log out when the board is in maintenance mode.</strong> You will not be able to login again.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Maintenance message</th>
-                                    <td>
-                                        <textarea name="form[maintenance_message]" rows="5" cols="55"></textarea>
-                                        <span>The message that will be displayed to users when the board is in maintenance mode. If left blank, a default message will be used. This text will not be parsed like regular posts and thus may contain HTML.</span>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="submitend"><input type="submit" name="save" value="Save changes"></p>
               </div>
             </div>
 
