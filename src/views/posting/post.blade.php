@@ -32,8 +32,6 @@ if (isset($forum) || (isset($post) && $post->isFirstPostOfTopic())) {
 
 ?>
         <label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_subject" class="longinput" size="80" value="{{ Input::old('req_subject', $defaultSubject) }}" /><br /></label>
-<?php endif; ?>
-
         <label class="required"><strong>{{ trans('fluxbb::common.message') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /></label>
         <textarea name="req_message" id="req_message" cols="95" rows="20">{{ isset($post) ? $post->message : '' }}</textarea><br /></label>
         <ul class="bblinks">
