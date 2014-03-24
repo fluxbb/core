@@ -14,18 +14,13 @@ View::composer('fluxbb::layout.main', function ($view) {
          ->with('announcement', '');
 });
 
-View::composer('fluxbb::auth.login', function ($view) {
-    $redirect_url = Session::get('login_redirect', route('index'));
-    $view->with('redirect_url', $redirect_url);
-});
-
 View::composer('fluxbb::user.profile.menu', function ($view) {
     $items = array(
-        'essentials'	=> 'Essentials',
-        'personal'		=> 'Personal',
-        'personality'	=> 'Personality',
-        'display'		=> 'Display',
-        'privacy'		=> 'Privacy',
+        'essentials'    => 'Essentials',
+        'personal'      => 'Personal',
+        'personality'   => 'Personality',
+        'display'       => 'Display',
+        'privacy'       => 'Privacy',
     );
 
     if (Auth::check() && Auth::user()->isAdmin()) {
