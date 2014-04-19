@@ -2,15 +2,8 @@
 
 namespace FluxBB\Controllers;
 
-use FluxBB\Models\Config;
-use FluxBB\Models\Group;
-use FluxBB\Models\User;
-use Auth;
 use Input;
 use Redirect;
-use Request;
-use Session;
-use Validator;
 use View;
 
 class AuthController extends BaseController
@@ -23,9 +16,10 @@ class AuthController extends BaseController
 
     public function getLogout()
     {
-        Auth::logout();
+        $this->action('logout')->logout();
+
         return Redirect::route('index')
-            ->with('message', trans('fluxbb::login.message_logout'));
+            ->withMessage(trans('fluxbb::login.message_logout'));
     }
 
     public function getLogin()
@@ -35,21 +29,18 @@ class AuthController extends BaseController
 
     public function postLogin()
     {
-        $loginData = array(
-            'username'  => Input::get('req_username'),
-            'password'  => Input::get('req_password'),
-        );
+        $username = Input::get('req_username');
+        $password = Input::get('req_password');
+        $remember = Input::has('save_pass');
 
-        if (Auth::attempt($loginData, Input::has('save_pass'))) {
+        $login = $this->action('login');
+        $login->login($username, $password, $remember);
+
+        if ($login->succeeded()) {
             return Redirect::intended(route('index'))
-                ->with('message', 'You were successfully logged in.');
+                ->withMessage('You were successfully logged in.');
         } else {
-            $errors = new \Illuminate\Support\MessageBag;
-            $errors->add('login', 'Invalid username / password combination.');
-
-            return Redirect::route('login')
-                ->withInput(Input::get())
-                ->with('errors', $errors);
+            return $this->handleErrors('getLogin', $login);
         }
     }
 
@@ -60,49 +51,14 @@ class AuthController extends BaseController
 
     public function postRegister()
     {
-        $rules = array(
-            'user'      => 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',
-        );
+        $registration = $this->action('register');
+        $registration->register(Input::all());
 
-        // If email confirmation is enabled
-        if (Config::enabled('o_regs_verify')) {
-            $rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
+        if ($registration->succeeded()) {
+            return Redirect::route('index')
+                ->withMessage(trans('fluxbb::register.reg_complete'));
         } else {
-            $rules['password'] = 'required|min:4|confirmed';
-            $rules['email'] = 'required|email|unique:users,email';
+            return $this->handleErrors('getRegister', $registration);
         }
-
-        // Agree to forum rules
-        if (Config::enabled('o_rules')) {
-            $rules['rules'] = 'accepted';
-        }
-
-        $validation = Validator::make(Input::get(), $rules);
-        if ($validation->fails()) {
-            return Redirect::route('register')
-                ->withInput(Input::get())
-                ->with('errors', $validation->messages());
-        }
-
-        $user_data = array(
-            'username'          => Input::get('user'),
-            'group_id'          => Config::get('o_default_user_group'),
-            'password'          => Input::get('password'),
-            'email'             => Input::get('email'),
-            'email_setting'     => Config::get('o_default_email_setting'),
-            'timezone'          => Config::get('o_default_timezone'),
-            'dst'               => Config::get('o_default_dst'),
-            'language'          => Config::get('o_default_lang'),
-            'style'             => Config::get('o_default_style'),
-            'registration_ip'   => Request::getClientIp(),
-            'last_visit'        => Request::server('REQUEST_TIME', time()),
-        );
-        $user = User::create($user_data);
-
-        // Notify the user about his new account!
-        $user->sendWelcomeMail();
-
-        return Redirect::route('index')
-            ->with('message', trans('fluxbb::register.reg_complete'));
     }
 }
