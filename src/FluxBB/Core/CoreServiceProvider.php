@@ -35,6 +35,17 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerBindings();
+        $this->registerViewComposers();
+    }
+
+    /**
+     * Register the IoC container bindings.
+     *
+     * @return void
+     */
+    protected function registerBindings()
+    {
         $this->app->bind('FluxBB\Models\GroupRepositoryInterface', function ($app) {
             return new GroupRepository($app['cache']);
         });
@@ -42,6 +53,16 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind('FluxBB\Models\ConfigRepositoryInterface', function ($app) {
             return new ConfigRepository($app['cache']);
         });
+    }
+
+    /**
+     * Register any view composers.
+     *
+     * @return void
+     */
+    protected function registerViewComposers()
+    {
+        $this->app['view']->composer('fluxbb::layout.main', 'FluxBB\View\AlertsComposer');
     }
 
     /**

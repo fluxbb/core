@@ -2,7 +2,11 @@
 
 <div id="brdmain">
 
-@yield('alerts')
+@if (isset($message))
+    <div class="alert alert-info">
+        {{{ $message }}}
+    </div>
+@endif
 
 @yield('main')
 
