@@ -41,10 +41,26 @@ class ConfigRepository implements ConfigRepositoryInterface
         $this->loaded = true;
     }
 
+    public function get($key)
+    {
+        $this->loadData();
+        return $this->data[$key];
+    }
+
     public function set($key, $value)
     {
         $this->loadData();
         $this->data[$key] = $value;
+    }
+
+    public function isEnabled($key)
+    {
+        return $this->get('o_'.$key) === '1';
+    }
+
+    public function isDisabled($key)
+    {
+        return $this->get('o_'.$key) === '0';
     }
 
     public function save()
@@ -56,8 +72,8 @@ class ConfigRepository implements ConfigRepositoryInterface
         foreach ($changed as $name => $value) {
             if (!array_key_exists($name, $this->original)) {
                 $insert_values[] = array(
-                    'conf_name'		=> $name,
-                    'conf_value'	=> $value,
+                    'conf_name'     => $name,
+                    'conf_value'    => $value,
                 );
 
                 unset($changed[$name]);

@@ -56,10 +56,10 @@ if ($footer_style == 'index') {
 }
 */
 ?>
-    <p id="poweredby">{{{ trans('fluxbb::common.powered_by', array('link' => '<a href="http://fluxbb.org/">FluxBB</a>'.(FluxBB\Models\Config::get('o_show_version') == '1' ? ' '.FluxBB\Models\Config::get('o_cur_version') : ''))) }}}</p>
+    <p id="poweredby">{{ $powered_by }}</p>
 </div>
 <!-- end board footer -->
-	
+
 </div>
 <!-- end forum container -->
 
