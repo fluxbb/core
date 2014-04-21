@@ -16,7 +16,7 @@ class PostsController extends BaseController implements
 {
     public function postReply($tid)
     {
-        $topic = $this->topics->find($tid); // TODO: 404?
+        $topic = $this->topics->findOrFail($tid);
 
         $service = new CreateReply($this, $this->topics);
         return $service->createReply($topic, Auth::user(), Input::get('req_message'));
