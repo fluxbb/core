@@ -66,8 +66,7 @@ abstract class Base implements MessageProviderInterface
         $arguments = func_get_args();
         $arguments[0] = $this;
 
-        foreach ($this->handlers[$type] as $handler)
-        {
+        foreach ($this->handlers[$type] as $handler) {
             call_user_func_array($handler, $arguments);
         }
     }

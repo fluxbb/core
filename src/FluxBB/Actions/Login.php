@@ -21,7 +21,7 @@ class Login extends Base
             'password' => $password,
         );
 
-        if ( ! $this->auth->attempt($credentials, $remember)) {
+        if (! $this->auth->attempt($credentials, $remember)) {
             $this->addError('Invalid username / password combination');
         }
     }
