@@ -52,7 +52,7 @@ class Register extends Base
     protected function getValidationRules()
     {
         $rules = array(
-            'user'      => 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|not_censored|unique:users,username|username_not_banned',
+            'user'      => 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|unique:users,username|username_not_banned',
         );
 
         // If email confirmation is enabled

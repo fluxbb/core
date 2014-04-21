@@ -44,14 +44,14 @@ class PostingController extends BaseController
 
         // TODO: Flood protection
         $rules = array(
-            // TODO: PUN_MAX_POSTSIZE, censor, All caps message
-            'req_message'		=> 'required',
+            // TODO: PUN_MAX_POSTSIZE, All caps message
+            'req_message'       => 'required',
         );
         // TODO: More validation
 
         if (Auth::guest()) {
             if (Config::enabled('p_force_guest_email') || Input::get('email') != '') {
-                $rules['req_email']	= 'required|email';
+                $rules['req_email'] = 'required|email';
             }
 
             // TODO: banned email
@@ -63,13 +63,13 @@ class PostingController extends BaseController
         }
 
         $post_data = array(
-            'poster'			=> User::current()->username,
-            'poster_id'			=> User::current()->id,
-            'poster_ip'			=> Request::getClientIp(),
-            'message'			=> Input::get('req_message'),
-            'hide_smilies'		=> Input::has('hide_smilies') ? '1' : '0',
-            'posted'			=> time(), // TODO: Use SERVER_TIME
-            'topic_id'			=> $tid
+            'poster'            => User::current()->username,
+            'poster_id'         => User::current()->id,
+            'poster_ip'         => Request::getClientIp(),
+            'message'           => Input::get('req_message'),
+            'hide_smilies'      => Input::has('hide_smilies') ? '1' : '0',
+            'posted'            => time(), // TODO: Use SERVER_TIME
+            'topic_id'          => $tid
         );
 
         if (Auth::guest()) {
@@ -143,16 +143,16 @@ class PostingController extends BaseController
 
         // TODO: Flood protection
         $rules = array(
-            // TODO: censored words, All caps subject
-            'req_subject'	=> 'required|max:70',
-            // TODO: PUN_MAX_POSTSIZE, censor, All caps message
-            'req_message'	=> 'required',
+            // TODO: All caps subject
+            'req_subject'   => 'required|max:70',
+            // TODO: PUN_MAX_POSTSIZE, All caps message
+            'req_message'   => 'required',
         );
         // TODO: More validation
 
         if (Auth::guest()) {
             if (Config::enabled('p_force_guest_email') || Input::get('email') != '') {
-                $rules['req_email']	= 'required|email';
+                $rules['req_email'] = 'required|email';
             }
 
             // TODO: banned email
@@ -166,13 +166,13 @@ class PostingController extends BaseController
         }
 
         $topic_data = array(
-            'poster'			=> User::current()->username,
-            'subject'			=> Input::get('req_subject'),
-            'posted'			=> time(),
-            'last_post'			=> time(), // TODO: Use REQUEST_TIME!
-            'last_poster'		=> User::current()->username,
-            'sticky'			=> Input::has('stick_topic') ? '1' : '0',
-            'forum_id'			=> $fid,
+            'poster'            => User::current()->username,
+            'subject'           => Input::get('req_subject'),
+            'posted'            => time(),
+            'last_post'         => time(), // TODO: Use REQUEST_TIME!
+            'last_poster'       => User::current()->username,
+            'sticky'            => Input::has('stick_topic') ? '1' : '0',
+            'forum_id'          => $fid,
         );
 
         if (Auth::guest()) {
@@ -186,13 +186,13 @@ class PostingController extends BaseController
         $topic->subscribe(Input::get('subscribe'));
 
         $post_data = array(
-            'poster'			=> User::current()->username,
-            'poster_id'			=> User::current()->id,
-            'poster_ip'			=> '127.0.0.1', // TODO: Get IP from request
-            'message'			=> Input::get('req_message'),
-            'hide_smilies'		=> Input::has('hide_smilies') ? '1' : '0',
-            'posted'			=> time(), // TODO: Use REQUEST_TIME
-            'topic_id'			=> $topic->id
+            'poster'            => User::current()->username,
+            'poster_id'         => User::current()->id,
+            'poster_ip'         => '127.0.0.1', // TODO: Get IP from request
+            'message'           => Input::get('req_message'),
+            'hide_smilies'      => Input::has('hide_smilies') ? '1' : '0',
+            'posted'            => time(), // TODO: Use REQUEST_TIME
+            'topic_id'          => $topic->id
         );
 
         if (Auth::guest()) {
@@ -270,8 +270,8 @@ class PostingController extends BaseController
 
         // TODO: Flood protection
         $rules = array(
-            // TODO: PUN_MAX_POSTSIZE, censor, All caps message
-            'req_message'		=> 'required',
+            // TODO: PUN_MAX_POSTSIZE, All caps message
+            'req_message'       => 'required',
         );
 
         // if the post if the first of the topic, the title is editable too
@@ -285,10 +285,10 @@ class PostingController extends BaseController
         }
 
         $post_data = array(
-            'message'			=> Input::get('req_message'),
-            'hide_smilies'		=> Input::has('hide_smilies') ? '1' : '0',
-            'edited'			=> time(), // TODO: Use SERVER_TIME
-            'edited_by'			=> User::current()->username
+            'message'           => Input::get('req_message'),
+            'hide_smilies'      => Input::has('hide_smilies') ? '1' : '0',
+            'edited'            => time(), // TODO: Use SERVER_TIME
+            'edited_by'         => User::current()->username
         );
 
         // update the post

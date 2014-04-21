@@ -51,13 +51,12 @@
                         <ul class="nav">
                             <li><a href="/content/forums/"><i class="icon-cog"></i> Forums</a></li>
                             <li><a href="/content/bbcode/"><i class="icon-code"></i> BBCode</a></li>
-                            <li><a href="/content/censoring/"><i class="icon-microphone-off"></i> Censoring</a></li>
-                            <!--<li><a href="/content/reports/"><i class="icon-flag"></i> Spam / Reports</a></li>-->
+                            <li><a href="/content/reports/"><i class="icon-flag"></i> Spam / Reports</a></li>
                         </ul>
-                        <!--<ul class="nav pull-right">
+                        <ul class="nav pull-right">
                             <li><a href="/content/"><i class="icon-plus"></i> Add new forum</a></li>
                             <li><a href="/content/"><i class="icon-plus"></i> Add new category</a></li>
-                        </ul>-->
+                        </ul>
                     </li>
                     <li id="subnav-users"<?php echo (in_array('users', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">

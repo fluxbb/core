@@ -1,7 +1,6 @@
 <?php
 
 use FluxBB\Models\Ban;
-use FluxBB\Models\Censor;
 use FluxBB\Models\Config;
 
 Validator::extend('email_not_banned', function ($attribute, $value, $parameters) {
@@ -46,12 +45,4 @@ Validator::extend('no_ip', function ($attribute, $value, $parameters) {
 
 Validator::extend('no_bbcode', function ($attribute, $value, $parameters) {
     return !preg_match('%(?:\[/?(?:b|u|s|ins|del|em|i|h|colou?r|quote|code|img|url|email|list|\*|topic|post|forum|user)\]|\[(?:img|url|quote|list)=)%i', $value);
-});
-
-Validator::extend('not_censored', function ($attribute, $value, $parameters) {
-    if (Config::disabled('o_censoring')) {
-        return true;
-    }
-
-    return Censor::isClean($username);
 });

@@ -62,7 +62,6 @@
                                                 <select multiple class="form-control col-md-4">
                                                     <option value="bans">bans</option>
                                                     <option value="categories">categories</option>
-                                                    <option value="censoring">censoring</option>
                                                     <option value="config">config</option>
                                                     <option value="forums">forums</option>
                                                     <option value="forum_perms">forum_perms</option>
