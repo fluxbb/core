@@ -49,6 +49,7 @@ class Users extends Migration
             $table->string('admin_note', 30)->nullable();
             $table->string('activate_string', 80)->nullable();
             $table->string('activate_key', 8)->nullable();
+            $table->string('remember_token')->nullable();
 
             $table->unique('username');
             $table->index('registered');
