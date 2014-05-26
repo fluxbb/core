@@ -2,11 +2,14 @@
 
 namespace FluxBB\Actions;
 
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Illuminate\Support\Contracts\ArrayableInterface;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
 
-abstract class Base implements MessageProviderInterface
+abstract class Base implements HttpKernelInterface, MessageProviderInterface
 {
     protected $handlers = array();
 
@@ -29,6 +32,44 @@ abstract class Base implements MessageProviderInterface
         return ! empty($this->errors);
     }
 
+    protected function handleRequest(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Turn a request object into a response.
+     *
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param  int  $type
+     * @param  bool  $catch
+     * @return \Illuminate\Html\Response
+     */
+    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
+    {
+        $this->callHandlers('before');
+        $this->handleRequest($request);
+
+        $this->run();
+
+        $response = $this->makeResponse();
+        $this->callHandlers('after');
+
+        return $response;
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    abstract protected function makeResponse();
+
+    /**
+     * Run the action and return a response for the user.
+     *
+     * @return void
+     */
+    abstract protected function run();
+
     protected function addError($error)
     {
         $this->errors[] = $error;
@@ -44,6 +85,16 @@ abstract class Base implements MessageProviderInterface
     public function getErrors()
     {
         return new MessageBag($this->errors);
+    }
+
+    public function before($callback)
+    {
+        $this->registerHandler('before', $callback);
+    }
+
+    public function after($callback)
+    {
+        $this->registerHandler('after', $callback);
     }
 
     public function onSuccess($callback)
@@ -63,11 +114,13 @@ abstract class Base implements MessageProviderInterface
 
     protected function callHandlers($type)
     {
-        $arguments = func_get_args();
-        $arguments[0] = $this;
+        if (isset($this->handlers[$type])) {
+            $arguments = func_get_args();
+            $arguments[0] = $this;
 
-        foreach ($this->handlers[$type] as $handler) {
-            call_user_func_array($handler, $arguments);
+            foreach ($this->handlers[$type] as $handler) {
+                call_user_func_array($handler, $arguments);
+            }
         }
     }
 

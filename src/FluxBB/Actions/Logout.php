@@ -14,7 +14,21 @@ class Logout extends Base
         $this->auth = $auth;
     }
 
-    public function logout()
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    protected function makeResponse()
+    {
+        return \Redirect::route('index')
+            ->withMessage(trans('fluxbb::login.message_logout'));
+    }
+
+    /**
+     * Run the logout action.
+     *
+     * @return void
+     */
+    protected function run()
     {
         $this->auth->logout();
     }

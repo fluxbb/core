@@ -34,24 +34,26 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'as'	=> 'register',
         'uses'	=> 'FluxBB\Controllers\AuthController@getRegister',
     ));
-    Route::post('register', array(
-        'uses'	=> 'FluxBB\Controllers\AuthController@postRegister',
-    ));
+
+    $actionRoute = function($actionClass) {
+        return function() use ($actionClass) {
+            $action = App::make($actionClass);
+            return $action->handle(app('request'));
+        };
+    };
+
+    Route::post('register', $actionRoute('FluxBB\Actions\Register'));
+
     Route::get('login', array(
         'as'	=> 'login',
         'uses'	=> 'FluxBB\Controllers\AuthController@getLogin',
     ));
-    Route::post('login', array(
-        'uses'	=> 'FluxBB\Controllers\AuthController@postLogin',
-    ));
+    Route::post('login', $actionRoute('FluxBB\Actions\Login'));
     Route::get('forgot_password.html', array(
         'as'	=> 'forgot_password',
         'uses'	=> 'FluxBB\Controllers\AuthController@getForgot',
     ));
-    Route::get('logout', array(
-        'as'	=> 'logout',
-        'uses'	=> 'FluxBB\Controllers\AuthController@getLogout',
-    ));
+    Route::get('logout', array('as' => 'logout', 'uses' => $actionRoute('FluxBB\Actions\Logout')));
     Route::get('rules', array(
         'as'	=> 'rules',
         'uses'	=> 'FluxBB\Controllers\MiscController@getRules',
