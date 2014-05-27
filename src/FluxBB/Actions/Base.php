@@ -64,11 +64,14 @@ abstract class Base implements HttpKernelInterface, MessageProviderInterface
     abstract protected function makeResponse();
 
     /**
-     * Run the action and return a response for the user.
+     * Run any desired actions.
      *
      * @return void
      */
-    abstract protected function run();
+    protected function run()
+    {
+        //
+    }
 
     protected function addError($error)
     {
