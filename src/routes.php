@@ -35,8 +35,8 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'uses'	=> 'FluxBB\Controllers\AuthController@getRegister',
     ));
 
-    $actionRoute = function($actionClass) {
-        return function() use ($actionClass) {
+    $actionRoute = function ($actionClass) {
+        return function () use ($actionClass) {
             $action = App::make($actionClass);
             return $action->handle(app('request'));
         };
