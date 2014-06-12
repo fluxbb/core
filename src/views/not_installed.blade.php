@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- begin css -->
-    <link rel="stylesheet" href="http://static.sgitcdn.com/bootstrap/v3/css/bootstrap.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
     <!-- end css -->
 
     <!-- begin js -->
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="http://static.sgitcdn.com/bootstrap/v3/js/bootstrap.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <!-- end js -->
 
 
