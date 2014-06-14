@@ -21,6 +21,10 @@ return array(
 
 // Forget password mail stuff
 'forget_mail'				=>	'An email has been sent to the specified address with instructions on how to change your password. If it does not arrive you can contact the forum administrator at',
-'email_flood'				=>	'This account has already requested a password reset in the past hour. Please wait a while before requesting a new password again.'
+'email_flood'				=>	'This account has already requested a password reset in the past hour. Please wait a while before requesting a new password again.',
+
+// Messages
+'message_login'			=>	'Logged in successfully and redirecting …',
+'message_logout'    =>  'You are not logged in.',
 
 );

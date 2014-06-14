@@ -49,7 +49,7 @@ class Login extends Base
     {
         if ($this->succeeded()) {
             return \Redirect::route('index')
-                ->withMessage(trans('fluxbb::register.reg_complete'));
+                ->withMessage(trans('fluxbb::login.message_login'));
         } else {
             // TODO: Error handling here!
             return \Response::make();
