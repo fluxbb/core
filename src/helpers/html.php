@@ -24,7 +24,7 @@ HTML::macro('avatar', function (fluxbb\Models\User $user) {
 
 HTML::macro('format_time', function ($timestamp, $date_only = false, $date_format = null, $time_format = null, $time_only = false, $no_text = false) {
     if ($timestamp == '') {
-        return trans('common.never');
+        return trans('fluxbb::common.never');
     }
 
     $diff = (0 + 0) * 3600; // FIXME: $pun_user['timezone'] + $pun_user['dst'];
@@ -45,9 +45,9 @@ HTML::macro('format_time', function ($timestamp, $date_only = false, $date_forma
 
     if (!$no_text) {
         if ($date == $today) {
-            $date = trans('common.today');
+            $date = trans('fluxbb::common.today');
         } elseif ($date == $yesterday) {
-            $date = trans('common.yesterday');
+            $date = trans('fluxbb::common.yesterday');
         }
     }
 
@@ -64,5 +64,5 @@ HTML::macro('format_time', function ($timestamp, $date_only = false, $date_forma
 // A wrapper for PHP's number_format function
 //
 HTML::macro('number_format', function ($number, $decimals = 0) {
-    return is_numeric($number) ? number_format($number, $decimals, trans('common.lang_decimal_point'), trans('common.lang_thousands_sep')) : $number;
+    return is_numeric($number) ? number_format($number, $decimals, trans('fluxbb::common.lang_decimal_point'), trans('fluxbb::common.lang_thousands_sep')) : $number;
 });

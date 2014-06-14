@@ -16,7 +16,7 @@ Route::filter('only_guests', function () {
 Route::filter('only_members', function () {
     if (!Auth::check()) {
         return Redirect::to_action('auth@login')
-            ->with('message', trans('common.login_to_view'))
+            ->with('message', trans('fluxbb::common.login_to_view'))
             ->with('login_redirect', URL::current()); // TODO: URL::current() is not yet implemented
     }
 });
