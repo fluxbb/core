@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html lang="{{ $direction }}" dir="{{ $language }}">
 
     <head>
 
-        <meta charset="utf-8">
+        <meta charset="{{ $charset }}">
 
-        <title>FluxBB | Administration</title>
+        <title>{{ $board_title }} | {{ trans('fluxbb::common.admin') }}</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -33,7 +33,7 @@
 
             <div class="container">
 
-                <p class="muted pull-right">FluxBB 2.0a2 &copy; <a href="http://fluxbb.org" target="_blank">FluxBB</a> 2013</p>
+                <p class="muted pull-right">FluxBB {{ $version }} &copy; <a href="http://fluxbb.org" target="_blank">FluxBB</a> 2013</p>
 
             </div>
 

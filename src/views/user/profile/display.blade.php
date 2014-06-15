@@ -5,12 +5,12 @@
 <div id="profile" class="block2col">
     @include('fluxbb::user.profile.menu')
     <div class="blockform">
-        <h2><span>Display</span></h2>
+        <h2><span>{{ trans('fluxbb::profile.section_display') }}</span></h2>
         <div class="box">
             <form action="{{ route('profile', array('id' => $user->id, 'action' => 'display')) }}" method="post">
                 <div class="inform">
                     <fieldset>
-                        <legend>Select your preferred style</legend>
+                        <legend>{{ trans('fluxbb::profile.style_legend') }}</legend>
                         <div class="infldset">
                             <label>Styles<br>
                             <select name="style">
@@ -31,29 +31,29 @@
                 </div>
                 <div class="inform">
                     <fieldset>
-                        <legend>Set your options for viewing posts</legend>
+                        <legend>{{ trans('fluxbb::profile.post_display_legend') }}</legend>
                         <div class="infldset">
-                            <p>If you are on a slow connection, disabling these options, particularly showing images in posts and signatures, will make pages load faster.</p>
+                            <p>{{ trans('fluxbb::profile.post_display_info') }}</p>
                             <div class="rbox">
-                                <label><input type="checkbox" name="show_smilies" value="1" checked="checked">Show smilies as graphic icons.<br></label>
-                                <label><input type="checkbox" name="show_sig" value="1" checked="checked">Show user signatures.<br></label>
-                                <label><input type="checkbox" name="show_avatars" value="1" checked="checked">Show user avatars in posts.<br></label>
-                                <label><input type="checkbox" name="show_img" value="1" checked="checked">Show images in posts.<br></label>
+                                <label><input type="checkbox" name="show_smilies" value="1" checked="checked"> {{ trans('fluxbb::profile.show_smilies') }}<br></label>
+                                <label><input type="checkbox" name="show_sig" value="1" checked="checked"> {{ trans('fluxbb::profile.show_sigs') }}<br></label>
+                                <label><input type="checkbox" name="show_avatars" value="1" checked="checked"> {{ trans('fluxbb::profile.show_avatars') }}<br></label>
+                                <label><input type="checkbox" name="show_img" value="1" checked="checked"> {{ trans('fluxbb::profile.show_images') }}<br></label>
                             </div>
                         </div>
                     </fieldset>
                 </div>
                 <div class="inform">
                     <fieldset>
-                        <legend>Enter your pagination options</legend>
+                        <legend>{{ trans('fluxbb::profile.pagination_legend') }}</legend>
                         <div class="infldset">
-                            <label class="conl">Topics<br><input type="text" name="disp_topics" value="" size="6" maxlength="3"><br></label>
-                            <label class="conl">Posts<br><input type="text" name="disp_posts" value="" size="6" maxlength="3"><br></label>
-                            <p class="clearb">Enter the number of topics and posts you wish to view on each page. Leave blank to use forum default.</p>
+                            <label class="conl">{{ trans('fluxbb::profile.topics_per_page') }}<br><input type="text" name="disp_topics" value="" size="6" maxlength="3"><br></label>
+                            <label class="conl">{{ trans('fluxbb::profile.posts_per_page') }}<br><input type="text" name="disp_posts" value="" size="6" maxlength="3"><br></label>
+                            <p class="clearb">{{ trans('fluxbb::profile.paginate_info') }}</p>
                         </div>
                     </fieldset>
                 </div>
-                <p class="buttons"><input type="submit" value="Submit" /> When you update your profile, you will be redirected back to this page.</p>
+                <p class="buttons"><input type="submit" value="{{ trans('fluxbb::common.submit') }}" /> {{ trans('fluxbb::profile.instructions') }}</p>
             </form>
         </div>
     </div>

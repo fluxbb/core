@@ -1,10 +1,12 @@
 <?php
 
 use FluxBB\Models\Config;
+use FluxBB\Core;
 
 View::composer('fluxbb::layout.main', function ($view) {
-    $view->with('language', 'en')
-         ->with('direction', 'ltr')
+    $view->with('language', trans('fluxbb::common.lang_identifier'))
+         ->with('direction', trans('fluxbb::common.lang_direction'))
+         ->with('charset', \Config::get('fluxbb.database.charset'))
          ->with('head', '')
          ->with('page', 'index')
          ->with('board_title', Config::get('o_board_title'))
@@ -16,15 +18,15 @@ View::composer('fluxbb::layout.main', function ($view) {
 
 View::composer('fluxbb::user.profile.menu', function ($view) {
     $items = array(
-        'essentials'    => 'Essentials',
-        'personal'      => 'Personal',
-        'personality'   => 'Personality',
-        'display'       => 'Display',
-        'privacy'       => 'Privacy',
+        'essentials'    => trans('fluxbb::profile.section_essentials'),
+        'personal'      => trans('fluxbb::profile.section_personal'),
+        'personality'   => trans('fluxbb::profile.section_personality'),
+        'display'       => trans('fluxbb::profile.section_display'),
+        'privacy'       => trans('fluxbb::profile.section_privacy')
     );
 
     if (Auth::check() && Auth::user()->isAdmin()) {
-        $items['admin'] = 'Administration';
+        $items['admin'] = trans('fluxbb::profile.section_admin');
     }
 
     // TODO: Determine current action
@@ -32,7 +34,11 @@ View::composer('fluxbb::user.profile.menu', function ($view) {
          ->with('items', $items);
 });
 
-View::composer('fluxbb::admin.layout.header', function ($view) {
-    $view->with('board_title', Config::get('o_board_title'))
-         ->with('board_description', Config::get('o_board_desc'));
+View::composer('fluxbb::admin.layout.main', function ($view) {
+    $view->with('language', trans('fluxbb::common.lang_identifier'))
+         ->with('direction', trans('fluxbb::common.lang_direction'))
+         ->with('charset', \Config::get('fluxbb.database.charset'))
+         ->with('board_title', Config::get('o_board_title'))
+         ->with('board_description', Config::get('o_board_desc'))
+         ->with('version', Core::version());
 });
