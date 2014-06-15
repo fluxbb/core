@@ -1,5 +1,5 @@
 <div class="blockmenu">
-    <h2><span>Profile menu</span></h2>
+    <h2><span>{{ trans('fluxbb::profile.profile_menu') }}</span></h2>
     <div class="box">
         <div class="inbox">
             <ul>
