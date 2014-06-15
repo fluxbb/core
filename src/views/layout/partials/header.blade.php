@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ $language }}" lang="{{ $language }}" dir="{{ $direction }}">
 <head>
 	<title>{{ $board_title }} - {{ $board_description }}</title>
 
 	<!-- begin meta tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset={{ $charset }}" />
 	<!-- end meta tags --> 
 		
 	<!-- begin css -->
@@ -47,7 +47,7 @@
 				</div>
 
 				<nav class="menu">
-					<h3 class="username pull-left">{{ Auth::user()->username }} <a href="edit-profile.html"><span class="edit-profile">Edit Profile</span></a></h3>
+					<h3 class="username pull-left">{{ Auth::user()->username }} <a href="{{ URL::route('profile', array('id' => Auth::user()->id)) }}"><span class="edit-profile">Edit Profile</span></a></h3>
 						<ul class="nav nav-pills pull-right">
 							<li><a href="searched.html">Posted</a></li>
 							<li><a href="searched.html">New</a></li>
