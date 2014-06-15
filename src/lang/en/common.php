@@ -47,7 +47,7 @@ return array(
 'username'							=>	'Username',
 'password'							=>	'Password',
 'email'								=>	'Email',
-'send_email'						=>	'Send email',
+'default'					=>	'Default',
 'moderated_by'						=>	'Moderated by',
 'registered'						=>	'Registered',
 'subject'							=>	'Subject',

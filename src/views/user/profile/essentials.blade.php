@@ -5,38 +5,38 @@
 <div id="profile" class="block2col">
     @include('fluxbb::user.profile.menu')
     <div class="blockform">
-        <h2><span>Essentials</span></h2>
+        <h2><span>{{ trans('fluxbb::profile.section_essentials') }}</span></h2>
         <div class="box">
             <form action="{{ route('profile', array('id' => $user->id, 'action' => 'essentials')) }}" method="post">
                 <div class="inform">
                     <fieldset>
-                        <legend>Enter your username and password</legend>
+                        <legend>{{ trans('fluxbb::profile.username_and_pass_legend') }}</legend>
                         <div class="infldset">
                             <input type="hidden" name="form_sent" value="1">
-                            <label class="required"><strong>Username <span>(Required)</span></strong><br>
+                            <label class="required"><strong>{{ trans('fluxbb::profile.username') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br>
                             @if ($user->isAdmin())
                                 <input type="text" name="username" size="25" maxlength="25" value="{{ $user->username }}" />
                             @else {{ $user->username }}
                             @endif
                             <br></label>
-                            <p class="actions"><span><a href="#">Change password</a></span></p>
+                            <p class="actions"><span><a href="#">{{ trans('fluxbb::profile.change_password') }}</a></span></p>
                         </div>
                     </fieldset>
                 </div>
                 <div class="inform">
                     <fieldset>
-                        <legend>Enter a valid email address</legend>
+                        <legend>{{ trans('fluxbb::profile.email_legend') }}</legend>
                         <div class="infldset">
-                            <label class="required"><strong>Email <span>(Required)</span></strong><br><input type="text" name="email" size="40" maxlength="80" value="{{ $user->email }}" /><br></label><p><span class="email"><a href="misc.php?email=2">Send email</a></span></p>
+                            <label class="required"><strong>{{ trans('fluxbb::profile.email') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br><input type="text" name="email" size="40" maxlength="80" value="{{ $user->email }}" /><br></label><p><span class="email"><a href="misc.php?email=2">{{ trans('fluxbb::profile.send_email') }}</a></span></p>
                         </div>
                     </fieldset>
                 </div>
                 <div class="inform">
                     <fieldset>
-                        <legend>Set your localisation options</legend>
+                        <legend>{{ trans('fluxbb::profile.localisation_legend') }}</legend>
                         <div class="infldset">
-                            <p>For the forum to display times correctly you must select your local time zone. If Daylight Savings Time is in effect you should also check the option provided which will advance times by 1 hour.</p>
-                            <label>Time zone
+                            <p>{{ trans('fluxbb::profile.time_zone_info') }}</p>
+                            <label>{{ trans('fluxbb::profile.time_zone') }}
                             <br><select name="timezone">
                                 <option value="-12">(UTC-12:00) International Date Line West</option>
                                 <option value="-11">(UTC-11:00) Niue, Samoa</option>
@@ -81,19 +81,19 @@
                             </select>
                             <br></label>
                             <div class="rbox">
-                                <label><input type="checkbox" name="dst" value="1">Daylight Savings Time is in effect (advance time by 1 hour).<br></label>
+                                <label><input type="checkbox" name="dst" value="1"> {{ trans('fluxbb::profile.dst') }}<br></label>
                             </div>
-                            <label>Time format
+                            <label>{{ trans('fluxbb::profile.time_format') }}
                             <br><select name="time_format">
-                                <option value="0" selected="selected">{{ date('h:i:s') }} (Default)</option>
+                                <option value="0" selected="selected">{{ date('h:i:s') }} {{ trans('fluxbb::common.default') }} / (Default)</option>
                                 <option value="2">{{date('h:i') }}</option>
                                 <option value="3">{{date('g:i:s a') }}</option>
                                 <option value="4">{{date('g:i a') }}</option>
                             </select>
                             <br></label>
-                            <label>Date format
+                            <label>{{ trans('fluxbb::profile.date_format') }}
                             <br><select name="date_format">
-                                <option value="0" selected="selected">{{ date("Y-m-d") }} (Default)</option>
+                                <option value="0" selected="selected">{{ date("Y-m-d") }} {{ trans('fluxbb::common.default') }} / (Default)</option>
                                 <option value="2">{{ date("Y-d-m") }}</option>
                                 <option value="3">{{ date("d-m-Y") }}</option>
                                 <option value="4">{{ date("m-d-Y") }}</option>
@@ -107,22 +107,22 @@
                 </div>
                 <div class="inform">
                     <fieldset>
-                        <legend>User activity</legend>
+                        <legend>{{ trans('fluxbb::profile.user_activity') }}</legend>
                         <div class="infldset">
-                            <p>Registered: {{ HTML::format_time($user->registered, true, "Y-m-d") }}</p>
-                            <p>Last post: {{ HTML::format_time($user->last_post) }}</p>
-                            <p>Last visit: {{ HTML::format_time($user->last_visit) }}</p>
-                            <label>Posts: {{ $user->num_posts }}<br></label><p class="actions">
+                            <p>{{ $user_infos['registered'] }}</p>
+                            <p>{{ $user_infos['last_post'] }}</p>
+                            <p>{{ $user_infos['last_visit'] }}</p>
+                            <label>{{ $user_infos['num_posts'] }}<br></label><p class="actions">
                             {{--- TODO: add input field for posts when admin + add links to controller actions --}}
-                            <a href="search.php?action=show_user_topics&amp;user_id=2">Show all topics</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">Show all posts</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">Show all subscriptions</a></p>
+                            <a href="search.php?action=show_user_topics&amp;user_id=2">{{ trans('fluxbb::profile.show_topics') }}</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">{{ trans('fluxbb::profile.show_posts') }}</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">{{ trans('fluxbb::profile.show_subscriptions') }}</a></p>
                             @if ($user->isAdmin())
-                            <label>Admin note<br>
+                            <label>{{ trans('fluxbb::profile.admin_note') }}<br>
                             <input type="text" name="admin_note" size="30" maxlength="30" value="{{ $user->admin_note }}" /><br></label>
                             @endif
                         </div>
                     </fieldset>
                 </div>
-                <p class="buttons"><input type="submit" name="update" value="Submit" /> When you update your profile, you will be redirected back to this page.</p>
+                <p class="buttons"><input type="submit" name="update" value="{{ trans('fluxbb::common.submit') }}" /> {{ trans('fluxbb::profile.instructions') }}</p>
             </form>
         </div>
     </div>
