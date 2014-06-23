@@ -78,8 +78,7 @@ class Register extends Base
         );
         $user = User::create($userData);
 
-        // Notify the user about his new account!
-        $user->sendWelcomeMail();
+        $this->trigger('user.registered', array($user));
     }
 
     /**

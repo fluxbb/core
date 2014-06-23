@@ -197,25 +197,6 @@ class User extends Base implements UserInterface
         // TODO: Maybe reset some attributes like confirmation code here?
     }
 
-    public function sendWelcomeMail()
-    {
-        $user = $this;
-
-        $data = array(
-            'board_mailer'	=> Config::get('o_board_title'),
-            'base_url'		=> route('index'),
-            'user'			=> $user,
-            'login_url'		=> route('login'),
-        );
-
-        Mail::plain('fluxbb:mail::welcome', $data, function ($mail) use ($user) {
-            $subject = trans('fluxbb::register.mail_welcome_subject', array(':board' => Config::get('o_board_title')));
-
-            $mail->to($user->email)
-                 ->subject($subject);
-        });
-    }
-
 
     public function getAuthIdentifier()
     {

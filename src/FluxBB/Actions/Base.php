@@ -102,6 +102,11 @@ abstract class Base implements HttpKernelInterface, MessageProviderInterface
         return new MessageBag($this->errors);
     }
 
+    public function trigger($event, $arguments = [])
+    {
+        \Event::fire($event, $arguments);
+    }
+
     public function before($callback)
     {
         $this->registerHandler('before', $callback);

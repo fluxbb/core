@@ -37,6 +37,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->registerBindings();
         $this->registerViewComposers();
+        $this->registerEventHandlers();
     }
 
     /**
@@ -66,6 +67,18 @@ class CoreServiceProvider extends ServiceProvider
 
         $view->composer('fluxbb::layout.main', 'FluxBB\View\AlertsComposer');
         $view->composer('fluxbb::layout.partials.footer', 'FluxBB\View\FooterComposer');
+    }
+
+    /**
+     * Register any event handlers.
+     *
+     * @return void
+     */
+    protected function registerEventHandlers()
+    {
+        $events = $this->app['events'];
+
+        $events->listen('user.registered', 'FluxBB\Handlers\UserRegistered');
     }
 
     /**
