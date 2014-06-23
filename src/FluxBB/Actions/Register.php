@@ -60,7 +60,7 @@ class Register extends Base
         $validation = $this->validator->make($this->input, $rules);
 
         if ($validation->fails()) {
-            return $this->mergeErrors($validation);
+            return $this->mergeErrors($validation->errors());
         }
 
         $userData = array(
