@@ -91,7 +91,7 @@ class Register extends Base
             return \Redirect::route('index')
                 ->withMessage(trans('fluxbb::register.reg_complete'));
         } else {
-            return \Redirect::route('login')
+            return \Redirect::route('register')
                 ->withInput()
                 ->withErrors($this);
         }
