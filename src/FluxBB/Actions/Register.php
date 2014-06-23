@@ -39,6 +39,8 @@ class Register extends Base
         if (Config::enabled('o_rules')) {
             $rules['rules'] = 'accepted';
         }
+
+        return $rules;
     }
 
     protected function handleRequest(Request $request)
