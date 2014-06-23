@@ -1699,3 +1699,30 @@ a, a:hover, a:focus, a:active {
 	margin-top: 1em;
 	padding: 1em 1em 2em 1em;
 }
+
+/*
+ * ERRORS
+ */
+
+.error {
+	margin: 100px auto;
+	width: 400px;
+}
+
+.error * {
+	text-align: center;
+}
+
+.error h2 {
+	position: relative;
+}
+
+#error-404 h2:before {
+	position: absolute;
+	width: 40px;
+	top: -60px;
+	left: 180px;
+	font-size: 40px;
+	font-weight: bold;
+	content: ":(";
+}
