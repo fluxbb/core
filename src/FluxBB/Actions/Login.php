@@ -51,8 +51,9 @@ class Login extends Base
             return \Redirect::route('index')
                 ->withMessage(trans('fluxbb::login.message_login'));
         } else {
-            // TODO: Error handling here!
-            return \Response::make();
+            return \Redirect::route('login')
+                ->withInput()
+                ->withErrors($this);
         }
     }
 }
