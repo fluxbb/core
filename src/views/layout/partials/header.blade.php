@@ -80,7 +80,7 @@
 				@if (FluxBB\Models\User::current()->isAdmin())
 				<li id="navadmin"><a href="{{ route('admin') }}">{{ trans('fluxbb::common.admin') }}</a></li>
 				@endif
-				<li id="navprofile"><a href="profile.html">Profile</a></li>
+				<li id="navprofile"><a href="{{ URL::route('profile', array('id' => FluxBB\Models\User::current()->id)) }}">Profile</a></li>
 				<li id="navlogout"><a href="{{ URL::route('logout') }}">Logout</a></li>
 			</ul>
 			@else
