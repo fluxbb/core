@@ -7,7 +7,6 @@ use FluxBB\Models\ConfigRepositoryInterface;
 
 class UserRegistered
 {
-
     protected $mailer;
 
     protected $config;
@@ -40,6 +39,4 @@ class UserRegistered
             $mail->to($user->email)->subject($subject);
         });
     }
-
 }
-
