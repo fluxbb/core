@@ -2,87 +2,117 @@
 
 @section('main')
 
-<a href="{{ route('reply', array('id' => $topic->id)) }}">{{ trans('fluxbb::topic.post_reply') }}</a>
-
 <?php $post_count = 0; ?>
 
-<!-- TODO: Maybe use "render_each" here? (What about counting?) -->
-@foreach ($topic->posts as $post)
-<?php
-
-$post_count++;
-$post_classes = 'row';
-if ($post->id == $topic->first_post_id) {
-    $post_classes .= ' firstpost';
-}
-if ($post_count == 1) {
-    $post_classes .= ' blockpost1';
-}
-
-?>
-<div id="p{{ $post->id }}">
-    <h2><a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a></h2>
-    <dl>
-    @if (fluxbb\Models\User::current()->canViewUsers())
-        <dt><strong><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{ ($post->author->username) }}</a></strong></dt>
-    @else
-        <dt><strong>{{ ($post->author->username) }}</strong></dt><!-- TODO: linkify if logged in and g_view_users is enabled for this group -->
-    @endif
-        <dd class="usertitle"><strong>{{ ($post->author->title()) }}</strong></dd>
-    @if ($post->author->hasAvatar())
-        <dd class="postavatar">{{ ($post->author->avatar) }}</dd>{{-- TODO: HTML::avatar() --}}
-    @endif
-    @if ($post->author->hasLocation()) <!-- TODO: and if user is allowed to view this (logged in and show_user_info -->
-        <dd>{{ trans('fluxbb::topic.from', array('name' => ($post->author->location))) }}</dd>
-    @endif
-        <dd>{{ trans('fluxbb::topic.registered', array('time' => HTML::format_time($post->author->registered))) }}</dd>
-        <dd>{{ trans('fluxbb::topic.posts', array('count' => HTML::number_format($post->author->num_posts))) }}</dd>
-        <dd><a href="get_host_for_pid" title="{{ $post->author->ip }}">{{ trans('fluxbb::topic.ip_address_logged') }}</a></dd>
-    @if ($post->author->hasAdminNote())
-        <dd>{{ trans('fluxbb::topic.note') }} <strong>{{ ($post->author->admin_note) }}</strong></dd>
-    @endif
-
-        <dd class="usercontacts">
-            <span class="email"><a href="mailto:{{ $post->author->email }}">{{ trans('fluxbb::common.email') }}</a></span>
-            <span class="email"><a href="{{ route('email', array('id' => $post->author->id)) }}">{{ trans('fluxbb::common.email') }}</a></span>
-    @if ($post->author->hasUrl())
-            <span class="website"><a href="{{ e($post->author->url) }}">{{ trans('fluxbb::topic.website') }}</a></span>
-    @endif
-        </dd>
-
-    </dl>
-
-    <h3>{{ ($post->id != $topic->fist_post_id) ? trans('fluxbb::topic.re').' ' : '' }}{{ $topic->subject }}</h3>
-    <div class="postmsg">
-        {{ $post->message() }}
-    @if ($post->wasEdited())
-        <p class="postedit"><em>{{ trans('fluxbb::topic.last_edit').' '.($post->edited_by).' ('.HTML::format_time($post->edited) }})</em></p>
-    @endif
+<div id="brdtop">
+    <div class="inbox clearfix">
+        <ul class="breadcrumb">
+            <li><a href="index.html">Index</a></li>
+            <li><strong><a href="viewforum.html">FluxBB</a></strong></li>
+            <li><strong><a href="viewforum.html">Redefined</a></strong></li>
+            <li><strong><a href="viewforum.html">Posts concepts</a></strong></li>
+        </ul>
     </div>
-@if ($post->author->hasSignature())
-    <div class="postsignature postmsg"><hr />{{ $post->author->signature() }}</div>
-@endif
-
-@if (!$post->author->guest())
-    @if ($post->author->isOnline())
-    <p><strong>{{ trans('fluxbb::topic.online') }}</strong></p>
-    @else
-    <p><span>{{ trans('fluxbb::topic.offline') }}</span></p>
-    @endif
-@endif
-
-@if (true)
-    <ul>
-        <!-- TODO: Only show these if appropriate -->
-        <li><a href="{{ route('post_report', array('id' => $post->id)) }}">{{ trans('fluxbb::topic.report') }}</a></li>
-        <li><a href="{{ route('post_delete', array('id' => $post->id)) }}">{{ trans('fluxbb::topic.delete') }}</a></li>
-        <li><a href="{{ route('post_edit', array('id' => $post->id)) }}">{{ trans('fluxbb::topic.edit') }}</a></li>
-        <li><a href="{{ route('post_quote', array('id' => $post->id)) }}">{{ trans('fluxbb::topic.quote') }}</a></li>
-    </ul>
-@endif
 </div>
+
+<div id="vt" class="vtx">
+
+    <h2 class="topic-title"><span>{{ $topic->subject }}</span></h2>
+
+    <div class="top-navigation clearfix">
+        <ul class="pagination pagelink pull-left">
+            <li class="disabled"><a><span class="pages-label">Pages: </span></a></li>
+            <li class="disabled"><a><strong class="item1">1</strong></a></li>
+            <li><a href="viewforum.html">2</a></li>
+        </ul>
+        <div class="btn-group postlink pull-right">
+            <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
+            <a class="btn btn-primary post-new" href="{{ route('reply', array('id' => $topic->id)) }}"><span>Reply</span></a>
+        </div>
+    </div>
+
+@foreach ($topic->posts as $post)
+    <div id="p{{ $post->id }}" class="post post-bg clearfix">
+        <div class="author-box col-md-2 col-sm-2 col-xs-2">
+            <div class="author-name"><h4><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{{ $post->author->username }}}</a></h4></div>
+            <div class="author-title"><h5>{{{ $post->author->title() }}}</h5></div>
+            <div class="author-avatar"><img src="assets/img/cyrano.jpg" width="70" height="80" alt=""></div>
+            <div class="author-icon author-location"><a href="#" class="tip author-field" data-original-title="Location: Bergerac"></a></div>
+            <div class="author-icon author-registered"><a href="#" class="tip author-field" data-original-title="Member since: 1619-03-06"></a></div>
+            <div class="author-icon author-posts"><a href="#" class="tip author-field" data-original-title="4,815 Posts"></a></div>
+            <div class="author-icon author-ip"><a href="#" class="tip author-field" data-original-title="IP: 127.0.0.1"></a></div>
+            <div class="author-icon author-email"><a href="#" class="tip author-field" data-original-title="Email: "></a></div>
+            <div class="author-icon author-website"><a href="#" class="tip author-field" data-original-title="Website: " rel="nofollow"></a></div>
+        </div>
+        <div class="post-box col-md-10 col-sm-10 col-xs-10">
+            <div class="post-meta clearfix">
+                <div class="pull-left">
+                    <a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a>
+                </div>
+                <div class="pull-right">#7</div> 
+            </div>
+            <div class="post-content">
+                <p>{{ $post->message() }}</p>
+            </div>
+            <div class="post-footer">
+                @if ($post->author->hasSignature())
+                <div class="post-signature pull-left col-md-10 col-md-10 col-xs-10">
+                    <p><em>{{ $post->author->signature() }}</em></p>
+                </div>
+                @endif
+                <div class="post-menu pull-right col-md-2 col-sm-2 col-xs-2">
+                    <a href="{{ route('post_report', array('id' => $post->id)) }}" class="tip btn post-report" data-placement="top" title="Report this post" data-original-title="Report this post"></a>
+                    <a href="{{ route('post_delete', array('id' => $post->id)) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></a>
+                    <a href="{{ route('post_quote', array('id' => $post->id)) }}" class="tip btn post-quote" data-placement="top" title="" data-original-title="Quote this post"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endforeach
 
-<a href="{{ route('reply', array('id' => $topic->id)) }}">{{ trans('fluxbb::topic.post_reply') }}</a>
+    <div id="brdbottom">
+        <div class="inbox">
+            <div class="pagepost clearfix">
+                <ul class="pagination pagelink pull-left">
+                    <li class="disabled"><a><span class="pages-label">Pages: </span></a></li>
+                    <li class="disabled"><a><strong class="item1">1</strong></a></li>
+                    <li><a href="viewforum.html">2</a></li>
+                </ul>
+                <div class="btn-group postlink pull-right">
+                    <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
+                    <a class="btn btn-primary post-new" href="{{ route('reply', array('id' => $topic->id)) }}">
+                        <span>{{ trans('fluxbb::topic.post_reply') }}</span>
+                    </a>
+                </div>
+            </div>
+            <ul class="breadcrumb">
+                <li><a href="index.php">Index</a></li>
+                <li><strong><a href="viewforum.html">Core development</a></strong></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div id="quickpost" class="post post-bg clearfix">
+    <div class="author-box col-md-2 col-sm-2 col-xs-2">
+        <div class="author-name"><h4>Quick reply</h4></div>
+    </div>
+    <div class="post-box col-md-10 col-sm-10 col-xs-10">
+        <div class="post-content">
+            <textarea class="new-message" rows="7" cols="75" placeholder="Write your message and submit!"></textarea>
+        </div>
+    </div>
+    <div class="new-post-submit col-md-offset-2">
+        <div class="post-options pull-left">
+            <span class="label label-success">BBCode</a></span>
+            <span class="label label-success">[url] tag</a></span>
+            <span class="label label-danger">[img] tag</a></span>
+            <span class="label label-success">Smilies</a></span>
+        </div>
+        <input class="btn btn-success pull-right" type="submit" value="Submit" />
+    </p>
+</div>
 
 @stop
