@@ -88,12 +88,10 @@ class Register extends Base
     protected function makeResponse()
     {
         if ($this->succeeded()) {
-            return \Redirect::route('index')
+            return $this->redirectTo(route('index'))
                 ->withMessage(trans('fluxbb::register.reg_complete'));
         } else {
-            return \Redirect::route('register')
-                ->withInput()
-                ->withErrors($this);
+            return $this->errorRedirectTo(route('register'));
         }
     }
 }

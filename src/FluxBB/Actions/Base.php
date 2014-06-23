@@ -63,6 +63,18 @@ abstract class Base implements HttpKernelInterface, MessageProviderInterface
      */
     abstract protected function makeResponse();
 
+    protected function redirectTo($url)
+    {
+        return \Redirect::to($url);
+    }
+
+    protected function errorRedirectTo($url)
+    {
+        return \Redirect::to($url)
+            ->withInput()
+            ->withErrors($this);
+    }
+
     /**
      * Run any desired actions.
      *

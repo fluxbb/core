@@ -48,12 +48,10 @@ class Login extends Base
     protected function makeResponse()
     {
         if ($this->succeeded()) {
-            return \Redirect::route('index')
+            return $this->redirectTo(route('index'))
                 ->withMessage(trans('fluxbb::login.message_login'));
         } else {
-            return \Redirect::route('login')
-                ->withInput()
-                ->withErrors($this);
+            return $this->errorRedirectTo(route('login'));
         }
     }
 }
