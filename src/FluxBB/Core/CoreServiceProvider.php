@@ -78,7 +78,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $events = $this->app['events'];
 
-        $events->listen('user.registered', 'FluxBB\Handlers\UserRegistered');
+        $events->listen('user.registered', 'FluxBB\Handlers\SendWelcomeEmail');
     }
 
     /**

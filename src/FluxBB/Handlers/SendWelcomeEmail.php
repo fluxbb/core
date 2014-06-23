@@ -5,7 +5,7 @@ namespace FluxBB\Handlers;
 use Illuminate\Mail\Mailer;
 use FluxBB\Models\ConfigRepositoryInterface;
 
-class UserRegistered
+class SendWelcomeEmail
 {
     protected $mailer;
 
