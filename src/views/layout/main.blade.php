@@ -8,6 +8,17 @@
     </div>
 @endif
 
+@if ($errors->has())
+	<div class="alert alert-danger">
+		<p>The following errors occured:</p>
+		<ul>
+		@foreach ($errors->all('<li>:message</li>') as $error)
+			{{ $error }}
+		@endforeach
+		</ul>
+	</div>
+@endif
+
 @yield('main')
 
 </div>
