@@ -10,7 +10,7 @@ return array(
 'reply_by'				=>	'Reply by %s - %s',
 'topic_by'				=>	'Topic started by %s - %s',
 'delete'				=>	'Delete', // The submit button
-'post_del_redirect'		=>	'Post deleted. Redirecting …',
-'topic_del_redirect'	=>	'Topic deleted. Redirecting …'
+'post_del_redirect'		=>	'Post deleted.',
+'topic_del_redirect'	=>	'Topic deleted.'
 
 );

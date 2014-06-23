@@ -5,11 +5,11 @@ return array(
 
 'must_enter_title_message'		=>	'You must enter a group title.',
 'title_already_exists_message'	=>	'There is already a group with the title <strong>%s</strong>.',
-'default_group_redirect'		=>	'Default group set. Redirecting …',
+'default_group_redirect'		=>	'Default group set.',
 'cannot_remove_default_message'	=>	'The default group cannot be removed. In order to delete this group, you must first setup a different group as the default.',
-'group_removed_redirect'		=>	'Group removed. Redirecting …',
-'group_added_redirect'			=>	'Group added. Redirecting …',
-'group_edited_redirect'			=>	'Group edited. Redirecting …',
+'group_removed_redirect'		=>	'Group removed.',
+'group_added_redirect'			=>	'Group added.',
+'group_edited_redirect'			=>	'Group edited.',
 
 'add_groups_head'				=>	'Add/setup groups',
 'add_group_subhead'				=>	'Add new group',

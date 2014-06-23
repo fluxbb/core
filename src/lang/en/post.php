@@ -19,7 +19,7 @@ return array(
 'post_errors_info'	=>	'The following errors need to be corrected before the message can be posted:',
 'post_preview'		=>	'Post preview',
 'guest_name'		=>	'Name', // For guests (instead of Username)
-'post_redirect'		=>	'Post entered. Redirecting …',
+'post_redirect'		=>	'Post entered.',
 'post_a_reply'		=>	'Post a reply',
 'post_new_topic'	=>	'Post new topic',
 'hide_smilies'		=>	'Never show smilies as icons for this post',
@@ -34,6 +34,6 @@ return array(
 'edit_post_legend'	=>	'Edit the post and submit changes',
 'silent_edit'		=>	'Silent edit (don\'t display "Edited by ..." in topic view)',
 'edit_post'			=>	'Edit post',
-'edit_redirect'		=>	'Post updated. Redirecting …'
+'edit_redirect'		=>	'Post updated.'
 
 );

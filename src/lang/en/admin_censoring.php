@@ -4,9 +4,9 @@
 return array(
 
 'must_enter_word_message'	=>	'You must enter a word to censor.',
-'word_updated_redirect'		=>	'Censor word updated. Redirecting …',
-'word_added_redirect'		=>	'Censor word added. Redirecting …',
-'word_removed_redirect'		=>	'Censor word removed. Redirecting …',
+'word_updated_redirect'		=>	'Censor word updated.',
+'word_added_redirect'		=>	'Censor word added.',
+'word_removed_redirect'		=>	'Censor word removed.',
 'censoring_head'			=>	'Censoring',
 'add_word_subhead'			=>	'Add word',
 'add_word_info'				=>	'Enter a word that you want to censor and the replacement text for this word. Wildcards are accepted (i.e. *some* would match somewhere and lonesome). Censor words also affect usernames. New users will not be able to register with usernames containing any censored words. The search is case insensitive.',

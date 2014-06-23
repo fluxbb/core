@@ -3,11 +3,11 @@
 // Language definitions used in admin_forums.php
 return array(
 
-'forum_added_redirect'		=>	'Forum added. Redirecting …',
-'forum_deleted_redirect'	=>	'Forum deleted. Redirecting …',
-'forums_updated_redirect'	=>	'Forums updated. Redirecting …',
-'forum_updated_redirect'	=>	'Forum updated. Redirecting …',
-'perms_reverted_redirect'	=>	'Permissions reverted to defaults. Redirecting …',
+'forum_added_redirect'		=>	'Forum added.',
+'forum_deleted_redirect'	=>	'Forum deleted.',
+'forums_updated_redirect'	=>	'Forums updated.',
+'forum_updated_redirect'	=>	'Forum updated.',
+'perms_reverted_redirect'	=>	'Permissions reverted to defaults.',
 'must_enter_name_message'	=>	'You must enter a forum name.',
 'must_be_integer_message'	=>	'Position must be a positive integer value.',
 'new_forum'					=>	'New forum',

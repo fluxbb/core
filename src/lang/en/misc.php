@@ -3,8 +3,8 @@
 // Language definitions used in various scripts
 return array(
 
-'mark_read_redirect'			=>	'All topics and forums have been marked as read. Redirecting …',
-'mark_forum_read_redirect'		=>	'All topics in the specified forum have been marked as read. Redirecting …',
+'mark_read_redirect'			=>	'All topics and forums have been marked as read.',
+'mark_forum_read_redirect'		=>	'All topics in the specified forum have been marked as read.',
 
 // Send email
 'form_email_disabled'			=>	'The user you are trying to send an email to has disabled form email.',
@@ -12,7 +12,7 @@ return array(
 'no_email_message'				=>	'You must enter a message.',
 'too_long_email_message'		=>	'Messages cannot be longer than 65535 characters (64 KB).',
 'email_flood'					=>	'At least %s seconds have to pass between sent emails. Please wait a while and try sending again.',
-'email_sent_redirect'			=>	'Email sent. Redirecting …',
+'email_sent_redirect'			=>	'Email sent.',
 'send_email_to'					=>	'Send email to',
 'email_subject'					=>	'Subject',
 'email_message'					=>	'Message',
@@ -23,7 +23,7 @@ return array(
 'no_reason'						=>	'You must enter a reason.',
 'reason_too_long'				=>	'Your message must be under 65535 bytes (~64kb).',
 'report_flood'					=>	'At least %s seconds have to pass between reports. Please wait a while and try sending again.',
-'report_redirect'				=>	'Post reported. Redirecting …',
+'report_redirect'				=>	'Post reported.',
 'report_post'					=>	'Report post',
 'reason'						=>	'Reason',
 'reason_desc'					=>	'Please enter a short reason why you are reporting this post',
@@ -31,10 +31,10 @@ return array(
 // Subscriptions
 'already_subscribed_topic'		=>	'You are already subscribed to this topic.',
 'already_subscribed_forum'		=>	'You are already subscribed to this forum.',
-'subscribe_redirect'			=>	'Your subscription has been added. Redirecting …',
+'subscribe_redirect'			=>	'Your subscription has been added.',
 'not_subscribed_topic'			=>	'You are not subscribed to this topic.',
 'not_subscribed_forum'			=>	'You are not subscribed to this forum.',
-'unsubscribe_redirect'			=>	'Your subscription has been removed. Redirecting …',
+'unsubscribe_redirect'			=>	'Your subscription has been removed.',
 
 // General forum and topic moderation
 'moderate'						=>	'Moderate',
@@ -53,22 +53,22 @@ return array(
 'move_to'						=>	'Move to',
 'nowhere_to_move'				=>	'There are no forums into which you can move topics.',
 'leave_redirect'				=>	'Leave redirect topic(s)',
-'move_topic_redirect'			=>	'Topic moved. Redirecting …',
-'move_topics_redirect'			=>	'Topics moved. Redirecting …',
+'move_topic_redirect'			=>	'Topic moved.',
+'move_topics_redirect'			=>	'Topics moved.',
 'confirm_delete_legend'			=>	'Please confirm deletion',
 'delete_topics'					=>	'Delete topics',
 'delete_topics_comply'			=>	'Are you sure you want to delete the selected topics?',
-'delete_topics_redirect'		=>	'Topics deleted. Redirecting …',
-'open_topic_redirect'			=>	'Topic opened. Redirecting …',
-'open_topics_redirect'			=>	'Topics opened. Redirecting …',
-'close_topic_redirect'			=>	'Topic closed. Redirecting …',
-'close_topics_redirect'			=>	'Topics closed. Redirecting …',
+'delete_topics_redirect'		=>	'Topics deleted.',
+'open_topic_redirect'			=>	'Topic opened.',
+'open_topics_redirect'			=>	'Topics opened.',
+'close_topic_redirect'			=>	'Topic closed.',
+'close_topics_redirect'			=>	'Topics closed.',
 'no_topics_selected'			=>	'You must select at least one topic for move/delete/open/close.',
 'not_enough_topics_selected'	=>	'You must select at least two topics for merge.',
-'stick_topic_redirect'			=>	'Topic sticked. Redirecting …',
-'unstick_topic_redirect'		=>	'Topic unsticked. Redirecting …',
+'stick_topic_redirect'			=>	'Topic sticked.',
+'unstick_topic_redirect'		=>	'Topic unsticked.',
 'merge_topics'					=>	'Merge topics',
-'merge_topics_redirect'			=>	'Topics merged. Redirecting …',
+'merge_topics_redirect'			=>	'Topics merged.',
 'confirm_merge_legend'			=>	'Please confirm merge',
 'new_subject'					=>	'New subject',
 
@@ -76,13 +76,13 @@ return array(
 'confirm_split_legend'			=>	'Please confirm split of selected posts and select destination of move.',
 'split_posts'					=>	'Split posts',
 'split_posts_comply'			=>	'Are you sure you want to split the selected posts?',
-'split_posts_redirect'			=>	'Posts have been split. Redirecting …',
+'split_posts_redirect'			=>	'Posts have been split.',
 
 // Delete multiple posts in topic
 'delete_posts'					=>	'Delete posts',
 'cannot_select_first'			=>	'First post cannot be selected for split/delete.',
 'delete_posts_comply'			=>	'Are you sure you want to delete the selected posts?',
-'delete_posts_redirect'			=>	'Posts deleted. Redirecting …',
+'delete_posts_redirect'			=>	'Posts deleted.',
 'no_posts_selected'				=>	'You must select at least one post for split/delete.',
 
 // Get host

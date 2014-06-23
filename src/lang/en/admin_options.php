@@ -12,7 +12,7 @@ return array(
 'enter_rules_here'					=>	'Enter your rules here.',
 'default_maintenance_message'		=>	'The forums are temporarily down for maintenance. Please try again in a few minutes.',
 'timeout_error_message'				=>	'The value of "Timeout online" must be smaller than the value of "Timeout visit".',
-'options_updated_redirect'			=>	'Options updated. Redirecting …',
+'options_updated_redirect'			=>	'Options updated.',
 'options_head'						=>	'Options',
 
 // Essentials section

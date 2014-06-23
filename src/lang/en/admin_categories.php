@@ -4,14 +4,14 @@
 return array(
 
 'must_enter_name_message'		=>	'You must enter a name for the category',
-'category_added_redirect'		=>	'Category added. Redirecting …',
-'category_deleted_redirect'		=>	'Category deleted. Redirecting …',
+'category_added_redirect'		=>	'Category added.',
+'category_deleted_redirect'		=>	'Category deleted.',
 'delete_category_head'			=>	'Delete category (together with all forums and posts it contains)',
 'confirm_delete_subhead'		=>	'Confirm delete category',
 'confirm_delete_info'			=>	'Are you sure that you want to delete the category <strong>%s</strong>?',
 'delete_category_warn'			=>	'<strong>WARNING!</strong> Deleting a category will delete all forums and posts (if any) in this category!',
 'must_enter_integer_message'	=>	'Position must be a positive integer value.',
-'categories_updated_redirect'	=>	'Categories updated. Redirecting …',
+'categories_updated_redirect'	=>	'Categories updated.',
 'add_categories_head'			=>	'Add categories',
 'add_categories_subhead'		=>	'Add categories',
 'add_category_label'			=>	'Add a new category',

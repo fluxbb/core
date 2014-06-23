@@ -13,9 +13,9 @@ return array(
 'invalid_e-mail_message'	=>	'The email address (e.g. user@domain.com) or partial email address domain (e.g. domain.com) you entered is invalid.',
 'invalid_date_message'		=>	'You entered an invalid expire date.',
 'invalid_date_reasons'		=>	'The format should be YYYY-MM-DD and the date must be at least one day in the future.',
-'ban_added_redirect'		=>	'Ban added. Redirecting …' ,
-'ban_edited_redirect'		=>	'Ban edited. Redirecting …',
-'ban_removed_redirect'		=>	'Ban removed. Redirecting …',
+'ban_added_redirect'		=>	'Ban added.' ,
+'ban_edited_redirect'		=>	'Ban edited.',
+'ban_removed_redirect'		=>	'Ban removed.',
 
 'new_ban_head'				=>	'New ban',
 'add_ban_subhead'			=>	'Add ban',

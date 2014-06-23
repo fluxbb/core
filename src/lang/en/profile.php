@@ -19,7 +19,7 @@ return array(
 // Password stuff
 'pass_key_bad'					=>	'The specified password activation key was incorrect or has expired. Please re-request a new password. If that fails, contact the forum administrator at',
 'pass_updated'					=>	'Your password has been updated. You can now login with your new password.',
-'pass_updated_redirect'			=>	'Password updated. Redirecting …',
+'pass_updated_redirect'			=>	'Password updated.',
 'wrong_pass'					=>	'Wrong old password.',
 'change_pass_legend'			=>	'Enter and confirm your new password',
 'old_pass'						=>	'Old password',
@@ -49,8 +49,8 @@ return array(
 'bytes'							=>	'bytes',
 'move_failed'					=>	'The server was unable to save the uploaded file. Please contact the forum administrator at',
 'unknown_failure'				=>	'An unknown error occurred. Please try again.',
-'avatar_upload_redirect'		=>	'Avatar uploaded. Redirecting …',
-'avatar_deleted_redirect'		=>	'Avatar deleted. Redirecting …',
+'avatar_upload_redirect'		=>	'Avatar uploaded.',
+'avatar_deleted_redirect'		=>	'Avatar deleted.',
 'avatar_desc'					=>	'An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than',
 'upload_avatar'					=>	'Upload avatar',
 'upload_avatar_legend'			=>	'Enter an avatar file to upload',
@@ -60,7 +60,7 @@ return array(
 
 // Form validation stuff
 'forbidden_title'				=>	'The title you entered contains a forbidden word. You must choose a different title.',
-'profile_redirect'				=>	'Profile updated. Redirecting …',
+'profile_redirect'				=>	'Profile updated.',
 
 // Profile essentials stuff
 'username_and_pass_legend'		=>	'Enter your username and password',
@@ -155,9 +155,9 @@ return array(
 'delete_warning'				=>	'Warning! Deleted users and/or posts cannot be restored. If you choose not to delete the posts made by this user, the posts can only be deleted manually at a later time.',
 'delete_posts'					=>	'Delete any posts and topics this user has made.',
 'delete'						=>	'Delete', // submit button (confirm user delete)
-'user_delete_redirect'			=>	'User deleted. Redirecting …',
-'group_membership_redirect'		=>	'Group membership saved. Redirecting …',
-'update_forums_redirect'		=>	'Forum moderator rights updated. Redirecting …',
+'user_delete_redirect'			=>	'User deleted.',
+'group_membership_redirect'		=>	'Group membership saved.',
+'update_forums_redirect'		=>	'Forum moderator rights updated.',
 'ban_redirect'					=>	'Redirecting …',
 'no_delete_admin_message'		=>	'Administrators cannot be deleted. In order to delete this user, you must first move him/her to a different user group.',
 

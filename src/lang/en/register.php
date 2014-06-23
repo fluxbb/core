@@ -5,7 +5,7 @@ return array(
 
 // Miscellaneous
 'no_new_regs'				=>	'This forum is not accepting new registrations.',
-'reg_cancel_redirect'		=>	'Registration cancelled. Redirecting …',
+'reg_cancel_redirect'		=>	'Registration cancelled.',
 'forum_rules'				=>	'Forum rules',
 'rules_legend'				=>	'You must agree to the following in order to register',
 'registration_flood'		=>	'A new user was registered with the same IP address as you within the last hour. To prevent registration flooding, at least an hour has to pass between registrations from the same IP. Sorry for the inconvenience.',

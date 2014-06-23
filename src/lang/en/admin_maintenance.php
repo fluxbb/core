@@ -22,7 +22,7 @@ return array(
 'posts_must_be_integer_message'	=>	'Posts per cycle must be a positive integer value.',
 'days_must_be_integer_message'	=>	'Days to prune must be a positive integer value.',
 'no_old_topics_message'			=>	'There are no topics that are %s days old. Please decrease the value of "Days old" and try again.',
-'posts_pruned_redirect'			=>	'Posts pruned. Redirecting …',
+'posts_pruned_redirect'			=>	'Posts pruned.',
 'prune_head'					=>	'Prune',
 'prune_subhead'					=>	'Prune old posts',
 'days_old_label'				=>	'Days old',
