@@ -2,130 +2,192 @@
 
 @section('main')
 
-<div id="profile" class="block2col">
-    @include('fluxbb::user.profile.menu')
-    <div class="blockform">
-        <h2><span>{{ trans('fluxbb::profile.section_essentials') }}</span></h2>
-        <div class="box">
-            <form action="{{ route('profile', array('id' => $user->id, 'action' => 'essentials')) }}" method="post">
-                <div class="inform">
-                    <fieldset>
-                        <legend>{{ trans('fluxbb::profile.username_and_pass_legend') }}</legend>
-                        <div class="infldset">
-                            <input type="hidden" name="form_sent" value="1">
-                            <label class="required"><strong>{{ trans('fluxbb::profile.username') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br>
-                            @if ($user->isAdmin())
-                                <input type="text" name="username" size="25" maxlength="25" value="{{ $user->username }}" />
-                            @else {{ $user->username }}
-                            @endif
-                            <br></label>
-                            <p class="actions"><span><a href="#">{{ trans('fluxbb::profile.change_password') }}</a></span></p>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="inform">
-                    <fieldset>
-                        <legend>{{ trans('fluxbb::profile.email_legend') }}</legend>
-                        <div class="infldset">
-                            <label class="required"><strong>{{ trans('fluxbb::profile.email') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br><input type="text" name="email" size="40" maxlength="80" value="{{ $user->email }}" /><br></label><p><span class="email"><a href="misc.php?email=2">{{ trans('fluxbb::profile.send_email') }}</a></span></p>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="inform">
-                    <fieldset>
-                        <legend>{{ trans('fluxbb::profile.localisation_legend') }}</legend>
-                        <div class="infldset">
-                            <p>{{ trans('fluxbb::profile.time_zone_info') }}</p>
-                            <label>{{ trans('fluxbb::profile.time_zone') }}
-                            <br><select name="timezone">
-                                <option value="-12">(UTC-12:00) International Date Line West</option>
-                                <option value="-11">(UTC-11:00) Niue, Samoa</option>
-                                <option value="-10">(UTC-10:00) Hawaii-Aleutian, Cook Island</option>
-                                <option value="-9.5">(UTC-09:30) Marquesas Islands</option>
-                                <option value="-9">(UTC-09:00) Alaska, Gambier Island</option>
-                                <option value="-8.5">(UTC-08:30) Pitcairn Islands</option>
-                                <option value="-8">(UTC-08:00) Pacific</option>
-                                <option value="-7">(UTC-07:00) Mountain</option>
-                                <option value="-6">(UTC-06:00) Central</option>
-                                <option value="-5">(UTC-05:00) Eastern</option>
-                                <option value="-4">(UTC-04:00) Atlantic</option>
-                                <option value="-3.5">(UTC-03:30) Newfoundland</option>
-                                <option value="-3">(UTC-03:00) Amazon, Central Greenland</option>
-                                <option value="-2">(UTC-02:00) Mid-Atlantic</option>
-                                <option value="-1">(UTC-01:00) Azores, Cape Verde, Eastern Greenland</option>
-                                <option value="0" selected="selected">(UTC) Western European, Greenwich</option>
-                                <option value="1">(UTC+01:00) Central European, West African</option>
-                                <option value="2">(UTC+02:00) Eastern European, Central African</option>
-                                <option value="3">(UTC+03:00) Eastern African</option>
-                                <option value="3.5">(UTC+03:30) Iran</option>
-                                <option value="4">(UTC+04:00) Moscow, Gulf, Samara</option>
-                                <option value="4.5">(UTC+04:30) Afghanistan</option>
-                                <option value="5">(UTC+05:00) Pakistan</option>
-                                <option value="5.5">(UTC+05:30) India, Sri Lanka</option>
-                                <option value="5.75">(UTC+05:45) Nepal</option>
-                                <option value="6">(UTC+06:00) Bangladesh, Bhutan, Yekaterinburg</option>
-                                <option value="6.5">(UTC+06:30) Cocos Islands, Myanmar</option>
-                                <option value="7">(UTC+07:00) Indochina, Novosibirsk</option>
-                                <option value="8">(UTC+08:00) Greater China, Australian Western, Krasnoyarsk</option>
-                                <option value="8.75">(UTC+08:45) Southeastern Western Australia</option>
-                                <option value="9">(UTC+09:00) Japan, Korea, Chita, Irkutsk</option>
-                                <option value="9.5">(UTC+09:30) Australian Central</option>
-                                <option value="10">(UTC+10:00) Australian Eastern</option>
-                                <option value="10.5">(UTC+10:30) Lord Howe</option>
-                                <option value="11">(UTC+11:00) Solomon Island, Vladivostok</option>
-                                <option value="11.5">(UTC+11:30) Norfolk Island</option>
-                                <option value="12">(UTC+12:00) New Zealand, Fiji, Magadan</option>
-                                <option value="12.75">(UTC+12:45) Chatham Islands</option>
-                                <option value="13">(UTC+13:00) Tonga, Phoenix Islands, Kamchatka</option>
-                                <option value="14">(UTC+14:00) Line Islands</option>
-                            </select>
-                            <br></label>
-                            <div class="rbox">
-                                <label><input type="checkbox" name="dst" value="1"> {{ trans('fluxbb::profile.dst') }}<br></label>
-                            </div>
-                            <label>{{ trans('fluxbb::profile.time_format') }}
-                            <br><select name="time_format">
-                                <option value="0" selected="selected">{{ date('h:i:s') }} {{ trans('fluxbb::common.default') }} / (Default)</option>
-                                <option value="2">{{date('h:i') }}</option>
-                                <option value="3">{{date('g:i:s a') }}</option>
-                                <option value="4">{{date('g:i a') }}</option>
-                            </select>
-                            <br></label>
-                            <label>{{ trans('fluxbb::profile.date_format') }}
-                            <br><select name="date_format">
-                                <option value="0" selected="selected">{{ date("Y-m-d") }} {{ trans('fluxbb::common.default') }} / (Default)</option>
-                                <option value="2">{{ date("Y-d-m") }}</option>
-                                <option value="3">{{ date("d-m-Y") }}</option>
-                                <option value="4">{{ date("m-d-Y") }}</option>
-                                <option value="5">{{ date("M j Y") }}</option>
-                                <option value="6">{{ date("jS M Y") }}</option>
-                            </select>
-                            <br></label>
+<div id="profile" class="profile row clearfix">
 
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="inform">
-                    <fieldset>
-                        <legend>{{ trans('fluxbb::profile.user_activity') }}</legend>
-                        <div class="infldset">
-                            <p>{{ $user_infos['registered'] }}</p>
-                            <p>{{ $user_infos['last_post'] }}</p>
-                            <p>{{ $user_infos['last_visit'] }}</p>
-                            <label>{{ $user_infos['num_posts'] }}<br></label><p class="actions">
-                            {{--- TODO: add input field for posts when admin + add links to controller actions --}}
-                            <a href="search.php?action=show_user_topics&amp;user_id=2">{{ trans('fluxbb::profile.show_topics') }}</a> - <a href="search.php?action=show_user_posts&amp;user_id=2">{{ trans('fluxbb::profile.show_posts') }}</a> - <a href="search.php?action=show_subscriptions&amp;user_id=2">{{ trans('fluxbb::profile.show_subscriptions') }}</a></p>
-                            @if ($user->isAdmin())
-                            <label>{{ trans('fluxbb::profile.admin_note') }}<br>
-                            <input type="text" name="admin_note" size="30" maxlength="30" value="{{ $user->admin_note }}" /><br></label>
-                            @endif
-                        </div>
-                    </fieldset>
-                </div>
-                <p class="buttons"><input type="submit" name="update" value="{{ trans('fluxbb::common.submit') }}" /> {{ trans('fluxbb::profile.instructions') }}</p>
-            </form>
+    <div class="col-md-3">
+        <div class="profile-widget text-center">
+            <div class="profile-avatar">
+                <img src="assets/img/roxane.jpg" alt="" />
+            </div>
+            <div class="profile-details">
+                <div class="profile-username"><h3>Roxane</h3></div>
+                <div class="profile-fullname"><h5>Magdeleine Robin</h5></div>
+                <div class="profile-contact"><a class="btn btn-success" href="#">Contact</a></div>
+            </div>
+            <div class="profile-stats row">
+                <div class="profile-posts col-md-6"><a href="#"><h4>2,632 <small>Posts</small></h4></a></div>
+                <div class="profile-topics col-md-6"><a href="#"><h4>48 <small>Topics</small></h4></a></div>
+            </div>
         </div>
     </div>
-    <div class="clearer"></div>
+
+    <div class="col-md-9">
+
+        <div class="profile-full col-md-12 clearfix">
+
+            <div class="profile-title">
+                <h4>
+                    <span>Précieuse</span> <span class="profile-registered">Since March 6, 1619</span>
+                    <span class="profile-links pull-right">
+                        <a class="tip btn profile-website" href="#" data-original-title="https://en.wikipedia.org/wiki/Cyrano_de_Bergerac_(play)"></a>
+                        <a class="tip btn profile-facebook" href="#" data-original-title="Facebook"></a>
+                        <a class="tip btn profile-twitter" href="#" data-original-title="Twitter"></a>
+                        <a class="tip btn profile-googleplus" href="#" data-original-title="Google+"></a>
+                    </span>
+                </h4>
+                <span class="label label-default">Offline</span>
+                <span class="profile-last-visit">Latest activity today, 01:54</span>
+            </div>
+
+            <ul class="nav nav-tabs profile-tabs">
+                <li class="active"><a id="tab-biography" href="#profile-biography" data-toggle="tab"></a></li>
+                <li><a id="tab-signature" href="#profile-signature" data-toggle="tab"></a></li>
+            </ul>
+
+            <div class="tab-content profile-content">
+                <div id="profile-biography" class="profile-pane tab-pane active">
+                    <blockquote><p>Magdeleine Robin − Roxane, so called! A subtle wit, a <em>précieuse</em>. Count de Guiche quite enamored of me, but wedded he is, to the niece of Armand de Richelieu. Would fain marry me to a certain sorry fellow, one Monsieur de Valvert, a viscount − and − accommodating! I will none of that bargain.</p></blockquote>
+                </div>
+                <div id="profile-signature" class="profile-pane tab-pane">
+                    <blockquote><p>« <em>Far from this world of brutal lies is a land for lovers who despise violence, weeping for the lost and lonely. A land for lovers, for lovers only.</em> »</p></blockquote>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="profile-message col-md-12 clearfix">
+            <div class="profile-message-avatar col-md-2">
+                <img src="assets/img/cyrano.jpg" alt="" />
+            </div>
+            <div class="profile-message-content col-md-10">
+                <textarea placeholder="Write a private message to Roxane"></textarea>
+            </div>
+        </div>
+
+        <div class="profile-latest-posts col-md-12 clearfix">
+
+            <div class="latest-post-timeline"></div>
+
+            <div class="latest-post col-md-6 pull-left">
+                <i class="latest-post-timedot"></i>
+                <div class="latest-post-meta clearfix">
+                    <div class="latest-post-topic pull-left"><h5>Posted in <a href="#">FluxBB Redefined</a></h5></div>
+                    <span class="latest-post-date pull-right"><a href="#">2013-10-26</a></span>
+                </div>
+                <div class="latest-post-message">Ah! methinks 'twere impossible that there could breathe a man on this earth skilled to say as sweetly as he all the pretty nothings…</div>
+            </div>
+
+            <div class="latest-post col-md-6 pull-right">
+                <i class="latest-post-timedot"></i>
+                <div class="latest-post-meta clearfix">
+                    <div class="latest-post-topic pull-left"><h5>Posted in <a href="#">FluxBB Redefined</a></h5></div>
+                    <span class="latest-post-date pull-right"><a href="#">2013-10-26</a></span>
+                </div>
+                <div class="latest-post-message">…that mean so much…</div>
+            </div>
+
+            <div class="latest-post col-md-6 pull-right">
+                <i class="latest-post-timedot"></i>
+                <div class="latest-post-meta clearfix">
+                    <div class="latest-post-topic pull-left"><h5>Posted in <a href="#">FluxBB Redefined</a></h5></div>
+                    <span class="latest-post-date pull-right"><a href="#">2013-10-25</a></span>
+                </div>
+                <div class="latest-post-message">That mean all! At times his mind seems far away, the Muse says naught - and then, presto! he speaks - bewitchingly! enchantingly!</div>
+            </div>
+
+            <div class="latest-post col-md-6 pull-left">
+                <i class="latest-post-timedot"></i>
+                <div class="latest-post-meta clearfix">
+                    <div class="latest-post-topic pull-left"><h5>Posted in <a href="#">FluxBB Redefined</a></h5></div>
+                    <span class="latest-post-date pull-right"><a href="#">2013-10-24</a></span>
+                </div>
+                <div class="latest-post-message">Ah! methinks 'twere impossible that there could breathe a man on this earth…</div>
+            </div>
+
+            <div class="latest-post col-md-6 pull-right">
+                <i class="latest-post-timedot"></i>
+                <div class="latest-post-meta clearfix">
+                    <div class="latest-post-topic pull-left"><h5>Posted in <a href="#">FluxBB Redefined</a></h5></div>
+                    <span class="latest-post-date pull-right"><a href="#">2013-10-26</a></span>
+                </div>
+                <div class="latest-post-message">Ah! methinks 'twere impossible that there could breathe a man on this earth skilled to say as sweetly as he all the pretty nothings…</div>
+            </div>
+
+            <div class="latest-post col-md-6 pull-left">
+                <i class="latest-post-timedot"></i>
+                <div class="latest-post-meta clearfix">
+                    <div class="latest-post-topic pull-left"><h5>Posted in <a href="#">FluxBB Redefined</a></h5></div>
+                    <span class="latest-post-date pull-right"><a href="#">2013-10-24</a></span>
+                </div>
+                <div class="latest-post-message">Ah! methinks 'twere impossible that there could breathe a man on this earth skilled to say as sweetly as he all the pretty nothings, that mean so much, That mean all! At times his mind seems far away, the Muse says naught - and then, presto! he speaks - bewitchingly! enchantingly!</div>
+            </div>
+
+        </div>
+
+        <div class="profile-history col-md-6 clearfix">
+            <div class="profile-history-timeline col-md-3"><div class="bar"></div></div>
+            <div class="profile-history-events col-md-12 clearfix">
+                <div class="profile-history-marker col-md-3">
+                    <div class="profile-history-date col-md-8">1640-12-03</div>
+                    <div class="profile-history-dot col-md-4"><i class="icon-graduation-cap"></i></div>
+                </div>
+                <div class="profile-history-event col-md-9">
+                    <h5>Joined the Administrator Group</h5>
+                </div>
+            </div>
+            <div class="profile-history-events col-md-12 clearfix">
+                <div class="profile-history-marker col-md-3">
+                    <div class="profile-history-date col-md-8">1639-10-30</div>
+                    <div class="profile-history-dot col-md-4"><i class="icon-trophy"></i></div>
+                </div>
+                <div class="profile-history-event col-md-9">
+                    <h5>1000<sup>th</sup> rhyme posted</h5>
+                </div>
+            </div>
+            <div class="profile-history-events col-md-12 clearfix">
+                <div class="profile-history-marker col-md-3">
+                    <div class="profile-history-date col-md-8">1638-09-17</div>
+                    <div class="profile-history-dot col-md-4"><i class="icon-star"></i></div>
+                </div>
+                <div class="profile-history-event col-md-9">
+                    <h5>Joined the Moderator Group</h5>
+                </div>
+            </div>
+            <div class="profile-history-events col-md-12 clearfix">
+                <div class="profile-history-marker col-md-3">
+                    <div class="profile-history-date col-md-8">1638-04-02</div>
+                    <div class="profile-history-dot col-md-4"><i class="icon-trophy"></i></div>
+                </div>
+                <div class="profile-history-event col-md-9">
+                    <h5>100<sup>th</sup> rhyme posted</h5>
+                </div>
+            </div>
+            <div class="profile-history-events col-md-12 clearfix">
+                <div class="profile-history-marker col-md-3">
+                    <div class="profile-history-date col-md-8">1638-01-24</div>
+                    <div class="profile-history-dot col-md-4"><i class="icon-user"></i></div>
+                </div>
+                <div class="profile-history-event col-md-9">
+                    <h5>Joined the Play</h5>
+                </div>
+            </div>
+            <div class="profile-history-events col-md-12 clearfix">
+                <div class="profile-history-marker col-md-3">
+                    <div class="profile-history-date col-md-8">1622-08-14</div>
+                    <div class="profile-history-dot col-md-4"><i class="icon-clock"></i></div>
+                </div>
+                <div class="profile-history-event col-md-9">
+                    <h5>Birth in Bergerac</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-map col-md-6">
+            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.openstreetmap.org/export/embed.html?bbox=-7.536621093749999%2C38.47939467327645%2C8.50341796875%2C50.583236614805905&amp;layer=transportmap&amp;marker=44.84029065139799%2C0.4833984375"></iframe>
+        </div>
+
+    </div>
+
 </div>
+
 @stop
