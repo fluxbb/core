@@ -22,21 +22,6 @@ class HomeController extends BaseController
         return View::make('fluxbb::index')->with('categories', $categories);
     }
 
-    public function getTopic($tid, $page = 1)
-    {
-        // Fetch some info about the topic
-        $topic = Topic::find($tid);
-
-        if (is_null($topic)) {
-            App::abort(404);
-        }
-
-        // Make sure post authors and their groups are all loaded
-        $topic->posts->load('author.group');
-
-        return View::make('fluxbb::viewtopic')->with('topic', $topic);
-    }
-
     public function getPost($pid)
     {
         // If a post ID is specified we determine topic ID and page number so we can show the correct message

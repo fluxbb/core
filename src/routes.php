@@ -11,10 +11,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     };
 
     Route::get('forum/{id}', array('as' => 'viewforum', 'uses' => $actionRoute('FluxBB\Actions\ViewForum')));
-    Route::get('topic/{id}', array(
-        'as'	=> 'viewtopic',
-        'uses'	=> 'FluxBB\Controllers\HomeController@getTopic',
-    ));
+    Route::get('topic/{id}', array('as' => 'viewtopic', 'uses' => $actionRoute('FluxBB\Actions\ViewTopic')));
     Route::get('post/{id}', array(
         'as'	=> 'viewpost',
         'uses'	=> 'FluxBB\Controllers\HomeController@getPost',
