@@ -30,10 +30,6 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'as'	=> 'userlist',
         'uses'	=> 'FluxBB\Controllers\UsersController@getList',
     ));
-    Route::get('register', array(
-        'as'	=> 'register',
-        'uses'	=> 'FluxBB\Controllers\AuthController@getRegister',
-    ));
 
     $actionRoute = function ($actionClass) {
         return function () use ($actionClass) {
@@ -42,12 +38,9 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         };
     };
 
+    Route::get('register', array('as' => 'register', 'uses' => $actionRoute('FluxBB\Actions\RegisterPage')));
     Route::post('register', $actionRoute('FluxBB\Actions\Register'));
-
-    Route::get('login', array(
-        'as'	=> 'login',
-        'uses'	=> 'FluxBB\Controllers\AuthController@getLogin',
-    ));
+    Route::get('login', array('as' => 'login', 'uses' => $actionRoute('FluxBB\Actions\LoginPage')));
     Route::post('login', $actionRoute('FluxBB\Actions\Login'));
     Route::get('forgot_password.html', array(
         'as'	=> 'forgot_password',
