@@ -2,7 +2,7 @@
 
 namespace FluxBB\Actions;
 
-class LoginPage extends StaticPage
+class LoginPage extends Page
 {
     protected $viewName = 'fluxbb::auth.login';
 }

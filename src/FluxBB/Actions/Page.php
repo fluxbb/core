@@ -4,7 +4,7 @@ namespace FluxBB\Actions;
 
 use Illuminate\View\Factory;
 
-abstract class StaticPage extends Base
+abstract class Page extends Base
 {
     protected $viewName = '';
 

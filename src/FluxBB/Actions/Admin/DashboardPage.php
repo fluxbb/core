@@ -2,9 +2,9 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\StaticPage;
+use FluxBB\Actions\Page;
 
-class DashboardPage extends StaticPage
+class DashboardPage extends Page
 {
     protected $viewName = 'fluxbb::admin.index';
 }

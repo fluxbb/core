@@ -2,7 +2,7 @@
 
 namespace FluxBB\Actions;
 
-class RegisterPage extends StaticPage
+class RegisterPage extends Page
 {
     protected $viewName = 'fluxbb::auth.register';
 }
