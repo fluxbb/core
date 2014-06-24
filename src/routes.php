@@ -3,10 +3,14 @@
 $prefix = Config::get('fluxbb.route_prefix', '');
 
 Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function () {
-    Route::get('forum/{id}', array(
-        'as'	=> 'viewforum',
-        'uses'	=> 'FluxBB\Controllers\HomeController@getForum',
-    ));
+    $actionRoute = function ($actionClass) {
+        return function () use ($actionClass) {
+            $action = App::make($actionClass);
+            return $action->handle(app('request'));
+        };
+    };
+
+    Route::get('forum/{id}', array('as' => 'viewforum', 'uses' => $actionRoute('FluxBB\Actions\ViewForum')));
     Route::get('topic/{id}', array(
         'as'	=> 'viewtopic',
         'uses'	=> 'FluxBB\Controllers\HomeController@getTopic',
@@ -30,13 +34,6 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'as'	=> 'userlist',
         'uses'	=> 'FluxBB\Controllers\UsersController@getList',
     ));
-
-    $actionRoute = function ($actionClass) {
-        return function () use ($actionClass) {
-            $action = App::make($actionClass);
-            return $action->handle(app('request'));
-        };
-    };
 
     Route::get('register', array('as' => 'register', 'uses' => $actionRoute('FluxBB\Actions\RegisterPage')));
     Route::post('register', $actionRoute('FluxBB\Actions\Register'));

@@ -3,7 +3,6 @@
 namespace FluxBB\Controllers;
 
 use FluxBB\Models\Category;
-use FluxBB\Models\Forum;
 use FluxBB\Models\Post;
 use FluxBB\Models\Topic;
 use FluxBB\Models\User;
@@ -21,18 +20,6 @@ class HomeController extends BaseController
         $categories = Category::allForGroup(User::current()->group_id);
 
         return View::make('fluxbb::index')->with('categories', $categories);
-    }
-
-    public function getForum($fid)
-    {
-        // Fetch some info about the forum
-        $forum = Forum::find($fid);
-
-        if (is_null($forum)) {
-            App::abort(404);
-        }
-
-        return View::make('fluxbb::viewforum')->with('forum', $forum);
     }
 
     public function getTopic($tid, $page = 1)
