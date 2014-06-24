@@ -23,5 +23,4 @@ class ViewTopic extends Page
 
         $this->data['topic'] = $topic;
     }
-
 }

@@ -18,5 +18,4 @@ class ViewForum extends Page
         // Fetch some info about the topic
         $this->data['forum'] = Forum::findOrFail($fid);
     }
-
 }
