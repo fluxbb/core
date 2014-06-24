@@ -158,16 +158,6 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
             'uses' => 'FluxBB\Controllers\Admin\DashboardController@getReports',
         ));
 
-        Route::get('admin/dashboard/notes', array(
-            'as' => 'admin_dashboard_notes',
-            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getNotes',
-        ));
-
-        Route::get('admin/dashboard/backup', array(
-            'as' => 'admin_dashboard_backup',
-            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getBackup',
-        ));
-
     });
 
 

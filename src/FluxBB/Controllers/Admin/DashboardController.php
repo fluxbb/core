@@ -20,14 +20,4 @@ class DashboardController extends BaseController
     {
         return View::make('fluxbb::admin.dashboard.reports');
     }
-
-    public function getNotes()
-    {
-        return View::make('fluxbb::admin.dashboard.notes');
-    }
-
-    public function getBackup()
-    {
-        return View::make('fluxbb::admin.dashboard.backup');
-    }
 }

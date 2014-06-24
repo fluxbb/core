@@ -43,8 +43,6 @@
                             <li><a href="{{ route('admin_dashboard_updates') }}"><i class="icon-refresh"></i> {{ trans('fluxbb::admin_common.update_check_submenu') }}</a></li>
                             <li><a href="{{ route('admin_dashboard_stats') }}"><i class="icon-bar-chart"></i> {{ trans('fluxbb::admin_common.stats_submenu') }}</a></li>
                             <li><a href="{{ route('admin_dashboard_reports') }}"><i class="icon-flag"></i> {{ trans('fluxbb::admin_common.reported_posts_submenu') }}</a></li>
-                            <li><a href="{{ route('admin_dashboard_notes') }}"><i class="icon-edit-sign"></i> {{ trans('fluxbb::admin_common.notes_submenu') }}</a></li>
-                            <li><a href="{{ route('admin_dashboard_backup') }}"><i class="icon-save"></i> {{ trans('fluxbb::admin_common.backup_submenu') }}</a></li>
                         </ul>
                     </li>
                     <li id="subnav-content"<?php echo (in_array('content', array()) ? ' class="active"' : '' ); ?>>
@@ -98,10 +96,6 @@
             <div class="span12 dashbox">
                 <ul class="nav nav-pills pull-left">
                     <li><a class="message alert" href="/dashboard/updates/">Updates <span>6</span></a></li>
-                </ul>
-                <ul class="nav nav-pills pull-right">
-                    <li><a href="#">You have 2 notes awaiting.</a></li>
-                    <li><a class="message success" href="#">New note <i class="icon-plus"></i></a></li>
                 </ul>
             </div>
 

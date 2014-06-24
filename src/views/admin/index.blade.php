@@ -97,30 +97,6 @@
 
         <div class="row-fluid">
 
-            <div class="span4 dashbox-notes">
-                <h4>Notes</h4>
-                <div class="dashbox">
-                    <h5><i class="icon-calendar"></i> Two days ago <a href="#" data-toggle="tooltip" data-original-title="Edit"><i class="icon-edit-sign"></i></a></h5>
-                    <p>Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae.</p>
-                    <h5><i class="icon-calendar"></i> One week ago <a href="#" data-toggle="tooltip" data-original-title="Edit"><i class="icon-edit-sign"></i></a></h5>
-                    <p>Gallia est omnis divisa in partes tres…</p>
-                    <a href="#" class="btn btn-block btn-info">View all notes <i class="icon-chevron-right"></i></a>
-                </div> <!-- /dashbox -->
-            </div> <!-- /dashbox-notes -->
-
-            <div class="span4 dashbox-backup">
-                <h4>Backup</h4>
-                <div class="dashbox">
-                    <h5><i class="icon-cloud-download"></i> Latest backup</h5>
-                    <p>The last backup was: 2 days ago.</p>
-                    <p>
-                        <a href="#" class="btn btn-mini btn-success">Download again <i class="icon-download-alt"></i></a>
-                        <a href="#" class="btn btn-mini btn-info">Generate new backup <i class="icon-download-alt"></i></a>
-                    </p>
-                    <hr />
-                </div> <!-- /dashbox -->
-            </div> <!-- /dashbox-notes -->
-
             <div class="span4 dashbox-logs">
                 <h4>Logs &amp; Notifications</h4>
                 <div class="dashbox">
