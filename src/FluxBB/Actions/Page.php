@@ -6,8 +6,19 @@ use Illuminate\View\Factory;
 
 abstract class Page extends Base
 {
+    /**
+     * @var string
+     */
     protected $viewName = '';
 
+    /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
+     * @var \Illuminate\View\Factory
+     */
     protected $view;
 
 
@@ -18,6 +29,6 @@ abstract class Page extends Base
 
     protected function makeResponse()
     {
-        return $this->view->make($this->viewName);
+        return $this->view->make($this->viewName, $this->data);
     }
 }
