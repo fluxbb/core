@@ -14,10 +14,7 @@ class Core extends Facade
 
     public static function isInstalled()
     {
-        $app = static::$app;
-        // TODO: Use Config::has('fluxbb') once this issue is resolved:
-        // https://github.com/laravel/framework/issues/63
-        return file_exists($app['path'].'/config/fluxbb.php');
+        return static::$app['config']->hasGroup('fluxbb');
     }
 
     public static function version()
