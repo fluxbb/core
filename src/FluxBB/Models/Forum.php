@@ -20,6 +20,11 @@ class Forum extends Base
                     ->orderBy('id', 'DESC');
     }
 
+    public function lastPost()
+    {
+        return $this->belongsTo('FluxBB\Models\Post', 'last_post_id');
+    }
+
     public function subscriptions()
     {
         return $this->hasMany('FluxBB\\Models\\ForumSubscription');

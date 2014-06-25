@@ -2,8 +2,8 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Actions\Exception\ValidationException;
 use Symfony\Component\HttpFoundation\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Illuminate\Support\Contracts\ArrayableInterface;
 use Illuminate\Support\Contracts\MessageProviderInterface;
@@ -40,20 +40,27 @@ abstract class Base implements HttpKernelInterface, MessageProviderInterface
     /**
      * Turn a request object into a response.
      *
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
-     * @param  int  $type
-     * @param  bool  $catch
+     * @param  \Symfony\Component\HttpFoundation\Request $request
+     * @param int $type
+     * @param  bool $catch
+     * @throws \Exception
      * @return \Illuminate\Html\Response
      */
     public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
     {
-        $this->callHandlers('before');
-        $this->handleRequest($request);
+        try {
+            $this->callHandlers('before');
+            $this->handleRequest($request);
 
-        $this->run();
+            $this->run();
 
-        $response = $this->makeResponse();
-        $this->callHandlers('after');
+            $response = $this->makeResponse();
+            $this->callHandlers('after');
+        } catch (ValidationException $e) {
+            return $this->errorRedirectTo($this->urlOnError());
+        } catch (\Exception $e) {
+            throw $e;
+        }
 
         return $response;
     }
@@ -62,6 +69,14 @@ abstract class Base implements HttpKernelInterface, MessageProviderInterface
      * @return \Illuminate\Http\Response
      */
     abstract protected function makeResponse();
+
+    /**
+     * @return string
+     */
+    protected function urlOnError()
+    {
+        return '';
+    }
 
     protected function redirectTo($url)
     {

@@ -21,27 +21,4 @@ class HomeController extends BaseController
 
         return View::make('fluxbb::index')->with('categories', $categories);
     }
-
-    public function getPost($pid)
-    {
-        // If a post ID is specified we determine topic ID and page number so we can show the correct message
-        $post = Post::find($pid);
-
-        if (is_null($post)) {
-            App::abort(404);
-        }
-
-        // Determine on which page the post is located
-        $numPosts = Post::where('topic_id', '=', $post->topic_id)
-                        ->where('posted', '<', $post->posted)
-                        ->count('id') + 1;
-
-        $dispPosts = User::current()->dispPosts();
-        $page = ceil($numPosts / $dispPosts);
-
-        // Tell the paginator which page we're on
-        Paginator::setCurrentPage($page);
-
-        return $this->getTopic($post->topic_id);
-    }
 }

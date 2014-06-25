@@ -12,10 +12,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
 
     Route::get('forum/{id}', array('as' => 'viewforum', 'uses' => $actionRoute('FluxBB\Actions\ViewForum')));
     Route::get('topic/{id}', array('as' => 'viewtopic', 'uses' => $actionRoute('FluxBB\Actions\ViewTopic')));
-    Route::get('post/{id}', array(
-        'as'	=> 'viewpost',
-        'uses'	=> 'FluxBB\Controllers\HomeController@getPost',
-    ));
+    Route::get('post/{id}', array('as' => 'viewpost', 'uses' => $actionRoute('FluxBB\Actions\ViewPost')));
     Route::get('/', array(
         'as'	=> 'index',
         'uses'	=> 'FluxBB\Controllers\HomeController@getIndex',
@@ -76,9 +73,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'as'	=> 'reply',
         'uses'	=> 'FluxBB\Controllers\PostingController@getReply',
     ));
-    Route::post('topic/{id}/reply', array(
-        'uses'	=> 'FluxBB\Controllers\PostingController@postReply',
-    ));
+    Route::post('topic/{id}/reply', $actionRoute('FluxBB\Actions\Reply'));
     Route::get('forum/{id}/topic/new', array(
         'as'	=> 'new_topic',
         'uses'	=> 'FluxBB\Controllers\PostingController@getTopic',

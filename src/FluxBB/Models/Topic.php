@@ -17,6 +17,11 @@ class Topic extends Base
                     ->orderBy('id');
     }
 
+    public function lastPost()
+    {
+        return $this->belongsTo('FluxBB\\Models\\Post', 'last_post_id');
+    }
+
     public function forum()
     {
         return $this->belongsTo('FluxBB\\Models\\Forum');
@@ -31,8 +36,8 @@ class Topic extends Base
     public function addReply(Post $post)
     {
         $post->topic()->associate($this);
-        $this->last_post()->associate($post);
-        $this->forum->last_post()->associate($post);
+        $this->lastPost()->associate($post);
+        $this->forum->lastPost()->associate($post);
 
         $this->num_replies += 1;
         $this->forum->num_posts += 1;
