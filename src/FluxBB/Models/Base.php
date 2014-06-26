@@ -13,6 +13,7 @@ class Base extends Model
 
     protected $errors = array();
 
+    protected $connection = 'fluxbb';
 
     public function valid()
     {
