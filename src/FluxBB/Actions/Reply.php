@@ -28,7 +28,7 @@ class Reply extends Base
 
     protected function handleRequest(Request $request)
     {
-        $tid = 1; // TODO: Retrieve from request
+        $tid = \Route::input('id');
 
         $this->topic = Topic::with('forum.perms')
             ->where('id', '=', $tid)
