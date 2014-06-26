@@ -12,8 +12,7 @@ class ViewForum extends Page
 
     protected function handleRequest(Request $request)
     {
-        // TODO: Fetch from request
-        $fid = 1;
+        $fid = \Route::input('id');
 
         // Fetch some info about the topic
         $this->data['forum'] = Forum::findOrFail($fid);

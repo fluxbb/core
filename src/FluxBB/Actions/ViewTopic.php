@@ -12,8 +12,7 @@ class ViewTopic extends Page
 
     protected function handleRequest(Request $request)
     {
-        // TODO: Fetch from request
-        $tid = 1;
+        $tid = \Route::input('id');
 
         // Fetch some info about the topic
         $topic = Topic::findOrFail($tid);

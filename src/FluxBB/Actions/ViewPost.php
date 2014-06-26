@@ -15,8 +15,7 @@ class ViewPost extends Base
 
     protected function handleRequest(Request $request)
     {
-        // TODO: Fetch from request
-        $pid = 1;
+        $pid = \Route::input('id');
 
         // If a post ID is specified we determine topic ID and page number so we can show the correct message
         $this->post = Post::findOrFail($pid);
