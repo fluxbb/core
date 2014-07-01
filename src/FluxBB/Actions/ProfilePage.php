@@ -7,7 +7,7 @@ use FluxBB\Models\User;
 
 class ProfilePage extends Page
 {
-    protected $viewName = 'fluxbb::user.profile.essentials';
+    protected $viewName = 'fluxbb::user.profile.view';
 
 
     protected function handleRequest(Request $request)
