@@ -30,13 +30,7 @@ class Reply extends Base
     {
         $tid = \Route::input('id');
 
-        $this->topic = Topic::with('forum.perms')
-            ->where('id', '=', $tid)
-            ->first();
-
-        if (is_null($this->topic)) {
-            \App::abort(404);
-        }
+        $this->topic = Topic::with('forum.perms')->findOrFail($tid);
 
         $this->message = $request->input('req_message');
     }
