@@ -119,26 +119,6 @@ class PostingController extends BaseController
             ->with('message', trans('fluxbb::topic.topic_added'));
     }
 
-    public function getEdit($pid)
-    {
-        $post = Post::with('author', 'topic')
-            ->where('id', $pid)
-            ->first();
-
-        if (is_null($post)) {
-            App::abort(404);
-        }
-
-        // Check is the user is the author, or a moderator
-        if ($post->author->id != Auth::user()->id && !Auth::user()->isAdmMod()) {
-             App::abort(404);
-        }
-
-        return View::make('fluxbb::posting.post')
-            ->with('post', $post)
-            ->with('action', trans('fluxbb::forum.edit_post'));
-    }
-
     public function postEdit($pid)
     {
         $post = Post::with('author', 'topic')
