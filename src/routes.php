@@ -18,9 +18,6 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'as'	=> 'profile',
         'uses'	=> 'FluxBB\Controllers\UsersController@getProfile',
     ));
-    Route::post('profile/{id}', array(
-        'uses'	=> 'FluxBB\Controllers\UsersController@postProfile',
-    ));
     Route::get('users', array(
         'as'	=> 'userlist',
         'uses'	=> 'FluxBB\Controllers\UsersController@getList',
