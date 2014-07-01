@@ -13,10 +13,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     Route::get('forum/{id}', array('as' => 'viewforum', 'uses' => $actionRoute('FluxBB\Actions\ViewForum')));
     Route::get('topic/{id}', array('as' => 'viewtopic', 'uses' => $actionRoute('FluxBB\Actions\ViewTopic')));
     Route::get('post/{id}', array('as' => 'viewpost', 'uses' => $actionRoute('FluxBB\Actions\ViewPost')));
-    Route::get('/', array(
-        'as'	=> 'index',
-        'uses'	=> 'FluxBB\Controllers\HomeController@getIndex',
-    ));
+    Route::get('/', array('as' => 'index', 'uses' => $actionRoute('FluxBB\Actions\Home')));
     Route::get('profile/{id}', array(
         'as'	=> 'profile',
         'uses'	=> 'FluxBB\Controllers\UsersController@getProfile',
