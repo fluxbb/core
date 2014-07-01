@@ -36,10 +36,6 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     ));
     Route::get('logout', array('as' => 'logout', 'uses' => $actionRoute('FluxBB\Actions\Logout')));
     Route::get('rules', array('as' => 'rules', 'uses' => $actionRoute('FluxBB\Actions\Rules')));
-    Route::get('email/{id}', array(
-        'as'	=> 'email',
-        'uses'	=> 'FluxBB\Controllers\MiscController@getEmail',
-    ));
     Route::get('search', array(
         'as'	=> 'search',
         'uses'	=> 'FluxBB\Controllers\SearchController@getIndex',
