@@ -44,10 +44,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'as'	=> 'post_quote',
         'uses'	=> 'FluxBB\Controllers\PostingController@getQuote',
     ));
-    Route::get('topic/{id}/reply', array(
-        'as'	=> 'reply',
-        'uses'	=> 'FluxBB\Controllers\PostingController@getReply',
-    ));
+    Route::get('topic/{id}/reply', array('as' => 'reply', 'uses' => $actionRoute('FluxBB\Actions\ReplyPage')));
     Route::post('topic/{id}/reply', $actionRoute('FluxBB\Actions\Reply'));
     Route::get('forum/{id}/topic/new', array(
         'as'	=> 'new_topic',
