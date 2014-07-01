@@ -34,9 +34,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         'uses'	=> 'FluxBB\Controllers\PostingController@getDelete',
     ));
     Route::get('post/{id}/edit', array('as' => 'post_edit', 'uses' => $actionRoute('FluxBB\Actions\EditPostPage')));
-    Route::post('post/{id}/edit', array(
-        'uses'  => 'FluxBB\Controllers\PostingController@postEdit',
-    ));
+    Route::post('post/{id}/edit', $actionRoute('FluxBB\Actions\EditPost'));
     Route::get('post/{id}/quote', array(
         'as'	=> 'post_quote',
         'uses'	=> 'FluxBB\Controllers\PostingController@getQuote',
