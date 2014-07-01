@@ -14,7 +14,7 @@
         </div>
 
         <p class="clearb">{{ trans('fluxbb::login.login_info') }}</p>
-        <p class="actions"><span><a href="{{ route('register') }}" tabindex="5">{{ trans('fluxbb::login.not_registered') }}</a></span> <span><a href="{{ route('forgot_password') }}" tabindex="6">{{ trans('fluxbb::login.forgotten_pass') }}</a></span></p>
+        <p class="actions"><span><a href="{{ route('register') }}" tabindex="5">{{ trans('fluxbb::login.not_registered') }}</a></span> <span><a href="{{ route('reset_password') }}" tabindex="6">{{ trans('fluxbb::login.forgotten_pass') }}</a></span></p>
     </fieldset>
     <p class="buttons"><input type="submit" name="login" value="{{ trans('fluxbb::common.login') }}" tabindex="4" /></p>
 </form>

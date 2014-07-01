@@ -21,10 +21,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     Route::post('register', $actionRoute('FluxBB\Actions\Register'));
     Route::get('login', array('as' => 'login', 'uses' => $actionRoute('FluxBB\Actions\LoginPage')));
     Route::post('login', $actionRoute('FluxBB\Actions\Login'));
-    Route::get('forgot_password.html', array(
-        'as'	=> 'forgot_password',
-        'uses'	=> 'FluxBB\Controllers\AuthController@getForgot',
-    ));
+    Route::get('reset_password', array('as' => 'reset_password', 'uses' => $actionRoute('FluxBB\Actions\PasswordResetPage')));
     Route::get('logout', array('as' => 'logout', 'uses' => $actionRoute('FluxBB\Actions\Logout')));
     Route::get('rules', array('as' => 'rules', 'uses' => $actionRoute('FluxBB\Actions\Rules')));
     Route::get('search', array('as' => 'search', 'uses' => $actionRoute('FluxBB\Actions\SearchPage')));
