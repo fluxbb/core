@@ -14,10 +14,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     Route::get('topic/{id}', array('as' => 'viewtopic', 'uses' => $actionRoute('FluxBB\Actions\ViewTopic')));
     Route::get('post/{id}', array('as' => 'viewpost', 'uses' => $actionRoute('FluxBB\Actions\ViewPost')));
     Route::get('/', array('as' => 'index', 'uses' => $actionRoute('FluxBB\Actions\Home')));
-    Route::get('profile/{id}', array(
-        'as'	=> 'profile',
-        'uses'	=> 'FluxBB\Controllers\UsersController@getProfile',
-    ));
+    Route::get('profile/{id}', array('as' => 'profile', 'uses' => $actionRoute('FluxBB\Actions\ProfilePage')));
     Route::get('users', array('as' => 'userlist', 'uses' => $actionRoute('FluxBB\Actions\UsersPage')));
 
     Route::get('register', array('as' => 'register', 'uses' => $actionRoute('FluxBB\Actions\RegisterPage')));
