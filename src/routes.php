@@ -94,21 +94,9 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         ));
         */
 
-        Route::get('admin/dashboard/updates', array(
-            'as' => 'admin_dashboard_updates',
-            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getUpdates',
-        ));
-
-        Route::get('admin/dashboard/stats', array(
-            'as' => 'admin_dashboard_stats',
-            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getStats',
-        ));
-
-        Route::get('admin/dashboard/reports', array(
-            'as' => 'admin_dashboard_reports',
-            'uses' => 'FluxBB\Controllers\Admin\DashboardController@getReports',
-        ));
-
+        Route::get('admin/dashboard/updates', ['as' => 'admin_dashboard_updates', 'uses' => $actionRoute('FluxBB\Actions\Admin\UpdatesPage')]);
+        Route::get('admin/dashboard/stats', ['as' => 'admin_dashboard_stats', 'uses' => $actionRoute('FluxBB\Actions\Admin\StatsPage')]);
+        Route::get('admin/dashboard/reports', ['as' => 'admin_dashboard_reports', 'uses' => $actionRoute('FluxBB\Actions\Admin\ReportsPage')]);
     });
 
 
