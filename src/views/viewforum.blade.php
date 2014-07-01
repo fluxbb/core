@@ -75,8 +75,8 @@ if (FluxBB\Models\User::current()->isMember() && $topic->last_post > FluxBB\Mode
         <div class="col-md-6 col-sm-6 col-xs-6">
             <a href="{{ route('viewtopic', array('id' => $topic->id)) }}">{{ ($topic->subject) }}</a> {{ trans('fluxbb::common.by', array('author' => ($topic->poster))) }}
         </div>
-        <div class="col-md-1 col-sm-1 col-xs-1">{{ $topic->numReplies() }}</div>
-        <div class="col-md-1 col-sm-1 col-xs-1">{{ $topic->numViews() }}</div> <!-- TODO: Only show if o_topic_views is enabled -->
+        <div class="col-md-1 col-sm-1 col-xs-1">{{ $topic->getNumReplies() }}</div>
+        <div class="col-md-1 col-sm-1 col-xs-1">{{ $topic->getNumViews() }}</div> <!-- TODO: Only show if o_topic_views is enabled -->
         <div class="col-md-4 col-sm-4 col-xs-4">
     @if ($topic->wasMoved())
             - - -

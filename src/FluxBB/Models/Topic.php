@@ -43,12 +43,12 @@ class Topic extends Base
         $this->forum->num_posts += 1;
     }
 
-    public function numReplies()
+    public function getNumReplies()
     {
         return is_null($this->moved_to) ? $this->num_replies : '-';
     }
 
-    public function numViews()
+    public function getNumViews()
     {
         return is_null($this->moved_to) ? $this->num_views : '-';
     }
