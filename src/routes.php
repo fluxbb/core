@@ -44,9 +44,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     Route::get('topic/{id}/reply', array('as' => 'reply', 'uses' => $actionRoute('FluxBB\Actions\ReplyPage')));
     Route::post('topic/{id}/reply', $actionRoute('FluxBB\Actions\Reply'));
     Route::get('forum/{id}/topic/new', array('as' => 'new_topic', 'uses' => $actionRoute('FluxBB\Actions\NewTopicPage')));
-    Route::post('forum/{id}/topic/new', array(
-        'uses'	=> 'FluxBB\Controllers\PostingController@postTopic',
-    ));
+    Route::post('forum/{id}/topic/new', $actionRoute('FluxBB\Actions\NewTopic'));
 
     Route::bind('group', function ($value, $route) {
         return App::make('FluxBB\Models\GroupRepositoryInterface')->find($value);

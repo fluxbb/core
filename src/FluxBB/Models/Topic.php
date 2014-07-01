@@ -38,9 +38,6 @@ class Topic extends Base
         $post->topic()->associate($this);
         $this->lastPost()->associate($post);
         $this->forum->lastPost()->associate($post);
-
-        $this->num_replies += 1;
-        $this->forum->num_posts += 1;
     }
 
     public function getNumReplies()
