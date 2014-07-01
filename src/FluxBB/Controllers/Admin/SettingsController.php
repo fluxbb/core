@@ -22,14 +22,6 @@ class SettingsController extends BaseController
         $this->config = $config;
     }
 
-    public function getGlobal()
-    {
-        $globalConfig = $this->config->getGlobal();
-
-        return View::make('fluxbb::admin.settings.global')
-                   ->with('config', $globalConfig);
-    }
-
     public function setOption($key)
     {
         $value = Input::get('value');
@@ -39,21 +31,4 @@ class SettingsController extends BaseController
 
         return Response::json($status);
     }
-
-    public function getEmail()
-    {
-        return View::make('fluxbb::admin.settings.email');
-    }
-
-    public function getMaintenance()
-    {
-        return View::make('fluxbb::admin.settings.maintenance');
-    }
-
-    //comited out below function to avoid errors
-    /* public function getLogs()
-    {
-        return View::make('fluxbb::admin.settings.logs');
-    }
-    */
 }

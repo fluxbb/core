@@ -67,25 +67,16 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
             'uses'	=> 'FluxBB\Controllers\Admin\GroupsController@remove',
         ));
 
-        Route::get('admin/settings', array(
-            'as'	=> 'admin_settings_global',
-            'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@getGlobal',
-        ));
+        Route::get('admin/settings', ['as' => 'admin_settings_global', 'uses' => $actionRoute('FluxBB\Actions\Admin\GlobalSettingsPage')]);
+        Route::get('admin/settings/email', ['as' => 'admin_settings_email', 'uses' => $actionRoute('FluxBB\Actions\Admin\EmailSettingsPage')]);
+        Route::get('admin/settings/maintenance', ['as' => 'admin_settings_maintenance', 'uses' => $actionRoute('FluxBB\Actions\Admin\MaintenanceSettingsPage')]);
         Route::post('admin/settings/{key}', array(
-            'uses'	=> 'FluxBB\Controllers\Admin\SettingsController@setOption'
+            'uses'  => 'FluxBB\Controllers\Admin\SettingsController@setOption'
         ));
 
         Route::post('admin/ajax/board_config', array(
-            'as'	=> 'admin_ajax_board_config',
-            'uses'	=> 'FluxBB\Controllers\Admin\AjaxController@postBoardConfig',
-        ));
-        Route::get('admin/settings/email', array(
-            'as' => 'admin_settings_email',
-            'uses' => 'FluxBB\Controllers\Admin\SettingsController@getEmail',
-        ));
-        Route::get('admin/settings/maintenance', array(
-            'as' => 'admin_settings_maintenance',
-            'uses' => 'FluxBB\Controllers\Admin\SettingsController@getMaintenance',
+            'as'    => 'admin_ajax_board_config',
+            'uses'  => 'FluxBB\Controllers\Admin\AjaxController@postBoardConfig',
         ));
 
         /* Route::get('admin/settings/logs', array(
