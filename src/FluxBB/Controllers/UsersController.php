@@ -35,12 +35,4 @@ class UsersController extends BaseController
             ->with('user_infos', $user_infos);
 
     }
-
-    public function getList()
-    {
-        $users = User::paginate(20);
-
-        return View::make('fluxbb::user.list')
-            ->with('users', $users);
-    }
 }
