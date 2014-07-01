@@ -17,21 +17,6 @@ use View;
 
 class PostingController extends BaseController
 {
-    public function getTopic($fid)
-    {
-        $forum = Forum::with('perms')
-            ->where('id', $fid)
-            ->first();
-
-        if (is_null($forum)) {
-            App::abort(404);
-        }
-
-        return View::make('fluxbb::posting.post')
-            ->with('forum', $forum)
-            ->with('action', trans('fluxbb::forum.post_topic'));
-    }
-
     public function postTopic($fid)
     {
         $forum = Forum::with('perms')
