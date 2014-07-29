@@ -21,8 +21,6 @@ class Post extends Base
 
     public function message()
     {
-        // TODO: Apply parse_message() with $this->hide_smilies as parameter
-        // TODO2: Actually, the parsing might have to be moved to another method, as that's presentation code
         return $this->message;
     }
 

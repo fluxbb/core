@@ -76,10 +76,9 @@ class User extends Base implements UserInterface
         return !$this->guest();
     }
 
-    // TODO: Better name
+    // Obsolete. Will be replaced by proper ACL stuff.
     public function isAdmMod()
     {
-        // TODO: Is this even necessary or is a better check for is_moderator() (that returns true for admins, too) better?
         return $this->isAdmin() || $this->isModerator();
     }
 
@@ -151,8 +150,6 @@ class User extends Base implements UserInterface
 
     public function signature()
     {
-        // TODO: Actually parse this, but somewhere else (as that's presentation code)
-        // see fluxbb\Post::message()
         return $this->signature;
     }
 

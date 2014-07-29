@@ -239,7 +239,7 @@ class Install extends Base
             'o_smilies_sig'             => 1,
             'o_make_links'              => 1,
             'o_default_lang'            => Laravel\Config::get('application.language'),
-            'o_default_style'           => 'Air', // FIXME
+            'o_default_style'           => 'Air',
             'o_default_user_group'      => 4,
             'o_topic_review'            => 15,
             'o_disp_topics_default'     => 30,
