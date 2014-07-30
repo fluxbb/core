@@ -2,7 +2,6 @@
 
 namespace FluxBB\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
 use FluxBB\Models\Forum;
 
 class NewTopicPage extends Page
@@ -10,9 +9,9 @@ class NewTopicPage extends Page
     protected $viewName = 'fluxbb::posting.post';
 
 
-    protected function handleRequest(Request $request)
+    protected function run()
     {
-        $fid = \Route::input('id');
+        $fid = $this->request->get('id');
 
         $forum = Forum::with('perms')->findOrFail($fid);
 

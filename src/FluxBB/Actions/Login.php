@@ -3,7 +3,6 @@
 namespace FluxBB\Actions;
 
 use Illuminate\Auth\AuthManager;
-use Symfony\Component\HttpFoundation\Request;
 
 class Login extends Base
 {
@@ -12,35 +11,22 @@ class Login extends Base
      */
     protected $auth;
 
-    /**
-     * @var array
-     */
-    protected $credentials;
-
-    /**
-     * @var bool
-     */
-    protected $remember;
-
 
     public function __construct(AuthManager $auth)
     {
         $this->auth = $auth;
     }
 
-    protected function handleRequest(Request $request)
-    {
-        $this->credentials = array(
-            'username' => $request->input('req_username'),
-            'password' => $request->input('req_password'),
-        );
-
-        $this->remember = $request->input('remember');
-    }
-
     public function run()
     {
-        if (! $this->auth->attempt($this->credentials, $this->remember)) {
+        $credentials = [
+            'username' => $this->request->get('req_username'),
+            'password' => $this->request->get('req_password'),
+        ];
+
+        $remember = $this->request->get('remember');
+
+        if (! $this->auth->attempt($credentials, $remember)) {
             $this->addError('Invalid username / password combination');
         }
     }

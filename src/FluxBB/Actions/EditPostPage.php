@@ -2,7 +2,6 @@
 
 namespace FluxBB\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
 use FluxBB\Models\Post;
 
 class EditPostPage extends Page
@@ -10,12 +9,12 @@ class EditPostPage extends Page
     protected $viewName = 'fluxbb::posting.post';
 
 
-    protected function handleRequest(Request $request)
+    protected function run()
     {
-        $pid = \Route::input('id');
+        $pid = $this->request->get('id');
 
         // Fetch some info about the topic
-        $topic = Post::with('author', 'topic')->findOrFail($pid);
+        $post = Post::with('author', 'topic')->findOrFail($pid);
 
         $this->data['post'] = $post;
         $this->data['action'] = trans('fluxbb::forum.edit_post');

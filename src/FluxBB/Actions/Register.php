@@ -3,16 +3,11 @@
 namespace FluxBB\Actions;
 
 use Illuminate\Validation\Factory as ValidationFactory;
-use Symfony\Component\HttpFoundation\Request;
 use FluxBB\Models\Config;
 use FluxBB\Models\User;
 
 class Register extends Base
 {
-    protected $request;
-
-    protected $input;
-
     protected $validator;
 
 
@@ -43,12 +38,6 @@ class Register extends Base
         return $rules;
     }
 
-    protected function handleRequest(Request $request)
-    {
-        $this->input = $request->input();
-        $this->request = $request;
-    }
-
     /**
      * Run the action and return a response for the user.
      *
@@ -64,10 +53,10 @@ class Register extends Base
         }
 
         $userData = array(
-            'username'          => $this->input['user'],
+            'username'          => $this->request->get('user'),
             'group_id'          => Config::get('o_default_user_group'),
-            'password'          => $this->input['password'],
-            'email'             => $this->input['email'],
+            'password'          => $this->request->get('password'),
+            'email'             => $this->request->get('email'),
             'email_setting'     => Config::get('o_default_email_setting'),
             'timezone'          => Config::get('o_default_timezone'),
             'dst'               => Config::get('o_default_dst'),

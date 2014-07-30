@@ -2,7 +2,6 @@
 
 namespace FluxBB\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
 use FluxBB\Models\User;
 
 class ProfilePage extends Page
@@ -10,9 +9,9 @@ class ProfilePage extends Page
     protected $viewName = 'fluxbb::user.profile.view';
 
 
-    protected function handleRequest(Request $request)
+    protected function run()
     {
-        $uid = \Route::input('id');
+        $uid = $this->request->get('id');
 
         $user = User::findOrFail($uid);
 

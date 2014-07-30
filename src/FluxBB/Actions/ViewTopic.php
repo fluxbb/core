@@ -2,7 +2,6 @@
 
 namespace FluxBB\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
 use FluxBB\Models\Topic;
 
 class ViewTopic extends Page
@@ -10,9 +9,9 @@ class ViewTopic extends Page
     protected $viewName = 'fluxbb::viewtopic';
 
 
-    protected function handleRequest(Request $request)
+    protected function run()
     {
-        $tid = \Route::input('id');
+        $tid = $this->request->get('id');
 
         // Fetch some info about the topic
         $topic = Topic::findOrFail($tid);

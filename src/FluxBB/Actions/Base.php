@@ -3,17 +3,21 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Actions\Exception\ValidationException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
+use FluxBB\Server\Request;
 use Illuminate\Support\Contracts\ArrayableInterface;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
 
-abstract class Base implements HttpKernelInterface, MessageProviderInterface
+abstract class Base implements MessageProviderInterface
 {
     protected $handlers = array();
 
     protected $errors = array();
+
+    /**
+     * @var \FluxBB\Server\Request
+     */
+    protected $request;
 
 
     public function succeeded()
@@ -38,17 +42,16 @@ abstract class Base implements HttpKernelInterface, MessageProviderInterface
     }
 
     /**
-     * Turn a request object into a response.
+     * Turn a request into a response.
      *
-     * @param  \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param  bool $catch
+     * @param \FluxBB\Server\Request $request
+     * @return \Illuminate\Http\Response
      * @throws \Exception
-     * @return \Illuminate\Html\Response
      */
-    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
+    public function handle(Request $request)
     {
         try {
+            $this->request = $request;
             $this->callHandlers('before');
             $this->handleRequest($request);
 

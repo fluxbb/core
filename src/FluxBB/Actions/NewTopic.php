@@ -5,7 +5,7 @@ namespace FluxBB\Actions;
 use Carbon\Carbon;
 use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Validator\PostValidator;
-use Symfony\Component\HttpFoundation\Request;
+use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
 use FluxBB\Models\Topic;
@@ -21,10 +21,6 @@ class NewTopic extends Base
 
     protected $validator;
 
-    protected $subject;
-
-    protected $message;
-
 
     public function __construct(PostValidator $validator)
     {
@@ -33,12 +29,9 @@ class NewTopic extends Base
 
     protected function handleRequest(Request $request)
     {
-        $fid = \Route::input('id');
+        $fid = $request->get('id');
 
         $this->forum = Forum::with('perms')->findOrFail($fid);
-
-        $this->subject = $request->input('req_subject');
-        $this->message = $request->input('req_message');
     }
 
     /**
@@ -54,7 +47,7 @@ class NewTopic extends Base
 
         $this->topic = new Topic([
             'poster'        => $creator->username,
-            'subject'       => $this->subject,
+            'subject'       => $this->request->get('req_subject'),
             'posted'        => $now,
             'last_post'     => $now,
             'last_poster'   => $creator->username,
@@ -64,7 +57,7 @@ class NewTopic extends Base
         $this->post = new Post([
             'poster'	=> $creator->username,
             'poster_id'	=> $creator->id,
-            'message'	=> $this->message,
+            'message'	=> $this->request->get('req_message'),
             'posted'	=> $now,
         ]);
 

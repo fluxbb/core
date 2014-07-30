@@ -4,7 +4,6 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Post;
 use FluxBB\Models\User;
-use Symfony\Component\HttpFoundation\Request;
 
 class ViewPost extends Base
 {
@@ -13,9 +12,9 @@ class ViewPost extends Base
     protected $page;
 
 
-    protected function handleRequest(Request $request)
+    protected function run()
     {
-        $pid = \Route::input('id');
+        $pid = $this->request->get('id');
 
         // If a post ID is specified we determine topic ID and page number so we can show the correct message
         $this->post = Post::findOrFail($pid);

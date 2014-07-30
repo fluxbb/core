@@ -5,18 +5,15 @@ namespace FluxBB\Actions;
 use Carbon\Carbon;
 use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Validator\PostValidator;
-use Symfony\Component\HttpFoundation\Request;
+use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
-use FluxBB\Models\Topic;
 
 class EditPost extends Base
 {
     protected $post;
 
     protected $validator;
-
-    protected $message;
 
 
     public function __construct(PostValidator $validator)
@@ -26,11 +23,9 @@ class EditPost extends Base
 
     protected function handleRequest(Request $request)
     {
-        $pid = \Route::input('id');
+        $pid = $request->get('id');
 
         $this->post = Post::with('author', 'topic')->findOrFail($pid);
-
-        $this->message = $request->input('req_message');
     }
 
     /**
@@ -44,7 +39,7 @@ class EditPost extends Base
         $creator = User::current();
 
         $this->post->fill([
-            'message'	=> $this->message,
+            'message'	=> $this->request->get('req_message'),
             'edited'    => Carbon::now(),
             'edited_by' => $creator->username,
         ]);

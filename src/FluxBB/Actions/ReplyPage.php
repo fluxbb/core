@@ -2,7 +2,6 @@
 
 namespace FluxBB\Actions;
 
-use Symfony\Component\HttpFoundation\Request;
 use FluxBB\Models\Topic;
 
 class ReplyPage extends Page
@@ -10,9 +9,9 @@ class ReplyPage extends Page
     protected $viewName = 'fluxbb::posting.post';
 
 
-    protected function handleRequest(Request $request)
+    protected function run()
     {
-        $tid = \Route::input('id');
+        $tid = $this->request->get('id');
 
         // Fetch some info about the topic
         $topic = Topic::with('forum.perms')->findOrFail($tid);
