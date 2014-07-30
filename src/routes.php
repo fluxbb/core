@@ -2,7 +2,60 @@
 
 $prefix = Config::get('fluxbb.route_prefix', '');
 
-Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function () {
+$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+    $r->addRoute('GET', '/', 'index');
+    $r->addRoute('GET', 'forum/{id}', 'viewforum');
+    $r->addRoute('GET', 'topic/{id}', 'viewtopic');
+    $r->addRoute('GET', 'post/{id}', 'viewpost');
+    $r->addRoute('GET', 'register', 'register');
+    $r->addRoute('POST', 'register', 'handle_registration');
+    $r->addRoute('GET', 'login', 'login');
+    $r->addRoute('POST', 'login', 'handle_login');
+    $r->addRoute('GET', 'logout', 'logout');
+    $r->addRoute('GET', 'reset_password', 'reset_password');
+    $r->addRoute('GET', 'profile/{id}', 'profile');
+    $r->addRoute('GET', 'users', 'userlist');
+    $r->addRoute('GET', 'rules', 'rules');
+    $r->addRoute('GET', 'search', 'search');
+});
+
+$server = App::make('FluxBB\Server\Server');
+$server->register('index', 'FluxBB\Actions\Home');
+$server->register('viewforum', 'FluxBB\Actions\ViewForum');
+$server->register('viewtopic', 'FluxBB\Actions\ViewTopic');
+$server->register('viewpost', 'FluxBB\Actions\ViewPost');
+$server->register('register', 'FluxBB\Actions\RegisterPage');
+$server->register('handle_registration', 'FluxBB\Actions\Register');
+$server->register('login', 'FluxBB\Actions\LoginPage');
+$server->register('handle_login', 'FluxBB\Actions\Login');
+$server->register('logout', 'FluxBB\Actions\Logout');
+$server->register('reset_password', 'FluxBB\Actions\PasswordResetPage');
+$server->register('profile', 'FluxBB\Actions\ProfilePage');
+$server->register('userlist', 'FluxBB\Actions\UsersPage');
+$server->register('rules', 'FluxBB\Actions\Rules');
+$server->register('search', 'FluxBB\Actions\SearchPage');
+
+Route::any($prefix.'/{uri}', function($uri) use ($prefix, $dispatcher, $server) {
+    $method = Request::method();
+
+    $routeInfo = $dispatcher->dispatch($method, $uri);
+    switch ($routeInfo[0]) {
+        case FastRoute\Dispatcher::NOT_FOUND:
+            return App::error(404);
+            break;
+        case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+            return App::error(405);
+            break;
+        case FastRoute\Dispatcher::FOUND:
+            $handler = $routeInfo[1];
+            $parameters = $routeInfo[2];
+            $request = new FluxBB\Server\Request($handler, $parameters);
+            $action = $server->resolve($handler);
+            return $action->handle($request);
+    }
+})->where('uri', '.*');
+
+/*Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function () {
     $actionRoute = function ($actionClass) {
         return function () use ($actionClass) {
             $action = App::make($actionClass);
@@ -10,21 +63,7 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
         };
     };
 
-    Route::get('forum/{id}', array('as' => 'viewforum', 'uses' => $actionRoute('FluxBB\Actions\ViewForum')));
-    Route::get('topic/{id}', array('as' => 'viewtopic', 'uses' => $actionRoute('FluxBB\Actions\ViewTopic')));
-    Route::get('post/{id}', array('as' => 'viewpost', 'uses' => $actionRoute('FluxBB\Actions\ViewPost')));
-    Route::get('/', array('as' => 'index', 'uses' => $actionRoute('FluxBB\Actions\Home')));
-    Route::get('profile/{id}', array('as' => 'profile', 'uses' => $actionRoute('FluxBB\Actions\ProfilePage')));
-    Route::get('users', array('as' => 'userlist', 'uses' => $actionRoute('FluxBB\Actions\UsersPage')));
 
-    Route::get('register', array('as' => 'register', 'uses' => $actionRoute('FluxBB\Actions\RegisterPage')));
-    Route::post('register', $actionRoute('FluxBB\Actions\Register'));
-    Route::get('login', array('as' => 'login', 'uses' => $actionRoute('FluxBB\Actions\LoginPage')));
-    Route::post('login', $actionRoute('FluxBB\Actions\Login'));
-    Route::get('reset_password', array('as' => 'reset_password', 'uses' => $actionRoute('FluxBB\Actions\PasswordResetPage')));
-    Route::get('logout', array('as' => 'logout', 'uses' => $actionRoute('FluxBB\Actions\Logout')));
-    Route::get('rules', array('as' => 'rules', 'uses' => $actionRoute('FluxBB\Actions\Rules')));
-    Route::get('search', array('as' => 'search', 'uses' => $actionRoute('FluxBB\Actions\SearchPage')));
     Route::get('post/{id}/report', array(
         'as'	=> 'post_report',
         'uses'	=> 'FluxBB\Controllers\PostingController@getReport',
@@ -79,11 +118,10 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
             'uses'  => 'FluxBB\Controllers\Admin\AjaxController@postBoardConfig',
         ));
 
-        /* Route::get('admin/settings/logs', array(
+        Route::get('admin/settings/logs', array(
             'as' => 'admin_settings_logs',
             'uses' => 'FluxBB\Controllers\Admin\SettingsController@getLogs',
         ));
-        */
 
         Route::get('admin/dashboard/updates', ['as' => 'admin_dashboard_updates', 'uses' => $actionRoute('FluxBB\Actions\Admin\UpdatesPage')]);
         Route::get('admin/dashboard/stats', ['as' => 'admin_dashboard_stats', 'uses' => $actionRoute('FluxBB\Actions\Admin\StatsPage')]);
@@ -91,4 +129,4 @@ Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), func
     });
 
 
-});
+});*/
