@@ -2,7 +2,7 @@
 
 $prefix = Config::get('fluxbb.route_prefix', '');
 
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+$dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', 'index');
     $r->addRoute('GET', 'forum/{id}', 'viewforum');
     $r->addRoute('GET', 'topic/{id}', 'viewtopic');
@@ -35,7 +35,7 @@ $server->register('userlist', 'FluxBB\Actions\UsersPage');
 $server->register('rules', 'FluxBB\Actions\Rules');
 $server->register('search', 'FluxBB\Actions\SearchPage');
 
-Route::any($prefix.'/{uri}', function($uri) use ($prefix, $dispatcher, $server) {
+Route::any($prefix.'/{uri}', function ($uri) use ($prefix, $dispatcher, $server) {
     $method = Request::method();
 
     $routeInfo = $dispatcher->dispatch($method, $uri);
