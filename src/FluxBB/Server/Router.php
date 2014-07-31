@@ -15,6 +15,11 @@ class Router
     protected $routes;
 
     /**
+     * @var array
+     */
+    protected $reverse = [];
+
+    /**
      * @var \FastRoute\Dispatcher
      */
     protected $dispatcher;
@@ -22,35 +27,48 @@ class Router
 
     public function __construct()
     {
-        $this->routes = new RouteCollector(
-            new RouteParser\Std,
-            new DataGenerator\GroupCountBased
-        );
+        $parser = new RouteParser\Std;
+        $generator = new DataGenerator\GroupCountBased;
+
+        $this->routes = new RouteCollector($parser, $generator);
     }
 
     public function get($path, $handler)
     {
-        $this->addRoute('GET', $path, $handler);
+        return $this->addRoute('GET', $path, $handler);
     }
 
     public function post($path, $handler)
     {
-        $this->addRoute('POST', $path, $handler);
+        return $this->addRoute('POST', $path, $handler);
     }
 
     public function put($path, $handler)
     {
-        $this->addRoute('PUT', $path, $handler);
+        return $this->addRoute('PUT', $path, $handler);
     }
 
     public function delete($path, $handler)
     {
-        $this->addRoute('DELETE', $path, $handler);
+        return $this->addRoute('DELETE', $path, $handler);
     }
 
     public function addRoute($method, $path, $handler)
     {
         $this->routes->addRoute($method, $path, $handler);
+        $this->storeReverseRoute($handler, ['path' => $path, 'method' => $method]);
+
+        return $this;
+    }
+
+    public function getPath($handler)
+    {
+        return array_get($this->reverse, $handler . '.path', '');
+    }
+
+    public function getMethod($handler)
+    {
+        return array_get($this->reverse, $handler . '.method', '');
     }
 
     public function getRequest($method, $uri)
@@ -68,6 +86,11 @@ class Router
                 $parameters = $routeInfo[2];
                 return new Request($handler, $parameters);
         }
+    }
+
+    protected function storeReverseRoute($handler, $path)
+    {
+        $this->reverse[$handler] = $path;
     }
 
     protected function getDispatcher()

@@ -39,6 +39,7 @@ class ServiceProvider extends Base
         $this->registerHandlers();
         $this->registerRoutes();
         $this->registerLaravelRoute();
+        $this->registerViewHelpers();
     }
 
     /**
@@ -135,6 +136,26 @@ class ServiceProvider extends Base
 
             return $action->handle($request);
         })->where('uri', '.*');
+    }
+
+    /**
+     * Register the view helpers for generating URLs etc.
+     *
+     * @return void
+     */
+    protected function registerViewHelpers()
+    {
+        $app = $this->app;
+
+        $app->resolving('view', function ($view) use ($app) {
+            $view->share('route', function ($name) use ($app) {
+                return '/' . $app['fluxbb.router']->getPath($name);
+            });
+
+            $view->share('method', function ($name) use ($app) {
+                return '/' . $app['fluxbb.router']->getMethod($name);
+            });
+        });
     }
 
     /**
