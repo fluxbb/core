@@ -3,11 +3,11 @@
 @section('main')
 <h2><?php echo $action ?></h2>
 @if (isset($topic))
-<form action="{{ route('reply', array('id' => $topic->id)) }}" method="POST" id="post">
+<form action="{{ $route('reply', array('id' => $topic->id)) }}" method="POST" id="post">
 @elseif (isset($post))
-<form action="{{ route('post_edit', array('id' => $post->id)) }}" method="POST" id="post">
+<form action="{{ $route('post_edit', array('id' => $post->id)) }}" method="POST" id="post">
 @else
-<form action="{{ route('new_topic', array('id' => $forum->id)) }}" method="POST" id="post">
+<form action="{{ $route('new_topic', array('id' => $forum->id)) }}" method="POST" id="post">
 @endif
     <fieldset>
         <legend>{{ trans('fluxbb::common.write_message_legend') }}</legend>

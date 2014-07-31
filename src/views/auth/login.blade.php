@@ -2,7 +2,7 @@
 
 @section('main')
 <h2>{{ trans('fluxbb::common.login') }}</h2>
-<form id="login" method="post" action="{{ route('login') }}" onsubmit="return process_form(this)">
+<form id="login" method="post" action="{{ $route('login') }}" onsubmit="return process_form(this)">
     <fieldset>
         <legend>{{ trans('fluxbb::login.login_legend') }}</legend>
         <input type="hidden" name="form_sent" value="1" />
@@ -14,7 +14,7 @@
         </div>
 
         <p class="clearb">{{ trans('fluxbb::login.login_info') }}</p>
-        <p class="actions"><span><a href="{{ route('register') }}" tabindex="5">{{ trans('fluxbb::login.not_registered') }}</a></span> <span><a href="{{ route('reset_password') }}" tabindex="6">{{ trans('fluxbb::login.forgotten_pass') }}</a></span></p>
+        <p class="actions"><span><a href="{{ $route('register') }}" tabindex="5">{{ trans('fluxbb::login.not_registered') }}</a></span> <span><a href="{{ $route('reset_password') }}" tabindex="6">{{ trans('fluxbb::login.forgotten_pass') }}</a></span></p>
     </fieldset>
     <p class="buttons"><input type="submit" name="login" value="{{ trans('fluxbb::common.login') }}" tabindex="4" /></p>
 </form>

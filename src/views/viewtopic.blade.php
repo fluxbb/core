@@ -27,14 +27,14 @@
         </ul>
         <div class="btn-group postlink pull-right">
             <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
-            <a class="btn btn-primary post-new" href="{{ route('reply', array('id' => $topic->id)) }}"><span>Reply</span></a>
+            <a class="btn btn-primary post-new" href="{{ $route('reply', array('id' => $topic->id)) }}"><span>Reply</span></a>
         </div>
     </div>
 
 @foreach ($topic->posts as $post)
     <div id="p{{ $post->id }}" class="post post-bg clearfix">
         <div class="author-box col-md-2 col-sm-2 col-xs-2">
-            <div class="author-name"><h4><a href="{{ route('profile', array('id' => $post->author->id)) }}">{{{ $post->author->username }}}</a></h4></div>
+            <div class="author-name"><h4><a href="{{ $route('profile', array('id' => $post->author->id)) }}">{{{ $post->author->username }}}</a></h4></div>
             <div class="author-title"><h5>{{{ $post->author->title() }}}</h5></div>
             <div class="author-avatar"><img src="assets/img/cyrano.jpg" width="70" height="80" alt=""></div>
             <div class="author-icon author-location"><a href="#" class="tip author-field" data-original-title="Location: Bergerac"></a></div>
@@ -47,9 +47,9 @@
         <div class="post-box col-md-10 col-sm-10 col-xs-10">
             <div class="post-meta clearfix">
                 <div class="pull-left">
-                    <a href="{{ route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a>
+                    <a href="{{ $route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ HTML::format_time($post->posted) }}</a>
                 </div>
-                <div class="pull-right">#7</div> 
+                <div class="pull-right">#7</div>
             </div>
             <div class="post-content">
                 <p>{{ $post->message() }}</p>
@@ -61,9 +61,9 @@
                 </div>
                 @endif
                 <div class="post-menu pull-right col-md-2 col-sm-2 col-xs-2">
-                    <a href="{{ route('post_report', array('id' => $post->id)) }}" class="tip btn post-report" data-placement="top" title="Report this post" data-original-title="Report this post"></a>
-                    <a href="{{ route('post_delete', array('id' => $post->id)) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></a>
-                    <a href="{{ route('post_quote', array('id' => $post->id)) }}" class="tip btn post-quote" data-placement="top" title="" data-original-title="Quote this post"></a>
+                    <a href="{{ $route('post_report', array('id' => $post->id)) }}" class="tip btn post-report" data-placement="top" title="Report this post" data-original-title="Report this post"></a>
+                    <a href="{{ $route('post_delete', array('id' => $post->id)) }}" class="tip btn post-delete" data-placement="top" title="" data-original-title="Delete this post"></a>
+                    <a href="{{ $route('post_quote', array('id' => $post->id)) }}" class="tip btn post-quote" data-placement="top" title="" data-original-title="Quote this post"></a>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 </ul>
                 <div class="btn-group postlink pull-right">
                     <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
-                    <a class="btn btn-primary post-new" href="{{ route('reply', array('id' => $topic->id)) }}">
+                    <a class="btn btn-primary post-new" href="{{ $route('reply', array('id' => $topic->id)) }}">
                         <span>{{ trans('fluxbb::topic.post_reply') }}</span>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
 </div>
 
 <div id="quickpost" class="post post-bg clearfix">
-    <form action="{{ route('reply', array('id' => $topic->id)) }}" method="POST">
+    <form action="{{ $route('reply', array('id' => $topic->id)) }}" method="POST">
         <div class="author-box col-md-2 col-sm-2 col-xs-2">
             <div class="author-name"><h4>Quick reply</h4></div>
         </div>

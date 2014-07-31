@@ -2,7 +2,7 @@
 
 @section('main')
 <h2>{{ trans('fluxbb::register.register') }}</h2>
-<form id="register" method="post" action="{{ route('register') }}" onsubmit="this.register.disabled=true;if(process_form(this)){return true;}else{this.register.disabled=false;return false;}">
+<form id="register" method="post" action="{{ $route('register') }}" onsubmit="this.register.disabled=true;if(process_form(this)){return true;}else{this.register.disabled=false;return false;}">
     <h3>{{ trans('fluxbb::common.important') }}</h3>
     <p>{{ trans('fluxbb::register.desc1') }}</p>
     <p>{{ trans('fluxbb::register.desc2') }}</p>

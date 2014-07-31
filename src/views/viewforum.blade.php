@@ -12,7 +12,7 @@
         <div class="inbox clearfix">
 
             <ul class="breadcrumb">
-                <li><a href="{{ URL::route('index') }}">Index</a></li>
+                <li><a href="{{ $route('index') }}">Index</a></li>
                 <li><strong><a href="viewforum.html"><!-- TODO: $category->cat_name -->Category</a></strong></li>
                 <li><strong><a href="viewforum.html">{{ $forum->forum_name }}</a></strong></li>
             </ul>
@@ -33,7 +33,7 @@
                 <div class="btn-group postlink pull-right">
                     <a class="btn btn-default suscribe" href="#"><span>Suscribe</span></a>
                     <a class="btn btn-default markread" href="#"><span>Mark as read</span></a>
-                    <a class="btn btn-primary post-new" href="{{ route('new_topic', array('id' => $forum->id)) }}"><span>{{ trans('fluxbb::forum.post_topic') }}</span></a>
+                    <a class="btn btn-primary post-new" href="{{ $route('new_topic', array('id' => $forum->id)) }}"><span>{{ trans('fluxbb::forum.post_topic') }}</span></a>
                 </div>
 
             </div>
@@ -73,7 +73,7 @@ if (FluxBB\Models\User::current()->isMember() && $topic->last_post > FluxBB\Mode
 ?>
     <div class="row vfx-content">
         <div class="col-md-6 col-sm-6 col-xs-6">
-            <a href="{{ route('viewtopic', array('id' => $topic->id)) }}">{{ ($topic->subject) }}</a> {{ trans('fluxbb::common.by', array('author' => ($topic->poster))) }}
+            <a href="{{ $route('viewtopic', array('id' => $topic->id)) }}">{{ ($topic->subject) }}</a> {{ trans('fluxbb::common.by', array('author' => ($topic->poster))) }}
         </div>
         <div class="col-md-1 col-sm-1 col-xs-1">{{ $topic->getNumReplies() }}</div>
         <div class="col-md-1 col-sm-1 col-xs-1">{{ $topic->getNumViews() }}</div> <!-- TODO: Only show if o_topic_views is enabled -->
@@ -82,7 +82,7 @@ if (FluxBB\Models\User::current()->isMember() && $topic->last_post > FluxBB\Mode
             - - -
     @else
             <!-- TODO: Pass $last_post instead of $topic to url() -->
-            <a href="{{ route('viewpost', array('id' => $topic->id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ trans('fluxbb::common.by', array('author' => ($topic->last_poster))) }}</span>
+            <a href="{{ $route('viewpost', array('id' => $topic->id)) }}#p{{ $topic->last_post_id }}">{{ HTML::format_time($topic->last_post) }}</a> <span class="byuser">{{ trans('fluxbb::common.by', array('author' => ($topic->last_poster))) }}</span>
     @endif
         </div>
     </div>
@@ -91,6 +91,6 @@ if (FluxBB\Models\User::current()->isMember() && $topic->last_post > FluxBB\Mode
 </div>
 <!-- end board main -->
 
-<a href="{{ route('new_topic', array('id' => $forum->id)) }}">{{ trans('fluxbb::forum.post_topic') }}</a>
+<a href="{{ $route('new_topic', array('id' => $forum->id)) }}">{{ trans('fluxbb::forum.post_topic') }}</a>
 
 @stop
