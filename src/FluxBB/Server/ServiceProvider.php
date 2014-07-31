@@ -20,11 +20,11 @@ class ServiceProvider extends Base
      */
     public function register()
     {
-        $this->app->bindShared('fluxbb.server', function($app) {
+        $this->app->bindShared('fluxbb.server', function ($app) {
             return new Server($app);
         });
 
-        $this->app->bindShared('fluxbb.router', function($app) {
+        $this->app->bindShared('fluxbb.router', function ($app) {
             return new Router;
         });
     }
