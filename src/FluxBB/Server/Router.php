@@ -72,7 +72,7 @@ class Router
 
     protected function getDispatcher()
     {
-        if ( ! isset($this->dispatcher)) {
+        if (! isset($this->dispatcher)) {
             $this->dispatcher = new Dispatcher\GroupCountBased($this->routes->getData());
         }
 
