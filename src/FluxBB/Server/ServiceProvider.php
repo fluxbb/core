@@ -64,6 +64,19 @@ class ServiceProvider extends Base
         $server->register('userlist', 'FluxBB\Actions\UsersPage');
         $server->register('rules', 'FluxBB\Actions\Rules');
         $server->register('search', 'FluxBB\Actions\SearchPage');
+        $server->register('post_edit', 'FluxBB\Actions\EditPostPage');
+        $server->register('post_edit_handler', 'FluxBB\Actions\EditPost');
+        $server->register('reply', 'FluxBB\Actions\ReplyPage');
+        $server->register('reply_handler', 'FluxBB\Actions\Reply');
+        $server->register('new_topic', 'FluxBB\Actions\NewTopicPage');
+        $server->register('new_topic_handler', 'FluxBB\Actions\NewTopic');
+        $server->register('admin', 'FluxBB\Actions\Admin\DashboardPage');
+        $server->register('admin_settings_global', 'FluxBB\Actions\Admin\GlobalSettingsPage');
+        $server->register('admin_settings_email', 'FluxBB\Actions\Admin\EmailSettingsPage');
+        $server->register('admin_settings_maintenance', 'FluxBB\Actions\Admin\MaintenanceSettingsPage');
+        $server->register('admin_dashboard_updates', 'FluxBB\Actions\Admin\UpdatesPage');
+        $server->register('admin_dashboard_stats', 'FluxBB\Actions\Admin\StatsPage');
+        $server->register('admin_dashboard_reports', 'FluxBB\Actions\Admin\ReportsPage');
     }
 
     /**
@@ -89,6 +102,19 @@ class ServiceProvider extends Base
         $router->get('users', 'userlist');
         $router->get('rules', 'rules');
         $router->get('search', 'search');
+        $router->get('post/{id}/edit', 'post_edit');
+        $router->post('post/{id}/edit', 'post_edit_handler');
+        $router->get('topic/{id}/reply', 'reply');
+        $router->post('topic/{id}/reply', 'reply_handler');
+        $router->get('forum/{id}/topic/new', 'new_topic');
+        $router->post('forum/{id}/topic/new', 'new_topic_handler');
+        $router->get('admin', 'admin');
+        $router->get('admin/settings', 'admin_settings_global');
+        $router->get('admin/settings/email', 'admin_settings_email');
+        $router->get('admin/settings/maintenance', 'admin_settings_maintenance');
+        $router->get('admin/dashboard/stats', 'admin_dashboard_stats');
+        $router->get('admin/dashboard/updates', 'admin_dashboard_updates');
+        $router->get('admin/dashboard/reports', 'admin_dashboard_reports');
     }
 
     /**
