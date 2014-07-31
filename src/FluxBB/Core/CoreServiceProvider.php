@@ -62,10 +62,10 @@ class CoreServiceProvider extends ServiceProvider
      */
     protected function registerViewComposers()
     {
-        $view = $this->app['view'];
-
-        $view->composer('fluxbb::layout.main', 'FluxBB\View\AlertsComposer');
-        $view->composer('fluxbb::layout.partials.footer', 'FluxBB\View\FooterComposer');
+        $this->app->resolving('view', function ($view) {
+            $view->composer('fluxbb::layout.main', 'FluxBB\View\AlertsComposer');
+            $view->composer('fluxbb::layout.partials.footer', 'FluxBB\View\FooterComposer');
+        });
     }
 
     /**
