@@ -2,22 +2,21 @@
 
 $prefix = Config::get('fluxbb.route_prefix', '');
 
-$dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/', 'index');
-    $r->addRoute('GET', 'forum/{id}', 'viewforum');
-    $r->addRoute('GET', 'topic/{id}', 'viewtopic');
-    $r->addRoute('GET', 'post/{id}', 'viewpost');
-    $r->addRoute('GET', 'register', 'register');
-    $r->addRoute('POST', 'register', 'handle_registration');
-    $r->addRoute('GET', 'login', 'login');
-    $r->addRoute('POST', 'login', 'handle_login');
-    $r->addRoute('GET', 'logout', 'logout');
-    $r->addRoute('GET', 'reset_password', 'reset_password');
-    $r->addRoute('GET', 'profile/{id}', 'profile');
-    $r->addRoute('GET', 'users', 'userlist');
-    $r->addRoute('GET', 'rules', 'rules');
-    $r->addRoute('GET', 'search', 'search');
-});
+$router = new FluxBB\Server\Router;
+$router->get('/', 'index');
+$router->get('forum/{id}', 'viewforum');
+$router->get('topic/{id}', 'viewtopic');
+$router->get('post/{id}', 'viewpost');
+$router->get('register', 'register');
+$router->post('register', 'handle_registration');
+$router->get('login', 'login');
+$router->post('login', 'handle_login');
+$router->get('logout', 'logout');
+$router->get('reset_password', 'reset_password');
+$router->get('profile/{id}', 'profile');
+$router->get('users', 'userlist');
+$router->get('rules', 'rules');
+$router->get('search', 'search');
 
 $server = App::make('FluxBB\Server\Server');
 $server->register('index', 'FluxBB\Actions\Home');
@@ -35,24 +34,13 @@ $server->register('userlist', 'FluxBB\Actions\UsersPage');
 $server->register('rules', 'FluxBB\Actions\Rules');
 $server->register('search', 'FluxBB\Actions\SearchPage');
 
-Route::any($prefix.'/{uri}', function ($uri) use ($prefix, $dispatcher, $server) {
+Route::any($prefix.'/{uri}', function ($uri) use ($prefix, $router, $server) {
     $method = Request::method();
 
-    $routeInfo = $dispatcher->dispatch($method, $uri);
-    switch ($routeInfo[0]) {
-        case FastRoute\Dispatcher::NOT_FOUND:
-            return App::error(404);
-            break;
-        case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-            return App::error(405);
-            break;
-        case FastRoute\Dispatcher::FOUND:
-            $handler = $routeInfo[1];
-            $parameters = $routeInfo[2];
-            $request = new FluxBB\Server\Request($handler, $parameters);
-            $action = $server->resolve($handler);
-            return $action->handle($request);
-    }
+    $request = $router->getRequest($method, $uri);
+
+    $action = $server->resolve($request->getHandler());
+    return $action->handle($request);
 })->where('uri', '.*');
 
 /*Route::group(array('prefix' => $prefix, 'before' => 'fluxbb_is_installed'), function () {
