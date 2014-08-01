@@ -5,14 +5,18 @@ namespace FluxBB\Server;
 use FastRoute\Dispatcher;
 use FastRoute\RouteParser;
 use FastRoute\DataGenerator;
-use FastRoute\RouteCollector;
 
 class Router
 {
     /**
-     * @var \FastRoute\RouteCollector
+     * @var \FastRoute\DataGenerator
      */
-    protected $routes;
+    protected $dataGenerator;
+
+    /**
+     * @var \FastRoute\RouteParser
+     */
+    protected $routeParser;
 
     /**
      * @var array
@@ -27,10 +31,8 @@ class Router
 
     public function __construct()
     {
-        $parser = new RouteParser\Std;
-        $generator = new DataGenerator\GroupCountBased;
-
-        $this->routes = new RouteCollector($parser, $generator);
+        $this->routeParser = new RouteParser\Std;
+        $this->dataGenerator = new DataGenerator\GroupCountBased;
     }
 
     public function get($path, $handler)
@@ -55,15 +57,26 @@ class Router
 
     public function addRoute($method, $path, $handler)
     {
-        $this->routes->addRoute($method, $path, $handler);
-        $this->storeReverseRoute($handler, ['path' => $path, 'method' => $method]);
+        $routeData = $this->routeParser->parse($path);
+        $this->dataGenerator->addRoute($method, $routeData, $handler);
+
+        $routeDate['method'] = $method;
+        $this->reverse[$handler] = $routeData;
 
         return $this;
     }
 
-    public function getPath($handler)
+    public function getPath($handler, array $parameters = [])
     {
-        return array_get($this->reverse, $handler . '.path', '');
+        $parts = $this->reverse[$handler];
+
+        return implode('', array_map(function ($part) use ($parameters) {
+            if (is_array($part)) {
+                $part = $parameters[$part[0]];
+                // TODO: Verify using regex in $part[1]
+            }
+            return $part;
+        }, $parts));
     }
 
     public function getMethod($handler)
@@ -88,15 +101,10 @@ class Router
         }
     }
 
-    protected function storeReverseRoute($handler, $path)
-    {
-        $this->reverse[$handler] = $path;
-    }
-
     protected function getDispatcher()
     {
         if (! isset($this->dispatcher)) {
-            $this->dispatcher = new Dispatcher\GroupCountBased($this->routes->getData());
+            $this->dispatcher = new Dispatcher\GroupCountBased($this->dataGenerator->getData());
         }
 
         return $this->dispatcher;
