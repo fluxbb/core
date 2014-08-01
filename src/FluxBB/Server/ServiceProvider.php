@@ -53,8 +53,8 @@ class ServiceProvider extends Base
         $app = $this->app;
 
         $app->resolving('view', function ($view) use ($app) {
-            $view->share('route', function ($name) use ($app) {
-                return '/' . $app['fluxbb.router']->getPath($name);
+            $view->share('route', function ($name, array $parameters = []) use ($app) {
+                return '/' . $app['fluxbb.router']->getPath($name, $parameters);
             });
 
             $view->share('method', function ($name) use ($app) {
