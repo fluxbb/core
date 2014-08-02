@@ -66,7 +66,7 @@ class Router
         return $this;
     }
 
-    public function getPath($handler, array $parameters = [])
+    public function getPath($handler, $parameters = [])
     {
         $parts = $this->reverse[$handler];
 
