@@ -20,6 +20,11 @@ class Request
         return $this->handler;
     }
 
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
     public function get($name, $default = null)
     {
         return array_get($this->parameters, $name, $default);
