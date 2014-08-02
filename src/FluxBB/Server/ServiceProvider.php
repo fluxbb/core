@@ -156,14 +156,14 @@ class ServiceProvider extends Base
         $app = $this->app;
         $prefix = $app['config']->get('fluxbb.route_prefix', '');
 
-        $app['router']->any($prefix.'/{uri}', function ($uri) use ($app) {
+        $app['router']->any($prefix.'/{uri}', ['as' => 'fluxbb', 'uses' => function ($uri) use ($app) {
             $method = $app['request']->method();
 
             $request = $app['fluxbb.router']->getRequest($method, $uri);
             $action = $app['fluxbb.server']->resolve($request->getHandler());
 
             return $action->handle($request);
-        })->where('uri', '.*');
+        }])->where('uri', '.*');
     }
 
     /**
