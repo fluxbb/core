@@ -10,13 +10,13 @@
                 <img src="assets/img/roxane.jpg" alt="" />
             </div>
             <div class="profile-details">
-                <div class="profile-username"><h3>Roxane</h3></div>
+                <div class="profile-username"><h3>{{{ $user->username }}}</h3></div>
                 <div class="profile-fullname"><h5>Magdeleine Robin</h5></div>
                 <div class="profile-contact"><a class="btn btn-success" href="#">Contact</a></div>
             </div>
             <div class="profile-stats row">
-                <div class="profile-posts col-md-6"><a href="#"><h4>2,632 <small>Posts</small></h4></a></div>
-                <div class="profile-topics col-md-6"><a href="#"><h4>48 <small>Topics</small></h4></a></div>
+                <div class="profile-posts col-md-6"><a href="#"><h4>{{ $user->num_posts }} <small>Posts</small></h4></a></div>
+                <div class="profile-topics col-md-6"><a href="#"><h4>{{ $user->num_topics }} <small>Topics</small></h4></a></div>
             </div>
         </div>
     </div>
@@ -53,15 +53,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <div class="profile-message col-md-12 clearfix">
-            <div class="profile-message-avatar col-md-2">
-                <img src="assets/img/cyrano.jpg" alt="" />
-            </div>
-            <div class="profile-message-content col-md-10">
-                <textarea placeholder="Write a private message to Roxane"></textarea>
-            </div>
         </div>
 
         <div class="profile-latest-posts col-md-12 clearfix">
