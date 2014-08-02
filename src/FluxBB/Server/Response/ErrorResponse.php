@@ -2,16 +2,18 @@
 
 namespace FluxBB\Server\Response;
 
+use FluxBB\Server\Request;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
 
-class ErrorResponse extends Response implements MessageProviderInterface
+class ErrorResponse extends RedirectResponse implements MessageProviderInterface
 {
     protected $errors;
 
 
-    public function __construct(MessageBag $errors)
+    public function __construct(Request $next, MessageBag $errors)
     {
+        parent::__construct($next);
         $this->errors = $errors;
     }
 

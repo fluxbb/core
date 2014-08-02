@@ -2,19 +2,21 @@
 
 namespace FluxBB\Server\Response;
 
+use FluxBB\Server\Request;
+
 class RedirectResponse extends Response
 {
-    protected $nextHandler;
+    protected $next;
 
 
-    public function __construct($nextHandler)
+    public function __construct(Request $next)
     {
-        $this->nextHandler = $nextHandler;
+        $this->next = $next;
     }
 
-    public function getNextHandler()
+    public function getNextRequest()
     {
-        return $this->nextHandler;
+        return $this->next;
     }
 
     public function accept(HandlerInterface $handler)
