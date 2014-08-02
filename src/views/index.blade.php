@@ -11,7 +11,7 @@
     <div id="idx1" class="idx">
 
     <?php $category = $cat_info['category']; ?>
-    <h2 class="category-title">{{ $category->cat_name }}<a id="idxpend-1" class="idxpend pull-right" href="#"><span class="xpend"></span></a></h2>
+    <h2 class="category-title">{{ $category->cat_name }}</h2>
 
     <div class="row idx-header">
         <div class="col-md-6 col-sm-6 col-xs-6">Forum</div>
