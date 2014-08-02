@@ -87,7 +87,7 @@ class Router
         return array_get($this->reverse, $handler . '.method', '');
     }
 
-    public function getRequest($method, $uri)
+    public function getRequest($method, $uri, $parameters)
     {
         $routeInfo = $this->getDispatcher()->dispatch($method, $uri);
         switch ($routeInfo[0]) {
@@ -99,7 +99,7 @@ class Router
                 break;
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
-                $parameters = $routeInfo[2];
+                $parameters += $routeInfo[2];
                 return new Request($handler, $parameters);
         }
     }
