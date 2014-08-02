@@ -70,13 +70,16 @@ class Router
     {
         $parts = $this->reverse[$handler];
 
-        return implode('', array_map(function ($part) use ($parameters) {
+        $path = implode('', array_map(function ($part) use ($parameters) {
             if (is_array($part)) {
                 $part = $parameters[$part[0]];
                 // TODO: Verify using regex in $part[1]
             }
             return $part;
         }, $parts));
+
+        $path = ltrim($path, '/');
+        return $path;
     }
 
     public function getMethod($handler)
