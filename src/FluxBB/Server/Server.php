@@ -35,6 +35,12 @@ class Server
         return $this;
     }
 
+    public function dispatch(Request $request)
+    {
+        $action = $this->resolve($request->getHandler());
+        return $action->handle($request);
+    }
+
     /**
      * Resolve an action instance by name.
      *
@@ -42,7 +48,7 @@ class Server
      * @return \FluxBB\Actions\Base
      * @throws \InvalidArgumentException
      */
-    public function resolve($name)
+    protected function resolve($name)
     {
         if (isset($this->actions[$name])) {
             return $this->container->make($this->actions[$name]);

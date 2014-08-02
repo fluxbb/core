@@ -2,6 +2,7 @@
 
 namespace FluxBB\Server;
 
+use FluxBB\Web\Renderer;
 use Illuminate\Support\ServiceProvider as Base;
 
 class ServiceProvider extends Base
@@ -24,8 +25,12 @@ class ServiceProvider extends Base
             return new Server($app);
         });
 
-        $this->app->bindShared('fluxbb.router', function ($app) {
+        $this->app->bindShared('fluxbb.router', function () {
             return new Router;
+        });
+
+        $this->app->bindShared('fluxbb.renderer', function($app) {
+            return new Renderer($app['view'], $app['redirect'], $app['fluxbb.router']);
         });
 
         $this->registerViewHelpers();
@@ -161,9 +166,9 @@ class ServiceProvider extends Base
             $parameters = $app['request']->input();
 
             $request = $app['fluxbb.router']->getRequest($method, $uri, $parameters);
-            $action = $app['fluxbb.server']->resolve($request->getHandler());
+            $response = $app['fluxbb.server']->dispatch($request);
 
-            return $action->handle($request);
+            return $app['fluxbb.renderer']->render($request, $response);
         }])->where('uri', '.*');
     }
 
