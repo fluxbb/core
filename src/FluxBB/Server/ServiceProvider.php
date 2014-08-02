@@ -126,6 +126,9 @@ class ServiceProvider extends Base
         $router->get('search', 'search');
         $router->get('post/{id}/edit', 'post_edit');
         $router->post('post/{id}/edit', 'post_edit_handler');
+        $router->get('post/{id}/report', 'post_report');
+        $router->get('post/{id}/delete', 'post_delete');
+        $router->get('post/{id}/quote', 'post_quote');
         $router->get('topic/{id}/reply', 'reply');
         $router->post('topic/{id}/reply', 'reply_handler');
         $router->get('forum/{id}/topic/new', 'new_topic');
