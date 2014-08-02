@@ -32,6 +32,11 @@ class Login extends Base
         }
     }
 
+    protected function hasRedirect()
+    {
+        return true;
+    }
+
     protected function nextRequest()
     {
         return new Request('index');

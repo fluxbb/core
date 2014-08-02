@@ -25,6 +25,11 @@ class Logout extends Base
         $this->auth->logout();
     }
 
+    protected function hasRedirect()
+    {
+        return true;
+    }
+
     protected function nextRequest()
     {
         return new Request('index');
