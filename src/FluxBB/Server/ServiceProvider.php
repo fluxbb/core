@@ -58,7 +58,7 @@ class ServiceProvider extends Base
             });
 
             $view->share('method', function ($name) use ($app) {
-                return '/' . $app['fluxbb.router']->getMethod($name);
+                return $app['fluxbb.router']->getMethod($name);
             });
         });
     }
