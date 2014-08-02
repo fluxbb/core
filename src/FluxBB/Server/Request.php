@@ -6,10 +6,10 @@ class Request
 {
     protected $handler;
 
-    protected $parameters = [];
+    protected $parameters;
 
 
-    public function __construct($handler, array $parameters)
+    public function __construct($handler, array $parameters = [])
     {
         $this->handler = $handler;
         $this->parameters = $parameters;
