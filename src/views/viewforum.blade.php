@@ -13,8 +13,7 @@
 
             <ul class="breadcrumb">
                 <li><a href="{{ $route('index') }}">Index</a></li>
-                <li><strong><a href="viewforum.html"><!-- TODO: $category->cat_name -->Category</a></strong></li>
-                <li><strong><a href="viewforum.html">{{ $forum->forum_name }}</a></strong></li>
+                <li><strong><a href="{{ $route('viewforum', $forum) }}">{{ $forum->forum_name }}</a></strong></li>
             </ul>
 
             <!-- TODO: pagination -->

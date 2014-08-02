@@ -7,10 +7,9 @@
 <div id="brdtop">
     <div class="inbox clearfix">
         <ul class="breadcrumb">
-            <li><a href="index.html">Index</a></li>
-            <li><strong><a href="viewforum.html">FluxBB</a></strong></li>
-            <li><strong><a href="viewforum.html">Redefined</a></strong></li>
-            <li><strong><a href="viewforum.html">Posts concepts</a></strong></li>
+            <li><a href="{{ $route('index') }}">Index</a></li>
+            <li><strong><a href="{{ $route('viewforum', $topic->forum) }}">{{{ $topic->forum->forum_name }}}</a></strong></li>
+            <li><strong><a href="{{ $route('viewtopic', $topic) }}">{{{ $topic->subject }}}</a></strong></li>
         </ul>
     </div>
 </div>
@@ -87,8 +86,9 @@
                 </div>
             </div>
             <ul class="breadcrumb">
-                <li><a href="index.php">Index</a></li>
-                <li><strong><a href="viewforum.html">Core development</a></strong></li>
+                <li><a href="{{ $route('index') }}">Index</a></li>
+                <li><strong><a href="{{ $route('viewforum', $topic->forum) }}">{{{ $topic->forum->forum_name }}}</a></strong></li>
+                <li><strong><a href="{{ $route('viewtopic', $topic) }}">{{{ $topic->subject }}}</a></strong></li>
             </ul>
         </div>
     </div>
