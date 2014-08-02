@@ -4,9 +4,9 @@ namespace FluxBB\Actions;
 
 use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Server\Request;
-use FluxBB\Server\Response\DataResponse;
-use FluxBB\Server\Response\ErrorResponse;
-use FluxBB\Server\Response\RedirectResponse;
+use FluxBB\Server\Response\Data;
+use FluxBB\Server\Response\Error;
+use FluxBB\Server\Response\Redirect;
 use Illuminate\Support\Contracts\ArrayableInterface;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
@@ -79,12 +79,12 @@ abstract class Base implements MessageProviderInterface
     {
         if ($this->hasErrors()) {
             $request = $this->errorRequest();
-            return new ErrorResponse($request, $this->getErrors());
+            return new Error($request, $this->getErrors());
         } else if ($this->hasRedirect()) {
             $request = $this->nextRequest();
-            return new RedirectResponse($request);
+            return new Redirect($request);
         } else if ($this->hasData()) {
-            return new DataResponse($this->data);
+            return new Data($this->data);
         }
 
         throw new \Exception('Unable to construct a response.');

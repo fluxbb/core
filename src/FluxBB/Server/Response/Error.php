@@ -6,7 +6,7 @@ use FluxBB\Server\Request;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
 
-class ErrorResponse extends RedirectResponse implements MessageProviderInterface
+class Error extends Redirect implements MessageProviderInterface
 {
     protected $errors;
 

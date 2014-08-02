@@ -2,7 +2,7 @@
 
 namespace FluxBB\Server\Response;
 
-class DataResponse extends Response
+class Data extends Response
 {
     protected $data;
 

@@ -4,7 +4,7 @@ namespace FluxBB\Server\Response;
 
 use FluxBB\Server\Request;
 
-class RedirectResponse extends Response
+class Redirect extends Response
 {
     protected $next;
 

@@ -4,11 +4,11 @@ namespace FluxBB\Server\Response;
 
 interface HandlerInterface
 {
-    public function handle(Response $respose);
+    public function handle(Response $response);
 
-    public function handleDataResponse(DataResponse $response);
+    public function handleDataResponse(Data $response);
 
-    public function handleRedirectResponse(RedirectResponse $response);
+    public function handleRedirectResponse(Redirect $response);
 
-    public function handleErrorResponse(ErrorResponse $response);
+    public function handleErrorResponse(Error $response);
 }
