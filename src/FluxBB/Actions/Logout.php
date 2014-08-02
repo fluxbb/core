@@ -2,6 +2,7 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Server\Request;
 use Illuminate\Auth\AuthManager;
 
 class Logout extends Base
@@ -15,15 +16,6 @@ class Logout extends Base
     }
 
     /**
-     * @return \Illuminate\Http\Response
-     */
-    protected function makeResponse()
-    {
-        return \Redirect::route('index')
-            ->withMessage(trans('fluxbb::login.message_logout'));
-    }
-
-    /**
      * Run the logout action.
      *
      * @return void
@@ -31,5 +23,11 @@ class Logout extends Base
     protected function run()
     {
         $this->auth->logout();
+    }
+
+    protected function nextRequest()
+    {
+        return new Request('index');
+        // ->withMessage(trans('fluxbb::login.message_logout'));
     }
 }

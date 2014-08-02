@@ -5,11 +5,8 @@ namespace FluxBB\Actions;
 use FluxBB\Models\User;
 use FluxBB\Models\Category;
 
-class Home extends Page
+class Home extends Base
 {
-    protected $viewName = 'fluxbb::index';
-
-
     protected function run()
     {
         $group_id = User::current()->group_id;

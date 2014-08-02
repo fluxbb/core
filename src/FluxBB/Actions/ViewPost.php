@@ -4,6 +4,7 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Post;
 use FluxBB\Models\User;
+use FluxBB\Server\Request;
 
 class ViewPost extends Base
 {
@@ -28,15 +29,16 @@ class ViewPost extends Base
         $this->page = ceil($numPosts / $dispPosts);
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    protected function makeResponse()
+    protected function hasRedirect()
     {
-        $url = route('viewtopic', [
+        return true;
+    }
+
+    protected function nextRequest()
+    {
+        return new Request('viewtopic', [
             'id' => $this->post->topic_id,
             'page' => $this->page
-        ]).'#p'.$this->post->topic_id;
-        return $this->redirectTo($url);
+        ]); // TODO: Append #p to URL
     }
 }

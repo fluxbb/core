@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Topic;
 
-class ReplyPage extends Page
+class ReplyPage extends Base
 {
-    protected $viewName = 'fluxbb::posting.post';
-
-
     protected function run()
     {
         $tid = $this->request->get('id');

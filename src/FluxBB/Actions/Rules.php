@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Config;
 
-class Rules extends Page
+class Rules extends Base
 {
-    protected $viewName = 'fluxbb::misc.rules';
-
-
     protected function run()
     {
         $this->data['rules'] = Config::get('o_rules_message');

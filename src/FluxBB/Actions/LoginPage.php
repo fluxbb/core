@@ -2,7 +2,15 @@
 
 namespace FluxBB\Actions;
 
-class LoginPage extends Page
+class LoginPage extends Base
 {
-    protected $viewName = 'fluxbb::auth.login';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

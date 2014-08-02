@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\User;
 
-class ProfilePage extends Page
+class ProfilePage extends Base
 {
-    protected $viewName = 'fluxbb::user.profile.view';
-
-
     protected function run()
     {
         $uid = $this->request->get('id');

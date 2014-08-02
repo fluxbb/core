@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Topic;
 
-class ViewTopic extends Page
+class ViewTopic extends Base
 {
-    protected $viewName = 'fluxbb::viewtopic';
-
-
     protected function run()
     {
         $tid = $this->request->get('id');

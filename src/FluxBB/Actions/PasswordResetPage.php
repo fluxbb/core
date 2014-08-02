@@ -2,7 +2,15 @@
 
 namespace FluxBB\Actions;
 
-class PasswordResetPage extends Page
+class PasswordResetPage extends Base
 {
-    protected $viewName = 'fluxbb::auth.reset_password';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Category;
 
-class SearchPage extends Page
+class SearchPage extends Base
 {
-    protected $viewName = 'fluxbb::search.index';
-
-
     protected function run()
     {
         $categories = Category::all();

@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Forum;
 
-class NewTopicPage extends Page
+class NewTopicPage extends Base
 {
-    protected $viewName = 'fluxbb::posting.post';
-
-
     protected function run()
     {
         $fid = $this->request->get('id');

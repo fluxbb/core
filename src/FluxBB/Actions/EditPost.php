@@ -53,17 +53,14 @@ class EditPost extends Base
         $this->trigger('post.edited', [$this->post, $creator]);
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    protected function makeResponse()
+    protected function nextRequest()
     {
-        return $this->redirectTo(route('viewpost', ['id' => $this->post->id]))
-            ->withMessage(trans('fluxbb::post.edit_redirect'));
+        return new Request('viewpost', ['id' => $this->post->id]);
+        // ->withMessage(trans('fluxbb::post.edit_redirect'));
     }
 
-    protected function urlOnError()
+    protected function errorRequest()
     {
-        return route('post_edit', ['id' => $this->post->id]);
+        return new Request('post_edit', ['id' => $this->post->id]);
     }
 }

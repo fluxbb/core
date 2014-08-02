@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\User;
 
-class UsersPage extends Page
+class UsersPage extends Base
 {
-    protected $viewName = 'fluxbb::user.list';
-
-
     protected function run()
     {
         $users = User::paginate(20);

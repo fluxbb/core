@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Post;
 
-class EditPostPage extends Page
+class EditPostPage extends Base
 {
-    protected $viewName = 'fluxbb::posting.post';
-
-
     protected function run()
     {
         $pid = $this->request->get('id');

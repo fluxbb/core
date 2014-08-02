@@ -4,15 +4,20 @@ namespace FluxBB\Actions;
 
 use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Server\Request;
+use FluxBB\Server\Response\DataResponse;
+use FluxBB\Server\Response\ErrorResponse;
+use FluxBB\Server\Response\RedirectResponse;
 use Illuminate\Support\Contracts\ArrayableInterface;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
 
 abstract class Base implements MessageProviderInterface
 {
-    protected $handlers = array();
+    protected $data = [];
 
-    protected $errors = array();
+    protected $errors = [];
+
+    protected $handlers = [];
 
     /**
      * @var \FluxBB\Server\Request
@@ -45,7 +50,7 @@ abstract class Base implements MessageProviderInterface
      * Turn a request into a response.
      *
      * @param \FluxBB\Server\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \FluxBB\Server\Response\Response
      * @throws \Exception
      */
     public function handle(Request $request)
@@ -59,8 +64,6 @@ abstract class Base implements MessageProviderInterface
 
             $response = $this->makeResponse();
             $this->callHandlers('after');
-        } catch (ValidationException $e) {
-            return $this->errorRedirectTo($this->urlOnError());
         } catch (\Exception $e) {
             throw $e;
         }
@@ -69,28 +72,48 @@ abstract class Base implements MessageProviderInterface
     }
 
     /**
-     * @return \Illuminate\Http\Response
+     * @return \FluxBB\Server\Response\Response
+     * @throws \Exception
      */
-    abstract protected function makeResponse();
+    protected function makeResponse()
+    {
+        if ($this->hasErrors()) {
+            $request = $this->errorRequest();
+            return new ErrorResponse($request, $this->getErrors());
+        } else if ($this->hasRedirect()) {
+            $request = $this->nextRequest();
+            return new RedirectResponse($request);
+        } else if ($this->hasData()) {
+            return new DataResponse($this->data);
+        }
+
+        throw new \Exception('Unable to construct a response.');
+    }
+
+    protected function hasRedirect()
+    {
+        return false;
+    }
 
     /**
-     * @return string
+     * @return \FluxBB\Server\Request
      */
-    protected function urlOnError()
+    protected function nextRequest()
     {
-        return '';
+        return;
     }
 
-    protected function redirectTo($url)
+    /**
+     * @return \FluxBB\Server\Request
+     */
+    protected function errorRequest()
     {
-        return \Redirect::to($url);
+        return;
     }
 
-    protected function errorRedirectTo($url)
+    protected function hasData()
     {
-        return \Redirect::to($url)
-            ->withInput()
-            ->withErrors($this);
+        return ! empty($this->data);
     }
 
     /**
@@ -98,10 +121,7 @@ abstract class Base implements MessageProviderInterface
      *
      * @return void
      */
-    protected function run()
-    {
-        //
-    }
+    abstract protected function run();
 
     protected function addError($error)
     {

@@ -2,6 +2,7 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Server\Request;
 use Illuminate\Auth\AuthManager;
 
 class Login extends Base
@@ -31,13 +32,14 @@ class Login extends Base
         }
     }
 
-    protected function makeResponse()
+    protected function nextRequest()
     {
-        if ($this->succeeded()) {
-            return $this->redirectTo(route('index'))
-                ->withMessage(trans('fluxbb::login.message_login'));
-        } else {
-            return $this->errorRedirectTo(route('login'));
-        }
+        return new Request('index');
+        // ->withMessage(trans('fluxbb::login.message_login'));
+    }
+
+    protected function errorRequest()
+    {
+        return new Request('login');
     }
 }

@@ -2,7 +2,15 @@
 
 namespace FluxBB\Actions;
 
-class RegisterPage extends Page
+class RegisterPage extends Base
 {
-    protected $viewName = 'fluxbb::auth.register';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

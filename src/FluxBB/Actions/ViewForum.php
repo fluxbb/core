@@ -4,11 +4,8 @@ namespace FluxBB\Actions;
 
 use FluxBB\Models\Forum;
 
-class ViewForum extends Page
+class ViewForum extends Base
 {
-    protected $viewName = 'fluxbb::viewforum';
-
-
     protected function run()
     {
         $fid = $this->request->get('id');
