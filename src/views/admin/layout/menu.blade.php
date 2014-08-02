@@ -20,8 +20,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fluxbb::admin_common.welcome') }} {{ Auth::user()->username }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ URL::$route('profile', array('id' => Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
-                            <li><a href="{{ URL::$route('index') }}">{{ trans('fluxbb::common.forum') }}</a></li>
+                            <li><a href="{{ $route('profile', array('id' => Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
+                            <li><a href="{{ $route('index') }}">{{ trans('fluxbb::common.forum') }}</a></li>
                             <li class="divider"></li>
                             <li><a href="#">Support</a></li>
                             <li class="divider"></li>
