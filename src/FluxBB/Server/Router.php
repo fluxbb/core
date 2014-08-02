@@ -78,7 +78,7 @@ class Router
             return $part;
         }, $parts));
 
-        $path = ltrim($path, '/');
+        $path = '/' . ltrim($path, '/');
         return $path;
     }
 
