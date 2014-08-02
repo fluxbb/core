@@ -140,6 +140,10 @@ class ServiceProvider extends Base
         $router->get('admin/dashboard/stats', 'admin_dashboard_stats');
         $router->get('admin/dashboard/updates', 'admin_dashboard_updates');
         $router->get('admin/dashboard/reports', 'admin_dashboard_reports');
+        $router->get('admin/groups', 'admin_groups_index');
+        $router->get('admin/groups/{id}/edit', 'admin_groups_edit');
+        $router->get('admin/groups/{id}/delete', 'admin_groups_delete');
+        $router->post('admin/settings/{key}', 'admin_set_option');
     }
 
     /**
