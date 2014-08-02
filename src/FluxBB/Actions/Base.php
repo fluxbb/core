@@ -83,11 +83,9 @@ abstract class Base implements MessageProviderInterface
         } else if ($this->hasRedirect()) {
             $request = $this->nextRequest();
             return new Redirect($request);
-        } else if ($this->hasData()) {
-            return new Data($this->data);
         }
 
-        throw new \Exception('Unable to construct a response.');
+        return new Data($this->data);
     }
 
     protected function hasRedirect()
