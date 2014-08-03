@@ -29,7 +29,7 @@ class ServiceProvider extends Base
             return new Router;
         });
 
-        $this->app->bindShared('fluxbb.renderer', function($app) {
+        $this->app->bindShared('fluxbb.renderer', function ($app) {
             return new Renderer($app['view'], $app['redirect'], $app['fluxbb.router']);
         });
 
