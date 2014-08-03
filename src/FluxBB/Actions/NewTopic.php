@@ -27,13 +27,6 @@ class NewTopic extends Base
         $this->validator = $validator;
     }
 
-    protected function handleRequest(Request $request)
-    {
-        $fid = $request->get('id');
-
-        $this->forum = Forum::with('perms')->findOrFail($fid);
-    }
-
     /**
      * Run the action and return a response for the user.
      *
@@ -42,12 +35,15 @@ class NewTopic extends Base
      */
     protected function run()
     {
+        $fid = $this->request->get('id');
+        $this->forum = Forum::findOrFail($fid);
+
         $creator = User::current();
         $now = Carbon::now();
 
         $this->topic = new Topic([
             'poster'        => $creator->username,
-            'subject'       => $this->request->get('req_subject'),
+            'subject'       => $this->request->get('subject'),
             'posted'        => $now,
             'last_post'     => $now,
             'last_poster'   => $creator->username,
@@ -57,7 +53,7 @@ class NewTopic extends Base
         $this->post = new Post([
             'poster'	=> $creator->username,
             'poster_id'	=> $creator->id,
-            'message'	=> $this->request->get('req_message'),
+            'message'	=> $this->request->get('message'),
             'posted'	=> $now,
         ]);
 
@@ -72,17 +68,19 @@ class NewTopic extends Base
         $this->trigger('user.posted', [$creator, $this->post]);
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    protected function makeResponse()
+    protected function hasRedirect()
     {
-        return $this->redirectTo(route('viewtopic', ['id' => $this->topic->id]))
-            ->withMessage(trans('fluxbb::topic.topic_added'));
+        return true;
     }
 
-    protected function urlOnError()
+    protected function nextRequest()
     {
-        return route('new_topic', ['id' => $this->forum->id]);
+        return new Request('viewtopic', ['id' => $this->topic->id]);
+        // ->withMessage(trans('fluxbb::topic.topic_added'));
+    }
+
+    protected function errorRequest()
+    {
+        return $this->request;
     }
 }
