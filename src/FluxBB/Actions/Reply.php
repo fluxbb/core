@@ -58,17 +58,19 @@ class Reply extends Base
         $this->trigger('user.posted', [$creator, $this->post]);
     }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    protected function makeResponse()
+    protected function hasRedirect()
     {
-        return $this->redirectTo(route('viewpost', ['id' => $this->post->id]))
-            ->withMessage(trans('fluxbb::post.post_added'));
+        return true;
     }
 
-    protected function urlOnError()
+    protected function nextRequest()
     {
-        return route('reply', ['id' => $this->topic->id, 'error' => 'ohyeah']);
+        return new Request('viewpost', ['id' => $this->post->id]);
+        // ->withMessage(trans('fluxbb::post.post_added'));
+    }
+
+    protected function errorRequest()
+    {
+        return new Request('reply', ['id' => $this->topic->id]);
     }
 }
