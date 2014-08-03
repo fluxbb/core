@@ -13,6 +13,5 @@ class NewTopicPage extends Base
         $forum = Forum::with('perms')->findOrFail($fid);
 
         $this->data['forum'] = $forum;
-        $this->data['action'] = trans('fluxbb::forum.post_topic');
     }
 }
