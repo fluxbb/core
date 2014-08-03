@@ -2,9 +2,17 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Page;
+use FluxBB\Actions\Base;
 
-class UpdatesPage extends Page
+class UpdatesPage extends Base
 {
-    protected $viewName = 'fluxbb::admin.dashboard.updates';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

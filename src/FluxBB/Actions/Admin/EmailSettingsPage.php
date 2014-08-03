@@ -2,9 +2,17 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Page;
+use FluxBB\Actions\Base;
 
-class EmailSettingsPage extends Page
+class EmailSettingsPage extends Base
 {
-    protected $viewName = 'fluxbb::admin.settings.email';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

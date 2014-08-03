@@ -2,9 +2,17 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Page;
+use FluxBB\Actions\Base;
 
-class ReportsPage extends Page
+class ReportsPage extends Base
 {
-    protected $viewName = 'fluxbb::admin.dashboard.reports';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

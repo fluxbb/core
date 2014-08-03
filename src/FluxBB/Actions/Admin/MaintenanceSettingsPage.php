@@ -2,9 +2,17 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Page;
+use FluxBB\Actions\Base;
 
-class MaintenanceSettingsPage extends Page
+class MaintenanceSettingsPage extends Base
 {
-    protected $viewName = 'fluxbb::admin.settings.maintenance';
+    /**
+     * Run any desired actions.
+     *
+     * @return void
+     */
+    protected function run()
+    {
+        //
+    }
 }

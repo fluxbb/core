@@ -2,20 +2,16 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Page;
+use FluxBB\Actions\Base;
 use FluxBB\Models\ConfigRepositoryInterface;
-use Illuminate\View\Factory;
 
-class GlobalSettingsPage extends Page
+class GlobalSettingsPage extends Base
 {
-    protected $viewName = 'fluxbb::admin.settings.global';
-
     protected $config;
 
 
-    public function __construct(ConfigRepositoryInterface $config, Factory $view)
+    public function __construct(ConfigRepositoryInterface $config)
     {
-        parent::__construct($view);
         $this->config = $config;
     }
 
