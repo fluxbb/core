@@ -9,7 +9,7 @@ use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\HandlerInterface;
 use FluxBB\Server\Response\Redirect;
 use FluxBB\Server\Response\Response;
-use FluxBB\Server\Router;
+use FluxBB\Web\Router;
 use Illuminate\View\Factory;
 use Illuminate\Routing\Redirector;
 
@@ -26,7 +26,7 @@ class Renderer implements HandlerInterface
     protected $redirect;
 
     /**
-     * @var \FluxBB\Server\Router
+     * @var \FluxBB\Web\Router
      */
     protected $router;
 

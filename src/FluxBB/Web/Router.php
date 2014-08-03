@@ -1,10 +1,11 @@
 <?php
 
-namespace FluxBB\Server;
+namespace FluxBB\Web;
 
 use FastRoute\Dispatcher;
 use FastRoute\RouteParser;
 use FastRoute\DataGenerator;
+use FluxBB\Server\Request;
 
 class Router
 {

@@ -3,6 +3,7 @@
 namespace FluxBB\Server;
 
 use FluxBB\Web\Renderer;
+use FluxBB\Web\Router;
 use Illuminate\Support\ServiceProvider as Base;
 
 class ServiceProvider extends Base
