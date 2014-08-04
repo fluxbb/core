@@ -49,6 +49,11 @@ class User extends Base implements UserInterface
         return $this->hasMany('FluxBB\Models\Session', 'user_id');
     }
 
+    public function subscriptions()
+    {
+        return $this->belongsToMany('FluxBB\Models\Topic', 'topic_subscriptions', 'user_id', 'topic_id');
+    }
+
 
     public static function current()
     {

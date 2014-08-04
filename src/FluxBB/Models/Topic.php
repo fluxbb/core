@@ -27,10 +27,9 @@ class Topic extends Base
         return $this->belongsTo('FluxBB\\Models\\Forum');
     }
 
-    public function subscription()
+    public function subscribers()
     {
-        return $this->hasOne('FluxBB\\Models\\TopicSubscription');
-    //		->where('user_id', '=', User::current()->id);
+        return $this->belongsToMany('FluxBB\Models\User', 'topic_subscriptions', 'topic_id', 'user_id');
     }
 
     public function addReply(Post $post)
