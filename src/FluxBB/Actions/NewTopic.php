@@ -81,6 +81,6 @@ class NewTopic extends Base
 
     protected function errorRequest()
     {
-        return $this->request;
+        return new Request('new_topic', ['id' => $this->forum->id]);
     }
 }
