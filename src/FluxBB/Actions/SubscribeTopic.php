@@ -25,4 +25,4 @@ class SubscribeTopic extends Base
 
         $this->redirectTo(new Request('viewtopic', ['id' => $tid]));
     }
-} 
+}
