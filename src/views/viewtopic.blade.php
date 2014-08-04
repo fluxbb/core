@@ -26,7 +26,6 @@
         </ul>
         <div class="btn-group postlink pull-right">
             <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
-            <a class="btn btn-primary post-new" href="{{ $route('reply', array('id' => $topic->id)) }}"><span>Reply</span></a>
         </div>
     </div>
 
@@ -80,9 +79,6 @@
                 </ul>
                 <div class="btn-group postlink pull-right">
                     <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
-                    <a class="btn btn-primary post-new" href="{{ $route('reply', array('id' => $topic->id)) }}">
-                        <span>{{ trans('fluxbb::topic.post_reply') }}</span>
-                    </a>
                 </div>
             </div>
             <ul class="breadcrumb">
@@ -98,7 +94,7 @@
 <div id="quickpost" class="post post-bg clearfix">
     <form action="{{ $route('reply', array('id' => $topic->id)) }}" method="POST">
         <div class="author-box col-md-2 col-sm-2 col-xs-2">
-            <div class="author-name"><h4>Quick reply</h4></div>
+            <div class="author-name"><h4>Reply</h4></div>
         </div>
         <div class="post-box col-md-10 col-sm-10 col-xs-10">
             <div class="post-content">

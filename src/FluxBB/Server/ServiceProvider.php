@@ -60,7 +60,6 @@ class ServiceProvider extends Base
         $server->register('search', 'FluxBB\Actions\SearchPage');
         $server->register('post_edit', 'FluxBB\Actions\EditPostPage');
         $server->register('post_edit_handler', 'FluxBB\Actions\EditPost');
-        $server->register('reply', 'FluxBB\Actions\ReplyPage');
         $server->register('reply_handler', 'FluxBB\Actions\Reply');
         $server->register('new_topic', 'FluxBB\Actions\NewTopicPage');
         $server->register('new_topic_handler', 'FluxBB\Actions\NewTopic');
