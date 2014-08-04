@@ -78,7 +78,7 @@
                 <li id="navsearch"><a href="{{ $route('search') }}">{{ trans('fluxbb::common.search') }}</a></li>
                 @endif
                 @if (FluxBB\Models\User::current()->isAdmin())
-                <li id="navadmin"><a href="{{ $route('admin') }}">{{ trans('fluxbb::common.admin') }}</a></li>
+                <li id="navadmin"><a href="{{ $route('admin.index') }}">{{ trans('fluxbb::common.admin') }}</a></li>
                 @endif
                 <li id="navprofile"><a href="{{ $route('profile', array('id' => FluxBB\Models\User::current()->id)) }}">Profile</a></li>
                 <li id="navlogout"><a href="{{ $route('logout') }}">Logout</a></li>

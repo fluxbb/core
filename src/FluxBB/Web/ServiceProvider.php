@@ -94,17 +94,17 @@ class ServiceProvider extends Base
         $router->post('topic/{id}/reply', 'reply_handler');
         $router->get('forum/{id}/topic/new', 'new_topic');
         $router->post('forum/{id}/topic/new', 'new_topic_handler');
-        $router->get('admin', 'admin');
-        $router->get('admin/settings', 'admin_settings_global');
-        $router->get('admin/settings/email', 'admin_settings_email');
-        $router->get('admin/settings/maintenance', 'admin_settings_maintenance');
-        $router->get('admin/dashboard/stats', 'admin_dashboard_stats');
-        $router->get('admin/dashboard/updates', 'admin_dashboard_updates');
-        $router->get('admin/dashboard/reports', 'admin_dashboard_reports');
-        $router->get('admin/groups', 'admin_groups_index');
-        $router->get('admin/groups/{id}/edit', 'admin_groups_edit');
-        $router->get('admin/groups/{id}/delete', 'admin_groups_delete');
-        $router->post('admin/settings/{key}', 'admin_set_option');
+        $router->get('admin', 'admin.index');
+        $router->get('admin/settings', 'admin.settings.global');
+        $router->get('admin/settings/email', 'admin.settings.email');
+        $router->get('admin/settings/maintenance', 'admin.settings.maintenance');
+        $router->get('admin/dashboard/stats', 'admin.dashboard.stats');
+        $router->get('admin/dashboard/updates', 'admin.dashboard.updates');
+        $router->get('admin/dashboard/reports', 'admin.dashboard.reports');
+        $router->get('admin/groups', 'admin.groups.index');
+        $router->get('admin/groups/{id}/edit', 'admin.groups.edit');
+        $router->get('admin/groups/{id}/delete', 'admin.groups.delete');
+        $router->post('admin/settings/{key}', 'admin.set.option');
     }
 
     /**

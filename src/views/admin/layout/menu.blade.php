@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="{{ $route('admin') }}">{{ $board_title }}</a>
+            <a class="brand" href="{{ $route('admin.index') }}">{{ $board_title }}</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li<?php echo (in_array('dashboard', array()) ? ' class="current active"' : '' ); ?> id="nav-dashboard"><a href="#"><i class="icon-dashboard"></i> {{ trans('fluxbb::admin_common.dashboard_menu') }}</a></li>
@@ -40,9 +40,9 @@
                 <ul class="nav subnav">
                     <li id="subnav-dashboard"<?php echo (in_array('dashboard', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
-                            <li><a href="{{ $route('admin_dashboard_updates') }}"><i class="icon-refresh"></i> {{ trans('fluxbb::admin_common.update_check_submenu') }}</a></li>
-                            <li><a href="{{ $route('admin_dashboard_stats') }}"><i class="icon-bar-chart"></i> {{ trans('fluxbb::admin_common.stats_submenu') }}</a></li>
-                            <li><a href="{{ $route('admin_dashboard_reports') }}"><i class="icon-flag"></i> {{ trans('fluxbb::admin_common.reported_posts_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.dashboard.updates') }}"><i class="icon-refresh"></i> {{ trans('fluxbb::admin_common.update_check_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.dashboard.stats') }}"><i class="icon-bar-chart"></i> {{ trans('fluxbb::admin_common.stats_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.dashboard.reports') }}"><i class="icon-flag"></i> {{ trans('fluxbb::admin_common.reported_posts_submenu') }}</a></li>
                         </ul>
                     </li>
                     <li id="subnav-content"<?php echo (in_array('content', array()) ? ' class="active"' : '' ); ?>>
@@ -59,7 +59,7 @@
                     <li id="subnav-users"<?php echo (in_array('users', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
                             <li><a href="/users/users/"><i class="icon-cog"></i> {{ trans('fluxbb::admin_common.manage_users_submenu') }}</a></li>
-                            <li><a href="{{ $route('admin_groups_index') }}"><i class="icon-cog"></i> {{ trans('fluxbb::admin_common.manage_groups_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.groups.index') }}"><i class="icon-cog"></i> {{ trans('fluxbb::admin_common.manage_groups_submenu') }}</a></li>
                             <li><a href="/users/permissions/"><i class="icon-key"></i> {{ trans('fluxbb::admin_common.permissions_submenu') }}</a></li>
                             <li><a href="/users/bans/"><i class="icon-lock"></i> {{ trans('fluxbb::admin_common.bans_submenu') }}</a></li>
                         </ul>
@@ -69,9 +69,9 @@
                     </li>
                     <li id="subnav-settings"<?php echo (in_array('settings', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
-                            <li><a href="{{ $route('admin_settings_global') }}"><i class="icon-list-alt"></i> {{ trans('fluxbb::admin_common.global_submenu') }}</a></li>
-                            <li><a href="{{ $route('admin_settings_email') }}"><i class="icon-envelope-alt"></i> {{ trans('fluxbb::admin_common.email_submenu') }}</a></li>
-                            <li><a href="{{ $route('admin_settings_maintenance') }}"><i class="icon-bell-alt"></i> {{ trans('fluxbb::admin_common.maintenance_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.settings.global') }}"><i class="icon-list-alt"></i> {{ trans('fluxbb::admin_common.global_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.settings.email') }}"><i class="icon-envelope-alt"></i> {{ trans('fluxbb::admin_common.email_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.settings.maintenance') }}"><i class="icon-bell-alt"></i> {{ trans('fluxbb::admin_common.maintenance_submenu') }}</a></li>
                             <li><a href="#"><i class="icon-shield"></i> {{ trans('fluxbb::admin_common.logs_submenu') }}</a></li>
                         </ul>
                     </li>
@@ -95,7 +95,7 @@
 
             <div class="span12 dashbox">
                 <ul class="nav nav-pills pull-left">
-                    <li><a class="message alert" href="/dashboard/updates/">Updates <span>6</span></a></li>
+                    <li><a class="message alert" href="{{ $route('admin.dashboard.updates') }}">Updates <span>6</span></a></li>
                 </ul>
             </div>
 

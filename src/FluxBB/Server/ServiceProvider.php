@@ -64,13 +64,13 @@ class ServiceProvider extends Base
         $server->register('reply_handler', 'FluxBB\Actions\Reply');
         $server->register('new_topic', 'FluxBB\Actions\NewTopicPage');
         $server->register('new_topic_handler', 'FluxBB\Actions\NewTopic');
-        $server->register('admin', 'FluxBB\Actions\Admin\DashboardPage');
-        $server->register('admin_settings_global', 'FluxBB\Actions\Admin\GlobalSettingsPage');
-        $server->register('admin_settings_email', 'FluxBB\Actions\Admin\EmailSettingsPage');
-        $server->register('admin_settings_maintenance', 'FluxBB\Actions\Admin\MaintenanceSettingsPage');
-        $server->register('admin_dashboard_updates', 'FluxBB\Actions\Admin\UpdatesPage');
-        $server->register('admin_dashboard_stats', 'FluxBB\Actions\Admin\StatsPage');
-        $server->register('admin_dashboard_reports', 'FluxBB\Actions\Admin\ReportsPage');
+        $server->register('admin.index', 'FluxBB\Actions\Admin\DashboardPage');
+        $server->register('admin.settings.global', 'FluxBB\Actions\Admin\GlobalSettingsPage');
+        $server->register('admin.settings.email', 'FluxBB\Actions\Admin\EmailSettingsPage');
+        $server->register('admin.settings.maintenance', 'FluxBB\Actions\Admin\MaintenanceSettingsPage');
+        $server->register('admin.dashboard.updates', 'FluxBB\Actions\Admin\UpdatesPage');
+        $server->register('admin.dashboard.stats', 'FluxBB\Actions\Admin\StatsPage');
+        $server->register('admin.dashboard.reports', 'FluxBB\Actions\Admin\ReportsPage');
     }
 
     /**
