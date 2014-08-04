@@ -92,7 +92,7 @@
 </div>
 
 <div id="quickpost" class="post post-bg clearfix">
-    <form action="{{ $route('reply', array('id' => $topic->id)) }}" method="POST">
+    <form action="{{ $route('reply_handler', array('id' => $topic->id)) }}" method="POST">
         <div class="author-box col-md-2 col-sm-2 col-xs-2">
             <div class="author-name"><h4>Reply</h4></div>
         </div>

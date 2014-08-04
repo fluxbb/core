@@ -71,6 +71,6 @@ class Reply extends Base
 
     protected function errorRequest()
     {
-        return new Request('reply', ['id' => $this->topic->id]);
+        return new Request('viewtopic', ['id' => $this->topic->id]);
     }
 }
