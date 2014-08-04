@@ -60,6 +60,10 @@ class ServiceProvider extends Base
                 return $app['fluxbb.web.url']->toRoute($name, $parameters);
             });
 
+            $view->share('canonical', function () use ($app) {
+                return $app['fluxbb.web.url']->canonical();
+            });
+
             $view->share('method', function ($name) use ($app) {
                 return $app['fluxbb.web.router']->getMethod($name);
             });

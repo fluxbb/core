@@ -20,6 +20,11 @@ class Router
     protected $routeParser;
 
     /**
+     * @var \FluxBB\Server\Request
+     */
+    protected $currentRequest;
+
+    /**
      * @var array
      */
     protected $reverse = [];
@@ -82,6 +87,14 @@ class Router
         return $path;
     }
 
+    public function getCurrentPath()
+    {
+        $handler = $this->currentRequest->getHandler();
+        $parameters = $this->currentRequest->getParameters();
+
+        return $this->getPath($handler, $parameters);
+    }
+
     public function getMethod($handler)
     {
         return array_get($this->reverse, $handler . '.method', '');
@@ -100,8 +113,11 @@ class Router
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $parameters += $routeInfo[2];
-                return new Request($handler, $parameters);
+                $this->currentRequest = new Request($handler, $parameters);
+                break;
         }
+
+        return $this->currentRequest;
     }
 
     protected function getDispatcher()
