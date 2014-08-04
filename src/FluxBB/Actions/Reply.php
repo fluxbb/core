@@ -24,13 +24,6 @@ class Reply extends Base
         $this->validator = $validator;
     }
 
-    protected function handleRequest(Request $request)
-    {
-        $tid = $request->get('id');
-
-        $this->topic = Topic::with('forum.perms')->findOrFail($tid);
-    }
-
     /**
      * Run the action and return a response for the user.
      *
@@ -39,6 +32,9 @@ class Reply extends Base
      */
     protected function run()
     {
+        $tid = $this->request->get('id');
+        $this->topic = Topic::with('forum.perms')->findOrFail($tid);
+
         $creator = User::current();
 
         $this->post = new Post([
@@ -48,6 +44,7 @@ class Reply extends Base
             'posted'	=> Carbon::now(),
         ]);
 
+        $this->onErrorRedirectTo(new Request('viewtopic', ['id' => $this->topic->id]));
         if (! $this->validator->isValid($this->post)) {
             throw new ValidationException();
         }
@@ -56,21 +53,8 @@ class Reply extends Base
         $this->post->save();
 
         $this->trigger('user.posted', [$creator, $this->post]);
-    }
 
-    protected function hasRedirect()
-    {
-        return true;
-    }
-
-    protected function nextRequest()
-    {
-        return new Request('viewpost', ['id' => $this->post->id]);
+        $this->redirectTo(new Request('viewpost', ['id' => $this->post->id]));
         // ->withMessage(trans('fluxbb::post.post_added'));
-    }
-
-    protected function errorRequest()
-    {
-        return new Request('viewtopic', ['id' => $this->topic->id]);
     }
 }

@@ -21,13 +21,6 @@ class EditPost extends Base
         $this->validator = $validator;
     }
 
-    protected function handleRequest(Request $request)
-    {
-        $pid = $request->get('id');
-
-        $this->post = Post::with('author', 'topic')->findOrFail($pid);
-    }
-
     /**
      * Run the action and return a response for the user.
      *
@@ -36,8 +29,12 @@ class EditPost extends Base
      */
     protected function run()
     {
-        $creator = User::current();
+        $pid = $this->request->get('id');
+        $this->post = Post::with('author', 'topic')->findOrFail($pid);
 
+        $this->onErrorRedirectTo(new Request('post_edit', ['id' => $this->post->id]));
+
+        $creator = User::current();
         $this->post->fill([
             'message'	=> $this->request->get('req_message'),
             'edited'    => Carbon::now(),
@@ -49,18 +46,9 @@ class EditPost extends Base
         }
 
         $this->post->save();
-
         $this->trigger('post.edited', [$this->post, $creator]);
-    }
 
-    protected function nextRequest()
-    {
-        return new Request('viewpost', ['id' => $this->post->id]);
+        $this->redirectTo(new Request('viewpost', ['id' => $this->post->id]));
         // ->withMessage(trans('fluxbb::post.edit_redirect'));
-    }
-
-    protected function errorRequest()
-    {
-        return new Request('post_edit', ['id' => $this->post->id]);
     }
 }

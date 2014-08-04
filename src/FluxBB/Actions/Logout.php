@@ -23,16 +23,8 @@ class Logout extends Base
     protected function run()
     {
         $this->auth->logout();
-    }
 
-    protected function hasRedirect()
-    {
-        return true;
-    }
-
-    protected function nextRequest()
-    {
-        return new Request('index');
+        $this->redirectTo(new Request('index'));
         // ->withMessage(trans('fluxbb::login.message_logout'));
     }
 }

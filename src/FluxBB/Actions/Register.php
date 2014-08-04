@@ -2,6 +2,7 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Server\Request;
 use Illuminate\Validation\Factory as ValidationFactory;
 use FluxBB\Models\Config;
 use FluxBB\Models\User;
@@ -48,8 +49,11 @@ class Register extends Base
         $rules = $this->getValidationRules();
         $validation = $this->validator->make($this->input, $rules);
 
+        $this->onErrorRedirectTo(new Request('register'));
+
         if ($validation->fails()) {
-            return $this->mergeErrors($validation->errors());
+            $this->mergeErrors($validation->errors());
+            return;
         }
 
         $userData = array(
@@ -68,18 +72,8 @@ class Register extends Base
         $user = User::create($userData);
 
         $this->trigger('user.registered', array($user));
-    }
 
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    protected function makeResponse()
-    {
-        if ($this->succeeded()) {
-            return $this->redirectTo(route('index'))
-                ->withMessage(trans('fluxbb::register.reg_complete'));
-        } else {
-            return $this->errorRedirectTo(route('register'));
-        }
+        $this->redirectTo(new Request('index'));
+        // ->withMessage(trans('fluxbb::register.reg_complete'));
     }
 }

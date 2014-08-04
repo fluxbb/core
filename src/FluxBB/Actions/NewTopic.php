@@ -57,6 +57,8 @@ class NewTopic extends Base
             'posted'	=> $now,
         ]);
 
+        $this->onErrorRedirectTo(new Request('new_topic', ['id' => $this->forum->id]));
+
         if (! $this->validator->isValid($this->post)) {
             throw new ValidationException();
         }
@@ -66,21 +68,8 @@ class NewTopic extends Base
         $this->post->save();
 
         $this->trigger('user.posted', [$creator, $this->post]);
-    }
 
-    protected function hasRedirect()
-    {
-        return true;
-    }
-
-    protected function nextRequest()
-    {
-        return new Request('viewtopic', ['id' => $this->topic->id]);
+        $this->redirectTo(new Request('viewtopic', ['id' => $this->topic->id]));
         // ->withMessage(trans('fluxbb::topic.topic_added'));
-    }
-
-    protected function errorRequest()
-    {
-        return new Request('new_topic', ['id' => $this->forum->id]);
     }
 }

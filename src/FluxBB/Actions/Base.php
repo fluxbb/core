@@ -24,6 +24,16 @@ abstract class Base implements MessageProviderInterface
      */
     protected $request;
 
+    /**
+     * @var \FluxBB\Server\Request
+     */
+    protected $nextRequest;
+
+    /**
+     * @var \FluxBB\Server\Request
+     */
+    protected $errorRequest;
+
 
     public function succeeded()
     {
@@ -78,40 +88,31 @@ abstract class Base implements MessageProviderInterface
     protected function makeResponse()
     {
         if ($this->hasErrors()) {
-            $request = $this->errorRequest();
-            return new Error($request, $this->getErrors());
-        } else if ($this->hasRedirect()) {
-            $request = $this->nextRequest();
-            return new Redirect($request);
+            if (! isset($this->errorRequest)) {
+                throw new \Exception('Cannot handle error, no handler declared.');
+            }
+
+            return new Error($this->errorRequest, $this->getErrors());
+        } else if (isset($this->nextRequest)) {
+            return new Redirect($this->nextRequest);
         }
 
         return new Data($this->data);
     }
 
-    protected function hasRedirect()
-    {
-        return false;
-    }
-
-    /**
-     * @return \FluxBB\Server\Request
-     */
-    protected function nextRequest()
-    {
-        return;
-    }
-
-    /**
-     * @return \FluxBB\Server\Request
-     */
-    protected function errorRequest()
-    {
-        return;
-    }
-
     protected function hasData()
     {
         return ! empty($this->data);
+    }
+
+    protected function redirectTo(Request $next)
+    {
+        $this->nextRequest = $next;
+    }
+
+    protected function onErrorRedirectTo(Request $next)
+    {
+        $this->errorRequest = $next;
     }
 
     /**
