@@ -35,7 +35,7 @@ class LaravelUrlGenerator implements UrlGeneratorInterface
         return $this->getUrlToPath($path);
     }
 
-    protected function getUrlToPath($path);
+    protected function getUrlToPath($path)
     {
         return $this->generator->route('fluxbb', ['url' => $path]);
     }
