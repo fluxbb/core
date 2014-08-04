@@ -4,7 +4,7 @@ namespace FluxBB\Web;
 
 use Illuminate\Routing\UrlGenerator;
 
-class LaravelUrlGenerator
+class LaravelUrlGenerator implements UrlGeneratorInterface
 {
     /**
      * @var \FluxBB\Web\Router
