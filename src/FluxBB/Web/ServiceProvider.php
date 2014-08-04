@@ -28,6 +28,10 @@ class ServiceProvider extends Base
             return new Renderer($app['view'], $app['redirect'], $app['fluxbb.web.router']);
         });
 
+        $this->app->bindShared('fluxbb.web.url', function ($app) {
+            return new LaravelUrlGenerator($app['fluxbb.web.router'], $app['url']);
+        });
+
         $this->registerViewHelpers();
     }
 
@@ -53,7 +57,7 @@ class ServiceProvider extends Base
 
         $app->resolving('view', function ($view) use ($app) {
             $view->share('route', function ($name, $parameters = []) use ($app) {
-                return $app['fluxbb.web.router']->getPath($name, $parameters);
+                return $app['fluxbb.web.url']->toRoute($name, $parameters);
             });
 
             $view->share('method', function ($name) use ($app) {
