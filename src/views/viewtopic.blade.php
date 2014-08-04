@@ -25,7 +25,7 @@
             <li><a href="viewforum.html">2</a></li>
         </ul>
         <div class="btn-group postlink pull-right">
-            <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
+            <a class="btn btn-default subscribe" href="#"><span>Subscribe</span></a>
         </div>
     </div>
 
@@ -78,7 +78,7 @@
                     <li><a href="viewforum.html">2</a></li>
                 </ul>
                 <div class="btn-group postlink pull-right">
-                    <a class="btn btn-default suscribe" href="#"><span>Subscribe</span></a>
+                    <a class="btn btn-default subscribe" href="#"><span>Subscribe</span></a>
                 </div>
             </div>
             <ul class="breadcrumb">

@@ -219,7 +219,7 @@ a, a:hover, a:focus, a:active {
 }
 
 .postlink .post-new::before,
-.postlink .suscribe::before,
+.postlink .subscribe::before,
 .postlink .markread::before {
 	font-family: 'entypo';
 	font-size: 2em;
@@ -231,7 +231,7 @@ a, a:hover, a:focus, a:active {
 	content: '\270e';
 }
 
-.postlink .suscribe::before {
+.postlink .subscribe::before {
 	content: '\2606';
 }
 
@@ -473,7 +473,7 @@ a, a:hover, a:focus, a:active {
 	content: '\27A6';
 }
 
-.vfx .vfx-content .topic-title .topic-suscribed::before {
+.vfx .vfx-content .topic-title .topic-subscribed::before {
 	content: '\2605';
 }
 

@@ -30,7 +30,7 @@
                 </ul>
 
                 <div class="btn-group postlink pull-right">
-                    <a class="btn btn-default suscribe" href="#"><span>Suscribe</span></a>
+                    <a class="btn btn-default subscribe" href="#"><span>Subscribe</span></a>
                     <a class="btn btn-default markread" href="#"><span>Mark as read</span></a>
                     <a class="btn btn-primary post-new" href="{{ $route('new_topic', array('id' => $forum->id)) }}"><span>{{ trans('fluxbb::forum.post_topic') }}</span></a>
                 </div>
