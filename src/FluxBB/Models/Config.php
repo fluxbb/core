@@ -21,7 +21,7 @@ class Config
         }
 
         static::$data = static::$original = Cache::remember('fluxbb.config', 24 * 60, function () {
-            $data = DB::table('config')->get();
+            $data = DB::connection('fluxbb')->table('config')->get();
             $cache = array();
 
             foreach ($data as $row) {
@@ -87,17 +87,17 @@ class Config
         }
 
         if (!empty($insert_values)) {
-            DB::table('config')->insert($insert_values);
+            DB::connection('fluxbb')->table('config')->insert($insert_values);
         }
 
         foreach ($changed as $name => $value) {
-            DB::table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
+            DB::connection('fluxbb')->table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
         }
 
         // Deleted keys
         $deleted_keys = array_keys(array_diff_key(static::$original, static::$data));
         if (!empty($deleted_keys)) {
-            DB::table('config')->whereIn('conf_name', $deleted_keys)->delete();
+            DB::connection('fluxbb')->table('config')->whereIn('conf_name', $deleted_keys)->delete();
         }
 
         // No need to cache old values anymore
