@@ -25,7 +25,9 @@
             <li><a href="viewforum.html">2</a></li>
         </ul>
         <div class="btn-group postlink pull-right">
-            <a class="btn btn-default subscribe" href="#"><span>Subscribe</span></a>
+            <form action="{{ $route('topic_subscribe', $topic) }}" method="post">
+                <input class="btn btn-default subscribe" type="submit" value="Subscribe" />
+            </form>
         </div>
     </div>
 
@@ -78,7 +80,9 @@
                     <li><a href="viewforum.html">2</a></li>
                 </ul>
                 <div class="btn-group postlink pull-right">
-                    <a class="btn btn-default subscribe" href="#"><span>Subscribe</span></a>
+                    <form action="{{ $route('topic_subscribe', $topic) }}" method="post">
+                        <input class="btn btn-default subscribe" type="submit" value="Subscribe" />
+                    </form>
                 </div>
             </div>
             <ul class="breadcrumb">
@@ -109,7 +113,7 @@
                 <span class="label label-success">Smilies</a></span>
             </div>
             <input class="btn btn-success pull-right" type="submit" value="Submit" />
-        </p>
+        </div>
     </form>
 </div>
 
