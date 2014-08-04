@@ -69,7 +69,9 @@ class NewTopic extends Base
 
         $this->trigger('user.posted', [$creator, $this->post]);
 
-        $this->redirectTo(new Request('viewtopic', ['id' => $this->topic->id]));
-        // ->withMessage(trans('fluxbb::topic.topic_added'));
+        $this->redirectTo(
+            new Request('viewtopic', ['id' => $this->topic->id]),
+            trans('fluxbb::topic.topic_added')
+        );
     }
 }

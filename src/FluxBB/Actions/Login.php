@@ -32,7 +32,9 @@ class Login extends Base
             $this->addError('Invalid username / password combination');
         }
 
-        $this->redirectTo(new Request('index'));
-        // ->withMessage(trans('fluxbb::login.message_login'));
+        $this->redirectTo(
+            new Request('index'),
+            trans('fluxbb::login.message_login')
+        );
     }
 }

@@ -24,7 +24,9 @@ class Logout extends Base
     {
         $this->auth->logout();
 
-        $this->redirectTo(new Request('index'));
-        // ->withMessage(trans('fluxbb::login.message_logout'));
+        $this->redirectTo(
+            new Request('index'),
+            trans('fluxbb::login.message_logout')
+        );
     }
 }

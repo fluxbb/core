@@ -23,6 +23,9 @@ class SubscribeTopic extends Base
 
         $this->trigger('topic.subscribed', [$topic, $user]);
 
-        $this->redirectTo(new Request('viewtopic', ['id' => $tid]));
+        $this->redirectTo(
+            new Request('viewtopic', ['id' => $tid]),
+            'Subscription added.'
+        );
     }
 }

@@ -73,7 +73,9 @@ class Register extends Base
 
         $this->trigger('user.registered', array($user));
 
-        $this->redirectTo(new Request('index'));
-        // ->withMessage(trans('fluxbb::register.reg_complete'));
+        $this->redirectTo(
+            new Request('index'),
+            trans('fluxbb::register.reg_complete')
+        );
     }
 }

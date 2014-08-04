@@ -55,13 +55,20 @@ class Renderer implements HandlerInterface
         return $this->view->make($viewName, $response->getData());
     }
 
-    public function handleRedirectResponse(Redirect $response)
+    public function handleRedirectResponse(Redirect $redirect)
     {
-        $handler = $response->getNextRequest()->getHandler();
-        $parameters = $response->getNextRequest()->getParameters();
+        $handler = $redirect->getNextRequest()->getHandler();
+        $parameters = $redirect->getNextRequest()->getParameters();
+        $message = $redirect->getMessage();
 
         $uri = $this->router->getPath($handler, $parameters);
-        return $this->redirect->route('fluxbb', $uri);
+        $response = $this->redirect->route('fluxbb', $uri);
+
+        if ($message) {
+            $response->with('message', $message);
+        }
+
+        return $response;
     }
 
     public function handleErrorResponse(Error $response)

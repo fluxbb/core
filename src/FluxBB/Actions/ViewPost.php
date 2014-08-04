@@ -28,9 +28,11 @@ class ViewPost extends Base
         $dispPosts = User::current()->dispPosts();
         $this->page = ceil($numPosts / $dispPosts);
 
-        $this->redirectTo(new Request('viewtopic', [
-            'id' => $this->post->topic_id,
-            'page' => $this->page
-        ])); // TODO: Append #p to URL
+        $this->redirectTo(
+            new Request('viewtopic', [
+                'id' => $this->post->topic_id,
+                'page' => $this->page
+            ])
+        ); // TODO: Append #p to URL
     }
 }

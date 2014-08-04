@@ -48,7 +48,9 @@ class EditPost extends Base
         $this->post->save();
         $this->trigger('post.edited', [$this->post, $creator]);
 
-        $this->redirectTo(new Request('viewpost', ['id' => $this->post->id]));
-        // ->withMessage(trans('fluxbb::post.edit_redirect'));
+        $this->redirectTo(
+            new Request('viewpost', ['id' => $this->post->id]),
+            trans('fluxbb::post.edit_redirect')
+        );
     }
 }

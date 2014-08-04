@@ -30,6 +30,11 @@ abstract class Base implements MessageProviderInterface
     protected $nextRequest;
 
     /**
+     * @var string
+     */
+    protected $redirectMessage = '';
+
+    /**
      * @var \FluxBB\Server\Request
      */
     protected $errorRequest;
@@ -94,7 +99,7 @@ abstract class Base implements MessageProviderInterface
 
             return new Error($this->errorRequest, $this->getErrors());
         } else if (isset($this->nextRequest)) {
-            return new Redirect($this->nextRequest);
+            return new Redirect($this->nextRequest, $this->redirectMessage);
         }
 
         return new Data($this->data);
@@ -105,9 +110,10 @@ abstract class Base implements MessageProviderInterface
         return ! empty($this->data);
     }
 
-    protected function redirectTo(Request $next)
+    protected function redirectTo(Request $next, $message = '')
     {
         $this->nextRequest = $next;
+        $this->redirectMessage = $message;
     }
 
     protected function onErrorRedirectTo(Request $next)

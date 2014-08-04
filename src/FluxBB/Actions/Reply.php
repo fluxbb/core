@@ -54,7 +54,9 @@ class Reply extends Base
 
         $this->trigger('user.posted', [$creator, $this->post]);
 
-        $this->redirectTo(new Request('viewpost', ['id' => $this->post->id]));
-        // ->withMessage(trans('fluxbb::post.post_added'));
+        $this->redirectTo(
+            new Request('viewpost', ['id' => $this->post->id]),
+            trans('fluxbb::post.post_added')
+        );
     }
 }
