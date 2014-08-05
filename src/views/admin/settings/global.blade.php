@@ -134,9 +134,8 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Adjust for DST</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[default_dst]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[default_dst]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="default_dst" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">Check if daylight savings is in effect (advances times by 1 hour).</span>
                                     </td>
                                 </tr>
@@ -193,9 +192,8 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row">Make clickable links</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[make_links]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[make_links]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="make_links" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">When enabled, FluxBB will automatically detect any URLs in posts and make them clickable hyperlinks.</span>
                                     </td>
                                 </tr>
@@ -237,33 +235,29 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row">Users online</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[users_online]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[users_online]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="users_online" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">Display info on the index page about guests and registered users currently browsing the board.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><a name="signatures"></a>Signatures</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[signatures]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[signatures]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="signatures" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">Allow users to attach a signature to their posts.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">User has posted earlier</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[show_dot]" value="1">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[show_dot]" value="0" checked="checked">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="show_dot" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">This feature displays a dot in front of topics in viewforum.php in case the currently logged in user has posted in that topic earlier. Disable if you are experiencing high server load.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Topic views</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[topic_views]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[topic_views]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="topic_views" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">Keep track of the number of views a topic has. Disable if you are experiencing high server load in a busy forum.</span>
                                     </td>
                                 </tr>
@@ -313,9 +307,8 @@
                             <table class="table">
                                 <tbody><tr>
                                     <th scope="row">Use avatars</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[avatars]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[avatars]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="avatars" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">When enabled, users will be able to upload an avatar which will be displayed under their title.</span>
                                     </td>
                                 </tr>
@@ -363,33 +356,29 @@
                             <table class="table">
                                 <tbody><tr>
                                     <th scope="row">Allow new registrations</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[regs_allow]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[regs_allow]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="regs_allow" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">Controls whether this board accepts new registrations. Disable only under special circumstances.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Verify registrations</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[regs_verify]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[regs_verify]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="regs_verify" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">When enabled, users are emailed a random password when they register. They can then log in and change the password in their profile if they see fit. This feature also requires users to verify new email addresses if they choose to change from the one they registered with. This is an effective way of avoiding registration abuse and making sure that all users have "correct" email addresses in their profiles.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Report new registrations</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[regs_report]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[regs_report]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="regs_report" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">If enabled, FluxBB will notify users on the mailing list (see above) when a new user registers in the forums.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">User forum rules</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[rules]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                        <label class="conl"><input type="radio" name="form[rules]" value="0">&nbsp;<strong>No</strong></label>
+                                    <td class="setting">
+                                        <input type="checkbox" name="rules" data-behavior="save-on-change" value="1" />
                                         <span class="clearb">When enabled, users must agree to a set of rules when registering (enter text below). The rules will always be available through a link in the navigation table at the top of every page.</span>
                                     </td>
                                 </tr>
