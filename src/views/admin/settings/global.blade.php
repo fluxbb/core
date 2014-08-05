@@ -47,6 +47,44 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Default language</th>
+                                    <td>
+                                        <select name="form[default_lang]">
+                                            <option value="English">English</option>
+                                            <option value="French" selected="selected">French</option>
+                                        </select>
+                                        <span>The default language for guests and users who haven't changed from the default in their profile. If you remove a language pack, this must be updated.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Default style</th>
+                                    <td>
+                                        <select name="form[default_style]">
+                                            <option value="OnEnAGros-v4.3">OnEnAGros-v4.3</option>
+                                            <option value="OnEnAGros-v4.4">OnEnAGros-v4.4</option>
+                                            <option value="OnEnAGros-v5" selected="selected">OnEnAGros-v5</option>
+                                            <option value="OnEnAGros-v5-aube">OnEnAGros-v5-aube</option>
+                                            <option value="OnEnAGros-v5-nuit">OnEnAGros-v5-nuit</option>
+                                        </select>
+                                        <span>The default style for guests and users who haven't changed from the default in their profile.</span>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </div>
+                    </fieldset>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane" id="tab-time">
+              <div class="fakeform">
+                <div class="inform">
+                    <fieldset>
+                        <legend>Time and timeouts</legend>
+                        <div class="infldset">
+                            <table class="table">
+                                <tbody>
+                                <tr>
                                     <th scope="row">Default time zone</th>
                                     <td>
                                         <select name="form[default_timezone]">
@@ -103,43 +141,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Default language</th>
-                                    <td>
-                                        <select name="form[default_lang]">
-                                            <option value="English">English</option>
-                                            <option value="French" selected="selected">French</option>
-                                        </select>
-                                        <span>The default language for guests and users who haven't changed from the default in their profile. If you remove a language pack, this must be updated.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Default style</th>
-                                    <td>
-                                        <select name="form[default_style]">
-                                            <option value="OnEnAGros-v4.3">OnEnAGros-v4.3</option>
-                                            <option value="OnEnAGros-v4.4">OnEnAGros-v4.4</option>
-                                            <option value="OnEnAGros-v5" selected="selected">OnEnAGros-v5</option>
-                                            <option value="OnEnAGros-v5-aube">OnEnAGros-v5-aube</option>
-                                            <option value="OnEnAGros-v5-nuit">OnEnAGros-v5-nuit</option>
-                                        </select>
-                                        <span>The default style for guests and users who haven't changed from the default in their profile.</span>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </fieldset>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="tab-time">
-              <div class="fakeform">
-                <div class="inform">
-                    <fieldset>
-                        <legend>Time and timeouts</legend>
-                        <div class="infldset">
-                            <table class="table">
-                                <tbody><tr>
                                     <th scope="row">Time format</th>
                                     <td>
                                         <input type="text" name="form[time_format]" size="25" maxlength="25" value="H:i:s">
@@ -174,7 +175,8 @@
                                         <span>Number of seconds to wait when redirecting. If set to 0, no redirect page will be displayed (not recommended).</span>
                                     </td>
                                 </tr>
-                            </tbody></table>
+                                </tbody>
+                            </table>
                         </div>
                     </fieldset>
                 </div>
