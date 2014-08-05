@@ -62,6 +62,7 @@ class ServiceProvider extends Base
         $server->register('post_edit_handler', 'FluxBB\Actions\EditPost');
         $server->register('reply_handler', 'FluxBB\Actions\Reply');
         $server->register('topic_subscribe', 'FluxBB\Actions\SubscribeTopic');
+        $server->register('topic_unsubscribe', 'FluxBB\Actions\UnsubscribeTopic');
         $server->register('new_topic', 'FluxBB\Actions\NewTopicPage');
         $server->register('new_topic_handler', 'FluxBB\Actions\NewTopic');
         $server->register('admin.index', 'FluxBB\Actions\Admin\DashboardPage');

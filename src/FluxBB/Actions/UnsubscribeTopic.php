@@ -6,7 +6,7 @@ use FluxBB\Models\Topic;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
 
-class SubscribeTopic extends Base
+class UnsubscribeTopic extends Base
 {
     /**
      * Run any desired actions.
@@ -19,14 +19,14 @@ class SubscribeTopic extends Base
         $topic = Topic::findOrFail($tid);
         $user = User::current();
 
-        if (! $topic->subscribers->contains($user)) {
-            $topic->subscribers()->attach($user);
-            $this->trigger('topic.subscribed', [$topic, $user]);
+        if ($topic->subscribers->contains($user->id)) {
+            $topic->subscribers()->detach($user);
+            $this->trigger('topic.unsubscribed', [$topic, $user]);
         }
 
         $this->redirectTo(
             new Request('viewtopic', ['id' => $tid]),
-            'Subscription added.'
+            'Subscription removed.'
         );
     }
 }
