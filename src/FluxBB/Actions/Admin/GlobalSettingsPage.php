@@ -17,6 +17,6 @@ class GlobalSettingsPage extends Base
 
     protected function run()
     {
-        $this->data['config'] = $this->config->getGlobal();
+        $this->data['config'] = $this->config->get();
     }
 }

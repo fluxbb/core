@@ -44,6 +44,7 @@
         <script src="{{ URL::asset('packages/fluxbb/core/js/morris.min.js') }}"></script>
         <script src="{{ URL::asset('packages/fluxbb/core/js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('packages/fluxbb/core/js/application.js') }}"></script>
+        <script src="{{ URL::asset('packages/fluxbb/core/js/admin.js') }}"></script>
 
     </body>
 

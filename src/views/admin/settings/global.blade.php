@@ -35,21 +35,21 @@
                                 <tr>
                                     <th scope="row">Board title</th>
                                     <td>
-                                        <input type="text" name="form[board_title]" size="50" maxlength="255" value="OnEnAGros! − LE forum des fans de Kaamelott">
+                                        <input type="text" name="board_title" data-behavior="save-on-change" size="50" maxlength="255" value="OnEnAGros! − LE forum des fans de Kaamelott">
                                         <span>The title of this bulletin board (shown at the top of every page). This field may <strong>not</strong> contain HTML.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Board description</th>
-                                    <td>
-                                        <input type="text" name="form[board_desc]" size="50" maxlength="255" value="">
+                                    <td class="setting" data-old="">
+                                        <input type="text" name="board_desc" data-behavior="save-on-change" size="50" maxlength="255" value="">
                                         <span>A short description of this bulletin board (shown at the top of every page). This field may contain HTML.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Default language</th>
-                                    <td>
-                                        <select name="form[default_lang]">
+                                    <td class="setting" data-old="French">
+                                        <select name="default_lang" data-behavior="save-on-change">
                                             <option value="English">English</option>
                                             <option value="French" selected="selected">French</option>
                                         </select>

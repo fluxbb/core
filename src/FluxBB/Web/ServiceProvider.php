@@ -113,7 +113,7 @@ class ServiceProvider extends Base
         $router->get('admin/groups', 'admin.groups.index');
         $router->get('admin/groups/{id}/edit', 'admin.groups.edit');
         $router->get('admin/groups/{id}/delete', 'admin.groups.delete');
-        $router->post('admin/settings/{key}', 'admin.set.option');
+        $router->post('admin/settings/{key}', 'admin.options.set');
     }
 
     /**

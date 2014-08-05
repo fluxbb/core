@@ -11,14 +11,13 @@ class ConfigRepository implements ConfigRepositoryInterface
 
     protected $cache;
 
+    protected $data;
+
+    protected $original;
+
     public function __construct(CacheManager $cache)
     {
         $this->cache = $cache;
-    }
-
-    public function getGlobal()
-    {
-        return array();
     }
 
     protected function loadData()
@@ -41,10 +40,16 @@ class ConfigRepository implements ConfigRepositoryInterface
         $this->loaded = true;
     }
 
-    public function get($key)
+    public function has($key)
     {
         $this->loadData();
-        return $this->data[$key];
+        return array_key_exists($key, $this->data);
+    }
+
+    public function get($key = null)
+    {
+        $this->loadData();
+        return array_get($this->data, $key);
     }
 
     public function set($key, $value)

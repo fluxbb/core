@@ -25,26 +25,28 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.setting input').focus(function() {
-		console.log("focused");
-		$(this).removeClass("saved");
-		$(this).removeClass("failed");
-	});
+	$(document).on('change', '[data-behavior=save-on-change]', function() {
+        var $field = $(this);
+        var name = $field.attr('name');
+        var value = $field.val();
 
-	$('.setting').change(function() {
-		console.log('change');
-		$field = $(this);
-		key = $field.data('key');
-		value = $field.find('input').val();
-		$.ajax({
-			type: "POST",
-			url: baseUrl + "/admin/settings/" + key,
-			data: {
-				value: value
-			}
-		}).done(function(data) {
-			console.log('saved');
-			$field.addClass("saved");
-		});
-	});
+        $field.closest('.setting').trigger('changed', [name, value]);
+    });
+
+    $(document).on('changed', '.setting', function(event, name, value) {
+        var $setting = $(this);
+        var old = $setting.data('old');
+
+        if (old !== value) {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/settings/' + name,
+                data: {
+                    value: value
+                }
+            }).success(function(data) {
+                $setting.data('old', value);
+            });
+        }
+    });
 });
