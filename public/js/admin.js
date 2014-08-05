@@ -37,6 +37,8 @@ $(document).ready(function() {
         var $setting = $(this);
         var old = $setting.data('old');
 
+        $setting.removeClass('saved');
+
         if (old !== value) {
             $.ajax({
                 type: 'POST',
@@ -46,6 +48,7 @@ $(document).ready(function() {
                 }
             }).success(function(data) {
                 $setting.data('old', value);
+                $setting.addClass('saved');
             });
         }
     });
