@@ -2,22 +2,31 @@
 
 namespace FluxBB\Models;
 
-use Illuminate\Cache\CacheManager;
-use DB;
+use Illuminate\Cache\Repository;
+use Illuminate\Database\ConnectionInterface;
 
 class ConfigRepository implements ConfigRepositoryInterface
 {
-    protected $loaded = false;
-
+    /**
+     * @var \Illuminate\Cache\Repository
+     */
     protected $cache;
+
+    /**
+     * @var \Illuminate\Database\ConnectionInterface
+     */
+    protected $database;
+
+    protected $loaded = false;
 
     protected $data;
 
     protected $original;
 
-    public function __construct(CacheManager $cache)
+    public function __construct(Repository $cache, ConnectionInterface $database)
     {
         $this->cache = $cache;
+        $this->database = $database;
     }
 
     protected function loadData()
@@ -27,7 +36,7 @@ class ConfigRepository implements ConfigRepositoryInterface
         }
 
         $this->data = $this->original = $this->cache->remember('fluxbb.config', 24 * 60, function () {
-            $data = DB::table('config')->get();
+            $data = $this->database->table('config')->get();
             $cache = array();
 
             foreach ($data as $row) {
@@ -86,23 +95,23 @@ class ConfigRepository implements ConfigRepositoryInterface
         }
 
         if (!empty($insert_values)) {
-            DB::table('config')->insert($insert_values);
+            $this->database->table('config')->insert($insert_values);
         }
 
         foreach ($changed as $name => $value) {
-            DB::table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
+            $this->database->table('config')->where('conf_name', '=', $name)->update(array('conf_value' => $value));
         }
 
         // Deleted keys
         $deleted_keys = array_keys(array_diff_key($this->original, $this->data));
         if (!empty($deleted_keys)) {
-            DB::table('config')->whereIn('conf_name', $deleted_keys)->delete();
+            $this->database->table('config')->whereIn('conf_name', $deleted_keys)->delete();
         }
 
         // No need to cache old values anymore
         $this->original = $this->data;
 
         // Delete the cache so that it will be regenerated on the next request
-        $this->cache->forget('fluxbb.config');
+        $this->cache->pull('fluxbb.config');
     }
 }

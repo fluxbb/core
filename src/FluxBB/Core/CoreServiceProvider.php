@@ -51,7 +51,7 @@ class CoreServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('FluxBB\Models\ConfigRepositoryInterface', function ($app) {
-            return new ConfigRepository($app['cache']);
+            return new ConfigRepository($app['cache.store'], $app['db']->connection());
         });
     }
 
