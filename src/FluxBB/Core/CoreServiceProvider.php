@@ -24,6 +24,10 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->package('fluxbb/core', 'fluxbb');
 
+        // Add another namespace for localized mail templates
+        $locale = $this->app['config']['app.locale'];
+        $this->app['view']->addNamespace('fluxbb:mail', __DIR__ . '/../../lang/' . $locale . '/mail/');
+
         include __DIR__.'/../../start.php';
     }
 
