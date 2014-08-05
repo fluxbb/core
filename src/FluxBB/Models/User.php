@@ -193,6 +193,11 @@ class User extends Base implements UserInterface
         return $this->disp_posts ?: Config::get('o_disp_posts_default');
     }
 
+    public function isSubscribed(Topic $topic)
+    {
+        return $this->subscriptions->contains($topic->id);
+    }
+
     protected function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);

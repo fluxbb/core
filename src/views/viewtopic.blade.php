@@ -25,9 +25,15 @@
             <li><a href="viewforum.html">2</a></li>
         </ul>
         <div class="btn-group postlink pull-right">
+            @if (\FluxBB\Models\User::current()->isSubscribed($topic))
+            <form action="{{ $route('topic_unsubscribe', $topic) }}" method="post">
+                <input class="btn btn-default unsubscribe" type="submit" value="Unsubscribe" />
+            </form>
+            @else
             <form action="{{ $route('topic_subscribe', $topic) }}" method="post">
                 <input class="btn btn-default subscribe" type="submit" value="Subscribe" />
             </form>
+            @endif
         </div>
     </div>
 
@@ -80,9 +86,15 @@
                     <li><a href="viewforum.html">2</a></li>
                 </ul>
                 <div class="btn-group postlink pull-right">
+                    @if (\FluxBB\Models\User::current()->isSubscribed($topic))
+                    <form action="{{ $route('topic_unsubscribe', $topic) }}" method="post">
+                        <input class="btn btn-default unsubscribe" type="submit" value="Unsubscribe" />
+                    </form>
+                    @else
                     <form action="{{ $route('topic_subscribe', $topic) }}" method="post">
                         <input class="btn btn-default subscribe" type="submit" value="Subscribe" />
                     </form>
+                    @endif
                 </div>
             </div>
             <ul class="breadcrumb">
