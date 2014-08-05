@@ -35,17 +35,15 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">Forum subscriptions</th>
-                                            <td>
-                                                <label class="conl"><input type="radio" name="form[forum_subscriptions]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                                <label class="conl"><input type="radio" name="form[forum_subscriptions]" value="0">&nbsp;<strong>No</strong></label>
+                                            <td class="setting">
+                                                <input type="checkbox" name="forum_subscriptions" data-behavior="save-on-change" value="1" />
                                                 <p class="clearb">Enable users to subscribe to forums (receive email when someone creates a new topic).</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Topic subscriptions</th>
-                                            <td>
-                                                <label class="conl"><input type="radio" name="form[topic_subscriptions]" value="1" checked="checked">&nbsp;<strong>Yes</strong></label>
-                                                <label class="conl"><input type="radio" name="form[topic_subscriptions]" value="0">&nbsp;<strong>No</strong></label>
+                                            <td class="setting">
+                                                <input type="checkbox" name="topic_subscriptions" data-behavior="save-on-change" value="1" />
                                                 <p class="clearb">Enable users to subscribe to topics (receive email when someone replies).</p>
                                             </td>
                                         </tr>
@@ -74,9 +72,8 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">Encrypt SMTP using SSL</th>
-                                            <td>
-                                                <label class="conl"><input type="radio" name="form[smtp_ssl]" value="1">&nbsp;<strong>Yes</strong></label>
-                                                <label class="conl"><input type="radio" name="form[smtp_ssl]" value="0" checked="checked">&nbsp;<strong>No</strong></label>
+                                            <td class="setting">
+                                                <input type="checkbox" name="smtp_ssl" data-behavior="save-on-change" value="1" />
                                                 <p class="clearb">Encrypts the connection to the SMTP server using SSL. Should only be used if your SMTP server requires it and your version of PHP supports SSL.</p>
                                             </td>
                                         </tr>
