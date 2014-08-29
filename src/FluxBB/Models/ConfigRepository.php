@@ -32,7 +32,7 @@ class ConfigRepository implements ConfigRepositoryInterface
 
     protected function data()
     {
-        if ($this->loaded) {
+        if (!$this->loaded) {
             $this->data = $this->original = $this->cache->remember('fluxbb.config', 24 * 60, function () {
                 $data = $this->database->table('config')->get();
                 $cache = array();
