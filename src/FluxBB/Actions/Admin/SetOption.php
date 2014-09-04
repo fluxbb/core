@@ -33,8 +33,6 @@ class SetOption extends Base
             $this->config->set($key, $value);
             $this->config->save();
             $this->trigger('option.changed', [$key, $value]);
-
-            $this->redirectTo(new Request('index'));
         }
     }
 }
