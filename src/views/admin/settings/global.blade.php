@@ -34,21 +34,21 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Board title</th>
-                                    <td>
-                                        <input type="text" name="board_title" data-behavior="save-on-change" size="50" maxlength="255" value="OnEnAGros! − LE forum des fans de Kaamelott">
+                                    <td class="setting" data-old="{{{ $config->get('o_board_title') }}}">
+                                        <input type="text" name="board_title" data-behavior="save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_title') }}}">
                                         <span>The title of this bulletin board (shown at the top of every page). This field may <strong>not</strong> contain HTML.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Board description</th>
-                                    <td class="setting" data-old="">
-                                        <input type="text" name="board_desc" data-behavior="save-on-change" size="50" maxlength="255" value="">
+                                    <td class="setting" data-old="{{{ $config->get('o_board_desc') }}}">
+                                        <input type="text" name="board_desc" data-behavior="save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_desc') }}}">
                                         <span>A short description of this bulletin board (shown at the top of every page). This field may contain HTML.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Default language</th>
-                                    <td class="setting" data-old="French">
+                                    <td class="setting" data-old="{{{ $config->get('o_default_lang') }}}">
                                         <select name="default_lang" data-behavior="save-on-change">
                                             <option value="English">English</option>
                                             <option value="French" selected="selected">French</option>
@@ -58,7 +58,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Default style</th>
-                                    <td>
+                                    <td class="setting" data-old="{{{ $config->get('o_default_style') }}}">
                                         <select name="form[default_style]">
                                             <option value="OnEnAGros-v4.3">OnEnAGros-v4.3</option>
                                             <option value="OnEnAGros-v4.4">OnEnAGros-v4.4</option>
