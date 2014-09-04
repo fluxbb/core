@@ -37,7 +37,7 @@ $(document).ready(function() {
         var $setting = $(this);
         var old = $setting.data('old');
 
-        $setting.removeClass('saved');
+        $setting.removeClass('saved').addClass('saving');
 
         if (old !== value) {
             FluxBB.ajax('POST', 'admin/settings/' + name, {
@@ -45,6 +45,8 @@ $(document).ready(function() {
             }).success(function(data) {
                 $setting.data('old', value);
                 $setting.addClass('saved');
+            }).always(function() {
+            	$setting.removeClass('saving');
             });
         }
     });
