@@ -62,7 +62,8 @@ class ConfigRepository implements ConfigRepositoryInterface
 
     public function set($key, $value)
     {
-        $this->data()[$key] = $value;
+        $this->data();
+        $this->data[$key] = $value;
     }
 
     public function isEnabled($key)
