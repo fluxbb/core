@@ -40,12 +40,8 @@ $(document).ready(function() {
         $setting.removeClass('saved');
 
         if (old !== value) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/settings/' + name,
-                data: {
-                    value: value
-                }
+            FluxBB.ajax('POST', 'admin/settings/' + name, {
+                value: value
             }).success(function(data) {
                 $setting.data('old', value);
                 $setting.addClass('saved');
