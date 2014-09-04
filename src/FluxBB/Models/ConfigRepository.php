@@ -111,6 +111,6 @@ class ConfigRepository implements ConfigRepositoryInterface
         $this->original = $this->data;
 
         // Delete the cache so that it will be regenerated on the next request
-        $this->cache->pull('fluxbb.config');
+        $this->cache->forget('fluxbb.config');
     }
 }
