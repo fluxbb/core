@@ -126,9 +126,9 @@ class ServiceProvider extends Base
         $app = $this->app;
         $prefix = $app['config']->get('fluxbb.route_prefix', '');
 
-        $app['router']->before(function() use ($app) {
+        $app['router']->before(function () use ($app) {
             if ($app['request']->ajax()) {
-                $app->bindShared('fluxbb.web.renderer', function() use ($app) {
+                $app->bindShared('fluxbb.web.renderer', function () use ($app) {
                     return new JsonRenderer($app['redirect'], $app['fluxbb.web.router']);
                 });
             }
