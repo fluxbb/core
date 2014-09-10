@@ -17,7 +17,6 @@
             <li><a href="#tab-display" data-toggle="tab" class="text-center"><i class="icon-desktop"></i> Display</a></li>
             <li><a href="#tab-features" data-toggle="tab" class="text-center"><i class="icon-asterisk"></i> Features</a></li>
             <li><a href="#tab-reports" data-toggle="tab" class="text-center"><i class="icon-flag"></i> Reports</a></li>
-            <li><a href="#tab-avatars" data-toggle="tab" class="text-center"><i class="icon-picture"></i> Avatars</a></li>
             <li><a href="#tab-registration" data-toggle="tab" class="text-center"><i class="icon-terminal"></i> Registration</a></li>
           </ul> <!-- /nav-tabs -->
 
@@ -44,29 +43,6 @@
                                     <td class="setting" data-old="{{{ $config->get('o_board_desc') }}}">
                                         <input type="text" name="board_desc" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_desc') }}}">
                                         <span>A short description of this bulletin board (shown at the top of every page). This field may contain HTML.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Default language</th>
-                                    <td class="setting" data-old="{{{ $config->get('o_default_lang') }}}">
-                                        <select name="default_lang" class="js-save-on-change">
-                                            <option value="English">English</option>
-                                            <option value="French" selected="selected">French</option>
-                                        </select>
-                                        <span>The default language for guests and users who haven't changed from the default in their profile. If you remove a language pack, this must be updated.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Default style</th>
-                                    <td class="setting" data-old="{{{ $config->get('o_default_style') }}}">
-                                        <select name="form[default_style]">
-                                            <option value="OnEnAGros-v4.3">OnEnAGros-v4.3</option>
-                                            <option value="OnEnAGros-v4.4">OnEnAGros-v4.4</option>
-                                            <option value="OnEnAGros-v5" selected="selected">OnEnAGros-v5</option>
-                                            <option value="OnEnAGros-v5-aube">OnEnAGros-v5-aube</option>
-                                            <option value="OnEnAGros-v5-nuit">OnEnAGros-v5-nuit</option>
-                                        </select>
-                                        <span>The default style for guests and users who haven't changed from the default in their profile.</span>
                                     </td>
                                 </tr>
                             </tbody></table>
@@ -167,13 +143,6 @@
                                         <span>Number of seconds a user must be idle before being removed from the online users list.</span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Redirect time</th>
-                                    <td>
-                                        <input type="text" name="form[redirect_delay]" size="3" maxlength="3" value="1">
-                                        <span>Number of seconds to wait when redirecting. If set to 0, no redirect page will be displayed (not recommended).</span>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -195,13 +164,6 @@
                                     <td class="setting">
                                         <input type="checkbox" name="make_links" class="js-save-on-change" value="1" />
                                         <span class="clearb">When enabled, FluxBB will automatically detect any URLs in posts and make them clickable hyperlinks.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Topic review</th>
-                                    <td>
-                                        <input type="text" name="form[topic_review]" size="3" maxlength="3" value="15">
-                                        <span>Maximum number of posts to display when posting (newest first). Set to 0 to disable.</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -289,55 +251,6 @@
                                     <td>
                                         <textarea name="form[mailing_list]" rows="5" cols="55">webmaster@onenagros.org</textarea>
                                         <span>A comma separated list of subscribers. The people on this list are the recipients of reports.</span>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </fieldset>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane" id="tab-avatars">
-              <div class="fakeform">
-                <div class="inform">
-                    <fieldset>
-                        <legend>Avatars</legend>
-                        <div class="infldset">
-                            <table class="table">
-                                <tbody><tr>
-                                    <th scope="row">Use avatars</th>
-                                    <td class="setting">
-                                        <input type="checkbox" name="avatars" class="js-save-on-change" value="1" />
-                                        <span class="clearb">When enabled, users will be able to upload an avatar which will be displayed under their title.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Upload directory</th>
-                                    <td>
-                                        <input type="text" name="form[avatars_dir]" size="35" maxlength="50" value="img/avatars">
-                                        <span>The upload directory for avatars (relative to the FluxBB root directory). PHP must have write permissions to this directory.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Max width</th>
-                                    <td>
-                                        <input type="text" name="form[avatars_width]" size="5" maxlength="5" value="140">
-                                        <span>The maximum allowed width of avatars in pixels (60 is recommended).</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Max height</th>
-                                    <td>
-                                        <input type="text" name="form[avatars_height]" size="5" maxlength="5" value="140">
-                                        <span>The maximum allowed height of avatars in pixels (60 is recommended).</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Max size</th>
-                                    <td>
-                                        <input type="text" name="form[avatars_size]" size="6" maxlength="6" value="32000">
-                                        <span>The maximum allowed size of avatars in bytes (10240 is recommended).</span>
                                     </td>
                                 </tr>
                             </tbody></table>
