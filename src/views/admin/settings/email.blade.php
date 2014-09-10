@@ -36,14 +36,14 @@
                                         <tr>
                                             <th scope="row">Forum subscriptions</th>
                                             <td class="setting">
-                                                <input type="checkbox" name="forum_subscriptions" data-behavior="save-on-change" value="1" />
+                                                <input type="checkbox" name="forum_subscriptions" class="js-save-on-change" value="1" />
                                                 <p class="clearb">Enable users to subscribe to forums (receive email when someone creates a new topic).</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Topic subscriptions</th>
                                             <td class="setting">
-                                                <input type="checkbox" name="topic_subscriptions" data-behavior="save-on-change" value="1" />
+                                                <input type="checkbox" name="topic_subscriptions" class="js-save-on-change" value="1" />
                                                 <p class="clearb">Enable users to subscribe to topics (receive email when someone replies).</p>
                                             </td>
                                         </tr>
@@ -73,7 +73,7 @@
                                         <tr>
                                             <th scope="row">Encrypt SMTP using SSL</th>
                                             <td class="setting">
-                                                <input type="checkbox" name="smtp_ssl" data-behavior="save-on-change" value="1" />
+                                                <input type="checkbox" name="smtp_ssl" class="js-save-on-change" value="1" />
                                                 <p class="clearb">Encrypts the connection to the SMTP server using SSL. Should only be used if your SMTP server requires it and your version of PHP supports SSL.</p>
                                             </td>
                                         </tr>

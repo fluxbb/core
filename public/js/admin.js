@@ -25,7 +25,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$(document).on('change', '[data-behavior=save-on-change]', function() {
+	$(document).on('change', '.js-save-on-change', function() {
         var $field = $(this);
         var name = $field.attr('name');
         var value = $field.val();
@@ -46,7 +46,7 @@ $(document).ready(function() {
                 $setting.data('old', value);
                 $setting.addClass('saved');
             }).always(function() {
-            	$setting.removeClass('saving');
+                $setting.removeClass('saving');
             });
         }
     });
