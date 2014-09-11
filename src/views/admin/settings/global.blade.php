@@ -33,14 +33,14 @@
                                 <tr>
                                     <th scope="row">Board title</th>
                                     <td class="setting">
-                                        <input type="text" name="board_title" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_title') }}}">
+                                        <input type="text" name="board_title" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_title') }}}" />
                                         <span>The title of this bulletin board (shown at the top of every page). This field may <strong>not</strong> contain HTML.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Board description</th>
                                     <td class="setting">
-                                        <input type="text" name="board_desc" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_desc') }}}">
+                                        <input type="text" name="board_desc" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_desc') }}}" />
                                         <span>A short description of this bulletin board (shown at the top of every page). This field may contain HTML.</span>
                                     </td>
                                 </tr>
@@ -117,28 +117,28 @@
                                 <tr>
                                     <th scope="row">Time format</th>
                                     <td class="setting">
-                                        <input type="text" name="time_format" class="js-save-on-change" size="25" maxlength="25" value="H:i:s">
+                                        <input type="text" name="time_format" class="js-save-on-change" size="25" maxlength="25" value="{{{ $config->get('o_time_format') }}}" />
                                         <span>[Current format: 10:55:28]. See <a href="http://www.php.net/manual/en/function.date.php">PHP manual</a> for formatting options.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Date format</th>
                                     <td class="setting">
-                                        <input type="text" name="date_format" class="js-save-on-change" size="25" maxlength="25" value="Y-m-d">
+                                        <input type="text" name="date_format" class="js-save-on-change" size="25" maxlength="25" value="{{{ $config->get('o_date_format') }}}" />
                                         <span>[Current format: 2013-07-06]. See <a href="http://www.php.net/manual/en/function.date.php">PHP manual</a> for formatting options.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Visit timeout</th>
                                     <td class="setting">
-                                        <input type="text" name="timeout_visit" class="js-save-on-change" size="5" maxlength="5" value="1800">
+                                        <input type="text" name="timeout_visit" class="js-save-on-change" size="5" maxlength="5" value="{{{ $config->get('o_timeout_visit') }}}" />
                                         <span>Number of seconds a user must be idle before his/hers last visit data is updated (primarily affects new message indicators).</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Online timeout</th>
                                     <td class="setting">
-                                        <input type="text" name="timeout_online" class="js-save-on-change" size="5" maxlength="5" value="300">
+                                        <input type="text" name="timeout_online" class="js-save-on-change" size="5" maxlength="5" value="{{{ $config->get('o_timeout_online') }}}" />
                                         <span>Number of seconds a user must be idle before being removed from the online users list.</span>
                                     </td>
                                 </tr>
@@ -168,14 +168,14 @@
                                 <tr>
                                     <th scope="row">Topics per page</th>
                                     <td class="setting">
-                                        <input type="text" name="disp_topics_default" class="js-save-on-change" size="3" maxlength="2" value="30">
+                                        <input type="text" name="disp_topics_default" class="js-save-on-change" size="3" maxlength="2" value="{{{ $config->get('o_disp_topics_default') }}}" />
                                         <span>The default number of topics to display per page in a forum. Users can personalize this setting.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Posts per page</th>
                                     <td class="setting">
-                                        <input type="text" name="disp_posts_default" class="js-save-on-change" size="3" maxlength="2" value="25">
+                                        <input type="text" name="disp_posts_default" class="js-save-on-change" size="3" maxlength="2" value="{{{ $config->get('o_disp_posts_default') }}}" />
                                         <span>The default number of posts to display per page in a topic. Users can personalize this setting.</span>
                                     </td>
                                 </tr>
@@ -267,7 +267,7 @@
                                 <tr>
                                     <th scope="row">Enter your rules here</th>
                                     <td class="setting">
-                                        <textarea name="rules_message" class="js-save-on-change" rows="10" cols="55"></textarea>
+                                        <textarea name="rules_message" class="js-save-on-change" rows="10" cols="55">{{{ $config->get('o_rules_message') }}}</textarea>
                                         <span>Here you can enter any rules or other information that the user must review and accept when registering. If you enabled rules above you have to enter something here, otherwise it will be disabled. This text will not be parsed like regular posts and thus may contain HTML.</span>
                                     </td>
                                 </tr>
