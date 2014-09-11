@@ -3,7 +3,6 @@
 namespace FluxBB\Actions;
 
 use Carbon\Carbon;
-use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -30,7 +29,6 @@ class NewTopic extends Base
     /**
      * Run the action and return a response for the user.
      *
-     * @throws Exception\ValidationException
      * @return void
      */
     protected function run()
@@ -58,7 +56,6 @@ class NewTopic extends Base
         ]);
 
         $this->onErrorRedirectTo(new Request('new_topic', ['id' => $this->forum->id]));
-
         $this->validator->validate($this->post);
 
         $this->topic->save();

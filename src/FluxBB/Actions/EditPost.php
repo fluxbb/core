@@ -3,7 +3,6 @@
 namespace FluxBB\Actions;
 
 use Carbon\Carbon;
-use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -24,7 +23,6 @@ class EditPost extends Base
     /**
      * Run the action and return a response for the user.
      *
-     * @throws Exception\ValidationException
      * @return void
      */
     protected function run()
@@ -41,9 +39,7 @@ class EditPost extends Base
             'edited_by' => $creator->username,
         ]);
 
-        if (! $this->validator->isValid($this->post)) {
-            throw new ValidationException();
-        }
+        $this->validator->validate($this->post);
 
         $this->post->save();
         $this->trigger('post.edited', [$this->post, $creator]);

@@ -3,7 +3,6 @@
 namespace FluxBB\Actions;
 
 use Carbon\Carbon;
-use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -27,7 +26,6 @@ class Reply extends Base
     /**
      * Run the action and return a response for the user.
      *
-     * @throws Exception\ValidationException
      * @return void
      */
     protected function run()
@@ -45,9 +43,7 @@ class Reply extends Base
         ]);
 
         $this->onErrorRedirectTo(new Request('viewtopic', ['id' => $this->topic->id]));
-        if (! $this->validator->isValid($this->post)) {
-            throw new ValidationException();
-        }
+        $this->validator->validate($this->post);
 
         $this->topic->addReply($this->post);
         $this->post->save();
