@@ -16,7 +16,6 @@
             <li><a href="#tab-time" data-toggle="tab" class="text-center"><i class="icon-time"></i> Time and timeouts</a></li>
             <li><a href="#tab-display" data-toggle="tab" class="text-center"><i class="icon-desktop"></i> Display</a></li>
             <li><a href="#tab-features" data-toggle="tab" class="text-center"><i class="icon-asterisk"></i> Features</a></li>
-            <li><a href="#tab-reports" data-toggle="tab" class="text-center"><i class="icon-flag"></i> Reports</a></li>
             <li><a href="#tab-registration" data-toggle="tab" class="text-center"><i class="icon-terminal"></i> Registration</a></li>
           </ul> <!-- /nav-tabs -->
 
@@ -33,14 +32,14 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Board title</th>
-                                    <td class="setting" data-old="{{{ $config->get('o_board_title') }}}">
+                                    <td class="setting">
                                         <input type="text" name="board_title" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_title') }}}">
                                         <span>The title of this bulletin board (shown at the top of every page). This field may <strong>not</strong> contain HTML.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Board description</th>
-                                    <td class="setting" data-old="{{{ $config->get('o_board_desc') }}}">
+                                    <td class="setting">
                                         <input type="text" name="board_desc" class="js-save-on-change" size="50" maxlength="255" value="{{{ $config->get('o_board_desc') }}}">
                                         <span>A short description of this bulletin board (shown at the top of every page). This field may contain HTML.</span>
                                     </td>
@@ -62,8 +61,8 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row">Default time zone</th>
-                                    <td>
-                                        <select name="form[default_timezone]">
+                                    <td class="setting">
+                                        <select name="default_timezone" class="js-save-on-change">
                                             <option value="-12">(UTC-12:00) International Date Line West</option>
                                             <option value="-11">(UTC-11:00) Niue, Samoa</option>
                                             <option value="-10">(UTC-10:00) Hawaii-Aleutian, Cook Island</option>
@@ -117,29 +116,29 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Time format</th>
-                                    <td>
-                                        <input type="text" name="form[time_format]" size="25" maxlength="25" value="H:i:s">
+                                    <td class="setting">
+                                        <input type="text" name="time_format" class="js-save-on-change" size="25" maxlength="25" value="H:i:s">
                                         <span>[Current format: 10:55:28]. See <a href="http://www.php.net/manual/en/function.date.php">PHP manual</a> for formatting options.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Date format</th>
-                                    <td>
-                                        <input type="text" name="form[date_format]" size="25" maxlength="25" value="Y-m-d">
+                                    <td class="setting">
+                                        <input type="text" name="date_format" class="js-save-on-change" size="25" maxlength="25" value="Y-m-d">
                                         <span>[Current format: 2013-07-06]. See <a href="http://www.php.net/manual/en/function.date.php">PHP manual</a> for formatting options.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Visit timeout</th>
-                                    <td>
-                                        <input type="text" name="form[timeout_visit]" size="5" maxlength="5" value="1800">
+                                    <td class="setting">
+                                        <input type="text" name="timeout_visit" class="js-save-on-change" size="5" maxlength="5" value="1800">
                                         <span>Number of seconds a user must be idle before his/hers last visit data is updated (primarily affects new message indicators).</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Online timeout</th>
-                                    <td>
-                                        <input type="text" name="form[timeout_online]" size="5" maxlength="5" value="300">
+                                    <td class="setting">
+                                        <input type="text" name="timeout_online" class="js-save-on-change" size="5" maxlength="5" value="300">
                                         <span>Number of seconds a user must be idle before being removed from the online users list.</span>
                                     </td>
                                 </tr>
@@ -168,15 +167,15 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Topics per page</th>
-                                    <td>
-                                        <input type="text" name="form[disp_topics_default]" size="3" maxlength="2" value="30">
+                                    <td class="setting">
+                                        <input type="text" name="disp_topics_default" class="js-save-on-change" size="3" maxlength="2" value="30">
                                         <span>The default number of topics to display per page in a forum. Users can personalize this setting.</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Posts per page</th>
-                                    <td>
-                                        <input type="text" name="form[disp_posts_default]" size="3" maxlength="2" value="25">
+                                    <td class="setting">
+                                        <input type="text" name="disp_posts_default" class="js-save-on-change" size="3" maxlength="2" value="25">
                                         <span>The default number of posts to display per page in a topic. Users can personalize this setting.</span>
                                     </td>
                                 </tr>
@@ -230,36 +229,6 @@
               </div>
             </div>
 
-            <div class="tab-pane" id="tab-reports">
-              <div class="fakeform">
-                <div class="inform">
-                    <fieldset>
-                        <legend>Reports</legend>
-                        <div class="infldset">
-                            <table class="table">
-                                <tbody><tr>
-                                    <th scope="row">Reporting method</th>
-                                    <td>
-                                        <label class="conl"><input type="radio" name="form[report_method]" value="0">&nbsp;<strong>Internal</strong></label>
-                                        <label class="conl"><input type="radio" name="form[report_method]" value="1" checked="checked">&nbsp;<strong>Email</strong></label>
-                                        <label class="conl"><input type="radio" name="form[report_method]" value="2">&nbsp;<strong>Both</strong></label>
-                                        <span class="clearb">Select the method for handling topic/post reports. You can choose whether topic/post reports should be handled by the internal report system, emailed to the addresses on the mailing list (see below) or both.</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Mailing list</th>
-                                    <td>
-                                        <textarea name="form[mailing_list]" rows="5" cols="55">webmaster@onenagros.org</textarea>
-                                        <span>A comma separated list of subscribers. The people on this list are the recipients of reports.</span>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </div>
-                    </fieldset>
-                </div>
-              </div>
-            </div>
-
             <div class="tab-pane" id="tab-registration">
               <div class="fakeform">
                 <div class="inform">
@@ -297,8 +266,8 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Enter your rules here</th>
-                                    <td>
-                                        <textarea name="form[rules_message]" rows="10" cols="55"></textarea>
+                                    <td class="setting">
+                                        <textarea name="rules_message" class="js-save-on-change" rows="10" cols="55"></textarea>
                                         <span>Here you can enter any rules or other information that the user must review and accept when registering. If you enabled rules above you have to enter something here, otherwise it will be disabled. This text will not be parsed like regular posts and thus may contain HTML.</span>
                                     </td>
                                 </tr>
