@@ -78,10 +78,13 @@ abstract class Base implements MessageProviderInterface
             $this->run();
 
             $response = $this->makeResponse();
-            $this->callHandlers('after');
+        } catch (ValidationException $e) {
+            $response = $this->makeErrorResponse($e->getErrors());
         } catch (\Exception $e) {
             throw $e;
         }
+
+        $this->callHandlers('after');
 
         return $response;
     }
@@ -93,16 +96,21 @@ abstract class Base implements MessageProviderInterface
     protected function makeResponse()
     {
         if ($this->hasErrors()) {
-            if (! isset($this->errorRequest)) {
-                throw new \Exception('Cannot handle error, no handler declared.');
-            }
-
-            return new Error($this->errorRequest, $this->getErrors());
+            return $this->makeErrorResponse($this->getErrors());
         } else if (isset($this->nextRequest)) {
             return new Redirect($this->nextRequest, $this->redirectMessage);
         }
 
         return new Data($this->data);
+    }
+
+    protected function makeErrorResponse(MessageBag $errors)
+    {
+        if (! isset($this->errorRequest)) {
+            throw new \Exception('Cannot handle error, no handler declared.');
+        }
+
+        return new Error($this->errorRequest, $errors);
     }
 
     protected function hasData()

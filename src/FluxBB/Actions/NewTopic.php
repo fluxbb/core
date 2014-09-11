@@ -59,9 +59,7 @@ class NewTopic extends Base
 
         $this->onErrorRedirectTo(new Request('new_topic', ['id' => $this->forum->id]));
 
-        if (! $this->validator->isValid($this->post)) {
-            throw new ValidationException();
-        }
+        $this->validator->validate($this->post);
 
         $this->topic->save();
         $this->topic->addReply($this->post);

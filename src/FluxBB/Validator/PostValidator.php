@@ -3,6 +3,7 @@
 namespace FluxBB\Validator;
 
 use FluxBB\Models\Post;
+use FluxBB\Actions\Exception\ValidationException;
 use Illuminate\Validation\Factory;
 
 class PostValidator
@@ -15,12 +16,16 @@ class PostValidator
         $this->validation = $validation;
     }
 
-    public function isValid(Post $post)
+    public function validate(Post $post)
     {
         $rules = [
-            'message'   => 'required',
+            'message' => 'required',
         ];
 
-        return $this->validation->make($post->getAttributes(), $rules)->passes();
+        $validation = $this->validation->make($post->getAttributes(), $rules);
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation->errors()->all());
+        }
     }
 }
