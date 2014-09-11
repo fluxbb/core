@@ -1,4 +1,9 @@
 jQuery(function($) {
+    $('.setting .js-save-on-change').each(function () {
+        var $field = $(this);
+        $field.closest('.setting').data('old', $field.val());
+    });
+
 	$(document).on('change', '.js-save-on-change', function() {
         var $field = $(this);
         var name = $field.attr('name');
