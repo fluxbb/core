@@ -34,6 +34,6 @@ class Error extends Redirect implements MessageProviderInterface
      */
     public function getMessageBag()
     {
-        $this->getErrors();
+        return $this->getErrors();
     }
 }
