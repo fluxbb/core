@@ -24,9 +24,16 @@ jQuery(function($) {
             }).success(function(data) {
                 $setting.data('old', value);
                 $setting.addClass('saved');
+            }).fail(function () {
+                $setting.trigger('failed', [old]);
             }).always(function() {
                 $setting.removeClass('saving');
             });
         }
+    });
+
+    $(document).on('failed', '.setting', function(event, oldValue) {
+        var $field = $(this).find('.js-save-on-change');
+        $field.val(oldValue);
     });
 });
