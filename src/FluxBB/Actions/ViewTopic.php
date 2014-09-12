@@ -2,9 +2,10 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Topic;
 
-class ViewTopic extends Base
+class ViewTopic extends Action
 {
     protected function run()
     {

@@ -2,9 +2,10 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\User;
 
-class ProfilePage extends Base
+class ProfilePage extends Action
 {
     protected function run()
     {

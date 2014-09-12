@@ -2,9 +2,10 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Forum;
 
-class NewTopicPage extends Base
+class NewTopicPage extends Action
 {
     protected function run()
     {

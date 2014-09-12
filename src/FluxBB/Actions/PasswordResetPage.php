@@ -2,7 +2,9 @@
 
 namespace FluxBB\Actions;
 
-class PasswordResetPage extends Base
+use FluxBB\Core\Action;
+
+class PasswordResetPage extends Action
 {
     /**
      * Run any desired actions.

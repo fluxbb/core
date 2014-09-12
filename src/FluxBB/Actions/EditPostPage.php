@@ -2,9 +2,10 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Post;
 
-class EditPostPage extends Base
+class EditPostPage extends Action
 {
     protected function run()
     {

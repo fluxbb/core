@@ -2,7 +2,9 @@
 
 namespace FluxBB\Actions;
 
-class LoginPage extends Base
+use FluxBB\Core\Action;
+
+class LoginPage extends Action
 {
     /**
      * Run any desired actions.

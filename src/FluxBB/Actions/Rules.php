@@ -2,9 +2,10 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Config;
 
-class Rules extends Base
+class Rules extends Action
 {
     protected function run()
     {

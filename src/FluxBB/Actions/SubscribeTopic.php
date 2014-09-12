@@ -2,11 +2,12 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Topic;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
 
-class SubscribeTopic extends Base
+class SubscribeTopic extends Action
 {
     /**
      * Run any desired actions.

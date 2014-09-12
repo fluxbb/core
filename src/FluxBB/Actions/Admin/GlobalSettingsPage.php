@@ -2,10 +2,10 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Base;
+use FluxBB\Core\Action;
 use FluxBB\Models\ConfigRepositoryInterface;
 
-class GlobalSettingsPage extends Base
+class GlobalSettingsPage extends Action
 {
     protected $config;
 

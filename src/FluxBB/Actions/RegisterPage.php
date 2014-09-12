@@ -2,7 +2,9 @@
 
 namespace FluxBB\Actions;
 
-class RegisterPage extends Base
+use FluxBB\Core\Action;
+
+class RegisterPage extends Action
 {
     /**
      * Run any desired actions.

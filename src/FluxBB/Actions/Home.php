@@ -2,10 +2,11 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\User;
 use FluxBB\Models\Category;
 
-class Home extends Base
+class Home extends Action
 {
     protected function run()
     {

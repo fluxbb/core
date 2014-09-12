@@ -2,12 +2,13 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Server\Request;
 use Illuminate\Validation\Factory as ValidationFactory;
 use FluxBB\Models\Config;
 use FluxBB\Models\User;
 
-class Register extends Base
+class Register extends Action
 {
     protected $validator;
 

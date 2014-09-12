@@ -2,9 +2,9 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Base;
+use FluxBB\Core\Action;
 
-class MaintenanceSettingsPage extends Base
+class MaintenanceSettingsPage extends Action
 {
     /**
      * Run any desired actions.

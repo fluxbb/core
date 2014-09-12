@@ -2,10 +2,11 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Server\Request;
 use Illuminate\Auth\AuthManager;
 
-class Login extends Base
+class Login extends Action
 {
     /**
      * @var \Illuminate\Auth\AuthManager

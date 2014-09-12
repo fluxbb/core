@@ -2,9 +2,9 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Base;
+use FluxBB\Core\Action;
 
-class ReportsPage extends Base
+class ReportsPage extends Action
 {
     /**
      * Run any desired actions.

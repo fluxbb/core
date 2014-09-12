@@ -2,11 +2,12 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Topic;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
 
-class UnsubscribeTopic extends Base
+class UnsubscribeTopic extends Action
 {
     /**
      * Run any desired actions.

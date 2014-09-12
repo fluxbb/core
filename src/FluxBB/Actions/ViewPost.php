@@ -2,11 +2,12 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Post;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
 
-class ViewPost extends Base
+class ViewPost extends Action
 {
     protected $post;
 

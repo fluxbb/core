@@ -45,7 +45,7 @@ class Server
      * Resolve an action instance by name.
      *
      * @param $name
-     * @return \FluxBB\Actions\Base
+     * @return \FluxBB\Core\Action
      * @throws \InvalidArgumentException
      */
     protected function resolve($name)

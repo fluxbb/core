@@ -3,6 +3,7 @@
 namespace FluxBB\Actions;
 
 use Carbon\Carbon;
+use FluxBB\Core\Action;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -10,7 +11,7 @@ use FluxBB\Models\Post;
 use FluxBB\Models\Topic;
 use FluxBB\Models\Forum;
 
-class NewTopic extends Base
+class NewTopic extends Action
 {
     protected $forum;
 

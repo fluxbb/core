@@ -2,10 +2,11 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Server\Request;
 use Illuminate\Auth\AuthManager;
 
-class Logout extends Base
+class Logout extends Action
 {
     protected $auth;
 

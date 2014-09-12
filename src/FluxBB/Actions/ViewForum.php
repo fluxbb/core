@@ -2,9 +2,10 @@
 
 namespace FluxBB\Actions;
 
+use FluxBB\Core\Action;
 use FluxBB\Models\Forum;
 
-class ViewForum extends Base
+class ViewForum extends Action
 {
     protected function run()
     {

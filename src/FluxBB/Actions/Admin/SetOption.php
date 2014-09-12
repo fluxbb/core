@@ -2,11 +2,11 @@
 
 namespace FluxBB\Actions\Admin;
 
-use FluxBB\Actions\Base;
+use FluxBB\Core\Action;
 use FluxBB\Models\ConfigRepositoryInterface;
 use FluxBB\Server\Request;
 
-class SetOption extends Base
+class SetOption extends Action
 {
     /**
      * @var \FluxBB\Models\ConfigRepositoryInterface

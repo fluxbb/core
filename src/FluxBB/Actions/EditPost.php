@@ -3,12 +3,13 @@
 namespace FluxBB\Actions;
 
 use Carbon\Carbon;
+use FluxBB\Core\Action;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
 
-class EditPost extends Base
+class EditPost extends Action
 {
     protected $post;
 
