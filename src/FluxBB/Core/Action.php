@@ -7,6 +7,7 @@ use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\Redirect;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Contracts\ArrayableInterface;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Support\MessageBag;
@@ -26,6 +27,13 @@ abstract class Action implements MessageProviderInterface
      * @var array
      */
     protected $errors = [];
+
+    /**
+     * The event dispatcher instance.
+     *
+     * @var \Illuminate\Events\Dispatcher
+     */
+    protected $events;
 
     /**
      * All event handler callbacks.
@@ -212,9 +220,27 @@ abstract class Action implements MessageProviderInterface
         return new MessageBag($this->errors);
     }
 
+    /**
+     * Set the event dispatcher instance.
+     *
+     * @param \Illuminate\Events\Dispatcher $events
+     * @return void
+     */
+    public function setEvents(Dispatcher $events)
+    {
+        $this->events = $events;
+    }
+
+    /**
+     * Trigger the given event.
+     *
+     * @param string $event
+     * @param array $arguments
+     * @return void
+     */
     public function trigger($event, $arguments = [])
     {
-        \Event::fire($event, $arguments);
+        $this->events->fire($event, $arguments);
     }
 
     /**

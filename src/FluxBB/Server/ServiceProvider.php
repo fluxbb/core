@@ -3,6 +3,7 @@
 namespace FluxBB\Server;
 
 use Illuminate\Support\ServiceProvider as Base;
+use FluxBB\Core\ActionFactory;
 
 class ServiceProvider extends Base
 {
@@ -21,7 +22,7 @@ class ServiceProvider extends Base
     public function register()
     {
         $this->app->bindShared('fluxbb.server', function ($app) {
-            return new Server($app);
+            return new Server(new ActionFactory($app));
         });
     }
 

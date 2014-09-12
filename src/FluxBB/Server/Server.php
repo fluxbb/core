@@ -2,7 +2,7 @@
 
 namespace FluxBB\Server;
 
-use Illuminate\Container\Container;
+use FluxBB\Core\ActionFactory;
 
 class Server
 {
@@ -12,21 +12,26 @@ class Server
     protected $actions = [];
 
     /**
-     * @var \Illuminate\Container\Container
+     * @var \FluxBB\Core\ActionFactory
      */
-    protected $container;
+    protected $factory;
 
 
-    public function __construct(Container $container)
+    /**
+     * Create a new server instance.
+     *
+     * @param ActionFactory $factory
+     */
+    public function __construct(ActionFactory $factory)
     {
-        $this->container = $container;
+        $this->factory = $factory;
     }
 
     /**
-     * Register a named action.
+     * Register a named action and its handler class.
      *
-     * @param $name
-     * @param $actionClass
+     * @param string $name
+     * @param string $actionClass
      * @return $this
      */
     public function register($name, $actionClass)
@@ -35,6 +40,12 @@ class Server
         return $this;
     }
 
+    /**
+     * Resolve the request and return a response.
+     *
+     * @param \FluxBB\Server\Request $request
+     * @return \FluxBB\Server\Response\Response
+     */
     public function dispatch(Request $request)
     {
         $action = $this->resolve($request->getHandler());
@@ -51,7 +62,7 @@ class Server
     protected function resolve($name)
     {
         if (isset($this->actions[$name])) {
-            return $this->container->make($this->actions[$name]);
+            return $this->factory->make($this->actions[$name]);
         }
 
         throw new \InvalidArgumentException("Named action '$name' could not be found.");
