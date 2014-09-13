@@ -66,9 +66,6 @@ class JsonRenderer implements HandlerInterface
 
     public function handleErrorResponse(Error $response)
     {
-        $redirect = $this->handleRedirectResponse($response);
-        $redirect->withInput();
-        $redirect->withErrors($response);
-        return $redirect;
+        return new JsonResponse($response->getErrors()->toArray(), 400);
     }
 }
