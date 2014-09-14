@@ -273,11 +273,11 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Default email setting</th>
-                                    <td>
+                                    <td class="setting">
                                         <span>Choose the default privacy setting for new user registrations.</span>
-                                        <label><input type="radio" name="form[default_email_setting]" id="form_default_email_setting_0" value="0">&nbsp;Display email address to other users.</label>
-                                        <label><input type="radio" name="form[default_email_setting]" id="form_default_email_setting_1" value="1" checked="checked">&nbsp;Hide email address but allow form e-mail.</label>
-                                        <label><input type="radio" name="form[default_email_setting]" id="form_default_email_setting_2" value="2">&nbsp;Hide email address and disallow form email.</label>
+                                        <label><input type="radio" name="default_email_setting" id="form_default_email_setting_0" class="js-save-on-change" value="0">&nbsp;Display email address to other users.</label>
+                                        <label><input type="radio" name="default_email_setting" id="form_default_email_setting_1" class="js-save-on-change" value="1" checked="checked">&nbsp;Hide email address but allow form e-mail.</label>
+                                        <label><input type="radio" name="default_email_setting" id="form_default_email_setting_2" class="js-save-on-change" value="2">&nbsp;Hide email address and disallow form email.</label>
                                     </td>
                                 </tr>
                             </tbody></table>
