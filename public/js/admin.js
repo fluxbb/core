@@ -19,9 +19,10 @@ jQuery(function($) {
         $setting.removeClass('saved').addClass('saving');
 
         if (old !== value) {
-            FluxBB.ajax('POST', 'admin/settings/' + name, {
-                value: value
-            }).success(function(data) {
+            var data = {};
+            data[name] = value;
+
+            FluxBB.ajax('POST', 'api/v1/settings', data).success(function() {
                 $setting.data('old', value);
                 $setting.addClass('saved');
             }).fail(function () {

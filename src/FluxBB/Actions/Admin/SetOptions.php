@@ -6,7 +6,7 @@ use FluxBB\Core\Action;
 use FluxBB\Models\ConfigRepositoryInterface;
 use FluxBB\Server\Request;
 
-class SetOption extends Action
+class SetOptions extends Action
 {
     /**
      * @var \FluxBB\Models\ConfigRepositoryInterface
@@ -26,13 +26,16 @@ class SetOption extends Action
      */
     protected function run()
     {
-        $key = 'o_' . $this->request->get('key');
-        $value = $this->request->get('value');
+        $options = $this->request->get();
 
-        if ($this->config->has($key)) {
-            $this->config->set($key, $value);
-            $this->config->save();
-            $this->trigger('option.changed', [$key, $value]);
+        foreach ($options as $key => $value) {
+            $key = 'o_' . $key;
+            if ($this->config->has($key)) {
+                $this->config->set($key, $value);
+                $this->trigger('option.changed', [$key, $value]);
+            }
         }
+
+        $this->config->save();
     }
 }
