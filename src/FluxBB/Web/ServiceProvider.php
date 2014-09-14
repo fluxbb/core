@@ -79,6 +79,18 @@ class ServiceProvider extends Base
     {
         $router = $this->app['fluxbb.web.router'];
 
+        $this->registerFrontendRoutes($router);
+        $this->registerApiRoutes($router);
+    }
+
+    /**
+     * Register the frontend routes.
+     *
+     * @param \FluxBB\Web\Router $router
+     * @return void
+     */
+    protected function registerFrontendRoutes(Router $router)
+    {
         $router->get('/', 'index');
         $router->get('forum/{id}', 'viewforum');
         $router->get('topic/{id}', 'viewtopic');
@@ -113,7 +125,17 @@ class ServiceProvider extends Base
         $router->get('admin/groups', 'admin.groups.index');
         $router->get('admin/groups/{id}/edit', 'admin.groups.edit');
         $router->get('admin/groups/{id}/delete', 'admin.groups.delete');
-        $router->post('admin/settings/{key}', 'admin.options.set');
+    }
+
+    /**
+     * Register the API routes.
+     *
+     * @param \FluxBB\Web\Router $router
+     * @return void
+     */
+    protected function registerApiRoutes(Router $router)
+    {
+        $router->post('api/v1/settings', 'admin.options.set');
     }
 
     /**
