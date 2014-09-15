@@ -10,7 +10,7 @@
         <label class="conl required"><strong>{{ trans('fluxbb::common.password') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password" size="25" tabindex="2" /><br /></label>
 
         <div class="rbox clearb">
-            <label><input type="checkbox" name="save_pass" value="1" tabindex="3" />{{ trans('fluxbb::login.remember_me') }}<br /></label>
+            <label><input type="checkbox" name="remember" value="1" tabindex="3" />{{ trans('fluxbb::login.remember_me') }}<br /></label>
         </div>
 
         <p class="clearb">{{ trans('fluxbb::login.login_info') }}</p>
