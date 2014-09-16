@@ -3,9 +3,13 @@
 <div id="brdmain">
 
 @if (isset($message))
-    <div class="alert alert-info">
-        {{{ $message }}}
-    </div>
+    <script type="text/javascript">
+        jQuery(function($) {
+            var message = {{ json_encode($message) }};
+            FluxBB.alert(message);
+        });
+    </script>
+    <div class="alert alert-info" id="alert-message"></div>
 @endif
 
 @if ($errors->has())
