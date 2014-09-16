@@ -10,8 +10,8 @@ var FluxBB = {
 	},
 
     alert: function(message) {
-        var $alert = $('#alert-message').html('').removeClass('hidden');
-        $('<p />').text(message).appendTo($alert);
+        var $alert = $('#alert-message p').text(message);
+        $alert.trigger('show');
 
         setTimeout(function () {
             $alert.trigger('hide');

@@ -1706,3 +1706,21 @@ a, a:hover, a:focus, a:active {
 	font-weight: bold;
 	content: ":(";
 }
+
+/*
+ * ALERTS
+ */
+
+#alert-message {
+    position: absolute;
+    z-index: 100000;
+    width: 400px;
+    top: 10px;
+    left: 50%;
+    margin-left: -200px;
+    text-align: center;
+}
+
+.alert .close {
+    float: right;
+}

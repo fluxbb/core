@@ -1,9 +1,16 @@
 jQuery(function($) {
-    $('#alert-message').on('click', '.js-hide-alert', function() {
+    var $alert = $('#alert-message');
+
+    $alert.on('click', '.js-hide-alert', function(event) {
+        event.preventDefault();
         $(this).closest('#alert-message').trigger('hide');
     });
 
-    $('#alert-message').on('hide', function() {
+    $alert.on('show', function() {
+        $(this).removeClass('hidden');
+    });
+
+    $alert.on('hide', function() {
         $(this).addClass('hidden');
     });
 });
