@@ -2,12 +2,12 @@
 
 namespace FluxBB\Models;
 
-use Illuminate\Auth\UserInterface;
+use Illuminate\Contracts\Auth\User as UserContract;
 use Auth;
 use Hash;
 use Mail;
 
-class User extends Base implements UserInterface, HasPermissions
+class User extends Base implements UserContract, HasPermissions
 {
     protected $table = 'users';
 
