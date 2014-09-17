@@ -1,10 +1,10 @@
 <?php
 
-namespace FluxBB\Actions\Exception;
+namespace FluxBB\Server\Exception;
 
 use Illuminate\Support\MessageBag;
 
-class ValidationException extends \Exception
+class ValidationFailed extends \Exception
 {
     protected $errors;
 

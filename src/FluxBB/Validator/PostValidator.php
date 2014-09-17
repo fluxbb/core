@@ -3,7 +3,7 @@
 namespace FluxBB\Validator;
 
 use FluxBB\Models\Post;
-use FluxBB\Actions\Exception\ValidationException;
+use FluxBB\Server\Exception\ValidationFailed;
 use Illuminate\Validation\Factory;
 
 class PostValidator
@@ -25,7 +25,7 @@ class PostValidator
         $validation = $this->validation->make($post->getAttributes(), $rules);
 
         if ($validation->fails()) {
-            throw new ValidationException($validation->errors()->all());
+            throw new ValidationFailed($validation->errors()->all());
         }
     }
 }
