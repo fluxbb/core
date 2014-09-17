@@ -2,7 +2,6 @@
 
 namespace FluxBB\Server;
 
-use FluxBB\Core\Action;
 use FluxBB\Core\ActionFactory;
 use FluxBB\Models\HasPermissions;
 
