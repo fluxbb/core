@@ -73,15 +73,29 @@ abstract class Action implements MessageProviderInterface
 
 
     /**
-     * Determine whether the given subject is authorized to execute this action.
+     * Make sure the given subject is authorized to execute this action.
+     *
+     * If authorization fails, an exception should be thrown.
+     *
+     * @param \FluxBB\Models\HasPermissions $subject
+     * @return $this
+     * @throws \Exception
+     */
+    public function authorize(HasPermissions $subject)
+    {
+        return $this;
+    }
+
+    /**
+     * Set the request instance.
      *
      * @param \FluxBB\Server\Request $request
-     * @param \FluxBB\Models\HasPermissions $subject
-     * @return bool
+     * @return $this
      */
-    public function authorize(Request $request, HasPermissions $subject)
+    public function setRequest($request)
     {
-        return true;
+        $this->request = $request;
+        return $this;
     }
 
     /**

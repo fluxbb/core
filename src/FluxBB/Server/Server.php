@@ -59,26 +59,9 @@ class Server
         // Create the action instance
         $action = $this->resolve($request->getHandler());
 
-        // Make sure that we are authorized for this request
-        $this->ensureAuthorization($action, $request, $subject);
-
-        return $action->handle($request);
-    }
-
-    /**
-     * Throw an exception in case we are not authorized to execute this action.
-     *
-     * @param \FluxBB\Core\Action $action
-     * @param \FluxBB\Server\Request $request
-     * @param \FluxBB\Models\HasPermissions $subject
-     * @return void
-     * @throws \Exception
-     */
-    protected function ensureAuthorization(Action $action, Request $request, HasPermissions $subject)
-    {
-        if (!$action->authorize($request, $subject)) {
-            throw new \Exception('Too bad, we are not authorized.');
-        }
+        return $action->setRequest($request)
+                      ->authorize($subject)
+                      ->execute();
     }
 
     /**
