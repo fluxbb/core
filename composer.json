@@ -18,8 +18,8 @@
 		"irc": "irc://irc.freenode.org/fluxbb"
 	},
 	"require": {
-		"php": ">=5.3.0",
-		"laravel/framework": "4.2.*",
+		"php": ">=5.4.0",
+		"laravel/framework": "5.0.*",
         "nikic/fast-route": "~0.1.0"
 	},
 	"require-dev": {
