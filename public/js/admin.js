@@ -9,6 +9,15 @@ jQuery(function($) {
         var name = $field.attr('name');
         var value = $field.val();
 
+        // Checkboxes need a little bit of extra treatment
+        if ($field.is(':checkbox')) {
+            if (value == '1') {
+                value = $field.is(':checked') ? 1 : 0;
+            } else {
+                value = $field.is(':checked') ? value : '';
+            }
+        }
+
         $field.closest('.setting').trigger('changed', [name, value]);
     });
 
