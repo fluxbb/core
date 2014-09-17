@@ -3,6 +3,7 @@
 namespace FluxBB\Core;
 
 use FluxBB\Actions\Exception\ValidationException;
+use FluxBB\Models\HasPermissions;
 use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
@@ -70,6 +71,18 @@ abstract class Action implements MessageProviderInterface
      */
     protected $errorRequest;
 
+
+    /**
+     * Determine whether the given subject is authorized to execute this action.
+     *
+     * @param \FluxBB\Server\Request $request
+     * @param \FluxBB\Models\HasPermissions $subject
+     * @return bool
+     */
+    public function authorize(Request $request, HasPermissions $subject)
+    {
+        return true;
+    }
 
     /**
      * Turn a request into a response.

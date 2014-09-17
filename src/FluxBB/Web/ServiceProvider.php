@@ -161,7 +161,7 @@ class ServiceProvider extends Base
             $parameters = $app['request']->input();
 
             $request = $app['fluxbb.web.router']->getRequest($method, $uri, $parameters);
-            $response = $app['fluxbb.server']->dispatch($request);
+            $response = $app['fluxbb.server']->dispatch($request, $app['auth']->user());
 
             return $app['fluxbb.web.renderer']->render($request, $response);
         }])->where('uri', '.*');

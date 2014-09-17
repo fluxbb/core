@@ -2,16 +2,22 @@
 
 namespace FluxBB\Server;
 
+use FluxBB\Core\Action;
 use FluxBB\Core\ActionFactory;
+use FluxBB\Models\HasPermissions;
 
 class Server
 {
     /**
+     * The handler classes for all registered actions.
+     *
      * @var array
      */
     protected $actions = [];
 
     /**
+     * The action factory instance.
+     *
      * @var \FluxBB\Core\ActionFactory
      */
     protected $factory;
@@ -20,7 +26,7 @@ class Server
     /**
      * Create a new server instance.
      *
-     * @param ActionFactory $factory
+     * @param \FluxBB\Core\ActionFactory $factory
      */
     public function __construct(ActionFactory $factory)
     {
@@ -44,12 +50,35 @@ class Server
      * Resolve the request and return a response.
      *
      * @param \FluxBB\Server\Request $request
+     * @param \FluxBB\Models\HasPermissions $subject
      * @return \FluxBB\Server\Response\Response
+     * @throws \Exception
      */
-    public function dispatch(Request $request)
+    public function dispatch(Request $request, HasPermissions $subject)
     {
+        // Create the action instance
         $action = $this->resolve($request->getHandler());
+
+        // Make sure that we are authorized for this request
+        $this->ensureAuthorization($action, $request, $subject);
+
         return $action->handle($request);
+    }
+
+    /**
+     * Throw an exception in case we are not authorized to execute this action.
+     *
+     * @param \FluxBB\Core\Action $action
+     * @param \FluxBB\Server\Request $request
+     * @param \FluxBB\Models\HasPermissions $subject
+     * @return void
+     * @throws \Exception
+     */
+    protected function ensureAuthorization(Action $action, Request $request, HasPermissions $subject)
+    {
+        if (!$action->authorize($request, $subject)) {
+            throw new \Exception('Too bad, we are not authorized.');
+        }
     }
 
     /**
