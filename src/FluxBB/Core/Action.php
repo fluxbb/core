@@ -4,6 +4,7 @@ namespace FluxBB\Core;
 
 use FluxBB\Actions\Exception\ValidationException;
 use FluxBB\Models\HasPermissions;
+use FluxBB\Server\Exception\NoPermission;
 use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
@@ -79,7 +80,7 @@ abstract class Action implements MessageProviderInterface
      *
      * @param \FluxBB\Models\HasPermissions $subject
      * @return $this
-     * @throws \Exception
+     * @throws \FluxBB\Server\Exception\NoPermission
      */
     public function authorize(HasPermissions $subject)
     {
@@ -101,7 +102,6 @@ abstract class Action implements MessageProviderInterface
     /**
      * Turn a request into a response.
      *
-     * @param \FluxBB\Server\Request $request
      * @return \FluxBB\Server\Response\Response
      * @throws \Exception
      */
@@ -130,6 +130,22 @@ abstract class Action implements MessageProviderInterface
      * @return void
      */
     abstract protected function run();
+
+    /**
+     * Make sure the given check passes, otherwise throw an exception.
+     *
+     * @param bool $check
+     * @return $this
+     * @throws \FluxBB\Server\Exception\NoPermission
+     */
+    protected function authorizedIf($check)
+    {
+        if (!$check) {
+            throw new NoPermission;
+        }
+
+        return $this;
+    }
 
     /**
      * Create a response based on the action's status.
