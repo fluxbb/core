@@ -84,4 +84,9 @@ class Guest extends User
     {
         return Config::get('o_disp_posts_default');
     }
+
+    public function may($action)
+    {
+        return false;
+    }
 }
