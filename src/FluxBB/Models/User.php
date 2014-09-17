@@ -7,7 +7,7 @@ use Auth;
 use Hash;
 use Mail;
 
-class User extends Base implements UserInterface
+class User extends Base implements UserInterface, HasPermissions
 {
     protected $table = 'users';
 
@@ -228,5 +228,10 @@ class User extends Base implements UserInterface
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    public function may($action)
+    {
+        return true;
     }
 }
