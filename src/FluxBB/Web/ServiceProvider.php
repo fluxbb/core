@@ -2,6 +2,7 @@
 
 namespace FluxBB\Web;
 
+use FluxBB\Models\Guest;
 use Illuminate\Support\ServiceProvider as Base;
 
 class ServiceProvider extends Base
@@ -161,7 +162,8 @@ class ServiceProvider extends Base
             $parameters = $app['request']->input();
 
             $request = $app['fluxbb.web.router']->getRequest($method, $uri, $parameters);
-            $response = $app['fluxbb.server']->dispatch($request, $app['auth']->user());
+            $user = $app['auth']->user();
+            $response = $app['fluxbb.server']->dispatch($request, $user ?: new Guest());
 
             return $app['fluxbb.web.renderer']->render($request, $response);
         }])->where('uri', '.*');
