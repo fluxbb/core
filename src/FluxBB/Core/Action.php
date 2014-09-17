@@ -105,10 +105,9 @@ abstract class Action implements MessageProviderInterface
      * @return \FluxBB\Server\Response\Response
      * @throws \Exception
      */
-    public function handle(Request $request)
+    public function execute()
     {
         try {
-            $this->request = $request;
             $this->callHandlers('before');
 
             $this->run();
