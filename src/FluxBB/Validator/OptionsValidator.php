@@ -46,6 +46,7 @@ class OptionsValidator extends Validator
      */
     public function validate(array $options)
     {
+        $this->ensureAllInRules($options);
         $this->ensureValid($options);
     }
 }
