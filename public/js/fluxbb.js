@@ -1,12 +1,12 @@
 var FluxBB = {
-	ajax: function(method, path, data) {
+	ajax: function(method, path, data, onSuccess) {
 		path = '/' + path;
 
 		return $.ajax({
 			type: method,
 			url: path,
 			data: data
-		});
+		}).success(onSuccess);
 	},
 
     alert: function(message) {

@@ -31,7 +31,7 @@ jQuery(function($) {
             var data = {};
             data[name] = value;
 
-            FluxBB.ajax('POST', 'api/v1/settings', data).success(function() {
+            FluxBB.ajax('POST', 'api/v1/settings', data, function() {
                 $setting.data('old', value);
                 $setting.addClass('saved');
             }).fail(function () {
