@@ -64,6 +64,7 @@ a, a:hover, a:focus, a:active {
 	border-bottom: 0;
 	border-radius: 0.25em 0.25em 0 0;
 	height: 10.5em;
+    margin-bottom: 2.5em;
 	padding: 0;
 	position: relative;
 }
@@ -82,7 +83,8 @@ a, a:hover, a:focus, a:active {
 }
 
 #brdmenu {
-	background: rgba(40, 61, 103, 0.75);
+	background: #fff;
+    border-bottom: 1px solid #cad7e1;
 	bottom: 0;
 	min-height: 3em;
 	position: absolute;
@@ -121,8 +123,7 @@ a, a:hover, a:focus, a:active {
 }
 
 #brdmenu .username {
-	color: #fff;
-	margin: 0.5em 0 0;
+	margin: 0.5em;
 }
 
 #brdmenu .username .edit-profile {
@@ -133,13 +134,9 @@ a, a:hover, a:focus, a:active {
 	top: -0.2em;
 }
 
-#brdmenu .username a {
-	color: #ddd;
-}
-
 #brdmenu .username a:hover,
 #brdmenu .username a:focus {
-	color: #fff;
+    text-decoration: underline;
 }
 
 #brdmenu .menu ul {
@@ -154,41 +151,17 @@ a, a:hover, a:focus, a:active {
 }
 
 #brdmenu .menu ul li a {
-	color: #fff;
 	line-height: 2.5em;
 	margin: 0;
-	padding: 0.5em 1em;
+    padding: 0.5em 1em;
+    border-radius: 0;
 }
 
 #brdmenu .menu ul li a:hover,
 #brdmenu .menu ul li a:focus {
-	background-color: #fff;
-	border-radius: 0;
-	color: #283d67;
-}
-
-#brdwelcome {
-	background: #fff;
-	border: 1px solid #cad7e1;
-	border-top: 0;
-	border-radius: 0 0 0.25em 0.25em;
-	margin-bottom: 2.5em;
-}
-
-#brdwelcome .nav {
-	margin: 0 0 0 0.5em;
-}
-
-#brdwelcome .nav a {
-	border-radius: 0;
-	line-height: 2em;
-	padding: 0.5em 1em;
-}
-
-#brdwelcome .nav a:hover,  #brdwelcome .nav a:focus {
-	background: #2b4069;
+    background-color: #2b4069;
 	color: #fff;
-	text-shadow: 0 1px 0 #283d67;
+    text-shadow: 0 1px 0 #283d67;
 }
 
 #brdannounce {
@@ -1299,11 +1272,6 @@ a, a:hover, a:focus, a:active {
 }
 
 /* Profile editor menu */
-
-#punprofile-edit #brdwelcome,
-#punprofile-edit #brdmenu .menu {
-	display: none;
-}
 
 .profile-edit-tabs {
 	border-bottom: 0;

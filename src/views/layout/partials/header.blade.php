@@ -46,20 +46,40 @@
 
         <div id="brdmenu">
 
-            @if(Auth::user())
             <nav class="menu">
                 <ul class="nav nav-pills pull-left">
+                @if (Auth::user())
+                    <li class="isactive"><a href="{{ $route('index') }}">Index</a></li>
+                    @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_view_users == '1')
+                    <li id="navuserlist"><a href="{{ $route('userlist') }}">{{ trans('fluxbb::common.user_list') }}</a></li>
+                    @endif
+                    @if (FluxBB\Models\Config::enabled('o_rules') && (Auth::check() || FluxBB\Models\User::current()->group->g_read_board == '1' || FluxBB\Models\Config::enabled('o_regs_allow')))
+                    <li id="navrules"><a href="{{ $route('rules') }}">{{ trans('fluxbb::common.rules') }}</a></li>
+                    @endif
+                    @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_search == '1')
+                    <li id="navsearch"><a href="{{ $route('search') }}">{{ trans('fluxbb::common.search') }}</a></li>
+                    @endif
+                    @if (FluxBB\Models\User::current()->isAdmin())
+                    <li id="navadmin"><a href="{{ $route('admin.index') }}">{{ trans('fluxbb::common.admin') }}</a></li>
+                    @endif
+                    <li id="navprofile"><a href="{{ $route('profile', array('id' => FluxBB\Models\User::current()->id)) }}">Profile</a></li>
+                    <li id="navlogout"><a href="{{ $route('logout') }}">Logout</a></li>
+                @else
+                    <li class="active"><a href="{{ $route('index') }}">Index</a></li>
+                    <li><a href="{{ $route('login') }}">Login/Register</a></li>
+                @endif
                     <li><a href="searched.html">Posted</a></li>
                     <li><a href="searched.html">New</a></li>
                     <li><a href="searched.html">Active</a></li>
                     <li><a href="searched.html">Unanswered</a></li>
                 </ul>
                 <h3 class="username pull-right">
+                @if (Auth::user())
                     {{ Auth::user()->username }}
                     <a href="{{ $route('profile', array('id' => Auth::user()->id)) }}"><span class="edit-profile">Edit Profile</span></a>
+                @endif
                 </h3>
             </nav>
-            @endif
 
         </div>
 
@@ -68,35 +88,3 @@
 
     <!-- begin forum container -->
     <div class="container">
-
-        <!-- begin board menu -->
-        <div id="brdwelcome" class="clearfix">
-
-            @if (Auth::user())
-            <ul class="nav nav-pills pull-left">
-                <li class="isactive"><a href="{{ $route('index') }}">Index</a></li>
-                @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_view_users == '1')
-                <li id="navuserlist"><a href="{{ $route('userlist') }}">{{ trans('fluxbb::common.user_list') }}</a></li>
-                @endif
-                @if (FluxBB\Models\Config::enabled('o_rules') && (Auth::check() || FluxBB\Models\User::current()->group->g_read_board == '1' || FluxBB\Models\Config::enabled('o_regs_allow')))
-                <li id="navrules"><a href="{{ $route('rules') }}">{{ trans('fluxbb::common.rules') }}</a></li>
-                @endif
-                @if (FluxBB\Models\User::current()->group->g_read_board == '1' && FluxBB\Models\User::current()->group->g_search == '1')
-                <li id="navsearch"><a href="{{ $route('search') }}">{{ trans('fluxbb::common.search') }}</a></li>
-                @endif
-                @if (FluxBB\Models\User::current()->isAdmin())
-                <li id="navadmin"><a href="{{ $route('admin.index') }}">{{ trans('fluxbb::common.admin') }}</a></li>
-                @endif
-                <li id="navprofile"><a href="{{ $route('profile', array('id' => FluxBB\Models\User::current()->id)) }}">Profile</a></li>
-                <li id="navlogout"><a href="{{ $route('logout') }}">Logout</a></li>
-            </ul>
-            @else
-            <ul class="nav nav-pills pull-left">
-                <li class="active"><a href="{{ $route('index') }}">Index</a></li>
-                <li><a href="{{ $route('login') }}">Login/Register</a></li>
-            </ul>
-            @endif
-
-        </div>
-        <!-- end board menu -->
-
