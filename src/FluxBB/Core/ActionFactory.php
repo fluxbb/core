@@ -2,14 +2,14 @@
 
 namespace FluxBB\Core;
 
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 
 class ActionFactory
 {
     /**
      * An instance of the IoC container.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     protected $container;
 
@@ -17,7 +17,7 @@ class ActionFactory
     /**
      * Create a new action factory instance.
      *
-     * @param \Illuminate\Container\Container $container
+     * @param \Illuminate\Contracts\Container\Container $container
      */
     public function __construct(Container $container)
     {
@@ -33,7 +33,7 @@ class ActionFactory
     public function make($class)
     {
         $action = $this->container->make($class);
-        $action->setEvents($this->container['events']);
+        $action->setEvents($this->container->make('events'));
 
         return $action;
     }
