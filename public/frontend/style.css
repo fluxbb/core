@@ -126,7 +126,7 @@ a, a:hover, a:focus, a:active {
 	margin: 0.5em;
 }
 
-#brdmenu .username .edit-profile {
+#brdmenu .username a {
 	border-left: 1px solid #cad7e1;
 	font-size: 0.6em;
 	padding-left: 0.5em;
