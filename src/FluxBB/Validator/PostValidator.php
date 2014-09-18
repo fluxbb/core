@@ -4,7 +4,6 @@ namespace FluxBB\Validator;
 
 use FluxBB\Core\Validator;
 use FluxBB\Models\Post;
-use FluxBB\Server\Exception\ValidationFailed;
 
 class PostValidator extends Validator
 {
