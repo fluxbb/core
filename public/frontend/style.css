@@ -106,9 +106,10 @@ a, a:hover, a:focus, a:active {
 }
 
 #brdtitle .avatar img {
-	border-bottom-left-radius: 6em;
 	height: 6em;
 	width: 6em;
+    border-bottom-left-radius: 6em;
+    transition: border-radius 0.5s;
 }
 
 #brdtitle .avatar:hover, #brdtitle .avatar:hover img {
