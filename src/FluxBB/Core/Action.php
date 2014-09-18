@@ -11,7 +11,7 @@ use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\Redirect;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\MessageProvider;
-use Illuminate\Events\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\MessageBag;
 
 abstract class Action implements MessageProvider
@@ -33,7 +33,7 @@ abstract class Action implements MessageProvider
     /**
      * The event dispatcher instance.
      *
-     * @var \Illuminate\Events\Dispatcher
+     * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $events;
 
@@ -265,7 +265,7 @@ abstract class Action implements MessageProvider
     /**
      * Set the event dispatcher instance.
      *
-     * @param \Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      */
     public function setEvents(Dispatcher $events)
