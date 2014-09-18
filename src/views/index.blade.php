@@ -43,31 +43,4 @@
 
 @endforeach
 
-
-<!-- begin board stats -->
-<div id="brdstats" class="clearfix">
-    <div class="box">
-        <div class="users-online col-xs-12 col-sm-12 col-md-6 pull-left">
-            <h5> Active Users</h5>
-            <p>
-                <span>There are currently 1 user online.</span>
-                <span>1 Member and 0 Guest</span>
-                <br>
-                <span class="online">Online:</span> <span><a href="edit-profile.html">Cyrano</a></span>
-            </p>
-        </div>
-        <div class="forum-stats col-xs-12 col-sm-12 col-md-6 pull-right text-right">
-            <h5><span></span> FluxBB Forum Statistics</h5>
-            <p>
-                <span>Threads: <strong>2</strong></span>
-                <span>Posts: <strong>76</strong></span>
-                <span>Members: <strong>246</strong></span>
-                <br>
-                <span>Welcome to our newest member, <a href="profile.html">Roxane</a></span>
-            </p>
-        </div>
-    </div>
-</div>
-<!-- end board stats -->
-
 @stop
