@@ -2,14 +2,12 @@
 
 namespace FluxBB\Web;
 
-use FluxBB\Server\DispatcherInterface;
 use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\HandlerInterface;
 use FluxBB\Server\Response\Redirect;
 use FluxBB\Server\Response\Response;
-use FluxBB\Web\Router;
 use Illuminate\Routing\Redirector;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

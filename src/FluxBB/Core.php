@@ -3,7 +3,6 @@
 namespace FluxBB;
 
 use Illuminate\Support\Facades\Facade;
-use Config;
 
 class Core extends Facade
 {
