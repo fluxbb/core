@@ -335,6 +335,7 @@ a, a:hover, a:focus, a:active {
 	font-size: 4em;
 	line-height: 0.75em;
 	width: 0.75em;
+    margin-top: -0.2em;
 }
 
 .idx .idx-icon-read::before {
@@ -367,8 +368,7 @@ a, a:hover, a:focus, a:active {
 }
 
 .idx .forum-date {
-    font-size: 0.9em;
-    padding-top: 18px;
+    line-height: 3em;
 }
 
 
