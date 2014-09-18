@@ -102,7 +102,7 @@ a, a:hover, a:focus, a:active {
 	padding: 0.5em;
 	position: absolute;
 	width: 7em;
-    transition: border-radius 0.7s;
+    transition: border-radius 0.5s;
 }
 
 #brdtitle .avatar img {
