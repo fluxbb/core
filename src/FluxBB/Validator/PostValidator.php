@@ -8,14 +8,16 @@ use FluxBB\Models\Post;
 class PostValidator extends Validator
 {
     /**
-     * The rules to validate against.
+     * Get the rules to validate against.
      *
-     * @var array
+     * @return array
      */
-    protected $rules = [
-        'message' => 'required',
-    ];
-
+    protected function rules()
+    {
+        return [
+            'message' => 'required',
+        ];
+    }
 
     /**
      * Make sure the given post is valid.
