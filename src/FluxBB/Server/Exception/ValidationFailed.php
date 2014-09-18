@@ -9,7 +9,7 @@ class ValidationFailed extends \Exception
     protected $errors;
 
 
-    public function __construct(array $errors)
+    public function __construct(MessageBag $errors)
     {
         $this->errors = $errors;
     }
@@ -21,6 +21,6 @@ class ValidationFailed extends \Exception
      */
     public function getErrors()
     {
-        return new MessageBag($this->errors);
+        return new $this->errors;
     }
 }

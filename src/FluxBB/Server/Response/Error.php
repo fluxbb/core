@@ -3,10 +3,10 @@
 namespace FluxBB\Server\Response;
 
 use FluxBB\Server\Request;
-use Illuminate\Support\Contracts\MessageProviderInterface;
+use Illuminate\Contracts\Support\MessageProvider;
 use Illuminate\Support\MessageBag;
 
-class Error extends Redirect implements MessageProviderInterface
+class Error extends Redirect implements MessageProvider
 {
     protected $errors;
 

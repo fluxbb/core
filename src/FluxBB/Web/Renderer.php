@@ -10,13 +10,13 @@ use FluxBB\Server\Response\HandlerInterface;
 use FluxBB\Server\Response\Redirect;
 use FluxBB\Server\Response\Response;
 use FluxBB\Web\Router;
-use Illuminate\View\Factory;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Routing\Redirector;
 
 class Renderer implements HandlerInterface
 {
     /**
-     * @var \Illuminate\View\Factory
+     * @var \Illuminate\Contracts\View\Factory
      */
     protected $view;
 

@@ -2,7 +2,8 @@
 
 namespace FluxBB\Handlers;
 
-use Illuminate\Mail\Mailer;
+use Illuminate\Mail\Message;
+use Illuminate\Contracts\Mail\Mailer;
 use FluxBB\Models\ConfigRepositoryInterface;
 
 class SendWelcomeEmail
@@ -35,7 +36,7 @@ class SendWelcomeEmail
             ':board' => $this->config->get('o_board_title'),
         ]);
 
-        $this->mailer->plain('fluxbb:mail::welcome', $data, function ($mail) use ($user, $subject) {
+        $this->mailer->send(['text' => 'fluxbb:mail::welcome'], $data, function (Message $mail) use ($user, $subject) {
             $mail->to($user->email)->subject($subject);
         });
     }

@@ -2,7 +2,7 @@
 
 namespace FluxBB\Web;
 
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 class LaravelUrlGenerator implements UrlGeneratorInterface
 {
@@ -12,7 +12,7 @@ class LaravelUrlGenerator implements UrlGeneratorInterface
     protected $router;
 
     /**
-     * @var \Illuminate\Routing\UrlGenerator
+     * @var \Illuminate\Contracts\Routing\UrlGenerator
      */
     protected $generator;
 

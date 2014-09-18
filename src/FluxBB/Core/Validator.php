@@ -3,14 +3,14 @@
 namespace FluxBB\Core;
 
 use FluxBB\Server\Exception\ValidationFailed;
-use Illuminate\Validation\Factory;
+use Illuminate\Contracts\Validation\Factory;
 
 class Validator
 {
     /**
      * The validator factory instance.
      *
-     * @var \Illuminate\Validation\Factory
+     * @var \Illuminate\Contracts\Validation\Factory
      */
     protected $validation;
 
@@ -25,7 +25,7 @@ class Validator
     /**
      * Create a validator instance.
      *
-     * @param \Illuminate\Validation\Factory $validation
+     * @param \Illuminate\Contracts\Validation\Factory $validation
      */
     public function __construct(Factory $validation)
     {
@@ -46,7 +46,7 @@ class Validator
         $validation = $this->validation->make($attributes, $this->rules);
 
         if ($validation->fails()) {
-            throw new ValidationFailed($validation->errors()->all());
+            throw new ValidationFailed($validation->getMessageBag());
         }
     }
 }
