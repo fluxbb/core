@@ -30,39 +30,44 @@
 
 <body id="site-forum">
 
+    <!-- begin board header -->
+    <header id="brdheader">
+        <div id="brdtitle">
+            <h1 class="forum-title">{{ $board_title }}</h1>
+            <div class="forum-desc"><p>{{ $board_description }}</p></div>
+
+            @if(Auth::user())
+            <div class="avatar">
+                <!-- TODO: avitar function -->
+                <img src="assets/img/cyrano.jpg" alt="" />
+            </div>
+            @endif
+        </div>
+
+        <div id="brdmenu">
+
+            @if(Auth::user())
+            <nav class="menu">
+                <ul class="nav nav-pills pull-left">
+                    <li><a href="searched.html">Posted</a></li>
+                    <li><a href="searched.html">New</a></li>
+                    <li><a href="searched.html">Active</a></li>
+                    <li><a href="searched.html">Unanswered</a></li>
+                </ul>
+                <h3 class="username pull-right">
+                    {{ Auth::user()->username }}
+                    <a href="{{ $route('profile', array('id' => Auth::user()->id)) }}"><span class="edit-profile">Edit Profile</span></a>
+                </h3>
+            </nav>
+            @endif
+
+        </div>
+
+    </header>
+    <!-- end board header -->
+
     <!-- begin forum container -->
     <div class="container">
-
-        <!-- begin board header -->
-        <header id="brdheader">
-            <div id="brdtitle">
-                <h1 class="forum-title">{{ $board_title }}</h1>
-                <div class="forum-desc"><p>{{ $board_description }}</p></div>
-            </div>
-
-            <div id="brdmenu">
-
-                @if(Auth::user())
-                <div class="avatar">
-                    <!-- TODO: avitar function -->
-                    <img src="assets/img/cyrano.jpg" alt="" />
-                </div>
-
-                <nav class="menu">
-                    <h3 class="username pull-left">{{ Auth::user()->username }} <a href="{{ $route('profile', array('id' => Auth::user()->id)) }}"><span class="edit-profile">Edit Profile</span></a></h3>
-                        <ul class="nav nav-pills pull-right">
-                            <li><a href="searched.html">Posted</a></li>
-                            <li><a href="searched.html">New</a></li>
-                            <li><a href="searched.html">Active</a></li>
-                            <li><a href="searched.html">Unanswered</a></li>
-                        </ul>
-                </nav>
-                @endif
-
-            </div>
-
-        </header>
-        <!-- end board header -->
 
         <!-- begin board menu -->
         <div id="brdwelcome" class="clearfix">
