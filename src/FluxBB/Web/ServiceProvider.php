@@ -95,7 +95,7 @@ class ServiceProvider extends Base
     protected function registerFrontendRoutes(Router $router)
     {
         $router->get('/', 'index');
-        $router->get('categories{slug:[A-Za-z0-9/]*}', 'category');
+        $router->get('categories{slug:(?:/[A-Za-z0-9/]*)?}', 'category');
         $router->get('conversations/{id}', 'conversation');
         $router->get('post/{id}', 'viewpost');
         $router->get('register', 'register');
