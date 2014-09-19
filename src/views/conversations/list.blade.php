@@ -12,7 +12,7 @@
 @foreach ($conversations as $conversation)
     <div class="row vfx-content">
         <div class="col-md-6 col-sm-6 col-xs-6">
-            <a href="{{ $route('viewtopic', array('id' => $conversation->id)) }}">{{ $conversation->title }}</a>
+            <a href="{{ $route('conversation', ['id' => $conversation->id]) }}">{{ $conversation->title }}</a>
         </div>
         <div class="col-md-1 col-sm-1 col-xs-1">{{ '2' }}</div>
         <div class="col-md-1 col-sm-1 col-xs-1">{{ '0' }}</div>

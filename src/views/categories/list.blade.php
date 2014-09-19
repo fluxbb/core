@@ -10,7 +10,7 @@
     <div class="col-md-6 col-sm-6 col-xs-6">
         <div class="idx-icon idx-icon-read pull-left"></div>
             <div class="tclcon">
-                <h4 class="forum-title"><a href="{{ $route('viewforum', array('id' => $category->slug)) }}">{{ $category->name }}</a></h4>
+                <h4 class="forum-title"><a href="{{ $route('category', ['slug' => $category->slug]) }}">{{ $category->name }}</a></h4>
                 <div class="forum-description">{{ 'A description' }}</div>
                 <p class="moderator-list">(<em>Moderated by</em> <a href="#">Eric</a>, <a href="#">Eric</a>)</p>
             </div>
