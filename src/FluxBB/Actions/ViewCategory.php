@@ -3,14 +3,14 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Models\CategoryRepository;
+use FluxBB\Models\CategoryRepositoryInterface;
 
 class ViewCategory extends Action
 {
     protected $categories;
 
 
-    public function __construct(CategoryRepository $repository)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->categories = $repository;
     }

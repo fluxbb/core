@@ -4,7 +4,7 @@ namespace FluxBB\Models;
 
 use Illuminate\Database\ConnectionInterface;
 
-class CategoryRepository
+class CategoryRepository implements CategoryRepositoryInterface
 {
     protected $database;
 

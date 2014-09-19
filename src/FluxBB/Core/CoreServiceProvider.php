@@ -64,11 +64,11 @@ class CoreServiceProvider extends ServiceProvider
             return new ConfigRepository($app['cache.store'], $app['db']->connection('fluxbb'));
         });
 
-        $this->app->bind('FluxBB\Models\CategoryRepository', function ($app) {
+        $this->app->bind('FluxBB\Models\CategoryRepositoryInterface', function ($app) {
             return new CategoryRepository($app['db']->connection('fluxbb'));
         });
 
-        $this->app->bind('FluxBB\Models\ConversationRepository', function ($app) {
+        $this->app->bind('FluxBB\Models\ConversationRepositoryInterface', function ($app) {
             return new ConversationRepository($app['db']->connection('fluxbb'));
         });
     }

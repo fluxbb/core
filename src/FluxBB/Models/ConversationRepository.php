@@ -4,7 +4,7 @@ namespace FluxBB\Models;
 
 use Illuminate\Database\ConnectionInterface;
 
-class ConversationRepository
+class ConversationRepository implements ConversationRepositoryInterface
 {
     protected $database;
 
@@ -12,11 +12,6 @@ class ConversationRepository
     public function __construct(ConnectionInterface $database)
     {
         $this->database = $database;
-    }
-
-    public function save(Category $forum)
-    {
-        //
     }
 
     public function findById($id)
@@ -33,12 +28,6 @@ class ConversationRepository
         return $rows;
     }
 
-    public function addReply($conversation, $post)
-    {
-        $post->conversation_id = $conversation->id;
-        $post->id = $this->database->table('posts')->insertGetId($post->toArray());
-    }
-
     public function findPostById($id)
     {
         return $this->database->table('posts')->where('id', $id)->first();
@@ -51,6 +40,11 @@ class ConversationRepository
                                                    ->count('id') + 1;
 
         return ceil($numPosts / $perPage);
+    }
 
+    public function addReply($conversation, $post)
+    {
+        $post->conversation_id = $conversation->id;
+        $post->id = $this->database->table('posts')->insertGetId($post->toArray());
     }
 }

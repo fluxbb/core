@@ -3,7 +3,7 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Models\ConversationRepository;
+use FluxBB\Models\ConversationRepositoryInterface;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
 
@@ -12,7 +12,7 @@ class ViewPost extends Action
     protected $conversations;
 
 
-    public function __construct(ConversationRepository $repository)
+    public function __construct(ConversationRepositoryInterface $repository)
     {
         $this->conversations = $repository;
     }

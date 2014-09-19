@@ -3,14 +3,14 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Models\ConversationRepository;
+use FluxBB\Models\ConversationRepositoryInterface;
 
 class ViewConversation extends Action
 {
     protected $conversations;
 
 
-    public function __construct(ConversationRepository $repository)
+    public function __construct(ConversationRepositoryInterface $repository)
     {
         $this->conversations = $repository;
     }
