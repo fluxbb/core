@@ -3,18 +3,22 @@
 namespace FluxBB\Migrations\Install;
 
 use Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class Categories extends Migration
 {
     public function up()
     {
-        Schema::table('categories', function ($table) {
+        Schema::table('categories', function (Blueprint $table) {
             $table->create();
 
-            $table->increments('id');
-            $table->string('cat_name', 80);
-            $table->integer('disp_position')->default(0);
+            $table->string('slug', 100)->primary();
+            $table->string('name');
+            $table->integer('position')->default(0);
+            $table->boolean('conversations_enabled')->default(true);
+
+            $table->timestamps();
         });
     }
 

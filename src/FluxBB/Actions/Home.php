@@ -3,17 +3,29 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Models\User;
-use FluxBB\Models\Category;
+use FluxBB\Models\CategoryRepository;
 
 class Home extends Action
 {
+    /**
+     * The category repository instance.
+     *
+     * @var \FluxBB\Models\CategoryRepository
+     */
+    protected $categories;
+
+
+    public function __construct(CategoryRepository $repository)
+    {
+        $this->categories = $repository;
+    }
+
     protected function run()
     {
-        $group_id = User::current()->group_id;
+        $category = $this->categories->findBySlug('/');
 
-        $categories = Category::allForGroup($group_id);
-
-        $this->data['categories'] = $categories;
+        $this->data['category'] = $category;
+        $this->data['categories'] = $this->categories->getByParent('/');
+        $this->data['conversations'] = $this->categories->getConversationsIn($category);
     }
 }
