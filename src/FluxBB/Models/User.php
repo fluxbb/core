@@ -26,6 +26,8 @@ class User extends Base implements UserContract, HasPermissions
         'last_visit',
     );
 
+    protected $dates = array('last_post', 'registered');
+
     const GUEST = 1;
 
 

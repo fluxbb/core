@@ -20,7 +20,7 @@ Pages: {{{ $users->links() }}}
             <td><a href="{{ $route('profile', array('id' => $user->id)) }}">{{ $user->username }}</a></td>
             <td>{{ $user->title }}</td>
             <td>{{ $user->num_posts }}</td>
-            <td>{{ $format_time($user->registered, true) }}</td>
+            <td>{{ $user->registered }}</td>
         </tr>
 @endforeach
 

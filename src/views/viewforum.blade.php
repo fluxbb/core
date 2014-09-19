@@ -81,7 +81,7 @@ if (FluxBB\Models\User::current()->isMember() && $topic->last_post > FluxBB\Mode
             - - -
     @else
             <!-- TODO: Pass $last_post instead of $topic to url() -->
-            <a href="{{ $route('viewpost', array('id' => $topic->id)) }}#p{{ $topic->last_post_id }}">{{ $format_time($topic->last_post) }}</a> <span class="byuser">{{ trans('fluxbb::common.by', array('author' => ($topic->last_poster))) }}</span>
+            <a href="{{ $route('viewpost', array('id' => $topic->id)) }}#p{{ $topic->last_post_id }}">{{ $topic->last_post }}</a> <span class="byuser">{{ trans('fluxbb::common.by', array('author' => ($topic->last_poster))) }}</span>
     @endif
         </div>
     </div>

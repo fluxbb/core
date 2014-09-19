@@ -10,6 +10,8 @@ class Topic extends Base
 
     protected $fillable = array('poster', 'subject', 'posted', 'last_post', 'last_poster', 'sticky', 'forum_id');
 
+    protected $dates = array('last_post');
+
 
     public function posts()
     {

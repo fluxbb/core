@@ -53,7 +53,7 @@
         <div class="post-box col-md-10 col-sm-10 col-xs-10">
             <div class="post-meta clearfix">
                 <div class="pull-left">
-                    <a href="{{ $route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ $format_time($post->posted) }}</a>
+                    <a href="{{ $route('viewpost', array('id' => $post->id)) }}#p{{ $post->id }}">{{ $post->posted }}</a>
                 </div>
                 <div class="pull-right">#7</div>
             </div>

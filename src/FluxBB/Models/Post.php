@@ -8,6 +8,8 @@ class Post extends Base
 
     protected $fillable = array('poster', 'poster_id', 'poster_ip', 'message', 'hide_smilies', 'posted', 'topic_id', 'edited', 'edited_by');
 
+    protected $dates = array('posted');
+
 
     public function topic()
     {
