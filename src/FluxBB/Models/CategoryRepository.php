@@ -37,5 +37,4 @@ class CategoryRepository
 
         return $rows;
     }
-
-} 
+}

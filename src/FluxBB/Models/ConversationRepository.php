@@ -37,4 +37,4 @@ class ConversationRepository
 
         return $rows;
     }
-} 
+}
