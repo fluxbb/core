@@ -3,6 +3,7 @@
 namespace FluxBB\Core;
 
 use FluxBB\Models\CategoryRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 use FluxBB\Models\GroupRepository;
 use FluxBB\Models\ConfigRepository;
@@ -26,8 +27,11 @@ class CoreServiceProvider extends ServiceProvider
         $this->package('fluxbb/core', 'fluxbb');
 
         // Add another namespace for localized mail templates
-        $locale = $this->app['config']['app.locale'];
-        $this->app['view']->addNamespace('fluxbb:mail', __DIR__ . '/../../lang/' . $locale . '/mail/');
+        $this->app->extend('view', function (Factory $view, $app) {
+            $locale = $app['config']['app.locale'];
+            $view->addNamespace('fluxbb:mail', __DIR__ . '/../../lang/' . $locale . '/mail/');
+            return $view;
+        });
 
         include __DIR__.'/../../start.php';
     }
@@ -71,8 +75,9 @@ class CoreServiceProvider extends ServiceProvider
      */
     protected function registerViewComposers()
     {
-        $this->app->resolving('view', function ($view) {
+        $this->app->extend('view', function (Factory $view) {
             $view->composer('fluxbb::layout.main', 'FluxBB\View\AlertsComposer');
+            return $view;
         });
     }
 

@@ -46,6 +46,8 @@ class ServiceProvider extends Base
         $server = $this->app['fluxbb.server'];
 
         $server->register('index', 'FluxBB\Actions\Home');
+        $server->register('category', 'FluxBB\Actions\ViewCategory');
+        $server->register('conversation', 'FluxBB\Actions\ViewConversation');
         $server->register('viewforum', 'FluxBB\Actions\ViewForum');
         $server->register('viewtopic', 'FluxBB\Actions\ViewTopic');
         $server->register('viewpost', 'FluxBB\Actions\ViewPost');
