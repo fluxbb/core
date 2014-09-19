@@ -4,7 +4,6 @@ namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
 use FluxBB\Models\CategoryRepository;
-use Illuminate\Support\Str;
 
 class ViewCategory extends Action
 {
@@ -19,7 +18,7 @@ class ViewCategory extends Action
     protected function run()
     {
         $slug = $this->request->get('slug');
-        $slug = '/'.Str::finish(trim($slug, '/'), '/');
+        $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
 
         $category = $this->categories->findBySlug($slug);
 
