@@ -13,9 +13,7 @@
             @include('fluxbb::categories.list')
         @endif
 
-        @if ($conversations)
-            @include('fluxbb::conversations.list')
-        @endif
+        @include('fluxbb::conversations.list')
 
     </div>
 
