@@ -21,7 +21,7 @@
     <!-- end shortcut -->
 
     <!-- begin js -->
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ URL::asset('packages/fluxbb/core/js/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('packages/fluxbb/core/js/fluxbb.js') }}"></script>
     <script src="{{ URL::asset('packages/fluxbb/core/js/frontend.js') }}"></script>
     <!-- end js -->
