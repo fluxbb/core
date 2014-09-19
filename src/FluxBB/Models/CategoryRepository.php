@@ -37,4 +37,13 @@ class CategoryRepository
 
         return $rows;
     }
+
+    public function addNewTopic($category, $conversation, $post)
+    {
+        $conversation->category_slug = $category->slug;
+        $conversation->id = $this->database->table('conversations')->insertGetId((array) $conversation);
+
+        $post['conversation_id'] = $conversation->id;
+        $this->database->table('posts')->insertGetId($post);
+    }
 }

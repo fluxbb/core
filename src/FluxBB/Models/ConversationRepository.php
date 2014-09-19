@@ -26,15 +26,31 @@ class ConversationRepository
         return $row;
     }
 
-    public function getByParent($slug)
+    public function getPostsIn($conversation)
     {
-        return $this->database->table('categories')->where('slug', '!=', $slug)->where('slug', 'LIKE', "$slug%")->get();
-    }
-
-    public function getConversationsIn($category)
-    {
-        $rows = $this->database->table('conversations')->where('category_slug', $category->slug)->get();
+        $rows = $this->database->table('posts')->where('conversation_id', $conversation->id)->get();
 
         return $rows;
+    }
+
+    public function addReply($conversation, $post)
+    {
+        $post->conversation_id = $conversation->id;
+        $post->id = $this->database->table('posts')->insertGetId($post->toArray());
+    }
+
+    public function findPostById($id)
+    {
+        return $this->database->table('posts')->where('id', $id)->first();
+    }
+
+    public function getPageOfPost($post, $perPage)
+    {
+        $numPosts = $this->database->table('posts')->where('conversation_id', $post->conversation_id)
+                                                   ->where('posted', '<', $post->posted)
+                                                   ->count('id') + 1;
+
+        return ceil($numPosts / $perPage);
+
     }
 }

@@ -22,6 +22,6 @@ class ViewConversation extends Action
         $conversation = $this->conversations->findById($id);
 
         $this->data['conversation'] = $conversation;
-        $this->data['posts'] = [];
+        $this->data['posts'] = $this->conversations->getPostsIn($conversation);
     }
 }

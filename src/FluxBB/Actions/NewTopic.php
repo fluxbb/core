@@ -4,27 +4,23 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
+use FluxBB\Models\CategoryRepository;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
-use FluxBB\Models\Topic;
-use FluxBB\Models\Forum;
 
 class NewTopic extends Action
 {
-    protected $forum;
-
-    protected $topic;
-
-    protected $post;
-
     protected $validator;
 
+    protected $categories;
 
-    public function __construct(PostValidator $validator)
+
+    public function __construct(PostValidator $validator, CategoryRepository $repository)
     {
         $this->validator = $validator;
+        $this->categories = $repository;
     }
 
     /**
@@ -34,39 +30,39 @@ class NewTopic extends Action
      */
     protected function run()
     {
-        $fid = $this->request->get('id');
-        $this->forum = Forum::findOrFail($fid);
+        $slug = $this->request->get('slug');
+        $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
+
+        $category = $this->categories->findBySlug($slug);
 
         $creator = User::current();
         $now = Carbon::now();
 
-        $this->topic = new Topic([
+        $conversation = (object) [
             'poster'        => $creator->username,
-            'subject'       => $this->request->get('subject'),
+            'title'         => $this->request->get('subject'),
             'posted'        => $now,
             'last_post'     => $now,
             'last_poster'   => $creator->username,
-            'forum_id'      => $this->forum->id,
-        ]);
+            'category_slug' => $category->slug,
+        ];
 
-        $this->post = new Post([
+        $post = (new Post([
             'poster'	=> $creator->username,
             'poster_id'	=> $creator->id,
             'message'	=> $this->request->get('message'),
             'posted'	=> $now,
-        ]);
+        ]));
 
-        $this->onErrorRedirectTo(new Request('new_topic', ['id' => $this->forum->id]));
-        $this->validator->validate($this->post);
+        $this->onErrorRedirectTo(new Request('new_topic', ['slug' => $category->slug]));
+        $this->validator->validate($post);
 
-        $this->topic->save();
-        $this->topic->addReply($this->post);
-        $this->post->save();
+        $this->categories->addNewTopic($category, $conversation, $post->toArray());
 
-        $this->trigger('user.posted', [$creator, $this->post]);
+        $this->trigger('user.posted', [$creator, $post]);
 
         $this->redirectTo(
-            new Request('viewtopic', ['id' => $this->topic->id]),
+            new Request('conversation', ['id' => $conversation->id]),
             trans('fluxbb::topic.topic_added')
         );
     }

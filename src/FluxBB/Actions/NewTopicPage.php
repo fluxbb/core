@@ -3,16 +3,25 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Models\Forum;
+use FluxBB\Models\CategoryRepository;
 
 class NewTopicPage extends Action
 {
+    protected $categories;
+
+
+    public function __construct(CategoryRepository $repository)
+    {
+        $this->categories = $repository;
+    }
+
     protected function run()
     {
-        $fid = $this->request->get('id');
+        $slug = $this->request->get('slug');
+        $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
 
-        $forum = Forum::with('perms')->findOrFail($fid);
+        $category = $this->categories->findBySlug($slug);
 
-        $this->data['forum'] = $forum;
+        $this->data['category'] = $category;
     }
 }

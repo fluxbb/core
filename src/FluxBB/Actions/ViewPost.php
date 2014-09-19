@@ -3,36 +3,31 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Models\Post;
+use FluxBB\Models\ConversationRepository;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
 
 class ViewPost extends Action
 {
-    protected $post;
+    protected $conversations;
 
-    protected $page;
 
+    public function __construct(ConversationRepository $repository)
+    {
+        $this->conversations = $repository;
+    }
 
     protected function run()
     {
-        $pid = $this->request->get('id');
+        $id = $this->request->get('id');
 
-        // If a post ID is specified we determine topic ID and page number so we can show the correct message
-        $this->post = Post::findOrFail($pid);
-
-        // Determine on which page the post is located
-        $numPosts = Post::where('topic_id', '=', $this->post->topic_id)
-                ->where('posted', '<', $this->post->posted)
-                ->count('id') + 1;
-
-        $dispPosts = User::current()->dispPosts();
-        $this->page = ceil($numPosts / $dispPosts);
+        $post = $this->conversations->findPostById($id);
+        $page = $this->conversations->getPageOfPost($post, User::current()->dispPosts());
 
         $this->redirectTo(
-            new Request('viewtopic', [
-                'id' => $this->post->topic_id,
-                'page' => $this->page
+            new Request('conversation', [
+                'id' => $post->conversation_id,
+                'page' => $page,
             ])
         ); // TODO: Append #p to URL
     }

@@ -2,7 +2,7 @@
 
 @section('main')
 <h2>{{ trans('fluxbb::forum.post_topic') }}</h2>
-<form action="{{ $route('new_topic', array('id' => $forum->id)) }}" method="POST" id="post">
+<form action="{{ $route('new_topic', ['slug' => $category->slug]) }}" method="POST" id="post">
     <fieldset>
         <legend>{{ trans('fluxbb::common.write_message_legend') }}</legend>
         <label class="required"><strong>{{ trans('fluxbb::common.subject') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="subject" class="longinput" size="80" value="{{ Input::old('subject', '') }}" /><br /></label>

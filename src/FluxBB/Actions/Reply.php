@@ -4,24 +4,23 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
+use FluxBB\Models\ConversationRepository;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
-use FluxBB\Models\Topic;
 
 class Reply extends Action
 {
-    protected $topic;
-
-    protected $post;
-
     protected $validator;
 
+    protected $conversations;
 
-    public function __construct(PostValidator $validator)
+
+    public function __construct(PostValidator $validator, ConversationRepository $repository)
     {
         $this->validator = $validator;
+        $this->conversations = $repository;
     }
 
     /**
@@ -31,28 +30,27 @@ class Reply extends Action
      */
     protected function run()
     {
-        $tid = $this->request->get('id');
-        $this->topic = Topic::with('forum.perms')->findOrFail($tid);
+        $id = $this->request->get('id');
+        $conversation = $this->conversations->findById($id);
 
         $creator = User::current();
 
-        $this->post = new Post([
+        $post = new Post([
             'poster'	=> $creator->username,
             'poster_id'	=> $creator->id,
             'message'	=> $this->request->get('req_message'),
             'posted'	=> Carbon::now(),
         ]);
 
-        $this->onErrorRedirectTo(new Request('viewtopic', ['id' => $this->topic->id]));
-        $this->validator->validate($this->post);
+        $this->onErrorRedirectTo(new Request('conversation', ['id' => $conversation->id]));
+        $this->validator->validate($post);
 
-        $this->topic->addReply($this->post);
-        $this->post->save();
+        $this->conversations->addReply($conversation, $post);
 
-        $this->trigger('user.posted', [$creator, $this->post]);
+        $this->trigger('user.posted', [$creator, $post]);
 
         $this->redirectTo(
-            new Request('viewpost', ['id' => $this->post->id]),
+            new Request('viewpost', ['id' => $post->id]),
             trans('fluxbb::post.post_added')
         );
     }

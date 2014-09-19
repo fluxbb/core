@@ -95,6 +95,8 @@ class ServiceProvider extends Base
     protected function registerFrontendRoutes(Router $router)
     {
         $router->get('/', 'index');
+        $router->get('categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic');
+        $router->post('categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic_handler');
         $router->get('categories{slug:(?:/[A-Za-z0-9/]*)?}', 'category');
         $router->get('conversations/{id}', 'conversation');
         $router->get('post/{id}', 'viewpost');
@@ -116,8 +118,6 @@ class ServiceProvider extends Base
         $router->post('topic/{id}/reply', 'reply_handler');
         $router->post('topic/{id}/subscribe', 'topic_subscribe');
         $router->post('topic/{id}/unsubscribe', 'topic_unsubscribe');
-        $router->get('forum/{id}/topic/new', 'new_topic');
-        $router->post('forum/{id}/topic/new', 'new_topic_handler');
         $router->get('admin', 'admin.index');
         $router->get('admin/settings', 'admin.settings.global');
         $router->get('admin/settings/email', 'admin.settings.email');

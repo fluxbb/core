@@ -15,6 +15,8 @@
 
         @include('fluxbb::conversations.list')
 
+        <a href="{{ $route('new_topic', ['slug' => $category->slug]) }}">New topic</a>
+
     </div>
 
 </div>
