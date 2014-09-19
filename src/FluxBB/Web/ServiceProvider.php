@@ -21,15 +21,15 @@ class ServiceProvider extends Base
      */
     public function register()
     {
-        $this->app->bindShared('fluxbb.web.router', function () {
+        $this->app->singleton('fluxbb.web.router', function () {
             return new Router;
         });
 
-        $this->app->bindShared('fluxbb.web.renderer', function ($app) {
+        $this->app->singleton('fluxbb.web.renderer', function ($app) {
             return new Renderer($app['view'], $app['redirect'], $app['fluxbb.web.router']);
         });
 
-        $this->app->bindShared('fluxbb.web.url', function ($app) {
+        $this->app->singleton('fluxbb.web.url', function ($app) {
             return new LaravelUrlGenerator($app['fluxbb.web.router'], $app['url']);
         });
 

@@ -21,7 +21,7 @@ class ServiceProvider extends Base
      */
     public function register()
     {
-        $this->app->bindShared('fluxbb.server', function ($app) {
+        $this->app->singleton('fluxbb.server', function ($app) {
             return new Server(new ActionFactory($app));
         });
     }
