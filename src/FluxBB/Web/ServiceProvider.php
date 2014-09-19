@@ -97,8 +97,6 @@ class ServiceProvider extends Base
         $router->get('/', 'index');
         $router->get('categories{slug:[A-Za-z0-9/]*}', 'category');
         $router->get('conversations/{id}', 'conversation');
-        $router->get('forum/{id}', 'viewforum');
-        $router->get('topic/{id}', 'viewtopic');
         $router->get('post/{id}', 'viewpost');
         $router->get('register', 'register');
         $router->post('register', 'handle_registration');
