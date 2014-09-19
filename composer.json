@@ -28,9 +28,6 @@
 		"squizlabs/php_codesniffer": "1.*"
 	},
 	"autoload": {
-		"classmap": [
-			"src/migrations"
-		],
 		"psr-0": {
 			"FluxBB": "src"
 		}
