@@ -4,7 +4,7 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
-use FluxBB\Models\CategoryRepository;
+use FluxBB\Models\CategoryRepositoryInterface;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -17,7 +17,7 @@ class NewTopic extends Action
     protected $categories;
 
 
-    public function __construct(PostValidator $validator, CategoryRepository $repository)
+    public function __construct(PostValidator $validator, CategoryRepositoryInterface $repository)
     {
         $this->validator = $validator;
         $this->categories = $repository;
