@@ -4,17 +4,17 @@ namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
 use FluxBB\Server\Request;
-use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Authenticator;
 
 class Login extends Action
 {
     /**
-     * @var \Illuminate\Auth\AuthManager
+     * @var \Illuminate\Contracts\Auth\Authenticator
      */
     protected $auth;
 
 
-    public function __construct(AuthManager $auth)
+    public function __construct(Authenticator $auth)
     {
         $this->auth = $auth;
     }
