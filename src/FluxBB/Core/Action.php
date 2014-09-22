@@ -161,7 +161,7 @@ abstract class Action implements MessageProvider
             return new Redirect($this->nextRequest, $this->redirectMessage);
         }
 
-        return new Data($this->data);
+        return new Data($this->data, $this->request);
     }
 
     /**

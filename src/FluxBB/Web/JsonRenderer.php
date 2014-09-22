@@ -2,7 +2,6 @@
 
 namespace FluxBB\Web;
 
-use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\HandlerInterface;
@@ -23,11 +22,6 @@ class JsonRenderer implements HandlerInterface
      */
     protected $router;
 
-    /**
-     * @var \FluxBB\Server\Request
-     */
-    protected $request;
-
 
     public function __construct(Redirector $redirect, Router $router)
     {
@@ -35,9 +29,8 @@ class JsonRenderer implements HandlerInterface
         $this->router = $router;
     }
 
-    public function render(Request $request, Response $response)
+    public function render(Response $response)
     {
-        $this->request = $request;
         return $response->accept($this);
     }
 

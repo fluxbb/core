@@ -2,7 +2,6 @@
 
 namespace FluxBB\Web;
 
-use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\HandlerInterface;
@@ -28,11 +27,6 @@ class Renderer implements HandlerInterface
      */
     protected $router;
 
-    /**
-     * @var \FluxBB\Server\Request
-     */
-    protected $request;
-
 
     public function __construct(Factory $view, Redirector $redirect, Router $router)
     {
@@ -41,15 +35,14 @@ class Renderer implements HandlerInterface
         $this->router = $router;
     }
 
-    public function render(Request $request, Response $response)
+    public function render(Response $response)
     {
-        $this->request = $request;
         return $response->accept($this);
     }
 
     public function handleDataResponse(Data $response)
     {
-        $viewName = 'fluxbb::' . $this->request->getHandler();
+        $viewName = 'fluxbb::' . $response->getRequest()->getHandler();
         return $this->view->make($viewName, $response->getData());
     }
 
