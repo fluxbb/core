@@ -29,10 +29,6 @@ class ServiceProvider extends Base
             return new Renderer($app['view'], $app['redirect'], $app['fluxbb.web.router']);
         });
 
-        $this->app->singleton('fluxbb.web.url', function ($app) {
-            return new LaravelUrlGenerator($app['fluxbb.web.router'], $app['url']);
-        });
-
         $this->registerViewHelpers();
     }
 
@@ -44,7 +40,6 @@ class ServiceProvider extends Base
     public function boot()
     {
         $this->registerRoutes();
-        $this->registerLaravelRoute();
     }
 
     /**
@@ -139,36 +134,6 @@ class ServiceProvider extends Base
     protected function registerApiRoutes(Router $router)
     {
         $router->post('api/v1/settings', 'admin.options.set');
-    }
-
-    /**
-     * Register the catch-all route with the Laravel router.
-     *
-     * @return void
-     */
-    protected function registerLaravelRoute()
-    {
-        $app = $this->app;
-        $prefix = $app['config']->get('fluxbb.route_prefix', '');
-
-        $app['router']->before(function () use ($app) {
-            if ($app['request']->ajax()) {
-                $app->bindShared('fluxbb.web.renderer', function () use ($app) {
-                    return new JsonRenderer($app['redirect'], $app['fluxbb.web.router']);
-                });
-            }
-        });
-
-        $app['router']->any($prefix.'/{uri}', ['as' => 'fluxbb', 'uses' => function ($uri) use ($app) {
-            $method = $app['request']->method();
-            $parameters = $app['request']->input();
-
-            $request = $app['fluxbb.web.router']->getRequest($method, $uri, $parameters);
-            $user = $app['auth']->user();
-            $response = $app['fluxbb.server']->dispatch($request, $user ?: new Guest());
-
-            return $app['fluxbb.web.renderer']->render($request, $response);
-        }])->where('uri', '.*');
     }
 
     /**
