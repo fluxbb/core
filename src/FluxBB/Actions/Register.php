@@ -3,41 +3,22 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
-use FluxBB\Server\Request;
-use Illuminate\Validation\Factory as ValidationFactory;
-use FluxBB\Models\Config;
 use FluxBB\Models\User;
+use FluxBB\Models\ConfigRepositoryInterface;
+use FluxBB\Server\Request;
+use FluxBB\Validator\UserValidator;
 
 class Register extends Action
 {
     protected $validator;
 
+    protected $config;
 
-    public function __construct(ValidationFactory $validator)
+
+    public function __construct(UserValidator $validator, ConfigRepositoryInterface $repository)
     {
         $this->validator = $validator;
-    }
-
-    protected function getValidationRules()
-    {
-        $rules = array(
-            'user'      => 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|no_bbcode|unique:users,username|username_not_banned',
-        );
-
-        // If email confirmation is enabled
-        if (Config::enabled('o_regs_verify')) {
-            $rules['email'] = 'required|email|confirmed|unique:users,email|email_not_banned';
-        } else {
-            $rules['password'] = 'required|min:4|confirmed';
-            $rules['email'] = 'required|email|unique:users,email';
-        }
-
-        // Agree to forum rules
-        if (Config::enabled('o_rules')) {
-            $rules['rules'] = 'accepted';
-        }
-
-        return $rules;
+        $this->config = $repository;
     }
 
     /**
@@ -47,31 +28,24 @@ class Register extends Action
      */
     protected function run()
     {
-        $rules = $this->getValidationRules();
-        $validation = $this->validator->make($this->input, $rules);
-
-        $this->onErrorRedirectTo(new Request('register'));
-
-        if ($validation->fails()) {
-            $this->mergeErrors($validation->errors());
-            return;
-        }
-
-        $userData = array(
+        $user = new User([
             'username'          => $this->request->get('user'),
-            'group_id'          => Config::get('o_default_user_group'),
+            'group_id'          => $this->config->get('o_default_user_group'),
             'password'          => $this->request->get('password'),
             'email'             => $this->request->get('email'),
-            'email_setting'     => Config::get('o_default_email_setting'),
-            'timezone'          => Config::get('o_default_timezone'),
-            'dst'               => Config::get('o_default_dst'),
-            'language'          => Config::get('o_default_lang'),
-            'style'             => Config::get('o_default_style'),
-            'registration_ip'   => $this->request->getClientIp(),
-            'last_visit'        => $this->request->server('REQUEST_TIME', time()),
-        );
-        $user = User::create($userData);
+            'email_setting'     => $this->config->get('o_default_email_setting'),
+            'timezone'          => $this->config->get('o_default_timezone'),
+            'dst'               => $this->config->get('o_default_dst'),
+            'language'          => $this->config->get('o_default_lang'),
+            'style'             => $this->config->get('o_default_style'),
+            //'registration_ip'   => $this->request->getClientIp(),
+            //'last_visit'        => $this->request->server('REQUEST_TIME', time()),
+        ]);
 
+        $this->onErrorRedirectTo(new Request('register'));
+        $this->validator->validate($this->request->get());
+
+        $user->save();
         $this->trigger('user.registered', array($user));
 
         $this->redirectTo(

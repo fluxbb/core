@@ -9,7 +9,6 @@
 
     <fieldset>
         <legend>{{ trans('fluxbb::register.legend_username') }}</legend>
-        <input type="hidden" name="form_sent" value="1" />
         {{-- TODO: Repopulate this with old values on errors --}}
         <label class="required">
             <strong>{{ trans('fluxbb::common.username') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br />
