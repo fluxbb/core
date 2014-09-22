@@ -4,7 +4,6 @@ namespace FluxBB\Integration\Laravel;
 
 use FluxBB\Models\Guest;
 use FluxBB\Web\JsonRenderer;
-use FluxBB\Web\LaravelUrlGenerator;
 use Illuminate\Support\ServiceProvider as Base;
 
 class ServiceProvider extends Base
@@ -17,7 +16,7 @@ class ServiceProvider extends Base
     public function register()
     {
         $this->app->singleton('fluxbb.web.url', function ($app) {
-            return new LaravelUrlGenerator($app['fluxbb.web.router'], $app['url']);
+            return new UrlGenerator($app['fluxbb.web.router'], $app['url']);
         });
     }
 

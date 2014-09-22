@@ -1,10 +1,12 @@
 <?php
 
-namespace FluxBB\Web;
+namespace FluxBB\Integration\Laravel;
 
-use Illuminate\Contracts\Routing\UrlGenerator;
+use FluxBB\Web\Router;
+use FluxBB\Web\UrlGeneratorInterface;
+use Illuminate\Contracts\Routing\UrlGenerator as LaravelGenerator;
 
-class LaravelUrlGenerator implements UrlGeneratorInterface
+class UrlGenerator implements UrlGeneratorInterface
 {
     /**
      * @var \FluxBB\Web\Router
@@ -17,7 +19,7 @@ class LaravelUrlGenerator implements UrlGeneratorInterface
     protected $generator;
 
 
-    public function __construct(Router $router, UrlGenerator $generator)
+    public function __construct(Router $router, LaravelGenerator $generator)
     {
         $this->router = $router;
         $this->generator = $generator;
