@@ -4,7 +4,7 @@
 @if (isset($message))
     <script type="text/javascript">
         jQuery(function($) {
-            var message = {{ json_encode($message) }};
+            var message = {!! json_encode($message) !!};
             FluxBB.alert(message);
         });
     </script>
