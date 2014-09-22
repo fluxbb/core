@@ -40,7 +40,7 @@ class ServiceProvider extends Base
         $this->app->make('router')->before(function () {
             if ($this->app->make('request')->ajax()) {
                 $this->app->singleton('fluxbb.web.renderer', function () {
-                    return new JsonRenderer($this->app->make('redirect'), $this->app->make('fluxbb.web.router'));
+                    return new JsonRenderer($this->app->make('redirect'), $this->app->make('fluxbb.web.url'));
                 });
             }
         });

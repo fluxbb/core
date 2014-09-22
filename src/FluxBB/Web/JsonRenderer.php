@@ -18,15 +18,15 @@ class JsonRenderer implements HandlerInterface
     protected $redirect;
 
     /**
-     * @var \FluxBB\Web\Router
+     * @var \FluxBB\Web\UrlGeneratorInterface
      */
-    protected $router;
+    protected $generator;
 
 
-    public function __construct(Redirector $redirect, Router $router)
+    public function __construct(Redirector $redirect, UrlGeneratorInterface $generator)
     {
         $this->redirect = $redirect;
-        $this->router = $router;
+        $this->generator = $generator;
     }
 
     public function render(Response $response)
@@ -45,7 +45,7 @@ class JsonRenderer implements HandlerInterface
         $parameters = $redirect->getNextRequest()->getParameters();
         $message = $redirect->getMessage();
 
-        $uri = $this->router->getPath($handler, $parameters);
+        $uri = $this->generator->toRoute($handler, $parameters);
         $response = $this->redirect->route('fluxbb', $uri);
 
         if ($message) {
