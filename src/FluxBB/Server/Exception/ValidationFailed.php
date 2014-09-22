@@ -21,6 +21,6 @@ class ValidationFailed extends \Exception
      */
     public function getErrors()
     {
-        return new $this->errors;
+        return $this->errors;
     }
 }
