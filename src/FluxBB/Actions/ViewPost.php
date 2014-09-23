@@ -24,7 +24,7 @@ class ViewPost extends Action
         $post = $this->conversations->findPostById($id);
         $page = $this->conversations->getPageOfPost($post, User::current()->dispPosts());
 
-        $this->redirectTo(
+        $this->forwardTo(
             new Request('conversation', [
                 'id' => $post->conversation_id,
                 'page' => $page,
