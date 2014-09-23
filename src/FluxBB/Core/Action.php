@@ -3,6 +3,7 @@
 namespace FluxBB\Core;
 
 use FluxBB\Models\HasPermissions;
+use FluxBB\Server\Exception\Forward;
 use FluxBB\Server\Exception\NoPermission;
 use FluxBB\Server\Exception\ValidationFailed;
 use FluxBB\Server\Request;
@@ -52,7 +53,7 @@ abstract class Action implements MessageProvider
     protected $request;
 
     /**
-     * The request to be executed when this action finishes.
+     * The request that the user should send next.
      *
      * @var \FluxBB\Server\Request
      */
@@ -181,7 +182,7 @@ abstract class Action implements MessageProvider
     }
 
     /**
-     * Set another request to be executed after this action.
+     * Set another request that the user should send next.
      *
      * @param \FluxBB\Server\Request $next
      * @param string $message
@@ -191,6 +192,17 @@ abstract class Action implements MessageProvider
     {
         $this->nextRequest = $next;
         $this->redirectMessage = $message;
+    }
+
+    /**
+     * Set another request to be executed after this action.
+     *
+     * @param \FluxBB\Server\Request $next
+     * @throws \FluxBB\Server\Exception\Forward
+     */
+    protected function forwardTo(Request $next)
+    {
+        throw new Forward($next);
     }
 
     /**

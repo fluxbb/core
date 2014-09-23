@@ -4,6 +4,7 @@ namespace FluxBB\Server;
 
 use FluxBB\Core\ActionFactory;
 use FluxBB\Models\HasPermissions;
+use FluxBB\Server\Exception\Forward;
 
 class Server
 {
@@ -58,9 +59,15 @@ class Server
         // Create the action instance
         $action = $this->resolve($request->getHandler());
 
-        return $action->setRequest($request)
-                      ->authorize($subject)
-                      ->execute();
+        try {
+            $response = $action->setRequest($request)
+                               ->authorize($subject)
+                               ->execute();
+        } catch (Forward $forward) {
+            $response = $this->dispatch($forward->getNextRequest(), $subject);
+        }
+
+        return $response;
     }
 
     /**
