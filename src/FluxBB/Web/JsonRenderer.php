@@ -46,7 +46,7 @@ class JsonRenderer implements HandlerInterface
         $message = $redirect->getMessage();
 
         $uri = $this->generator->toRoute($handler, $parameters);
-        $response = $this->redirect->route('fluxbb', $uri);
+        $response = $this->redirect->to($uri);
 
         if ($message) {
             $response->with('message', $message);
