@@ -4,7 +4,7 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
-use FluxBB\Models\ConversationRepository;
+use FluxBB\Models\ConversationRepositoryInterface;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -17,7 +17,7 @@ class Reply extends Action
     protected $conversations;
 
 
-    public function __construct(PostValidator $validator, ConversationRepository $repository)
+    public function __construct(PostValidator $validator, ConversationRepositoryInterface $repository)
     {
         $this->validator = $validator;
         $this->conversations = $repository;
