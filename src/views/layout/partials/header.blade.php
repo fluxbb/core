@@ -49,11 +49,6 @@
             <nav class="menu">
                 <ul class="nav nav-pills pull-left">
                     <li class="active"><a href="{{ $route('index') }}">Index</a></li>
-                @if (Auth::user())
-                    <li><a href="searched.html">Posted</a></li>
-                @endif
-                    <li><a href="searched.html">New</a></li>
-                    <li><a href="searched.html">Active</a></li>
                 </ul>
                 <h3 class="username pull-right">
                 @if (Auth::user())
