@@ -123,6 +123,7 @@ class ServiceProvider extends Base
         $router->get('admin/groups', 'admin.groups.index');
         $router->get('admin/groups/{id}/edit', 'admin.groups.edit');
         $router->get('admin/groups/{id}/delete', 'admin.groups.delete');
+        $router->get('admin/categories', 'admin.categories.index');
     }
 
     /**

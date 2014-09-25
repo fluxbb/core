@@ -74,6 +74,7 @@ class ServiceProvider extends Base
         $server->register('admin.dashboard.stats', 'FluxBB\Actions\Admin\StatsPage');
         $server->register('admin.dashboard.reports', 'FluxBB\Actions\Admin\ReportsPage');
         $server->register('admin.options.set', 'FluxBB\Actions\Admin\SetOptions');
+        $server->register('admin.categories.index', 'FluxBB\Actions\Admin\CategoriesList');
     }
 
     /**
