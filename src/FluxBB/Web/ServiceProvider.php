@@ -26,7 +26,7 @@ class ServiceProvider extends Base
         });
 
         $this->app->singleton('fluxbb.web.renderer', function ($app) {
-            return new Renderer($app['view'], $app['redirect'], $app['fluxbb.web.url']);
+            return new Renderer($app['view'], $app['redirect'], $app['FluxBB\Web\UrlGeneratorInterface']);
         });
 
         $this->registerViewHelpers();
@@ -53,11 +53,11 @@ class ServiceProvider extends Base
 
         $app->extend('view', function ($view, $app) {
             $view->share('route', function ($name, $parameters = []) use ($app) {
-                return $app['fluxbb.web.url']->toRoute($name, $parameters);
+                return $app['FluxBB\Web\UrlGeneratorInterface']->toRoute($name, $parameters);
             });
 
             $view->share('canonical', function () use ($app) {
-                return $app['fluxbb.web.url']->canonical();
+                return $app['FluxBB\Web\UrlGeneratorInterface']->canonical();
             });
 
             $view->share('method', function ($name) use ($app) {

@@ -15,7 +15,7 @@ class ServiceProvider extends Base
      */
     public function register()
     {
-        $this->app->singleton('fluxbb.web.url', function ($app) {
+        $this->app->singleton('FluxBB\Web\UrlGeneratorInterface', function ($app) {
             return new UrlGenerator($app['fluxbb.web.router'], $app['url']);
         });
     }
@@ -40,7 +40,9 @@ class ServiceProvider extends Base
         $this->app->make('router')->before(function () {
             if ($this->app->make('request')->ajax()) {
                 $this->app->singleton('fluxbb.web.renderer', function () {
-                    return new JsonRenderer($this->app->make('redirect'), $this->app->make('fluxbb.web.url'));
+                    $redirect = $this->app->make('redirect');
+                    $generator = $this->app->make('FluxBB\Web\UrlGeneratorInterface');
+                    return new JsonRenderer($redirect, $generator);
                 });
             }
         });
