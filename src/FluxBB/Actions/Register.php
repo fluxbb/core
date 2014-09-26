@@ -46,7 +46,7 @@ class Register extends Action
         $this->validator->validate($this->request->get());
 
         $user->save();
-        $this->trigger('user.registered', array($user));
+        $this->trigger('user.registered', [$user]);
 
         $this->redirectTo(
             new Request('index'),

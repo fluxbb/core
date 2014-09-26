@@ -4,6 +4,7 @@ namespace FluxBB\Handlers;
 
 use Illuminate\Mail\Message;
 use Illuminate\Contracts\Mail\Mailer;
+use FluxBB\Web\UrlGeneratorInterface;
 use FluxBB\Models\ConfigRepositoryInterface;
 
 class SendWelcomeEmail
@@ -12,20 +13,23 @@ class SendWelcomeEmail
 
     protected $config;
 
-    public function __construct(Mailer $mailer, ConfigRepositoryInterface $config)
+    protected $url;
+
+    public function __construct(Mailer $mailer, ConfigRepositoryInterface $config, UrlGeneratorInterface $url)
     {
         $this->mailer = $mailer;
         $this->config = $config;
+        $this->url = $url;
     }
     
     public function handle($user)
     {
-        $data = array(
+        $data = [
             'board_mailer'  => $this->config->get('o_board_title'),
-            'base_url'      => route('index'),
+            'base_url'      => $this->url->toRoute('index'),
             'user'          => $user,
-            'login_url'     => route('login'),
-        );
+            'login_url'     => $this->url->toRoute('login'),
+        ];
 
         $this->sendMailTo($user, $data);
     }
