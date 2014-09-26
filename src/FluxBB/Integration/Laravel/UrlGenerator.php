@@ -25,7 +25,7 @@ class UrlGenerator implements UrlGeneratorInterface
         $this->generator = $generator;
     }
 
-    public function toRoute($handler, $parameters)
+    public function toRoute($handler, $parameters = [])
     {
         $path = $this->router->getPath($handler, $parameters);
         return $this->getUrlToPath($path);
