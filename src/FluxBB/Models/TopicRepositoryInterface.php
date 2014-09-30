@@ -2,15 +2,15 @@
 
 namespace FluxBB\Models;
 
-interface ConversationRepositoryInterface
+interface TopicRepositoryInterface
 {
     public function findById($id);
 
-    public function getPostsIn($conversation);
+    public function getPostsIn($topic);
 
     public function findPostById($id);
 
     public function getPageOfPost($post, $perPage);
 
-    public function addReply($conversation, $post);
+    public function addReply($topic, $post);
 }
