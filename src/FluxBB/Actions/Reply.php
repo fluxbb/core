@@ -4,7 +4,7 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
-use FluxBB\Models\ConversationRepositoryInterface;
+use FluxBB\Models\TopicRepositoryInterface;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -14,13 +14,13 @@ class Reply extends Action
 {
     protected $validator;
 
-    protected $conversations;
+    protected $topics;
 
 
-    public function __construct(PostValidator $validator, ConversationRepositoryInterface $repository)
+    public function __construct(PostValidator $validator, TopicRepositoryInterface $repository)
     {
         $this->validator = $validator;
-        $this->conversations = $repository;
+        $this->topics = $repository;
     }
 
     /**
@@ -31,7 +31,7 @@ class Reply extends Action
     protected function run()
     {
         $id = $this->request->get('id');
-        $conversation = $this->conversations->findById($id);
+        $topic = $this->topics->findById($id);
 
         $creator = User::current();
 
@@ -42,10 +42,10 @@ class Reply extends Action
             'posted'	=> Carbon::now(),
         ]);
 
-        $this->onErrorRedirectTo(new Request('conversation', ['id' => $conversation->id]));
+        $this->onErrorRedirectTo(new Request('topic', ['id' => $topic->id]));
         $this->validator->validate($post);
 
-        $this->conversations->addReply($conversation, $post);
+        $this->topics->addReply($topic, $post);
 
         $this->trigger('user.posted', [$creator, $post]);
 
