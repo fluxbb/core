@@ -21,10 +21,10 @@ class Posts extends Migration
             $table->integer('posted')->unsigned()->default(0);
             $table->integer('edited')->unsigned()->nullable();
             $table->string('edited_by', 200)->nullable();
-            $table->integer('conversation_id')->unsigned();
+            $table->integer('topic_id')->unsigned();
 
-            $table->index('conversation_id');
-            $table->index(['poster_id', 'conversation_id']);
+            $table->index('topic_id');
+            $table->index(['poster_id', topic_id']);
         });
     }
 
