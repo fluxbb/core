@@ -3,7 +3,7 @@
 namespace FluxBB\Core;
 
 use FluxBB\Models\CategoryRepository;
-use FluxBB\Models\ConversationRepository;
+use FluxBB\Models\TopicRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 use FluxBB\Models\GroupRepository;
@@ -68,8 +68,8 @@ class CoreServiceProvider extends ServiceProvider
             return new CategoryRepository($app['db']->connection('fluxbb'));
         });
 
-        $this->app->bind('FluxBB\Models\ConversationRepositoryInterface', function ($app) {
-            return new ConversationRepository($app['db']->connection('fluxbb'));
+        $this->app->bind('FluxBB\Models\TopicRepositoryInterface', function ($app) {
+            return new TopicRepository($app['db']->connection('fluxbb'));
         });
     }
 
