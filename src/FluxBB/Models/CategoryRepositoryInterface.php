@@ -8,7 +8,7 @@ interface CategoryRepositoryInterface
 
     public function getByParent($slug);
 
-    public function getConversationsIn($category);
+    public function getTopicsIn($category);
 
-    public function addNewTopic($category, $conversation, $post);
+    public function addNewTopic($category, $topic, $post);
 }

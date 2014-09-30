@@ -4,7 +4,7 @@
 
 <div id="vt" class="vtx">
 
-    <h2 class="topic-title"><span>{{ $conversation->title }}</span></h2>
+    <h2 class="topic-title"><span>{{ $topic->title }}</span></h2>
 
     <div class="top-navigation clearfix">
         <ul class="pagination pagelink pull-left">
@@ -31,7 +31,7 @@
 </div>
 
 <div id="quickpost" class="post post-bg clearfix">
-    <form action="{{ $route('reply_handler', array('id' => $conversation->id)) }}" method="POST">
+    <form action="{{ $route('reply_handler', array('id' => $topic->id)) }}" method="POST">
         <div class="author-box col-md-2 col-sm-2 col-xs-2">
             <div class="author-name"><h4>Reply</h4></div>
         </div>

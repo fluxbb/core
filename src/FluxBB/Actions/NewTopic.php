@@ -38,7 +38,7 @@ class NewTopic extends Action
         $creator = User::current();
         $now = Carbon::now();
 
-        $conversation = (object) [
+        $topic = (object) [
             'poster'        => $creator->username,
             'title'         => $this->request->get('subject'),
             'posted'        => $now,
@@ -57,12 +57,12 @@ class NewTopic extends Action
         $this->onErrorRedirectTo(new Request('new_topic', ['slug' => $category->slug]));
         $this->validator->validate($post);
 
-        $this->categories->addNewTopic($category, $conversation, $post->toArray());
+        $this->categories->addNewTopic($category, $topic, $post->toArray());
 
         $this->trigger('user.posted', [$creator, $post]);
 
         $this->redirectTo(
-            new Request('conversation', ['id' => $conversation->id]),
+            new Request('topic', ['id' => $topic->id]),
             trans('fluxbb::topic.topic_added')
         );
     }

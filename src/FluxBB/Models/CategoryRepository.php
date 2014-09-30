@@ -31,19 +31,19 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $this->database->table('categories')->where('slug', '!=', $slug)->where('slug', 'LIKE', "$slug%")->get();
     }
 
-    public function getConversationsIn($category)
+    public function getTopicsIn($category)
     {
-        $rows = $this->database->table('conversations')->where('category_slug', $category->slug)->get();
+        $rows = $this->database->table('topics')->where('category_slug', $category->slug)->get();
 
         return $rows;
     }
 
-    public function addNewTopic($category, $conversation, $post)
+    public function addNewTopic($category, $topic, $post)
     {
-        $conversation->category_slug = $category->slug;
-        $conversation->id = $this->database->table('conversations')->insertGetId((array) $conversation);
+        $topic->category_slug = $category->slug;
+        $topic->id = $this->database->table('topics')->insertGetId((array) $topic);
 
-        $post['conversation_id'] = $conversation->id;
+        $post['topic_id'] = $topic->id;
         $this->database->table('posts')->insertGetId($post);
     }
 }
