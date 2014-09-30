@@ -47,7 +47,7 @@ class ServiceProvider extends Base
 
         $server->register('index', 'FluxBB\Actions\Home');
         $server->register('category', 'FluxBB\Actions\ViewCategory');
-        $server->register('conversation', 'FluxBB\Actions\ViewConversation');
+        $server->register('topic', 'FluxBB\Actions\ViewTopic');
         $server->register('viewpost', 'FluxBB\Actions\ViewPost');
         $server->register('register', 'FluxBB\Actions\RegisterPage');
         $server->register('handle_registration', 'FluxBB\Actions\Register');
