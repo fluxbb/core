@@ -7,7 +7,7 @@
     <form action="{{ $route('new_topic', ['slug' => $category->slug]) }}" method="POST" id="post">
 
         <div class="topic-title new-topic-title">
-            <input type="text" name="subject" value="" placeholder="Give your conversation a title." />
+            <input type="text" name="subject" value="" placeholder="Give your topic a title." />
         </div>
 
         <div id="post-new" class="post post-new post-bg clearfix">
