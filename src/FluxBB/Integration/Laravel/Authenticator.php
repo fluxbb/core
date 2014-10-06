@@ -24,4 +24,4 @@ class Authenticator implements AuthenticatorInterface
     {
         $this->auth->logout();
     }
-} 
+}
