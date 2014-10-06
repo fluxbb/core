@@ -4,17 +4,17 @@ namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
 use FluxBB\Server\Request;
-use Illuminate\Contracts\Auth\Authenticator;
+use FluxBB\Auth\AuthenticatorInterface;
 
 class Login extends Action
 {
     /**
-     * @var \Illuminate\Contracts\Auth\Authenticator
+     * @var \FluxBB\Auth\AuthenticatorInterface
      */
     protected $auth;
 
 
-    public function __construct(Authenticator $auth)
+    public function __construct(AuthenticatorInterface $auth)
     {
         $this->auth = $auth;
     }
@@ -29,7 +29,7 @@ class Login extends Action
 
         $this->onErrorRedirectTo(new Request('login'));
 
-        if (! $this->auth->attempt($credentials, $remember)) {
+        if (! $this->auth->login($credentials, $remember)) {
             $this->addError('Invalid username / password combination');
         }
 

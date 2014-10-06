@@ -18,6 +18,8 @@ class ServiceProvider extends Base
         $this->app->singleton('FluxBB\Web\UrlGeneratorInterface', function ($app) {
             return new UrlGenerator($app['fluxbb.web.router'], $app['url']);
         });
+
+        $this->app->singleton('FluxBB\Auth\AuthenticatorInterface', 'FluxBB\Integration\Laravel\Authenticator');
     }
 
     /**
