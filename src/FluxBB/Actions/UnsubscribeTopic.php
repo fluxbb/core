@@ -3,6 +3,7 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
+use FluxBB\Events\UserUnsubscribed;
 use FluxBB\Models\Topic;
 use FluxBB\Models\User;
 use FluxBB\Server\Request;
@@ -22,7 +23,7 @@ class UnsubscribeTopic extends Action
 
         if ($topic->subscribers->contains($user->id)) {
             $topic->subscribers()->detach($user);
-            $this->trigger('topic.unsubscribed', [$topic, $user]);
+            $this->raise(new UserUnsubscribed($topic, $user));
         }
 
         $this->redirectTo(

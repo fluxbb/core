@@ -2,12 +2,14 @@
 
 namespace FluxBB\Handlers;
 
+use FluxBB\Core\EventHandler;
+use FluxBB\Events\UserHasRegistered;
 use Illuminate\Mail\Message;
 use Illuminate\Contracts\Mail\Mailer;
 use FluxBB\Web\UrlGeneratorInterface;
 use FluxBB\Models\ConfigRepositoryInterface;
 
-class SendWelcomeEmail
+class SendWelcomeEmail extends EventHandler
 {
     protected $mailer;
 
@@ -22,16 +24,16 @@ class SendWelcomeEmail
         $this->url = $url;
     }
     
-    public function handle($user)
+    public function whenUserHasRegistered(UserHasRegistered $event)
     {
         $data = [
             'board_mailer'  => $this->config->get('o_board_title'),
             'base_url'      => $this->url->toRoute('index'),
-            'user'          => $user,
+            'user'          => $event->user,
             'login_url'     => $this->url->toRoute('login'),
         ];
 
-        $this->sendMailTo($user, $data);
+        $this->sendMailTo($event->user, $data);
     }
 
     protected function sendMailTo($user, $data)

@@ -2,13 +2,15 @@
 
 namespace FluxBB\Handlers;
 
-use FluxBB\Models\Post;
-use FluxBB\Models\User;
+use FluxBB\Core\EventHandler;
+use FluxBB\Events\UserHasPosted;
 
-class UpdateForumStats
+class UpdateForumStats extends EventHandler
 {
-    public function handle(User $user, Post $post)
+    public function whenUserHasPosted(UserHasPosted $event)
     {
+        $post = $event->post;
+
         $topic = $post->topic;
         $topic->last_post_id = $post->id;
         $topic->num_replies += 1;

@@ -2,14 +2,15 @@
 
 namespace FluxBB\Handlers;
 
-use Carbon\Carbon;
-use FluxBB\Models\User;
+use FluxBB\Core\EventHandler;
+use FluxBB\Events\UserHasPosted;
 
-class UpdateUserPostStats
+class UpdateUserPostStats extends EventHandler
 {
-    public function handle(User $user)
+    public function whenUserHasPosted(UserHasPosted $event)
     {
-        $user->last_post = Carbon::now();
+        $user = $event->user;
+        $user->last_post = $event->time;
         $user->num_posts += 1;
         $user->save();
     }

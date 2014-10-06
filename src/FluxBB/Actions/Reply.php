@@ -4,6 +4,7 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
+use FluxBB\Events\UserHasPosted;
 use FluxBB\Models\ConversationRepositoryInterface;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
@@ -47,7 +48,7 @@ class Reply extends Action
 
         $this->conversations->addReply($conversation, $post);
 
-        $this->trigger('user.posted', [$creator, $post]);
+        $this->raise(new UserHasPosted($creator, $post));
 
         $this->redirectTo(
             new Request('viewpost', ['id' => $post->id]),

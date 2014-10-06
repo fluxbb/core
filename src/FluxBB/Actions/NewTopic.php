@@ -4,6 +4,7 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
+use FluxBB\Events\UserHasPosted;
 use FluxBB\Models\CategoryRepositoryInterface;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
@@ -59,7 +60,7 @@ class NewTopic extends Action
 
         $this->categories->addNewTopic($category, $conversation, $post->toArray());
 
-        $this->trigger('user.posted', [$creator, $post]);
+        $this->raise(new UserHasPosted($creator, $post));
 
         $this->redirectTo(
             new Request('conversation', ['id' => $conversation->id]),

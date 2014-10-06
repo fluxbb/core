@@ -3,6 +3,7 @@
 namespace FluxBB\Actions\Admin;
 
 use FluxBB\Core\Action;
+use FluxBB\Events\OptionWasChanged;
 use FluxBB\Models\ConfigRepositoryInterface;
 use FluxBB\Server\Request;
 
@@ -32,7 +33,7 @@ class SetOptions extends Action
             $key = 'o_' . $key;
             if ($this->config->has($key)) {
                 $this->config->set($key, $value);
-                $this->trigger('option.changed', [$key, $value]);
+                $this->raise(new OptionWasChanged($key, $value));
             }
         }
 

@@ -286,15 +286,17 @@ abstract class Action implements MessageProvider
     }
 
     /**
-     * Trigger the given event.
+     * Raise the given event.
      *
-     * @param string $event
-     * @param array $arguments
+     * @param object $event
      * @return void
      */
-    public function trigger($event, $arguments = [])
+    protected function raise($event)
     {
-        $this->events->fire($event, $arguments);
+        $qualified = get_class($event);
+        $name = str_replace('\\', '.', $qualified);
+
+        $this->events->fire($name, [$event]);
     }
 
     /**

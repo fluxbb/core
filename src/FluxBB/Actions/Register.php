@@ -3,6 +3,7 @@
 namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
+use FluxBB\Events\UserHasRegistered;
 use FluxBB\Models\User;
 use FluxBB\Models\ConfigRepositoryInterface;
 use FluxBB\Server\Request;
@@ -46,7 +47,7 @@ class Register extends Action
         $this->validator->validate($this->request->get());
 
         $user->save();
-        $this->trigger('user.registered', [$user]);
+        $this->raise(new UserHasRegistered($user));
 
         $this->redirectTo(
             new Request('index'),

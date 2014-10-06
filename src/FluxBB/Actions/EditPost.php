@@ -4,6 +4,7 @@ namespace FluxBB\Actions;
 
 use Carbon\Carbon;
 use FluxBB\Core\Action;
+use FluxBB\Events\PostWasEdited;
 use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
@@ -43,7 +44,7 @@ class EditPost extends Action
         $this->validator->validate($this->post);
 
         $this->post->save();
-        $this->trigger('post.edited', [$this->post, $creator]);
+        $this->raise(new PostWasEdited($this->post, $creator));
 
         $this->redirectTo(
             new Request('viewpost', ['id' => $this->post->id]),
