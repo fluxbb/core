@@ -23,4 +23,4 @@ class PostWasEdited
         $this->post = $post;
         $this->user = $user;
     }
-} 
+}

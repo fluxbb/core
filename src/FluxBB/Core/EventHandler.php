@@ -14,8 +14,7 @@ class EventHandler
     {
         $method = $this->getMethodFor($event);
 
-        if (method_exists($this, $method))
-        {
+        if (method_exists($this, $method)) {
             return call_user_func([$this, $method], $event);
         }
     }
