@@ -4,7 +4,7 @@ namespace FluxBB\Server\Exception;
 
 use Illuminate\Support\MessageBag;
 
-class ValidationFailed extends \Exception
+class ValidationFailed extends Exception
 {
     protected $errors;
 

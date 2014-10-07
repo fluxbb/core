@@ -4,7 +4,7 @@ namespace FluxBB\Server\Exception;
 
 use FluxBB\Server\Request;
 
-class Forward extends \Exception
+class Forward extends Exception
 {
     protected $next;
 

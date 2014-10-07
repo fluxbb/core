@@ -2,6 +2,5 @@
 
 namespace FluxBB\Server\Exception;
 
-class NoPermission extends Exception
-{
-}
+class Exception extends \Exception
+{}
