@@ -6,7 +6,7 @@ use FluxBB\Core\ActionFactory;
 use FluxBB\Models\HasPermissions;
 use FluxBB\Server\Exception\Forward;
 
-class Server
+class Server implements ServerInterface
 {
     /**
      * The handler classes for all registered actions.
@@ -40,7 +40,7 @@ class Server
      * @param string $actionClass
      * @return $this
      */
-    public function register($name, $actionClass)
+    public function registerAction($name, $actionClass)
     {
         $this->actions[$name] = $actionClass;
         return $this;
@@ -52,12 +52,12 @@ class Server
      * @param \FluxBB\Server\Request $request
      * @param \FluxBB\Models\HasPermissions $subject
      * @return \FluxBB\Server\Response\Response
-     * @throws \Exception
+     * @throws \FluxBB\Server\Exception\Exception
      */
     public function dispatch(Request $request, HasPermissions $subject)
     {
         // Create the action instance
-        $action = $this->resolve($request->getHandler());
+        $action = $this->resolveAction($request->getHandler());
 
         try {
             $response = $action->setRequest($request)
@@ -77,7 +77,7 @@ class Server
      * @return \FluxBB\Core\Action
      * @throws \InvalidArgumentException
      */
-    protected function resolve($name)
+    protected function resolveAction($name)
     {
         if (isset($this->actions[$name])) {
             return $this->factory->make($this->actions[$name]);

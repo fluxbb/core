@@ -57,7 +57,7 @@ class ServiceProvider extends Base
             $user = $this->app->make('auth')->user();
 
             $request = $this->app->make('fluxbb.web.router')->getRequest($method, $uri, $parameters);
-            $response = $this->app->make('fluxbb.server')->dispatch($request, $user ?: new Guest());
+            $response = $this->app->make('FluxBB\Server\ServerInterface')->dispatch($request, $user ?: new Guest());
 
             return $this->app->make('fluxbb.web.renderer')->render($response);
         }])->where('uri', '.*');
