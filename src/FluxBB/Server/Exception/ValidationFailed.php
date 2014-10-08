@@ -2,14 +2,14 @@
 
 namespace FluxBB\Server\Exception;
 
-use Illuminate\Support\MessageBag;
+use Illuminate\Contracts\Support\MessageProvider;
 
 class ValidationFailed extends Exception
 {
     protected $errors;
 
 
-    public function __construct(MessageBag $errors)
+    public function __construct(MessageProvider $errors)
     {
         $this->errors = $errors;
     }
@@ -21,6 +21,6 @@ class ValidationFailed extends Exception
      */
     public function getErrors()
     {
-        return $this->errors;
+        return $this->errors->getMessageBag();
     }
 }
