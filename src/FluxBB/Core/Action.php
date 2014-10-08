@@ -39,13 +39,6 @@ abstract class Action implements MessageProvider
     protected $events;
 
     /**
-     * All event handler callbacks.
-     *
-     * @var array
-     */
-    protected $handlers = [];
-
-    /**
      * The request that led to this action.
      *
      * @var \FluxBB\Server\Request
@@ -109,8 +102,6 @@ abstract class Action implements MessageProvider
     public function execute()
     {
         try {
-            $this->callHandlers('before');
-
             $this->run();
 
             $response = $this->makeResponse();
@@ -119,8 +110,6 @@ abstract class Action implements MessageProvider
         } catch (\Exception $e) {
             throw $e;
         }
-
-        $this->callHandlers('after');
 
         return $response;
     }
@@ -297,84 +286,6 @@ abstract class Action implements MessageProvider
         $name = str_replace('\\', '.', $qualified);
 
         $this->events->fire($name, [$event]);
-    }
-
-    /**
-     * Register a callback to be executed before running the action.
-     *
-     * @param callable $callback
-     * @return $this
-     */
-    public function before(callable $callback)
-    {
-        $this->registerHandler('before', $callback);
-        return $this;
-    }
-
-    /**
-     * Register a callback to be executed after running the action.
-     *
-     * @param callable $callback
-     * @return $this
-     */
-    public function after(callable $callback)
-    {
-        $this->registerHandler('after', $callback);
-        return $this;
-    }
-
-    /**
-     * Register a callback to be executed if the action is successfully executed.
-     *
-     * @param callable $callback
-     * @return $this
-     */
-    public function onSuccess(callable $callback)
-    {
-        $this->registerHandler('success', $callback);
-        return $this;
-    }
-
-    /**
-     * Register a callback to be executed in case of an error.
-     *
-     * @param callable $callback
-     * @return $this
-     */
-    public function onError(callable $callback)
-    {
-        $this->registerHandler('error', $callback);
-        return $this;
-    }
-
-    /**
-     * Register a callback for a certain type of event.
-     *
-     * @param string $type
-     * @param callable $callback
-     * @return void
-     */
-    protected function registerHandler($type, callable $callback)
-    {
-        $this->handlers[$type][] = $callback;
-    }
-
-    /**
-     * Execute all handlers of the given type.
-     *
-     * @param string $type
-     * @return void
-     */
-    protected function callHandlers($type)
-    {
-        if (isset($this->handlers[$type])) {
-            $arguments = func_get_args();
-            $arguments[0] = $this;
-
-            foreach ($this->handlers[$type] as $handler) {
-                call_user_func_array($handler, $arguments);
-            }
-        }
     }
 
     /**
