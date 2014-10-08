@@ -3,6 +3,7 @@
 namespace FluxBB\Core;
 
 use FluxBB\Server\Exception\ValidationFailed;
+use FluxBB\Server\Request;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\MessageBag;
 
@@ -32,6 +33,17 @@ abstract class Validator
      * @return array
      */
     abstract protected function rules();
+
+    /**
+     * Validate the given request.
+     *
+     * Should throw an exception if validation fails.
+     *
+     * @param \FluxBB\Server\Request $request
+     * @return void
+     * @throws \FluxBB\Server\Exception\ValidationFailed
+     */
+    abstract public function validate(Request $request);
 
     /**
      * Make sure the given attributes comply to our rules.
