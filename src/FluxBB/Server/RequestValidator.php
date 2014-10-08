@@ -95,7 +95,7 @@ class RequestValidator implements ServerInterface
      */
     protected function resolveValidator(Request $request)
     {
-        if ( ! isset($this->validators[$request->getHandler()])) {
+        if (! isset($this->validators[$request->getHandler()])) {
             return null;
         }
 
