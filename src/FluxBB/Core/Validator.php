@@ -54,26 +54,22 @@ abstract class Validator
     }
 
     /**
-     * Make sure all of the given keys exist in our ruleset.
+     * Make sure all of the keys of the given array exist in our ruleset.
      *
-     * @param array $keys
+     * @param array $data
      * @return $this
      * @throws \FluxBB\Server\Exception\ValidationFailed
      */
-    protected function ensureAllInRules(array $keys)
+    protected function ensureAllInRules(array $data)
     {
         $rules = $this->rules();
 
-        $invalid = array_filter($keys, function ($key) use ($rules) {
-            return !isset($rules[$key]);
-        });
+        $invalid = array_diff_key($data, $rules);
 
         if (!empty($invalid)) {
-            throw new ValidationFailed(new MessageBag(
-                array_map(function ($key) {
-                    return "'$key' is not a valid configuration option.";
-                }, $invalid)
-            ));
+            throw new ValidationFailed(new MessageBag([
+                'Invalid keys found in request.',
+            ]));
         }
 
         return $this;
