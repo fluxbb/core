@@ -37,7 +37,7 @@
         </div>
         <div class="post-box col-md-10 col-sm-10 col-xs-10">
             <div class="post-content">
-                <textarea name="req_message" class="new-message" rows="7" cols="75" placeholder="Write your message and submit!"></textarea>
+                <textarea name="message" class="new-message" rows="7" cols="75" placeholder="Write your message and submit!"></textarea>
             </div>
         </div>
         <div class="new-post-submit col-md-offset-2">

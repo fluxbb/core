@@ -5,7 +5,6 @@ namespace FluxBB\Actions;
 use Carbon\Carbon;
 use FluxBB\Core\Action;
 use FluxBB\Events\PostWasEdited;
-use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
@@ -14,13 +13,6 @@ class EditPost extends Action
 {
     protected $post;
 
-    protected $validator;
-
-
-    public function __construct(PostValidator $validator)
-    {
-        $this->validator = $validator;
-    }
 
     /**
      * Run the action and return a response for the user.
@@ -36,12 +28,10 @@ class EditPost extends Action
 
         $creator = User::current();
         $this->post->fill([
-            'message'	=> $this->request->get('req_message'),
+            'message'   => $this->request->get('message'),
             'edited'    => Carbon::now(),
             'edited_by' => $creator->username,
         ]);
-
-        $this->validator->validate($this->post);
 
         $this->post->save();
         $this->raise(new PostWasEdited($this->post, $creator));

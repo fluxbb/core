@@ -6,21 +6,17 @@ use Carbon\Carbon;
 use FluxBB\Core\Action;
 use FluxBB\Events\UserHasPosted;
 use FluxBB\Models\CategoryRepositoryInterface;
-use FluxBB\Validator\PostValidator;
 use FluxBB\Server\Request;
 use FluxBB\Models\User;
 use FluxBB\Models\Post;
 
 class NewTopic extends Action
 {
-    protected $validator;
-
     protected $categories;
 
 
-    public function __construct(PostValidator $validator, CategoryRepositoryInterface $repository)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
-        $this->validator = $validator;
         $this->categories = $repository;
     }
 
@@ -56,7 +52,6 @@ class NewTopic extends Action
         ]));
 
         $this->onErrorRedirectTo(new Request('new_topic', ['slug' => $category->slug]));
-        $this->validator->validate($post);
 
         $this->categories->addNewTopic($category, $conversation, $post->toArray());
 

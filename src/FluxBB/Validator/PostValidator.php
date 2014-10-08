@@ -4,6 +4,7 @@ namespace FluxBB\Validator;
 
 use FluxBB\Core\Validator;
 use FluxBB\Models\Post;
+use FluxBB\Server\Request;
 
 class PostValidator extends Validator
 {
@@ -20,13 +21,16 @@ class PostValidator extends Validator
     }
 
     /**
-     * Make sure the given post is valid.
+     * Validate the given request.
      *
-     * @param \FluxBB\Models\Post $post
+     * Should throw an exception if validation fails.
+     *
+     * @param \FluxBB\Server\Request $request
+     * @return void
      * @throws \FluxBB\Server\Exception\ValidationFailed
      */
-    public function validate(Post $post)
+    public function validate(Request $request)
     {
-        $this->ensureValid($post->getAttributes());
+        $this->ensureValid($request->getParameters());
     }
 }
