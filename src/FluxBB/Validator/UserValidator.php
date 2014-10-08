@@ -3,6 +3,7 @@
 namespace FluxBB\Validator;
 
 use FluxBB\Core\Validator;
+use FluxBB\Server\Request;
 
 class UserValidator extends Validator
 {
@@ -21,13 +22,16 @@ class UserValidator extends Validator
     }
 
     /**
-     * Make sure the given attributes are valid for a user.
+     * Validate the given request.
      *
-     * @param array $user
+     * Should throw an exception if validation fails.
+     *
+     * @param \FluxBB\Server\Request $request
+     * @return void
      * @throws \FluxBB\Server\Exception\ValidationFailed
      */
-    public function validate(array $user)
+    public function validate(Request $request)
     {
-        $this->ensureValid($user);
+        $this->ensureValid($request->getParameters());
     }
 }

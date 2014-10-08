@@ -92,6 +92,7 @@ class ServiceProvider extends Base
         $validator->registerValidator('reply_handler', 'FluxBB\Validator\PostValidator');
         $validator->registerValidator('new_topic_handler', 'FluxBB\Validator\PostValidator');
         $validator->registerValidator('admin.options.set', 'FluxBB\Validator\OptionsValidator');
+        $validator->registerValidator('handle_registration', 'FluxBB\Validator\UserValidator');
     }
 
     /**

@@ -7,18 +7,14 @@ use FluxBB\Events\UserHasRegistered;
 use FluxBB\Models\User;
 use FluxBB\Models\ConfigRepositoryInterface;
 use FluxBB\Server\Request;
-use FluxBB\Validator\UserValidator;
 
 class Register extends Action
 {
-    protected $validator;
-
     protected $config;
 
 
-    public function __construct(UserValidator $validator, ConfigRepositoryInterface $repository)
+    public function __construct(ConfigRepositoryInterface $repository)
     {
-        $this->validator = $validator;
         $this->config = $repository;
     }
 
@@ -44,7 +40,6 @@ class Register extends Action
         ]);
 
         $this->onErrorRedirectTo(new Request('register'));
-        $this->validator->validate($this->request->get());
 
         $user->save();
         $this->raise(new UserHasRegistered($user));
