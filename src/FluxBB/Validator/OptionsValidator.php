@@ -3,6 +3,7 @@
 namespace FluxBB\Validator;
 
 use FluxBB\Core\Validator;
+use FluxBB\Server\Request;
 
 class OptionsValidator extends Validator
 {
@@ -39,13 +40,18 @@ class OptionsValidator extends Validator
     }
 
     /**
-     * Make sure the given options are valid.
+     * Validate the given request.
      *
-     * @param array $options
+     * Should throw an exception if validation fails.
+     *
+     * @param \FluxBB\Server\Request $request
+     * @return void
      * @throws \FluxBB\Server\Exception\ValidationFailed
      */
-    public function validate(array $options)
+    public function validate(Request $request)
     {
+        $options = $request->getParameters();
+
         $this->ensureAllInRules($options)
              ->ensureValid($options);
     }

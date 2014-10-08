@@ -88,7 +88,7 @@ class ServiceProvider extends Base
      */
     protected function registerValidators(RequestValidator $validator)
     {
-        //
+        $validator->registerValidator('admin.options.set', 'FluxBB\Validator\OptionsValidator');
     }
 
     /**
