@@ -22,33 +22,32 @@ class ServiceProvider extends Base
     public function register()
     {
         $this->app->singleton('fluxbb.server.core', function ($app) {
-            return new Server(new ActionFactory($app));
+            $server = new Server(new ActionFactory($app));
+            $this->registerActions($server);
+
+            return $server;
         });
 
         $this->app->singleton('FluxBB\Server\ServerInterface', function ($app) {
             return $app->make('fluxbb.server.core');
         });
+
+        $this->app->extend('FluxBB\Server\ServerInterface', function ($server, $app) {
+            $validator = new RequestValidator($app, $server);
+            $this->registerValidators($validator);
+
+            return $validator;
+        });
     }
 
     /**
-     * Bootstrap the application events.
+     * Register the actions with the server.
      *
+     * @param \FluxBB\Server\Server $server
      * @return void
      */
-    public function boot()
+    protected function registerActions(Server $server)
     {
-        $this->registerHandlers();
-    }
-
-    /**
-     * Register the handlers with the server.
-     *
-     * @return void
-     */
-    protected function registerHandlers()
-    {
-        $server = $this->app['fluxbb.server.core'];
-
         $server->registerAction('index', 'FluxBB\Actions\Home');
         $server->registerAction('category', 'FluxBB\Actions\ViewCategory');
         $server->registerAction('conversation', 'FluxBB\Actions\ViewConversation');
@@ -79,6 +78,17 @@ class ServiceProvider extends Base
         $server->registerAction('admin.dashboard.reports', 'FluxBB\Actions\Admin\ReportsPage');
         $server->registerAction('admin.options.set', 'FluxBB\Actions\Admin\SetOptions');
         $server->registerAction('admin.categories.index', 'FluxBB\Actions\Admin\CategoriesList');
+    }
+
+    /**
+     * Register all validators actions with the request validator.
+     *
+     * @param \FluxBB\Server\RequestValidator $validator
+     * @return void
+     */
+    protected function registerValidators(RequestValidator $validator)
+    {
+        //
     }
 
     /**
