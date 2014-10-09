@@ -5,7 +5,6 @@ namespace FluxBB\Core;
 use FluxBB\Models\HasPermissions;
 use FluxBB\Server\Exception\Forward;
 use FluxBB\Server\Exception\NoPermission;
-use FluxBB\Server\Exception\ValidationFailed;
 use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
@@ -105,8 +104,6 @@ abstract class Action implements MessageProvider
             $this->run();
 
             $response = $this->makeResponse();
-        } catch (ValidationFailed $e) {
-            $response = $this->makeErrorResponse($e->getErrors());
         } catch (\Exception $e) {
             throw $e;
         }
