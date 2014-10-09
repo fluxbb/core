@@ -2,7 +2,6 @@
 
 namespace FluxBB\Server;
 
-use FluxBB\Models\HasPermissions;
 use Illuminate\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
 
@@ -60,15 +59,14 @@ class RequestValidator implements ServerInterface
      * Resolve the request and return a response.
      *
      * @param \FluxBB\Server\Request $request
-     * @param \FluxBB\Models\HasPermissions $subject
      * @return \FluxBB\Server\Response\Response
      * @throws \FluxBB\Server\Exception\Exception
      */
-    public function dispatch(Request $request, HasPermissions $subject)
+    public function dispatch(Request $request)
     {
         $this->validate($request);
 
-        return $this->next->dispatch($request, $subject);
+        return $this->next->dispatch($request);
     }
 
     /**

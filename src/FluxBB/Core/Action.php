@@ -67,20 +67,6 @@ abstract class Action implements MessageProvider
 
 
     /**
-     * Make sure the given subject is authorized to execute this action.
-     *
-     * If authorization fails, an exception should be thrown.
-     *
-     * @param \FluxBB\Models\HasPermissions $subject
-     * @return $this
-     * @throws \FluxBB\Server\Exception\NoPermission
-     */
-    public function authorize(HasPermissions $subject)
-    {
-        return $this;
-    }
-
-    /**
      * Set the request instance.
      *
      * @param \FluxBB\Server\Request $request
@@ -117,22 +103,6 @@ abstract class Action implements MessageProvider
      * @return void
      */
     abstract protected function run();
-
-    /**
-     * Make sure the given check passes, otherwise throw an exception.
-     *
-     * @param bool $check
-     * @return $this
-     * @throws \FluxBB\Server\Exception\NoPermission
-     */
-    protected function authorizedIf($check)
-    {
-        if (!$check) {
-            throw new NoPermission;
-        }
-
-        return $this;
-    }
 
     /**
      * Create a response based on the action's status.

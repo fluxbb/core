@@ -3,7 +3,6 @@
 namespace FluxBB\Server;
 
 use FluxBB\Core\ActionFactory;
-use FluxBB\Models\HasPermissions;
 use FluxBB\Server\Exception\Forward;
 
 class Server implements ServerInterface
@@ -50,21 +49,19 @@ class Server implements ServerInterface
      * Resolve the request and return a response.
      *
      * @param \FluxBB\Server\Request $request
-     * @param \FluxBB\Models\HasPermissions $subject
      * @return \FluxBB\Server\Response\Response
      * @throws \FluxBB\Server\Exception\Exception
      */
-    public function dispatch(Request $request, HasPermissions $subject)
+    public function dispatch(Request $request)
     {
         // Create the action instance
         $action = $this->resolveAction($request->getHandler());
 
         try {
             $response = $action->setRequest($request)
-                               ->authorize($subject)
                                ->execute();
         } catch (Forward $forward) {
-            $response = $this->dispatch($forward->getNextRequest(), $subject);
+            $response = $this->dispatch($forward->getNextRequest());
         }
 
         return $response;
