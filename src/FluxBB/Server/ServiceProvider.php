@@ -38,6 +38,13 @@ class ServiceProvider extends Base
 
             return $validator;
         });
+
+        $this->app->extend('FluxBB\Server\ServerInterface', function ($server, $app) {
+            $authorization = new AuthorizationServer($app, $server);
+            $this->registerAuthorizers($authorization);
+
+            return $authorization;
+        });
     }
 
     /**
@@ -81,7 +88,7 @@ class ServiceProvider extends Base
     }
 
     /**
-     * Register all validators actions with the request validator.
+     * Register all validators with the request validator.
      *
      * @param \FluxBB\Server\RequestValidator $validator
      * @return void
@@ -93,6 +100,17 @@ class ServiceProvider extends Base
         $validator->registerValidator('new_topic_handler', 'FluxBB\Validator\PostValidator');
         $validator->registerValidator('admin.options.set', 'FluxBB\Validator\OptionsValidator');
         $validator->registerValidator('handle_registration', 'FluxBB\Validator\UserValidator');
+    }
+
+    /**
+     * Register all authorizer with the authorization server.
+     *
+     * @param \FluxBB\Server\AuthorizationServer $auth
+     * @return void
+     */
+    protected function registerAuthorizers(AuthorizationServer $auth)
+    {
+        //
     }
 
     /**
