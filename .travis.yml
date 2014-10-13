@@ -9,7 +9,7 @@ before_script:
   - php composer.phar install --dev
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpspec run
   - vendor/bin/phpcs --ignore=*.blade.php --standard=PSR2 -np src
 
 notifications:
