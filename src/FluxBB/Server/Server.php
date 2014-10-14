@@ -3,7 +3,6 @@
 namespace FluxBB\Server;
 
 use FluxBB\Core\ActionFactory;
-use FluxBB\Server\Exception\Forward;
 
 class Server implements ServerInterface
 {
@@ -57,14 +56,8 @@ class Server implements ServerInterface
         // Create the action instance
         $action = $this->resolveAction($request->getHandler());
 
-        try {
-            $response = $action->setRequest($request)
-                               ->execute();
-        } catch (Forward $forward) {
-            $response = $this->dispatch($forward->getNextRequest());
-        }
-
-        return $response;
+        return $action->setRequest($request)
+                      ->execute();
     }
 
     /**

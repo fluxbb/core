@@ -3,12 +3,12 @@
 namespace FluxBB\Core;
 
 use FluxBB\Models\HasPermissions;
-use FluxBB\Server\Exception\Forward;
 use FluxBB\Server\Exception\NoPermission;
 use FluxBB\Server\Request;
 use FluxBB\Server\Response\Data;
 use FluxBB\Server\Response\Error;
 use FluxBB\Server\Response\Redirect;
+use FluxBB\Server\ServerInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\MessageProvider;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -29,6 +29,13 @@ abstract class Action implements MessageProvider
      * @var array
      */
     protected $errors = [];
+
+    /**
+     * The server instance.
+     *
+     * @var \FluxBB\Server\ServerInterface
+     */
+    protected $server;
 
     /**
      * The event dispatcher instance.
@@ -154,11 +161,11 @@ abstract class Action implements MessageProvider
      * Set another request to be executed after this action.
      *
      * @param \FluxBB\Server\Request $next
-     * @throws \FluxBB\Server\Exception\Forward
+     * @return \FluxBB\Server\Response
      */
     protected function forwardTo(Request $next)
     {
-        throw new Forward($next);
+        return $this->server->dispatch($next);
     }
 
     /**
@@ -228,6 +235,17 @@ abstract class Action implements MessageProvider
     public function getErrors()
     {
         return new MessageBag($this->errors);
+    }
+
+    /**
+     * Set the server instance.
+     *
+     * @param \FluxBB\Server\ServerInterface $server
+     * @return void
+     */
+    public function setServer(ServerInterface $server)
+    {
+        $this->server = $server;
     }
 
     /**
