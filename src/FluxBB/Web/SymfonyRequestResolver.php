@@ -51,5 +51,4 @@ class SymfonyRequestResolver implements RequestResolverInterface
     {
         return $this->request->query->all() + $this->request->attributes->all();
     }
-
 }
