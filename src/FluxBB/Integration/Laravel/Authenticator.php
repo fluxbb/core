@@ -3,7 +3,7 @@
 namespace FluxBB\Integration\Laravel;
 
 use FluxBB\Auth\AuthenticatorInterface;
-use Illuminate\Contracts\Auth\Authenticator as LaravelAuth;
+use Illuminate\Contracts\Auth\Guard as LaravelAuth;
 
 class Authenticator implements AuthenticatorInterface
 {
