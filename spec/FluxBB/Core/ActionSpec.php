@@ -9,11 +9,6 @@ use FluxBB\Core\Action;
 
 class ActionSpec extends ObjectBehavior
 {
-    function let()
-    {
-        $this->beAnInstanceOf('spec\FluxBB\Core\ConcreteAction');
-    }
-
     function it_can_raise_events(Dispatcher $dispatcher)
     {
         $this->beAnInstanceOf('spec\FluxBB\Core\EventAction');
@@ -23,14 +18,19 @@ class ActionSpec extends ObjectBehavior
         $this->setEvents($dispatcher);
         $this->execute();
     }
+
+    function it_always_returns_responses()
+    {
+        $this->beAnInstanceOf('spec\FluxBB\Core\EmptyAction');
+
+        $this->execute()->shouldReturnAnInstanceOf('FluxBB\Server\Response');
+    }
 }
 
-class ConcreteAction extends Action
+class EmptyAction extends Action
 {
     protected function run()
-    {
-        //
-    }
+    { }
 }
 
 class EventAction extends Action
