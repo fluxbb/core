@@ -9,7 +9,7 @@ class Home extends Action
 {
     protected function run()
     {
-        $this->forwardTo(
+        return $this->forwardTo(
             new Request('category', ['slug' => '/'])
         );
     }

@@ -22,8 +22,10 @@ class ViewCategory extends Action
 
         $category = $this->categories->findBySlug($slug);
 
-        $this->data['category'] = $category;
-        $this->data['categories'] = $this->categories->getByParent($slug);
-        $this->data['conversations'] = $this->categories->getConversationsIn($category);
+        return [
+            'category'      => $category,
+            'categories'    => $this->categories->getByParent($slug),
+            'conversations' => $this->categories->getConversationsIn($category),
+        ];
     }
 }
