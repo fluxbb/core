@@ -2,12 +2,8 @@
 
 namespace FluxBB\Core;
 
-use FluxBB\Models\HasPermissions;
-use FluxBB\Server\Exception\NoPermission;
 use FluxBB\Server\Request;
-use FluxBB\Server\Response\Data;
-use FluxBB\Server\Response\Error;
-use FluxBB\Server\Response\Redirect;
+use FluxBB\Server\Response;
 use FluxBB\Server\ServerInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\MessageProvider;
@@ -16,6 +12,13 @@ use Illuminate\Support\MessageBag;
 
 abstract class Action implements MessageProvider
 {
+    /**
+     * All input data passed into the action.
+     *
+     * @var array
+     */
+    protected $input = [];
+
     /**
      * All errors that occurred in this action.
      *
@@ -36,13 +39,6 @@ abstract class Action implements MessageProvider
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $events;
-
-    /**
-     * The request that led to this action.
-     *
-     * @var \FluxBB\Server\Request
-     */
-    protected $request;
 
     /**
      * The request that the user should send next.
@@ -67,87 +63,48 @@ abstract class Action implements MessageProvider
 
 
     /**
-     * Set the request instance.
-     *
-     * @param \FluxBB\Server\Request $request
-     * @return $this
-     */
-    public function setRequest($request)
-    {
-        $this->request = $request;
-        return $this;
-    }
-
-    /**
      * Turn a request into a response.
      *
-     * @return \FluxBB\Server\Response\Response
-     * @throws \Exception
+     * @param array $input
+     * @return \FluxBB\Server\Response
      */
-    public function execute()
+    public function execute(array $input = [])
     {
-        try {
-            $data = $this->run();
+        $this->input = $input;
+        $data = $this->run();
 
-            $response = $this->makeResponse($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-
-        return $response;
+        return $this->makeResponse($data ?: []);
     }
 
     /**
      * Run any desired actions.
      *
-     * @return array
+     * @return array|null
      */
     abstract protected function run();
 
     /**
+     * Get an input variable.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    protected function get($key, $default = null)
+    {
+        return array_get($this->input, $key, $default);
+    }
+
+    /**
      * Create a response based on the action's status.
      *
-     * @return \FluxBB\Server\Response\Response
+     * @param array $data
+     * @return \FluxBB\Server\Response
      * @throws \Exception
      */
     protected function makeResponse($data)
     {
-        if ($this->hasErrors()) {
-            return $this->makeErrorResponse($this->getErrors());
-        } else if (isset($this->nextRequest)) {
-            return new Redirect($this->nextRequest, $this->redirectMessage);
-        }
-
-        return new Data($data, $this->request);
-    }
-
-    /**
-     * Create an error response for the given errors.
-     *
-     * @param \Illuminate\Support\MessageBag $errors
-     * @return \FluxBB\Server\Response\Error
-     * @throws \Exception
-     */
-    protected function makeErrorResponse(MessageBag $errors)
-    {
-        if (! isset($this->errorRequest)) {
-            throw new \Exception('Cannot handle error, no handler declared.');
-        }
-
-        return new Error($this->errorRequest, $errors);
-    }
-
-    /**
-     * Set another request that the user should send next.
-     *
-     * @param \FluxBB\Server\Request $next
-     * @param string $message
-     * @return void
-     */
-    protected function redirectTo(Request $next, $message = '')
-    {
-        $this->nextRequest = $next;
-        $this->redirectMessage = $message;
+        return new Response($data);
     }
 
     /**
@@ -159,37 +116,6 @@ abstract class Action implements MessageProvider
     protected function forwardTo(Request $next)
     {
         return $this->server->dispatch($next)->getData();
-    }
-
-    /**
-     * Set a request to be executed in case of an error.
-     *
-     * @param \FluxBB\Server\Request $next
-     * @return void
-     */
-    protected function onErrorRedirectTo(Request $next)
-    {
-        $this->errorRequest = $next;
-    }
-
-    /**
-     * Determine whether this action yielded any data.
-     *
-     * @return bool
-     */
-    protected function hasData()
-    {
-        return ! empty($this->data);
-    }
-
-    /**
-     * Determine whether the action encountered any errors.
-     *
-     * @return bool
-     */
-    public function hasErrors()
-    {
-        return ! empty($this->errors);
     }
 
     /**

@@ -59,7 +59,7 @@ class RequestValidator implements ServerInterface
      * Resolve the request and return a response.
      *
      * @param \FluxBB\Server\Request $request
-     * @return \FluxBB\Server\Response\Response
+     * @return \FluxBB\Server\Response
      * @throws \FluxBB\Server\Exception\Exception
      */
     public function dispatch(Request $request)

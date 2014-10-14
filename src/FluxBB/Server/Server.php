@@ -48,7 +48,7 @@ class Server implements ServerInterface
      * Resolve the request and return a response.
      *
      * @param \FluxBB\Server\Request $request
-     * @return \FluxBB\Server\Response\Response
+     * @return \FluxBB\Server\Response
      * @throws \FluxBB\Server\Exception\Exception
      */
     public function dispatch(Request $request)
@@ -56,8 +56,7 @@ class Server implements ServerInterface
         // Create the action instance
         $action = $this->resolveAction($request->getHandler());
 
-        return $action->setRequest($request)
-                      ->execute();
+        return $action->execute($request->getParameters());
     }
 
     /**
