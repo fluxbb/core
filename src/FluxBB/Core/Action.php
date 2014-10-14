@@ -40,27 +40,6 @@ abstract class Action implements MessageProvider
      */
     protected $events;
 
-    /**
-     * The request that the user should send next.
-     *
-     * @var \FluxBB\Server\Request
-     */
-    protected $nextRequest;
-
-    /**
-     * A message to be sent along with the next request.
-     *
-     * @var string
-     */
-    protected $redirectMessage = '';
-
-    /**
-     * The request to be executed in case of an error.
-     *
-     * @var \FluxBB\Server\Request
-     */
-    protected $errorRequest;
-
 
     /**
      * Turn a request into a response.
