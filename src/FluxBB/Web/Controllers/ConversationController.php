@@ -31,4 +31,20 @@ class ConversationController extends Controller
             // $this->onErrorRedirectTo(new Request('new_topic', ['slug' => $category->slug]));
         }
     }
+
+    public function subscribe($id)
+    {
+        $this->execute('topic_subscribe', ['id' => $id]);
+
+        // TODO: Topic ID
+        $this->redirect('viewtopic', 'Subscription added.');
+    }
+
+    public function unsubscribe($id)
+    {
+        $this->execute('topic_unsubscribe', ['id' => $id]);
+
+        // TODO: Topic ID
+        $this->redirect('viewtopic', 'Subscription removed.');
+    }
 }

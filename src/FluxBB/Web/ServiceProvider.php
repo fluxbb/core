@@ -112,8 +112,8 @@ class ServiceProvider extends Base
         $router->get('/post/{id}/delete', 'post_delete', '');
         $router->get('/post/{id}/quote', 'post_quote', '');
         $router->post('/topic/{id}/reply', 'reply_handler', '');
-        $router->post('/topic/{id}/subscribe', 'topic_subscribe', '');
-        $router->post('/topic/{id}/unsubscribe', 'topic_unsubscribe', '');
+        $router->post('/topic/{id}/subscribe', 'topic_subscribe', 'FluxBB\Web\Controllers\ConversationController@subscribe');
+        $router->post('/topic/{id}/unsubscribe', 'topic_unsubscribe', 'FluxBB\Web\Controllers\ConversationController@unsubscribe');
         $router->get('/admin', 'admin.index', '');
         $router->get('/admin/settings', 'admin.settings.global', '');
         $router->get('/admin/settings/email', 'admin.settings.email', '');
