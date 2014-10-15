@@ -2,11 +2,6 @@
 
 namespace FluxBB\Web;
 
-use FluxBB\Server\Request;
-use FluxBB\Server\Response;
-use FluxBB\Server\ResponseHandlerInterface;
-use FluxBB\Server\ServerInterface;
-
 class Dispatcher
 {
     /**
@@ -20,12 +15,12 @@ class Dispatcher
     protected $router;
 
     /**
-     * @var \FluxBB\Server\ServerInterface
+     * @var \FluxBB\Web\ControllerFactory
      */
-    protected $server;
+    protected $factory;
 
     /**
-     * @var \FluxBB\Server\Response\ResponseHandlerInterface
+     * @var \FluxBB\Web\ResponseHandlerInterface
      */
     protected $responseHandler;
 
@@ -35,18 +30,18 @@ class Dispatcher
      *
      * @param \FluxBB\Web\RequestResolverInterface $requestResolver
      * @param \FluxBB\Web\Router $router
-     * @param \FluxBB\Server\ServerInterface $server
-     * @param \FluxBB\Server\Response\ResponseHandlerInterface $responseHandler
+     * @param \FluxBB\Web\ControllerFactory $factory
+     * @param \FluxBB\Web\ResponseHandlerInterface $responseHandler
      */
     public function __construct(
         RequestResolverInterface $requestResolver,
         Router $router,
-        ServerInterface $server,
+        ControllerFactory $factory,
         ResponseHandlerInterface $responseHandler
     ) {
         $this->requestResolver = $requestResolver;
         $this->router = $router;
-        $this->server = $server;
+        $this->factory = $factory;
         $this->responseHandler = $responseHandler;
     }
 
@@ -57,36 +52,43 @@ class Dispatcher
      */
     public function dispatch()
     {
-        $request = $this->resolveRequest();
+        $callable = $this->getCallable();
 
-        $response = $this->server->dispatch($request);
+        $output = $this->callController($callable);
 
-        $this->handleResponse($request, $response);
+        $this->handleResponse($output);
     }
 
     /**
-     * Resolve an internal request object to be sent to the FluxBB server.
+     * Get the class of the controller to be executed.
      *
-     * @return \FluxBB\Server\Request
+     * @return string
      */
-    protected function resolveRequest()
+    protected function getCallable()
     {
         $method = $this->requestResolver->getMethod();
         $uri = $this->requestResolver->getUri();
         $parameters = $this->requestResolver->getParameters();
 
-        return $this->router->getRequest($method, $uri, $parameters);
+        return $this->router->getCallable($method, $uri, $parameters);
+    }
+
+    protected function callController(array $callable)
+    {
+        list($class, $action) = $callable;
+
+        $controller = $this->factory->make($class);
+        return $controller->{$action}();
     }
 
     /**
      * Handle the generated response in an appropriate way.
      *
-     * @param \FluxBB\Server\Request $request
-     * @param \FluxBB\Server\Response $response
+     * @param string $response
      * @return void
      */
-    protected function handleResponse(Request $request, Response $response)
+    protected function handleResponse($response)
     {
-        $this->responseHandler->handle($request, $response);
+        $this->responseHandler->handle($response);
     }
 }

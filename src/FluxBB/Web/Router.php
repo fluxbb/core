@@ -100,9 +100,10 @@ class Router
         return array_get($this->reverse, $handler . '.method', '');
     }
 
-    public function getRequest($method, $uri, $parameters)
+    public function getCallable($method, $uri, $parameters)
     {
         $routeInfo = $this->getDispatcher()->dispatch($method, $uri);
+
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
                 throw new \Exception('404 Not Found');
@@ -113,7 +114,8 @@ class Router
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $parameters += $routeInfo[2];
-                $this->currentRequest = new Request($handler, $parameters);
+
+                return explode('@', $handler);
                 break;
         }
 

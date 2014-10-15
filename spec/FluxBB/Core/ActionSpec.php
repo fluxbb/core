@@ -2,7 +2,6 @@
 
 namespace spec\FluxBB\Core;
 
-use FluxBB\Server\Response;
 use Illuminate\Contracts\Events\Dispatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

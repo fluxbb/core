@@ -17,8 +17,7 @@ class ViewCategory extends Action
 
     protected function run()
     {
-        $slug = $this->request->get('slug');
-        $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
+        $slug = $this->get('slug');
 
         $category = $this->categories->findBySlug($slug);
 
