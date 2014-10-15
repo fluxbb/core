@@ -7,12 +7,12 @@ use FluxBB\Web\Controller;
 
 class PostController extends Controller
 {
-    public function edit($id)
+    public function editForm($id)
     {
 
     }
 
-    public function store($id)
+    public function edit($id)
     {
         try {
             $this->execute('post_edit_handler', ['id' => $id]);

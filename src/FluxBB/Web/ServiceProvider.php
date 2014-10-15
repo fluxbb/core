@@ -91,8 +91,8 @@ class ServiceProvider extends Base
     protected function registerFrontendRoutes(Router $router)
     {
         $router->get('/', 'index', 'FluxBB\Web\Controllers\ForumController@index');
-        $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic', '');
-        $router->post('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic_handler', '');
+        $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic', 'FluxBB\Web\Controllers\ConversationController@createForm');
+        $router->post('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic_handler', 'FluxBB\Web\Controllers\ConversationController@create');
         $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}', 'category', 'FluxBB\Web\Controllers\ForumController@category');
         $router->get('/conversations/{id}', 'conversation', 'FluxBB\Web\Controllers\ForumController@conversation');
         $router->get('/post/{id}', 'viewpost', 'FluxBB\Web\Controllers\ForumController@post');
@@ -106,8 +106,8 @@ class ServiceProvider extends Base
         $router->get('/users', 'userlist', '');
         $router->get('/rules', 'rules', '');
         $router->get('/search', 'search', '');
-        $router->get('/post/{id}/edit', 'post_edit', 'FluxBB\Web\Controllers\PostController@edit');
-        $router->post('/post/{id}/edit', 'post_edit_handler', 'FluxBB\Web\Controllers\PostController@store');
+        $router->get('/post/{id}/edit', 'post_edit', 'FluxBB\Web\Controllers\PostController@editForm');
+        $router->post('/post/{id}/edit', 'post_edit_handler', 'FluxBB\Web\Controllers\PostController@edit');
         $router->get('/post/{id}/report', 'post_report', '');
         $router->get('/post/{id}/delete', 'post_delete', '');
         $router->get('/post/{id}/quote', 'post_quote', '');
