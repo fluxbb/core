@@ -76,15 +76,17 @@ class Dispatcher
     /**
      * Instantiate the controller and run the given action.
      *
-     * @param array $callable
+     * @param string $callable
      * @return string
      */
-    protected function callController(array $callable)
+    protected function callController($callable)
     {
-        list($class, $action) = $callable;
+        list($class, $action) = explode('@', $callable[0], 2);
+        $parameters = $callable[1];
 
         $controller = $this->factory->make($class);
-        return $controller->{$action}();
+
+        return call_user_func_array([$controller, $action], $parameters);
     }
 
     /**

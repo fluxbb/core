@@ -5,7 +5,6 @@ namespace FluxBB\Web;
 use FastRoute\Dispatcher;
 use FastRoute\RouteParser;
 use FastRoute\DataGenerator;
-use FluxBB\Server\Request;
 
 class Router
 {
@@ -20,9 +19,14 @@ class Router
     protected $routeParser;
 
     /**
-     * @var \FluxBB\Server\Request
+     * @var string
      */
-    protected $currentRequest;
+    protected $currentRequestName;
+
+    /**
+     * @var array
+     */
+    protected $currentRequestParameters;
 
     /**
      * @var array
@@ -41,40 +45,40 @@ class Router
         $this->dataGenerator = new DataGenerator\GroupCountBased;
     }
 
-    public function get($path, $handler)
+    public function get($path, $name, $handler)
     {
-        return $this->addRoute('GET', $path, $handler);
+        return $this->addRoute('GET', $path, $name, $handler);
     }
 
-    public function post($path, $handler)
+    public function post($path, $name, $handler)
     {
-        return $this->addRoute('POST', $path, $handler);
+        return $this->addRoute('POST', $path, $name, $handler);
     }
 
-    public function put($path, $handler)
+    public function put($path, $name, $handler)
     {
-        return $this->addRoute('PUT', $path, $handler);
+        return $this->addRoute('PUT', $path, $name, $handler);
     }
 
-    public function delete($path, $handler)
+    public function delete($path, $name, $handler)
     {
-        return $this->addRoute('DELETE', $path, $handler);
+        return $this->addRoute('DELETE', $path, $name, $handler);
     }
 
-    public function addRoute($method, $path, $handler)
+    public function addRoute($method, $path, $name, $handler)
     {
         $routeData = $this->routeParser->parse($path);
         $this->dataGenerator->addRoute($method, $routeData, $handler);
 
         $routeDate['method'] = $method;
-        $this->reverse[$handler] = $routeData;
+        $this->reverse[$name] = $routeData;
 
         return $this;
     }
 
-    public function getPath($handler, $parameters = [])
+    public function getPath($name, $parameters = [])
     {
-        $parts = $this->reverse[$handler];
+        $parts = $this->reverse[$name];
 
         $path = implode('', array_map(function ($part) use ($parameters) {
             if (is_array($part)) {
@@ -89,10 +93,10 @@ class Router
 
     public function getCurrentPath()
     {
-        $handler = $this->currentRequest->getHandler();
-        $parameters = $this->currentRequest->getParameters();
+        $name = $this->currentRequestName;
+        $parameters = $this->currentRequestParameters;
 
-        return $this->getPath($handler, $parameters);
+        return $this->getPath($name, $parameters);
     }
 
     public function getMethod($handler)
@@ -107,19 +111,14 @@ class Router
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
                 throw new \Exception('404 Not Found');
-                break;
             case Dispatcher::METHOD_NOT_ALLOWED:
                 throw new \Exception('405 Method Not Allowed');
-                break;
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $parameters += $routeInfo[2];
 
-                return explode('@', $handler);
-                break;
+                return [$handler, $parameters];
         }
-
-        return $this->currentRequest;
     }
 
     protected function getDispatcher()
