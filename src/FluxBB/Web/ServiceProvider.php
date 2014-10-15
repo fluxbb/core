@@ -90,41 +90,41 @@ class ServiceProvider extends Base
      */
     protected function registerFrontendRoutes(Router $router)
     {
-        $router->get('/', 'FluxBB\Web\Controllers\ForumController@index');
-        $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic');
-        $router->post('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic_handler');
-        $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}', 'category');
-        $router->get('/conversations/{id}', 'conversation');
-        $router->get('/post/{id}', 'viewpost');
-        $router->get('/register', 'register');
-        $router->post('/register', 'handle_registration');
-        $router->get('/login', 'login');
-        $router->post('/login', 'handle_login');
-        $router->get('/logout', 'logout');
-        $router->get('/reset_password', 'reset_password');
-        $router->get('/profile/{id}', 'profile');
-        $router->get('/users', 'userlist');
-        $router->get('/rules', 'rules');
-        $router->get('/search', 'search');
-        $router->get('/post/{id}/edit', 'post_edit');
-        $router->post('/post/{id}/edit', 'post_edit_handler');
-        $router->get('/post/{id}/report', 'post_report');
-        $router->get('/post/{id}/delete', 'post_delete');
-        $router->get('/post/{id}/quote', 'post_quote');
-        $router->post('/topic/{id}/reply', 'reply_handler');
-        $router->post('/topic/{id}/subscribe', 'topic_subscribe');
-        $router->post('/topic/{id}/unsubscribe', 'topic_unsubscribe');
-        $router->get('/admin', 'admin.index');
-        $router->get('/admin/settings', 'admin.settings.global');
-        $router->get('/admin/settings/email', 'admin.settings.email');
-        $router->get('/admin/settings/maintenance', 'admin.settings.maintenance');
-        $router->get('/admin/dashboard/stats', 'admin.dashboard.stats');
-        $router->get('/admin/dashboard/updates', 'admin.dashboard.updates');
-        $router->get('/admin/dashboard/reports', 'admin.dashboard.reports');
-        $router->get('/admin/groups', 'admin.groups.index');
-        $router->get('/admin/groups/{id}/edit', 'admin.groups.edit');
-        $router->get('/admin/groups/{id}/delete', 'admin.groups.delete');
-        $router->get('/admin/categories', 'admin.categories.index');
+        $router->get('/', 'index', 'FluxBB\Web\Controllers\ForumController@index');
+        $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic', '');
+        $router->post('/categories{slug:(?:/[A-Za-z0-9/]*)?}conversations/new', 'new_topic_handler', '');
+        $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}', 'category', 'FluxBB\Web\Controllers\ForumController@category');
+        $router->get('/conversations/{id}', 'conversation', 'FluxBB\Web\Controllers\ForumController@conversation');
+        $router->get('/post/{id}', 'viewpost', 'FluxBB\Web\Controllers\ForumController@post');
+        $router->get('/register', 'register', '');
+        $router->post('/register', 'handle_registration', '');
+        $router->get('/login', 'login', 'FluxBB\Web\Controllers\AuthController@showLogin');
+        $router->post('/login', 'handle_login', 'FluxBB\Web\Controllers\AuthController@login');
+        $router->get('/logout', 'logout', 'FluxBB\Web\Controllers\AuthController@logout');
+        $router->get('/reset_password', 'reset_password', '');
+        $router->get('/profile/{id}', 'profile', '');
+        $router->get('/users', 'userlist', '');
+        $router->get('/rules', 'rules', '');
+        $router->get('/search', 'search', '');
+        $router->get('/post/{id}/edit', 'post_edit', 'FluxBB\Web\Controllers\PostController@edit');
+        $router->post('/post/{id}/edit', 'post_edit_handler', 'FluxBB\Web\Controllers\PostController@store');
+        $router->get('/post/{id}/report', 'post_report', '');
+        $router->get('/post/{id}/delete', 'post_delete', '');
+        $router->get('/post/{id}/quote', 'post_quote', '');
+        $router->post('/topic/{id}/reply', 'reply_handler', '');
+        $router->post('/topic/{id}/subscribe', 'topic_subscribe', '');
+        $router->post('/topic/{id}/unsubscribe', 'topic_unsubscribe', '');
+        $router->get('/admin', 'admin.index', '');
+        $router->get('/admin/settings', 'admin.settings.global', '');
+        $router->get('/admin/settings/email', 'admin.settings.email', '');
+        $router->get('/admin/settings/maintenance', 'admin.settings.maintenance', '');
+        $router->get('/admin/dashboard/stats', 'admin.dashboard.stats', '');
+        $router->get('/admin/dashboard/updates', 'admin.dashboard.updates', '');
+        $router->get('/admin/dashboard/reports', 'admin.dashboard.reports', '');
+        $router->get('/admin/groups', 'admin.groups.index', '');
+        $router->get('/admin/groups/{id}/edit', 'admin.groups.edit', '');
+        $router->get('/admin/groups/{id}/delete', 'admin.groups.delete', '');
+        $router->get('/admin/categories', 'admin.categories.index', '');
     }
 
     /**
@@ -135,7 +135,7 @@ class ServiceProvider extends Base
      */
     protected function registerApiRoutes(Router $router)
     {
-        $router->post('api/v1/settings', 'admin.options.set');
+        $router->post('api/v1/settings', 'admin.options.set', '');
     }
 
     /**

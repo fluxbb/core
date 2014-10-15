@@ -17,11 +17,13 @@ class ViewConversation extends Action
 
     protected function run()
     {
-        $id = $this->request->get('id');
+        $id = $this->get('id');
 
         $conversation = $this->conversations->findById($id);
 
-        $this->data['conversation'] = $conversation;
-        $this->data['posts'] = $this->conversations->getPostsIn($conversation);
+        return [
+            'conversation' => $conversation,
+            'posts'        => $this->conversations->getPostsIn($conversation),
+        ];
     }
 }

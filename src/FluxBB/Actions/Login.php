@@ -2,9 +2,9 @@
 
 namespace FluxBB\Actions;
 
-use FluxBB\Core\Action;
-use FluxBB\Server\Request;
 use FluxBB\Auth\AuthenticatorInterface;
+use FluxBB\Core\Action;
+use FluxBB\Server\Exception\Exception;
 
 class Login extends Action
 {
@@ -22,20 +22,13 @@ class Login extends Action
     public function run()
     {
         $credentials = [
-            'username' => $this->request->get('req_username'),
-            'password' => $this->request->get('req_password'),
+            'username' => $this->get('username'),
+            'password' => $this->get('password'),
         ];
-        $remember = $this->request->get('remember');
-
-        $this->onErrorRedirectTo(new Request('login'));
+        $remember = $this->get('remember');
 
         if (! $this->auth->login($credentials, $remember)) {
-            $this->addError('Invalid username / password combination');
+            throw new Exception('Login failure.');
         }
-
-        $this->redirectTo(
-            new Request('index'),
-            trans('fluxbb::login.message_login')
-        );
     }
 }

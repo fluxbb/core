@@ -19,4 +19,16 @@ class ForumController extends Controller
 
         return $this->view('category', $response->getData());
     }
+
+    public function conversation($id)
+    {
+        $response = $this->execute('conversation', ['id' => $id]);
+
+        return $this->view('conversation', $response->getData());
+    }
+
+    public function post($id)
+    {
+        //
+    }
 }
