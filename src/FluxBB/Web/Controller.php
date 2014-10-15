@@ -71,7 +71,7 @@ class Controller
         return new Response($this->view->render($name, $data));
     }
 
-    protected function redirect($to, $message)
+    protected function redirect($to, $message = null)
     {
         return new RedirectResponse($to);
     }
