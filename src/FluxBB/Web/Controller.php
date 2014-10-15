@@ -48,7 +48,7 @@ class Controller
      *
      * @param string $action
      * @param array $parameters
-     * @return \FluxBB\Server\Response\Response
+     * @return \FluxBB\Server\Response
      */
     protected function execute($action, array $parameters = [])
     {
@@ -61,10 +61,11 @@ class Controller
      * Render the given view.
      *
      * @param string $name
+     * @param array $data
      * @return string
      */
-    protected function view($name)
+    protected function view($name, array $data = [])
     {
-        return $this->view->render($name);
+        return $this->view->render($name, $data);
     }
 }
