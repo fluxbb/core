@@ -2,6 +2,8 @@
 
 namespace FluxBB\Web;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class Dispatcher
 {
     /**
@@ -54,9 +56,9 @@ class Dispatcher
     {
         $callable = $this->getCallable();
 
-        $output = $this->callController($callable);
+        $response = $this->callController($callable);
 
-        $this->handleResponse($output);
+        $this->handleResponse($response);
     }
 
     /**
@@ -92,10 +94,10 @@ class Dispatcher
     /**
      * Handle the generated response in an appropriate way.
      *
-     * @param string $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @return void
      */
-    protected function handleResponse($response)
+    protected function handleResponse(Response $response)
     {
         $this->responseHandler->handleResponse($response);
     }

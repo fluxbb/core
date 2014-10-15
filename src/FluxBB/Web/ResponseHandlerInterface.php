@@ -2,7 +2,9 @@
 
 namespace FluxBB\Web;
 
+use Symfony\Component\HttpFoundation\Response;
+
 interface ResponseHandlerInterface
 {
-    public function handleResponse($response);
+    public function handleResponse(Response $response);
 }

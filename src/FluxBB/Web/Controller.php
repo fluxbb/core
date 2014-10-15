@@ -5,6 +5,8 @@ namespace FluxBB\Web;
 use FluxBB\Server\Request;
 use FluxBB\Server\ServerInterface;
 use FluxBB\View\ViewInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class Controller
 {
@@ -62,10 +64,15 @@ class Controller
      *
      * @param string $name
      * @param array $data
-     * @return string
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function view($name, array $data = [])
     {
-        return $this->view->render($name, $data);
+        return new Response($this->view->render($name, $data));
+    }
+
+    protected function redirect($to, $message)
+    {
+        return new RedirectResponse($to);
     }
 }

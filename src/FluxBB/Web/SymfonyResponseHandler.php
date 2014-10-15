@@ -7,14 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 class SymfonyResponseHandler implements ResponseHandlerInterface
 {
     /**
-     * @var string
+     * @var \Symfony\Component\HttpFoundation\Response
      */
-    protected $output;
+    protected $response;
 
 
-    public function handleResponse($response)
+    public function handleResponse(Response $response)
     {
-        $this->output = $response;
+        $this->response = $response;
     }
 
     /**
@@ -24,6 +24,6 @@ class SymfonyResponseHandler implements ResponseHandlerInterface
      */
     public function getResponse()
     {
-        return new Response($this->output);
+        return $this->response;
     }
 }
