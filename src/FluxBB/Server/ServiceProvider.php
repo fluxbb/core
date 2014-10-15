@@ -55,7 +55,6 @@ class ServiceProvider extends Base
      */
     protected function registerActions(Server $server)
     {
-        $server->registerAction('index', 'FluxBB\Actions\Home');
         $server->registerAction('category', 'FluxBB\Actions\ViewCategory');
         $server->registerAction('conversation', 'FluxBB\Actions\ViewConversation');
         $server->registerAction('viewpost', 'FluxBB\Actions\ViewPost');
