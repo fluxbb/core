@@ -73,6 +73,12 @@ class Dispatcher
         return $this->router->getCallable($method, $uri, $parameters);
     }
 
+    /**
+     * Instantiate the controller and run the given action.
+     *
+     * @param array $callable
+     * @return string
+     */
     protected function callController(array $callable)
     {
         list($class, $action) = $callable;
@@ -89,6 +95,6 @@ class Dispatcher
      */
     protected function handleResponse($response)
     {
-        $this->responseHandler->handle($response);
+        $this->responseHandler->handleResponse($response);
     }
 }
