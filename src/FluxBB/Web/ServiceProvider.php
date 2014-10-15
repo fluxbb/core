@@ -96,9 +96,9 @@ class ServiceProvider extends Base
         $router->get('/categories{slug:(?:/[A-Za-z0-9/]*)?}', 'category', 'FluxBB\Web\Controllers\ForumController@category');
         $router->get('/conversations/{id}', 'conversation', 'FluxBB\Web\Controllers\ForumController@conversation');
         $router->get('/post/{id}', 'viewpost', 'FluxBB\Web\Controllers\ForumController@post');
-        $router->get('/register', 'register', '');
-        $router->post('/register', 'handle_registration', '');
-        $router->get('/login', 'login', 'FluxBB\Web\Controllers\AuthController@showLogin');
+        $router->get('/register', 'register', 'FluxBB\Web\Controllers\AuthController@registerForm');
+        $router->post('/register', 'handle_registration', 'FluxBB\Web\Controllers\AuthController@register');
+        $router->get('/login', 'login', 'FluxBB\Web\Controllers\AuthController@loginForm');
         $router->post('/login', 'handle_login', 'FluxBB\Web\Controllers\AuthController@login');
         $router->get('/logout', 'logout', 'FluxBB\Web\Controllers\AuthController@logout');
         $router->get('/reset_password', 'reset_password', '');
