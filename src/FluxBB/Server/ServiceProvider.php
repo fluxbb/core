@@ -61,8 +61,6 @@ class ServiceProvider extends Base
         $server->registerAction('handle_registration', 'FluxBB\Actions\Register');
         $server->registerAction('handle_login', 'FluxBB\Actions\Login');
         $server->registerAction('logout', 'FluxBB\Actions\Logout');
-        $server->registerAction('rules', 'FluxBB\Actions\Rules');
-        $server->registerAction('search', 'FluxBB\Actions\SearchPage');
         $server->registerAction('post_edit_handler', 'FluxBB\Actions\EditPost');
         $server->registerAction('reply_handler', 'FluxBB\Actions\Reply');
         $server->registerAction('topic_subscribe', 'FluxBB\Actions\SubscribeTopic');
