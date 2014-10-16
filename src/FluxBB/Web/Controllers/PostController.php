@@ -7,6 +7,19 @@ use FluxBB\Web\Controller;
 
 class PostController extends Controller
 {
+    public function create($conversation)
+    {
+        try {
+            $result = $this->execute('reply_handler', ['id' => $conversation]);
+
+            $this->redirect('viewpost', trans('fluxbb::post.post_added'));
+            // TODO: id => post->id (post == result['data'])
+        } catch (ValidationFailed $e) {
+            $this->redirect('conversation');
+            // TODO: id => conversation
+        }
+    }
+
     public function editForm($id)
     {
 
