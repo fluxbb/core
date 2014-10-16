@@ -1,11 +1,10 @@
 <?php
 
-namespace FluxBB\Actions\Admin;
+namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
 use FluxBB\Events\OptionWasChanged;
 use FluxBB\Models\ConfigRepositoryInterface;
-use FluxBB\Server\Request;
 
 class SetOptions extends Action
 {
