@@ -27,7 +27,7 @@ class SetOptions extends Action
      */
     protected function run()
     {
-        $options = $this->request->get();
+        $options = $this->get('options');
 
         foreach ($options as $key => $value) {
             $key = 'o_' . $key;

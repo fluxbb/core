@@ -3,6 +3,7 @@
 namespace FluxBB\Web\Controllers\Admin;
 
 use FluxBB\Web\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SettingsController extends Controller
 {
@@ -21,5 +22,12 @@ class SettingsController extends Controller
     public function maintenance()
     {
         return $this->view('admin.settings.maintenance');
+    }
+
+    public function set($options)
+    {
+        $this->execute('admin.options.set', ['options' => $options]);
+
+        return new JsonResponse();
     }
 }
