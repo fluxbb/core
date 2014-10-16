@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxBB\Actions\Admin;
+namespace FluxBB\Actions;
 
 use FluxBB\Core\Action;
 use FluxBB\Models\ConfigRepositoryInterface;
 
-class GlobalSettingsPage extends Action
+class GetSettings extends Action
 {
     protected $config;
 
@@ -17,6 +17,6 @@ class GlobalSettingsPage extends Action
 
     protected function run()
     {
-        $this->data['config'] = $this->config;
+        return ['config' => $this->config];
     }
 }

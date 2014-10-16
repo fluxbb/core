@@ -51,4 +51,14 @@ class AuthController extends Controller
 
         return $this->redirect('index');
     }
+
+    public function resetForm()
+    {
+        //
+    }
+
+    public function reset()
+    {
+        //
+    }
 }

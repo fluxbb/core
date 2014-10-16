@@ -39,7 +39,17 @@ class PostController extends Controller
         }
     }
 
+    public function reportForm($id)
+    {
+        //
+    }
+
     public function report($id)
+    {
+        //
+    }
+
+    public function deleteForm($id)
     {
         //
     }
