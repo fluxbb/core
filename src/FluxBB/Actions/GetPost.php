@@ -5,9 +5,8 @@ namespace FluxBB\Actions;
 use FluxBB\Core\Action;
 use FluxBB\Models\ConversationRepositoryInterface;
 use FluxBB\Models\User;
-use FluxBB\Server\Request;
 
-class ViewPost extends Action
+class GetPost extends Action
 {
     protected $conversations;
 
@@ -19,16 +18,14 @@ class ViewPost extends Action
 
     protected function run()
     {
-        $id = $this->request->get('id');
+        $id = $this->get('id');
 
         $post = $this->conversations->findPostById($id);
         $page = $this->conversations->getPageOfPost($post, User::current()->dispPosts());
 
-        return $this->forwardTo(
-            new Request('conversation', [
-                'id' => $post->conversation_id,
-                'page' => $page,
-            ])
-        ); // TODO: Append #p to URL
+        return [
+            'post' => $post,
+            'page' => $page,
+        ];
     }
 }

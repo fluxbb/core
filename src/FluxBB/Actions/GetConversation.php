@@ -5,7 +5,7 @@ namespace FluxBB\Actions;
 use FluxBB\Core\Action;
 use FluxBB\Models\ConversationRepositoryInterface;
 
-class ViewConversation extends Action
+class GetConversation extends Action
 {
     protected $conversations;
 
