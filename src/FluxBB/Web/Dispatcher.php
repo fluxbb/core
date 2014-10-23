@@ -79,7 +79,7 @@ class Dispatcher
      * Instantiate the controller and run the given action.
      *
      * @param string $callable
-     * @return string
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function callController($callable)
     {
@@ -88,7 +88,7 @@ class Dispatcher
 
         $controller = $this->factory->make($class);
 
-        return call_user_func_array([$controller, $action], $parameters);
+        return $controller->runAction($action, $parameters);
     }
 
     /**

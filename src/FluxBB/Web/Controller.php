@@ -24,6 +24,13 @@ class Controller
      */
     protected $view;
 
+    /**
+     * The request being handled.
+     *
+     * @var \Symfony\Component\HttpFoundation\Request
+     */
+    protected $request;
+
 
     /**
      * Set the server to use.
@@ -43,6 +50,18 @@ class Controller
     public function setView(ViewInterface $view)
     {
         $this->view = $view;
+    }
+
+    /**
+     * Run the given action and return its response.
+     *
+     * @param string $action
+     * @param array $parameters
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function runAction($action, array $parameters)
+    {
+        return call_user_func_array([$this, $action], $parameters);
     }
 
     /**
