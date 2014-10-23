@@ -3,7 +3,6 @@
 namespace FluxBB\Integration\Laravel;
 
 use FluxBB\Web\Dispatcher;
-use FluxBB\Web\JsonRenderer;
 use FluxBB\Web\SymfonyRequestResolver;
 use FluxBB\Web\SymfonyResponseHandler;
 use Illuminate\Support\ServiceProvider as Base;
@@ -41,16 +40,6 @@ class ServiceProvider extends Base
      */
     protected function createLaravelRoute()
     {
-        $this->app->make('router')->before(function () {
-            if ($this->app->make('request')->ajax()) {
-                $this->app->singleton('fluxbb.web.renderer', function () {
-                    $redirect = $this->app->make('redirect');
-                    $generator = $this->app->make('FluxBB\Web\UrlGeneratorInterface');
-                    return new JsonRenderer($redirect, $generator);
-                });
-            }
-        });
-
         $prefix = $this->app->make('config')->get('fluxbb.route_prefix', '');
 
         $this->app->make('router')->any($prefix.'/{uri}', ['as' => 'fluxbb', 'uses' => function () {

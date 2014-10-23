@@ -24,10 +24,6 @@ class ServiceProvider extends Base
             return new Router;
         });
 
-        $this->app->singleton('fluxbb.web.renderer', function ($app) {
-            return new Renderer($app['view'], $app['redirect'], $app['FluxBB\Web\UrlGeneratorInterface']);
-        });
-
         $this->app->singleton('FluxBB\View\ViewInterface', 'FluxBB\View\View');
 
         $this->registerViewHelpers();
@@ -144,6 +140,6 @@ class ServiceProvider extends Base
      */
     public function provides()
     {
-        return ['fluxbb.web.router', 'fluxbb.web.renderer'];
+        return ['fluxbb.web.router'];
     }
 }
