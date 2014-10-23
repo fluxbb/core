@@ -2,9 +2,10 @@
 
 namespace FluxBB\Web;
 
-use FluxBB\Server\Request;
+use FluxBB\Server\Request as ServerRequest;
 use FluxBB\Server\ServerInterface;
 use FluxBB\View\ViewInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -57,10 +58,12 @@ class Controller
      *
      * @param string $action
      * @param array $parameters
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function runAction($action, array $parameters)
+    public function runAction($action, array $parameters, Request $request)
     {
+        $this->request = $request;
         return call_user_func_array([$this, $action], $parameters);
     }
 
@@ -74,7 +77,7 @@ class Controller
     protected function execute($action, array $parameters = [])
     {
         return $this->server->dispatch(
-            new Request($action, $parameters)
+            new ServerRequest($action, $parameters)
         );
     }
 

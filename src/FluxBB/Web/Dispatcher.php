@@ -87,8 +87,9 @@ class Dispatcher
         $parameters = $callable[1];
 
         $controller = $this->factory->make($class);
+        $request = $this->requestResolver->getRequest();
 
-        return $controller->runAction($action, $parameters);
+        return $controller->runAction($action, $parameters, $request);
     }
 
     /**

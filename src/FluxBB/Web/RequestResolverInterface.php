@@ -24,4 +24,11 @@ interface RequestResolverInterface
      * @return array
      */
     public function getParameters();
+
+    /**
+     * Get the request instance.
+     *
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest();
 }

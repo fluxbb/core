@@ -51,4 +51,14 @@ class SymfonyRequestResolver implements RequestResolverInterface
     {
         return $this->request->query->all() + $this->request->attributes->all();
     }
+
+    /**
+     * Get the request instance.
+     *
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
 }
