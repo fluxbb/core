@@ -20,7 +20,7 @@ class ServiceProvider extends Base
      */
     public function register()
     {
-        $this->app->singleton('fluxbb.web.router', function () {
+        $this->app->singleton('FluxBB\Web\Router', function () {
             return new Router;
         });
 
@@ -58,7 +58,7 @@ class ServiceProvider extends Base
             });
 
             $view->share('method', function ($name) use ($app) {
-                return $app['fluxbb.web.router']->getMethod($name);
+                return $app['FluxBB\Web\Router']->getMethod($name);
             });
 
             return $view;
@@ -72,7 +72,7 @@ class ServiceProvider extends Base
      */
     protected function registerRoutes()
     {
-        $router = $this->app['fluxbb.web.router'];
+        $router = $this->app['FluxBB\Web\Router'];
 
         $this->registerFrontendRoutes($router);
         $this->registerApiRoutes($router);
@@ -131,15 +131,5 @@ class ServiceProvider extends Base
     protected function registerApiRoutes(Router $router)
     {
         $router->post('api/v1/settings', 'admin.options.set', 'FluxBB\Web\Controllers\Admin\SettingsController@set');
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['fluxbb.web.router'];
     }
 }
