@@ -2,6 +2,7 @@
 
 namespace FluxBB\Web;
 
+use Illuminate\Contracts\Container\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -17,17 +18,24 @@ class Dispatcher implements HttpKernelInterface
      */
     protected $factory;
 
+    /**
+     * @var \Illuminate\Contracts\Container\Container
+     */
+    protected $container;
+
 
     /**
      * Create a dispatcher instance.
      *
      * @param \FluxBB\Web\Router $router
      * @param \FluxBB\Web\ControllerFactory $factory
+     * @param \Illuminate\Contracts\Container\Container $container
      */
-    public function __construct(Router $router, ControllerFactory $factory)
+    public function __construct(Router $router, ControllerFactory $factory, Container $container)
     {
         $this->router = $router;
         $this->factory = $factory;
+        $this->container = $container;
     }
 
     /**
@@ -53,8 +61,9 @@ class Dispatcher implements HttpKernelInterface
         $parameters = $callable[1];
 
         $controller = $this->factory->make($class);
+        $controller->setRequest($request);
 
-        return $controller->runAction($action, $parameters, $request);
+        return $this->container->call([$controller, $action], $parameters);
     }
 
     /**

@@ -43,7 +43,8 @@ class ServiceProvider extends Base
         $this->app->make('router')->any($prefix.'/{uri}', ['as' => 'fluxbb', 'uses' => function () {
             $dispatcher = new Dispatcher(
                 $this->app->make('fluxbb.web.router'),
-                $this->app->make('FluxBB\Web\ControllerFactory')
+                $this->app->make('FluxBB\Web\ControllerFactory'),
+                $this->app
             );
 
             return $dispatcher->handle($this->app->make('request'));

@@ -37,6 +37,7 @@ class Controller
      * Set the server to use.
      *
      * @param \FluxBB\Server\ServerInterface $server
+     * @return void
      */
     public function setServer(ServerInterface $server)
     {
@@ -47,6 +48,7 @@ class Controller
      * Set the view environment to use.
      *
      * @param \FluxBB\View\ViewInterface $view
+     * @return void
      */
     public function setView(ViewInterface $view)
     {
@@ -54,17 +56,14 @@ class Controller
     }
 
     /**
-     * Run the given action and return its response.
+     * Set the request being handled.
      *
-     * @param string $action
-     * @param array $parameters
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return void
      */
-    public function runAction($action, array $parameters, Request $request)
+    public function setRequest(Request $request)
     {
         $this->request = $request;
-        return call_user_func_array([$this, $action], $parameters);
     }
 
     /**
