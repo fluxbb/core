@@ -3,8 +3,6 @@
 namespace FluxBB\Integration\Laravel;
 
 use FluxBB\Web\Dispatcher;
-use FluxBB\Web\SymfonyRequestResolver;
-use FluxBB\Web\SymfonyResponseHandler;
 use Illuminate\Support\ServiceProvider as Base;
 
 class ServiceProvider extends Base
@@ -43,18 +41,12 @@ class ServiceProvider extends Base
         $prefix = $this->app->make('config')->get('fluxbb.route_prefix', '');
 
         $this->app->make('router')->any($prefix.'/{uri}', ['as' => 'fluxbb', 'uses' => function () {
-            $responseHandler = new SymfonyResponseHandler();
-
             $dispatcher = new Dispatcher(
-                new SymfonyRequestResolver($this->app->make('request')),
                 $this->app->make('fluxbb.web.router'),
-                $this->app->make('FluxBB\Web\ControllerFactory'),
-                $responseHandler
+                $this->app->make('FluxBB\Web\ControllerFactory')
             );
 
-            $dispatcher->dispatch();
-
-            return $responseHandler->getResponse();
+            return $dispatcher->handle($this->app->make('request'));
         }])->where('uri', '.*');
     }
 }

@@ -2,15 +2,11 @@
 
 namespace FluxBB\Web;
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class Dispatcher
+class Dispatcher implements HttpKernelInterface
 {
-    /**
-     * @var \FluxBB\Web\RequestResolverInterface
-     */
-    protected $requestResolver;
-
     /**
      * @var \FluxBB\Web\Router
      */
@@ -21,85 +17,58 @@ class Dispatcher
      */
     protected $factory;
 
-    /**
-     * @var \FluxBB\Web\ResponseHandlerInterface
-     */
-    protected $responseHandler;
-
 
     /**
      * Create a dispatcher instance.
      *
-     * @param \FluxBB\Web\RequestResolverInterface $requestResolver
      * @param \FluxBB\Web\Router $router
      * @param \FluxBB\Web\ControllerFactory $factory
-     * @param \FluxBB\Web\ResponseHandlerInterface $responseHandler
      */
-    public function __construct(
-        RequestResolverInterface $requestResolver,
-        Router $router,
-        ControllerFactory $factory,
-        ResponseHandlerInterface $responseHandler
-    ) {
-        $this->requestResolver = $requestResolver;
+    public function __construct(Router $router, ControllerFactory $factory)
+    {
         $this->router = $router;
         $this->factory = $factory;
-        $this->responseHandler = $responseHandler;
     }
 
     /**
-     * Obtain a request object and dispatch it to the server.
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function dispatch()
+    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
     {
-        $callable = $this->getCallable();
+        $callable = $this->getCallable($request);
 
-        $response = $this->callController($callable);
-
-        $this->handleResponse($response);
-    }
-
-    /**
-     * Get the class of the controller to be executed.
-     *
-     * @return string
-     */
-    protected function getCallable()
-    {
-        $method = $this->requestResolver->getMethod();
-        $uri = $this->requestResolver->getUri();
-        $parameters = $this->requestResolver->getParameters();
-
-        return $this->router->getCallable($method, $uri, $parameters);
+        return $this->callController($callable, $request);
     }
 
     /**
      * Instantiate the controller and run the given action.
      *
      * @param string $callable
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function callController($callable)
+    protected function callController($callable, Request $request)
     {
         list($class, $action) = explode('@', $callable[0], 2);
         $parameters = $callable[1];
 
         $controller = $this->factory->make($class);
-        $request = $this->requestResolver->getRequest();
 
         return $controller->runAction($action, $parameters, $request);
     }
 
     /**
-     * Handle the generated response in an appropriate way.
+     * Get the class of the controller to be executed.
      *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @return void
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return string
      */
-    protected function handleResponse(Response $response)
+    protected function getCallable(Request $request)
     {
-        $this->responseHandler->handleResponse($response);
+        $method = $request->getMethod();
+        $uri = $request->getPathInfo();
+        $parameters = $request->query->all();
+
+        return $this->router->getCallable($method, $uri, $parameters);
     }
 }
