@@ -93,6 +93,13 @@ class Controller
         return new Response($this->view->render($name, $data));
     }
 
+    /**
+     * Create a redirect response.
+     *
+     * @param string $to
+     * @param string $message
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     protected function redirect($to, $message = null)
     {
         return new RedirectResponse($to);
