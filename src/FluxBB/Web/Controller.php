@@ -26,6 +26,13 @@ class Controller
     protected $view;
 
     /**
+     * The URL generator instance.
+     *
+     * @var \FluxBB\Web\UrlGeneratorInterface
+     */
+    protected $url;
+
+    /**
      * The request being handled.
      *
      * @var \Symfony\Component\HttpFoundation\Request
@@ -53,6 +60,17 @@ class Controller
     public function setView(ViewInterface $view)
     {
         $this->view = $view;
+    }
+
+    /**
+     * Set the URL generator instance.
+     *
+     * @param \FluxBB\Web\UrlGeneratorInterface $url
+     * @return void
+     */
+    public function setUrlGenerator(UrlGeneratorInterface $url)
+    {
+        $this->url = $url;
     }
 
     /**
@@ -101,6 +119,8 @@ class Controller
      */
     protected function redirect($to, $message = null)
     {
-        return new RedirectResponse($to);
+        $url = $this->url->toRoute($to);
+
+        return new RedirectResponse($url);
     }
 }

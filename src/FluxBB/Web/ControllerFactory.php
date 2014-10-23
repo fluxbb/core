@@ -35,6 +35,7 @@ class ControllerFactory
         $controller = $this->container->make($class);
         $controller->setServer($this->makeServer());
         $controller->setView($this->makeView());
+        $controller->setUrlGenerator($this->makeUrlGenerator());
 
         return $controller;
     }
@@ -57,5 +58,15 @@ class ControllerFactory
     protected function makeView()
     {
         return $this->container->make('FluxBB\View\ViewInterface');
+    }
+
+    /**
+     * Instantiate the URL generator.
+     *
+     * @return \FluxBB\Web\UrlGeneratorInterface
+     */
+    protected function makeUrlGenerator()
+    {
+        return $this->container->make('FluxBB\Web\UrlGeneratorInterface');
     }
 }
