@@ -6,8 +6,8 @@
     <fieldset>
         <legend>{{ trans('fluxbb::login.login_legend') }}</legend>
         <input type="hidden" name="form_sent" value="1" />
-        <label class="conl required"><strong>{{ trans('fluxbb::common.username') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="req_username" size="25" maxlength="25" tabindex="1" /><br /></label>
-        <label class="conl required"><strong>{{ trans('fluxbb::common.password') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="password" name="req_password" size="25" tabindex="2" /><br /></label>
+        <label class="conl required"><strong>{{ trans('fluxbb::common.username') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="text" name="username" size="25" maxlength="25" tabindex="1" /><br /></label>
+        <label class="conl required"><strong>{{ trans('fluxbb::common.password') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br /><input type="password" name="password" size="25" tabindex="2" /><br /></label>
 
         <div class="rbox clearb">
             <label><input type="checkbox" name="remember" value="1" tabindex="3" />{{ trans('fluxbb::login.remember_me') }}<br /></label>

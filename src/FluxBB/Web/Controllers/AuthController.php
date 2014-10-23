@@ -33,9 +33,9 @@ class AuthController extends Controller
     {
         try {
             $this->execute('handle_login', [
-                'username' => '',
-                'password' => '',
-                'remember' => '',
+                'username' => $this->request->request->get('username'),
+                'password' => $this->request->request->get('password'),
+                'remember' => $this->request->request->get('remember'),
             ]);
 
             return $this->redirect('index', trans('fluxbb::login.message_login'));
