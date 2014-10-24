@@ -3,9 +3,8 @@
 namespace FluxBB\Models;
 
 use Illuminate\Contracts\Auth\User as UserContract;
-use Auth;
-use Hash;
-use Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Base implements UserContract, HasPermissions
 {
