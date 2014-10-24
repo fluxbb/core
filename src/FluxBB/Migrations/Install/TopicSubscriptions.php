@@ -2,10 +2,10 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Schema;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class TopicSubscriptions extends Schema
+class TopicSubscriptions extends Migration
 {
     public function up()
     {

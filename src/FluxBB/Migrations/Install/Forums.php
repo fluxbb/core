@@ -2,7 +2,7 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Schema;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
 class Forums extends Migration
