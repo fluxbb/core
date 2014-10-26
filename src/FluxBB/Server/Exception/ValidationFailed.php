@@ -4,7 +4,7 @@ namespace FluxBB\Server\Exception;
 
 use Illuminate\Contracts\Support\MessageProvider;
 
-class ValidationFailed extends Exception
+class ValidationFailed extends Exception implements MessageProvider
 {
     protected $errors;
 
@@ -15,11 +15,11 @@ class ValidationFailed extends Exception
     }
 
     /**
-     * Get all validation errors.
+     * Get the messages for the instance.
      *
      * @return \Illuminate\Support\MessageBag
      */
-    public function getErrors()
+    public function getMessageBag()
     {
         return $this->errors->getMessageBag();
     }
