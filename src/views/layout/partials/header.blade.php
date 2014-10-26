@@ -9,21 +9,21 @@
     <!-- end meta tags -->
 
     <!-- begin css -->
-    <link rel="stylesheet" type="text/css" href="public/packages/fluxbb/core/frontend/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="public/packages/fluxbb/core/frontend/style.css" />
-    <link rel="stylesheet" type="text/css" href="public/packages/fluxbb/core/frontend/assets/css/entypo.css" />
+    <link rel="stylesheet" type="text/css" href="/public/packages/fluxbb/core/frontend/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/public/packages/fluxbb/core/frontend/style.css" />
+    <link rel="stylesheet" type="text/css" href="/public/packages/fluxbb/core/frontend/assets/css/entypo.css" />
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
     <!-- end css -->
 
 
     <!-- begin shortcut -->
-    <link rel="shortcut icon" href="public/packages/fluxbb/core/img/favicon.ico">
+    <link rel="shortcut icon" href="/public/packages/fluxbb/core/img/favicon.ico">
     <!-- end shortcut -->
 
     <!-- begin js -->
-    <script src="public/packages/fluxbb/core/js/jquery.min.js"></script>
-    <script src="public/packages/fluxbb/core/js/fluxbb.js"></script>
-    <script src="public/packages/fluxbb/core/js/frontend.js"></script>
+    <script src="/public/packages/fluxbb/core/js/jquery.min.js"></script>
+    <script src="/public/packages/fluxbb/core/js/fluxbb.js"></script>
+    <script src="/public/packages/fluxbb/core/js/frontend.js"></script>
     <!-- end js -->
 
 </head>
