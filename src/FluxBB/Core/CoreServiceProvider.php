@@ -82,6 +82,9 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->app->extend('view', function (Factory $view) {
             $view->composer('fluxbb::layout.main', 'FluxBB\View\AlertsComposer');
+            $view->composer('fluxbb::layout.main', 'FluxBB\View\GlobalsComposer');
+            $view->composer('fluxbb::admin.layout.main', 'FluxBB\View\GlobalsComposer');
+
             return $view;
         });
     }
