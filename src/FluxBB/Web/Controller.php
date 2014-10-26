@@ -93,9 +93,21 @@ class Controller
      */
     protected function execute($action, array $parameters = [])
     {
+        $parameters += $this->getInput();
+
         return $this->server->dispatch(
             new ServerRequest($action, $parameters)
         );
+    }
+
+    /**
+     * Get all input parameters that were passed to this request.
+     *
+     * @return array
+     */
+    protected function getInput()
+    {
+        return $this->request->request->all() + $this->request->query->all();
     }
 
     /**

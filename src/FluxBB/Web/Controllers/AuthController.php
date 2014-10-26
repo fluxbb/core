@@ -16,11 +16,7 @@ class AuthController extends Controller
     public function register()
     {
         try {
-            $this->execute('handle_registration', [
-                'username' => $this->request->request->get('username'),
-                'password' => $this->request->request->get('password'),
-                'email'    => $this->request->request->get('email'),
-            ]);
+            $this->execute('handle_registration');
 
             return $this->redirect('index', trans('fluxbb::register.reg_complete'));
         } catch (ValidationFailed $e) {
@@ -36,11 +32,7 @@ class AuthController extends Controller
     public function login()
     {
         try {
-            $this->execute('handle_login', [
-                'username' => $this->request->request->get('username'),
-                'password' => $this->request->request->get('password'),
-                'remember' => $this->request->request->get('remember'),
-            ]);
+            $this->execute('handle_login');
 
             return $this->redirect('index', trans('fluxbb::login.message_login'));
         } catch (Exception $e) {
