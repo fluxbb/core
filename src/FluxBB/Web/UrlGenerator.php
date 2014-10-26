@@ -20,6 +20,7 @@ class UrlGenerator implements UrlGeneratorInterface
     public function toRoute($handler, $parameters = [])
     {
         $path = $this->router->getPath($handler, $parameters);
+        $path = ltrim($path, '/');
 
         return $this->request->getBaseUrl().'/'.$path;
     }
