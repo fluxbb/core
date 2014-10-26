@@ -58,7 +58,9 @@ class Dispatcher implements HttpKernelInterface
     protected function callController($callable, Request $request)
     {
         list($class, $action) = explode('@', $callable[0], 2);
+
         $parameters = $callable[1];
+        $request->query->add($parameters);
 
         $controller = $this->factory->make($class);
         $controller->setRequest($request);
@@ -76,8 +78,7 @@ class Dispatcher implements HttpKernelInterface
     {
         $method = $request->getMethod();
         $uri = $request->getPathInfo();
-        $parameters = $request->query->all();
 
-        return $this->router->getCallable($method, $uri, $parameters);
+        return $this->router->getCallable($method, $uri);
     }
 }

@@ -104,7 +104,7 @@ class Router
         return array_get($this->reverse, $handler . '.method', '');
     }
 
-    public function getCallable($method, $uri, $parameters)
+    public function getCallable($method, $uri)
     {
         $routeInfo = $this->getDispatcher()->dispatch($method, $uri);
 
@@ -115,7 +115,7 @@ class Router
                 throw new \Exception('405 Method Not Allowed');
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
-                $parameters += $routeInfo[2];
+                $parameters = $routeInfo[2];
 
                 return [$handler, $parameters];
         }
