@@ -1,8 +1,8 @@
 <?php
 
 if (FluxBB\Core::isInstalled()) {
-    Config::set('database.connections.fluxbb', Config::get('fluxbb.database'));
-    DB::setDefaultConnection('fluxbb');
+    FluxBB\Core::make('config')->set('database.connections.fluxbb', FluxBB\Core::make('config')->get('fluxbb.database'));
+    FluxBB\Core::make('db')->setDefaultConnection('fluxbb');
 }
 
 // Load our validation helpers

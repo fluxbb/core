@@ -1,7 +1,7 @@
 <?php
 
 use FluxBB\Models\Ban;
-use FluxBB\Models\Config;
+use Illuminate\Support\Facades\Validator;
 
 Validator::extend('email_not_banned', function ($attribute, $value, $parameters) {
     $bans = Ban::all();
