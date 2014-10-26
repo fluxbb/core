@@ -16,11 +16,15 @@ class AuthController extends Controller
     public function register()
     {
         try {
-            $this->execute('handle_registration');
+            $this->execute('handle_registration', [
+                'username' => $this->request->request->get('username'),
+                'password' => $this->request->request->get('password'),
+                'email'    => $this->request->request->get('email'),
+            ]);
 
-            $this->redirect('index', trans('fluxbb::register.reg_complete'));
+            return $this->redirect('index', trans('fluxbb::register.reg_complete'));
         } catch (ValidationFailed $e) {
-            $this->redirect('register'); // TODO: With errors!
+            return $this->redirect('register');
         }
     }
 

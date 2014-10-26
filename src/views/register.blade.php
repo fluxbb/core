@@ -12,7 +12,7 @@
         {{-- TODO: Repopulate this with old values on errors --}}
         <label class="required">
             <strong>{{ trans('fluxbb::common.username') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br />
-            <input type="text" name="user" size="25" maxlength="25" /><br />
+            <input type="text" name="username" size="25" maxlength="25" /><br />
         </label>
     </fieldset>
 

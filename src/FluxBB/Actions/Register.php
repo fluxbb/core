@@ -25,7 +25,7 @@ class Register extends Action
     protected function run()
     {
         $user = new User([
-            'username'          => $this->get('user'),
+            'username'          => $this->get('username'),
             'group_id'          => $this->config->get('o_default_user_group'),
             'password'          => $this->get('password'),
             'email'             => $this->get('email'),
