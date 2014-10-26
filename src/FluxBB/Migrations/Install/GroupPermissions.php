@@ -2,25 +2,24 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class GroupPermissions extends Migration
 {
-    public function up()
-    {
-        Schema::table('group_permissions', function ($table) {
-            $table->create();
+    /**
+     * @var string
+     */
+    protected $table = 'group_permissions';
 
-            $table->increments('id');
-            $table->integer('group_id')->unsigned();
-            $table->string('name', 50);
-            $table->boolean('value');
-        });
-    }
 
-    public function down()
+    protected function create(Blueprint $table)
     {
-        Schema::drop('group_permissions');
+        $table->create();
+
+        $table->increments('id');
+        $table->integer('group_id')->unsigned();
+        $table->string('name', 50);
+        $table->boolean('value');
     }
 }

@@ -2,32 +2,31 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Reports extends Migration
 {
-    public function up()
+    /**
+     * @var string
+     */
+    protected $table = 'reports';
+
+
+    protected function create(Blueprint $table)
     {
-        Schema::table('reports', function ($table) {
-            $table->create();
+        $table->create();
 
-            $table->increments('id');
-            $table->integer('post_id')->unsigned()->default(0);
-            $table->integer('topic_id')->unsigned()->default(0);
-            $table->integer('forum_id')->unsigned()->default(0);
-            $table->integer('reported_by')->unsigned()->default(0);
-            $table->integer('created')->unsigned()->default(0);
-            $table->text('message')->nullable();
-            $table->integer('zapped')->unsigned()->nullable();
-            $table->integer('zapped_by')->unsigned()->nullable();
+        $table->increments('id');
+        $table->integer('post_id')->unsigned()->default(0);
+        $table->integer('topic_id')->unsigned()->default(0);
+        $table->integer('forum_id')->unsigned()->default(0);
+        $table->integer('reported_by')->unsigned()->default(0);
+        $table->integer('created')->unsigned()->default(0);
+        $table->text('message')->nullable();
+        $table->integer('zapped')->unsigned()->nullable();
+        $table->integer('zapped_by')->unsigned()->nullable();
 
-            $table->index('zapped');
-        });
-    }
-
-    public function down()
-    {
-        Schema::drop('reports');
+        $table->index('zapped');
     }
 }

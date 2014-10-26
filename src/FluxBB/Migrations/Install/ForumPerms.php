@@ -2,28 +2,27 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class ForumPerms extends Migration
 {
-    public function up()
+    /**
+     * @var string
+     */
+    protected $table = 'forum_perms';
+
+
+    protected function create(Blueprint $table)
     {
-        Schema::table('forum_perms', function ($table) {
-            $table->create();
+        $table->create();
 
-            $table->integer('group_id')->unsigned();
-            $table->integer('forum_id')->unsigned();
-            $table->boolean('read_forum')->default(true);
-            $table->boolean('post_replies')->default(true);
-            $table->boolean('post_topics')->default(true);
+        $table->integer('group_id')->unsigned();
+        $table->integer('forum_id')->unsigned();
+        $table->boolean('read_forum')->default(true);
+        $table->boolean('post_replies')->default(true);
+        $table->boolean('post_topics')->default(true);
 
-            $table->primary(array('group_id', 'forum_id'));
-        });
-    }
-
-    public function down()
-    {
-        Schema::drop('forum_perms');
+        $table->primary(array('group_id', 'forum_id'));
     }
 }

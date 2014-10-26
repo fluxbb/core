@@ -2,25 +2,24 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Config extends Migration
 {
-    public function up()
+    /**
+     * @var string
+     */
+    protected $table = 'config';
+
+
+    protected function create(Blueprint $table)
     {
-        Schema::table('config', function ($table) {
-            $table->create();
+        $table->create();
 
-            $table->string('conf_name', 255)->default('');
-            $table->text('conf_value')->nullable();
+        $table->string('conf_name', 255)->default('');
+        $table->text('conf_value')->nullable();
 
-            $table->primary('conf_name');
-        });
-    }
-
-    public function down()
-    {
-        Schema::drop('config');
+        $table->primary('conf_name');
     }
 }

@@ -2,25 +2,24 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Groups extends Migration
 {
-    public function up()
+    /**
+     * @var string
+     */
+    protected $table = 'groups';
+
+
+    protected function create(Blueprint $table)
     {
-        Schema::table('groups', function ($table) {
-            $table->create();
+        $table->create();
 
-            $table->increments('id');
-            $table->string('title', 50)->default('');
+        $table->increments('id');
+        $table->string('title', 50)->default('');
 
-            $table->integer('parent_group_id')->unsigned()->nullable();
-        });
-    }
-
-    public function down()
-    {
-        Schema::drop('groups');
+        $table->integer('parent_group_id')->unsigned()->nullable();
     }
 }

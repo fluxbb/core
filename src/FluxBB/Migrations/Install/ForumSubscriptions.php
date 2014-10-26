@@ -2,25 +2,24 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class ForumSubscriptions extends Migration
 {
-    public function up()
+    /**
+     * @var string
+     */
+    protected $table = 'forum_subscriptions';
+
+
+    protected function create(Blueprint $table)
     {
-        Schema::table('forum_subscriptions', function ($table) {
-            $table->create();
+        $table->create();
 
-            $table->integer('user_id')->unsigned();
-            $table->integer('forum_id')->unsigned();
+        $table->integer('user_id')->unsigned();
+        $table->integer('forum_id')->unsigned();
 
-            $table->primary(array('user_id', 'forum_id'));
-        });
-    }
-
-    public function down()
-    {
-        Schema::drop('forum_subscriptions');
+        $table->primary(array('user_id', 'forum_id'));
     }
 }

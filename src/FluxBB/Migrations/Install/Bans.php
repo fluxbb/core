@@ -2,30 +2,29 @@
 
 namespace FluxBB\Migrations\Install;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Migrations\Migration;
+use FluxBB\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class Bans extends Migration
 {
-    public function up()
+    /**
+     * @var string
+     */
+    protected $table = 'bans';
+
+
+    protected function create(Blueprint $table)
     {
-        Schema::table('bans', function ($table) {
-            $table->create();
+        $table->create();
 
-            $table->increments('id');
-            $table->string('username', 200)->nullable();
-            $table->string('ip', 255)->nullable();
-            $table->string('email', 80)->nullable();
-            $table->string('message', 255)->nullable();
-            $table->integer('expire')->unsigned()->nullable();
-            $table->integer('ban_creator')->unsigned()->default(0);
+        $table->increments('id');
+        $table->string('username', 200)->nullable();
+        $table->string('ip', 255)->nullable();
+        $table->string('email', 80)->nullable();
+        $table->string('message', 255)->nullable();
+        $table->integer('expire')->unsigned()->nullable();
+        $table->integer('ban_creator')->unsigned()->default(0);
 
-            $table->index('username');
-        });
-    }
-
-    public function down()
-    {
-        Schema::drop('bans');
+        $table->index('username');
     }
 }
