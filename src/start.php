@@ -5,5 +5,5 @@ if (FluxBB\Core::isInstalled()) {
     DB::setDefaultConnection('fluxbb');
 }
 
-// Load our helpers (composers, macros, validators etc.)
-include __DIR__.'/helpers.php';
+// Load our validation helpers
+include __DIR__.'/helpers/validators.php';
