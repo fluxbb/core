@@ -15,7 +15,7 @@ class ServiceProvider extends Base
     public function register()
     {
         $this->app->singleton('FluxBB\Web\UrlGeneratorInterface', function ($app) {
-            return new UrlGenerator($app['fluxbb.web.router'], $app['url']);
+            return new UrlGenerator($app['FluxBB\Web\Router'], $app['url']);
         });
 
         $this->app->singleton('FluxBB\Auth\AuthenticatorInterface', 'FluxBB\Integration\Laravel\Authenticator');
@@ -42,7 +42,7 @@ class ServiceProvider extends Base
 
         $this->app->make('router')->any($prefix.'/{uri}', ['as' => 'fluxbb', 'uses' => function () {
             $dispatcher = new Dispatcher(
-                $this->app->make('fluxbb.web.router'),
+                $this->app->make('FluxBB\Web\Router'),
                 $this->app->make('FluxBB\Web\ControllerFactory')
             );
 
