@@ -9,21 +9,21 @@
     <!-- end meta tags -->
 
     <!-- begin css -->
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('packages/fluxbb/core/frontend/bootstrap.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('packages/fluxbb/core/frontend/style.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('packages/fluxbb/core/frontend/assets/css/entypo.css') }}" />
+    <link rel="stylesheet" type="text/css" href="public/packages/fluxbb/core/frontend/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="public/packages/fluxbb/core/frontend/style.css" />
+    <link rel="stylesheet" type="text/css" href="public/packages/fluxbb/core/frontend/assets/css/entypo.css" />
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
     <!-- end css -->
 
 
     <!-- begin shortcut -->
-    <link rel="shortcut icon" href="{{ URL::asset('packages/fluxbb/core/img/favicon.ico') }}">
+    <link rel="shortcut icon" href="public/packages/fluxbb/core/img/favicon.ico">
     <!-- end shortcut -->
 
     <!-- begin js -->
-    <script src="{{ URL::asset('packages/fluxbb/core/js/jquery.min.js') }}"></script>
-    <script src="{{ URL::asset('packages/fluxbb/core/js/fluxbb.js') }}"></script>
-    <script src="{{ URL::asset('packages/fluxbb/core/js/frontend.js') }}"></script>
+    <script src="public/packages/fluxbb/core/js/jquery.min.js"></script>
+    <script src="public/packages/fluxbb/core/js/fluxbb.js"></script>
+    <script src="public/packages/fluxbb/core/js/frontend.js"></script>
     <!-- end js -->
 
 </head>
@@ -36,7 +36,7 @@
             <h1 class="forum-title">{{ $board_title }}</h1>
             <div class="forum-desc"><p>{{ $board_description }}</p></div>
 
-            @if(Auth::user())
+            @if(\Illuminate\Support\Facades\Auth::user())
             <div class="avatar">
                 <!-- TODO: avitar function -->
                 <img src="assets/img/cyrano.jpg" alt="" />
@@ -51,9 +51,9 @@
                     <li class="active"><a href="{{ $route('index') }}">Index</a></li>
                 </ul>
                 <h3 class="username pull-right">
-                @if (Auth::user())
-                    {{ Auth::user()->username }}
-                    <a href="{{ $route('profile', array('id' => Auth::user()->id)) }}">Profile</a>
+                @if (\Illuminate\Support\Facades\Auth::user())
+                    {{ \Illuminate\Support\Facades\Auth::user()->username }}
+                    <a href="{{ $route('profile', array('id' => \Illuminate\Support\Facades\Auth::user()->id)) }}">Profile</a>
                     @if (FluxBB\Models\User::current()->isAdmin())
                     <a href="{{ $route('admin.index') }}">{{ trans('fluxbb::common.admin') }}</a>
                     @endif
