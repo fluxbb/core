@@ -2,7 +2,7 @@
 
 <div id="brdmain">
 
-@if ($errors->has())
+@if (isset($errors) and $errors->has())
 	<div class="alert alert-danger">
 		<p>The following errors occured:</p>
 		<ul>
