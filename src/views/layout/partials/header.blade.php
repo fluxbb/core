@@ -60,6 +60,7 @@
                     <a href="{{ $route('logout') }}">Logout</a>
                 @else
                     <a href="{{ $route('login') }}">Login</a>
+                    <a href="{{ $route('register') }}">Register</a>
                 @endif
                 </h3>
             </nav>
