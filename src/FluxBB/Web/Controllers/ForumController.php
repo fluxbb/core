@@ -8,21 +8,21 @@ class ForumController extends Controller
 {
     public function index()
     {
-        return $this->category('/');
+        $this->setInput('slug', '/');
+
+        return $this->category();
     }
 
-    public function category($slug)
+    public function category()
     {
-        $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
-
-        $response = $this->execute('category', ['slug' => $slug]);
+        $response = $this->execute('category');
 
         return $this->view('category', $response->getData());
     }
 
-    public function conversation($id)
+    public function conversation()
     {
-        $response = $this->execute('conversation', ['id' => $id]);
+        $response = $this->execute('conversation');
 
         return $this->view('conversation', $response->getData());
     }

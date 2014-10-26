@@ -7,21 +7,17 @@ use FluxBB\Web\Controller;
 
 class ConversationController extends Controller
 {
-    public function createForm($slug)
+    public function createForm()
     {
-        $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
-
-        $category = $this->execute('category', ['slug' => $slug])->getData()['category'];
+        $category = $this->execute('category')->getData()['category'];
 
         return $this->view('new_topic', compact('category'));
     }
 
-    public function create($slug)
+    public function create()
     {
         try {
-            $slug = preg_replace('/\/+/', '/', '/'.$slug.'/');
-
-            $this->execute('new_topic_handler', ['slug' => $slug]);
+            $this->execute('new_topic_handler');
 
             // TODO: id => conversation->id
             return $this->redirect('conversation', trans('fluxbb::topic.topic_added'));
@@ -31,17 +27,17 @@ class ConversationController extends Controller
         }
     }
 
-    public function subscribe($id)
+    public function subscribe()
     {
-        $this->execute('topic_subscribe', ['id' => $id]);
+        $this->execute('topic_subscribe');
 
         // TODO: Topic ID
         return $this->redirect('viewtopic', 'Subscription added.');
     }
 
-    public function unsubscribe($id)
+    public function unsubscribe()
     {
-        $this->execute('topic_unsubscribe', ['id' => $id]);
+        $this->execute('topic_unsubscribe');
 
         // TODO: Topic ID
         return $this->redirect('viewtopic', 'Subscription removed.');

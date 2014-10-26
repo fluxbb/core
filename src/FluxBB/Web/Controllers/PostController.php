@@ -7,10 +7,10 @@ use FluxBB\Web\Controller;
 
 class PostController extends Controller
 {
-    public function create($conversation)
+    public function create()
     {
         try {
-            $this->execute('reply_handler', ['id' => $conversation]);
+            $this->execute('reply_handler'); // TODO: param ID -> CONVERSATION for action
 
             return $this->redirect('viewpost', trans('fluxbb::post.post_added'));
             // TODO: id => post->id (post == result['data'])
@@ -20,15 +20,15 @@ class PostController extends Controller
         }
     }
 
-    public function editForm($id)
+    public function editForm()
     {
 
     }
 
-    public function edit($id)
+    public function edit()
     {
         try {
-            $this->execute('post_edit_handler', ['id' => $id]);
+            $this->execute('post_edit_handler');
 
             return $this->redirect('viewpost', trans('fluxbb::post.edit_redirect'));
             // TODO: id => post->id
@@ -38,22 +38,22 @@ class PostController extends Controller
         }
     }
 
-    public function reportForm($id)
+    public function reportForm()
     {
         //
     }
 
-    public function report($id)
+    public function report()
     {
         //
     }
 
-    public function deleteForm($id)
+    public function deleteForm()
     {
         //
     }
 
-    public function delete($id)
+    public function delete()
     {
         //
     }

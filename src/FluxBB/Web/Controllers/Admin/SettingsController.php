@@ -24,9 +24,9 @@ class SettingsController extends Controller
         return $this->view('admin.settings.maintenance');
     }
 
-    public function set($options)
+    public function set()
     {
-        $this->execute('admin.options.set', ['options' => $options]);
+        $this->execute('admin.options.set');
 
         return new JsonResponse();
     }

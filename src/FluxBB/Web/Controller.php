@@ -39,6 +39,13 @@ class Controller
      */
     protected $request;
 
+    /**
+     * The consolidated input data from the request.
+     *
+     * @var array
+     */
+    protected $input;
+
 
     /**
      * Set the server to use.
@@ -82,6 +89,8 @@ class Controller
     public function setRequest(Request $request)
     {
         $this->request = $request;
+
+        $this->input = $request->request->all() + $request->query->all();
     }
 
     /**
@@ -93,7 +102,7 @@ class Controller
      */
     protected function execute($action, array $parameters = [])
     {
-        $parameters += $this->getInput();
+        $parameters += $this->input;
 
         return $this->server->dispatch(
             new ServerRequest($action, $parameters)
@@ -101,13 +110,15 @@ class Controller
     }
 
     /**
-     * Get all input parameters that were passed to this request.
+     * Explicitly set an input parameter to the given value.
      *
-     * @return array
+     * @param string $key
+     * @param string $value
+     * @return void
      */
-    protected function getInput()
+    protected function setInput($key, $value)
     {
-        return $this->request->request->all() + $this->request->query->all();
+        $this->input[$key] = $value;
     }
 
     /**
