@@ -36,7 +36,7 @@
             <h1 class="forum-title">{{ $board_title }}</h1>
             <div class="forum-desc"><p>{{ $board_description }}</p></div>
 
-            @if(\Illuminate\Support\Facades\Auth::user())
+            @if($user)
             <div class="avatar">
                 <!-- TODO: avitar function -->
                 <img src="assets/img/cyrano.jpg" alt="" />
@@ -51,10 +51,10 @@
                     <li class="active"><a href="{{ $route('index') }}">Index</a></li>
                 </ul>
                 <h3 class="username pull-right">
-                @if (\Illuminate\Support\Facades\Auth::user())
-                    {{ \Illuminate\Support\Facades\Auth::user()->username }}
-                    <a href="{{ $route('profile', array('id' => \Illuminate\Support\Facades\Auth::user()->id)) }}">Profile</a>
-                    @if (FluxBB\Models\User::current()->isAdmin())
+                @if ($user)
+                    {{ $user->username }}
+                    <a href="{{ $route('profile', array('id' => $user->id)) }}">Profile</a>
+                    @if ($user->isAdmin())
                     <a href="{{ $route('admin.index') }}">{{ trans('fluxbb::common.admin') }}</a>
                     @endif
                     <a href="{{ $route('logout') }}">Logout</a>

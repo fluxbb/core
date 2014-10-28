@@ -16,11 +16,11 @@
                     <li<?php echo (in_array('extensions', array()) ? ' class="current active"' : '' ); ?> id="nav-extensions"><a href="#"><i class="icon-wrench"></i> {{ trans('fluxbb::admin_common.extensions_menu') }}</a></li>
                 </ul>
                 <ul class="nav pull-right">
-                    @if(\Illuminate\Support\Facades\Auth::user())
+                    @if($user)
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fluxbb::admin_common.welcome') }} {{ \Illuminate\Support\Facades\Auth::user()->username }} <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('fluxbb::admin_common.welcome') }} {{ $user->username }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ $route('profile', array('id' => \Illuminate\Support\Facades\Auth::user()->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
+                            <li><a href="{{ $route('profile', array('id' => $user->id)) }}">{{ trans('fluxbb::common.profile') }}</a></li>
                             <li><a href="{{ $route('index') }}">{{ trans('fluxbb::common.forum') }}</a></li>
                             <li class="divider"></li>
                             <li><a href="#">Support</a></li>

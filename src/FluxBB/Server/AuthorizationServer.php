@@ -113,7 +113,7 @@ class AuthorizationServer implements ServerInterface
      */
     protected function getSubject()
     {
-        $subject = $this->container->make('auth')->user();
+        $subject = $this->container->make('Illuminate\Contracts\Auth\Guard')->user();
 
         return $subject ?: new Guest();
     }
