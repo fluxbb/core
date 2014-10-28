@@ -17,8 +17,8 @@ class AlertsComposer
 
     public function compose(View $view)
     {
-        if ($this->session->has('message')) {
-            $view->with('message', $this->session->get('message'));
+        if ($this->session->has('fluxbb.message')) {
+            $view->with('message', $this->session->get('fluxbb.message'));
         }
     }
 }
