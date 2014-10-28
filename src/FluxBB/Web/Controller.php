@@ -122,6 +122,17 @@ class Controller
     }
 
     /**
+     * Get the value of the input parameter with the given name.
+     *
+     * @param string $key
+     * @return string
+     */
+    protected function getInput($key)
+    {
+        return array_get($this->input, $key);
+    }
+
+    /**
      * Render the given view.
      *
      * @param string $name
