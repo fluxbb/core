@@ -35,6 +35,7 @@ class ControllerFactory
         $controller = $this->container->make($class);
         $controller->setServer($this->makeServer());
         $controller->setView($this->makeView());
+        $controller->setSession($this->makeSession());
         $controller->setUrlGenerator($this->makeUrlGenerator());
 
         return $controller;
@@ -58,6 +59,16 @@ class ControllerFactory
     protected function makeView()
     {
         return $this->container->make('FluxBB\View\ViewInterface');
+    }
+
+    /**
+     * Instantiate the session driver.
+     *
+     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface
+     */
+    protected function makeSession()
+    {
+        return $this->container->make('Symfony\Component\HttpFoundation\Session\SessionInterface');
     }
 
     /**

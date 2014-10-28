@@ -8,6 +8,7 @@ use FluxBB\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Controller
 {
@@ -24,6 +25,13 @@ class Controller
      * @var \FluxBB\View\ViewInterface
      */
     protected $view;
+
+    /**
+     * The session instance.
+     *
+     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+     */
+    protected $session;
 
     /**
      * The URL generator instance.
@@ -67,6 +75,17 @@ class Controller
     public function setView(ViewInterface $view)
     {
         $this->view = $view;
+    }
+
+    /**
+     * Set the session driver to use.
+     *
+     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
+     * @return void
+     */
+    public function setSession(SessionInterface $session)
+    {
+        $this->session = $session;
     }
 
     /**
@@ -153,8 +172,9 @@ class Controller
      */
     protected function redirect($to, $message = null)
     {
-        $url = $this->url->toRoute($to);
+        $this->session->set('fluxbb.message', $message);
 
+        $url = $this->url->toRoute($to);
         return new RedirectResponse($url);
     }
 }
