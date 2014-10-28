@@ -23,6 +23,10 @@ class View implements ViewInterface
      */
     public function render($name, array $data)
     {
-        return $this->factory->make("fluxbb::$name", $data)->render();
+        if (!str_contains($name, '::')) {
+            $name = "fluxbb::$name";
+        }
+
+        return $this->factory->make($name, $data)->render();
     }
 }
