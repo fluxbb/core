@@ -30,10 +30,6 @@
             <strong>{{ trans('fluxbb::common.email') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br />
             <input type="email" name="email" size="50" maxlength="80" /><br />{{-- TODO: Escape old input (see above, too) --}}
         </label>
-        <label class="required">
-            <strong>{{ trans('fluxbb::register.confirm_email') }} <span>{{ trans('fluxbb::common.required') }}</span></strong><br />
-            <input type="email" name="email_confirmation" size="50" maxlength="80" /><br />
-        </label>
     </fieldset>
 
     <p class="buttons"><input type="submit" name="register" value="{{ trans('fluxbb::register.register') }}" /></p>
