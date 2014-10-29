@@ -16,7 +16,9 @@ class AuthController extends Controller
     public function register()
     {
         try {
-            $this->execute('handle_registration');
+            $this->execute('handle_registration', [
+                'ip' => $this->request->getClientIp(),
+            ]);
 
             return $this->redirect('index', trans('fluxbb::register.reg_complete'));
         } catch (ValidationFailed $e) {

@@ -7,7 +7,7 @@ use FluxBB\Events\UserHasRegistered;
 use FluxBB\Models\User;
 use FluxBB\Models\ConfigRepositoryInterface;
 
-class Register extends Action
+class CreateUser extends Action
 {
     protected $config;
 
@@ -34,7 +34,7 @@ class Register extends Action
             'dst'               => $this->config->get('o_default_dst'),
             'language'          => $this->config->get('o_default_lang'),
             'style'             => $this->config->get('o_default_style'),
-            //'registration_ip'   => $this->request->getClientIp(),
+            'registration_ip'   => $this->get('ip'),
             //'last_visit'        => $this->request->server('REQUEST_TIME', time()),
         ]);
 
