@@ -33,8 +33,6 @@ class CoreServiceProvider extends ServiceProvider
             $view->addNamespace('fluxbb:mail', __DIR__ . '/../../lang/' . $locale . '/mail/');
             return $view;
         });
-
-        include __DIR__.'/../../start.php';
     }
 
     /**
