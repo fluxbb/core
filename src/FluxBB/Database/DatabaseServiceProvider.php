@@ -4,6 +4,7 @@ namespace FluxBB\Database;
 
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Support\ServiceProvider;
+use PDO;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class DatabaseServiceProvider extends ServiceProvider
 
             $connection = $factory->make($this->app['config']->get('fluxbb.database'));
             $connection->setEventDispatcher($this->app->make('Illuminate\Contracts\Events\Dispatcher'));
+            $connection->setFetchMode(PDO::FETCH_CLASS);
 
             return $connection;
         });
