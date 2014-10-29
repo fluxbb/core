@@ -15,9 +15,9 @@ class UserValidator extends Validator
     protected function rules()
     {
         return [
-            'username' => 'required|between:2,25|username_not_guest|no_ip|username_not_reserved|unique:users,username',
+            'username' => 'required|between:2,25|username_not_guest|no_ip|username_not_reserved',
             'password' => 'required|min:4|confirmed',
-            'email'    => 'required|email|confirmed|unique:users,email',
+            'email'    => 'required|email',
         ];
     }
 
