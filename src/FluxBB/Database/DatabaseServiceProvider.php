@@ -2,7 +2,9 @@
 
 namespace FluxBB\Database;
 
+use Illuminate\Database\ConnectionResolver;
 use Illuminate\Database\Connectors\ConnectionFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use PDO;
 
@@ -24,5 +26,19 @@ class DatabaseServiceProvider extends ServiceProvider
 
             return $connection;
         });
+
+        $this->app->singleton('Illuminate\Database\ConnectionResolverInterface', function () {
+            $resolver = new ConnectionResolver([
+                'fluxbb' => $this->app->make('Illuminate\Database\ConnectionInterface'),
+            ]);
+            $resolver->setDefaultConnection('fluxbb');
+
+            return $resolver;
+        });
+    }
+
+    public function boot()
+    {
+        Model::setConnectionResolver($this->app->make('Illuminate\Database\ConnectionResolverInterface'));
     }
 }
