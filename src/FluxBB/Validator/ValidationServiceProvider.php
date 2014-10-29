@@ -14,10 +14,6 @@ class ValidationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    }
-
-    public function boot()
-    {
         $this->app->extend('Illuminate\Contracts\Validation\Factory', function (Factory $factory) {
             $factory->extend('username_not_guest', function ($attribute, $value) {
                 return strcasecmp($value, 'Guest') && strcasecmp($value, trans('fluxbb::common.guest'));
