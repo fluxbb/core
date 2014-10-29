@@ -130,6 +130,6 @@ class ServiceProvider extends Base
      */
     protected function registerApiRoutes(Router $router)
     {
-        $router->post('api/v1/settings', 'admin.options.set', 'FluxBB\Web\Controllers\Admin\SettingsController@set');
+        $router->post('/api/v1/settings', 'admin.options.set', 'FluxBB\Web\Controllers\Admin\SettingsController@set');
     }
 }
