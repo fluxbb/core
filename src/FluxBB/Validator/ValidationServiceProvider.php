@@ -22,7 +22,7 @@ class ValidationServiceProvider extends ServiceProvider
 
     protected function registerFactory()
     {
-        $this->app->singleton('validator', function () {
+        $this->app->singleton('Illuminate\Contracts\Validation\Factory', function () {
             $translator = $this->app->make('Symfony\Component\Translation\TranslatorInterface');
 
             return new Factory($translator, $this->app);
