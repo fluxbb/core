@@ -2,6 +2,7 @@
 
 namespace FluxBB\Database;
 
+use FluxBB\Core;
 use Illuminate\Database\ConnectionResolver;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,6 +40,8 @@ class DatabaseServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Model::setConnectionResolver($this->app->make('Illuminate\Database\ConnectionResolverInterface'));
+        if (Core::isInstalled()) {
+            Model::setConnectionResolver($this->app->make('Illuminate\Database\ConnectionResolverInterface'));
+        }
     }
 }
