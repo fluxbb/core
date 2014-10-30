@@ -2,6 +2,7 @@
 
 namespace FluxBB\Auth;
 
+use FluxBB\Core;
 use Illuminate\Auth\DatabaseUserProvider;
 use Illuminate\Auth\Guard;
 use Illuminate\Support\ServiceProvider;
@@ -30,10 +31,12 @@ class AuthServiceProvider extends ServiceProvider
             return $guard;
         });
 
-        $this->app->extend('view', function ($view) {
-            $view->share('user', $this->app->make('Illuminate\Contracts\Auth\Guard')->user());
+        if (Core::isInstalled()) {
+            $this->app->extend('view', function ($view) {
+                $view->share('user', $this->app->make('Illuminate\Contracts\Auth\Guard')->user());
 
-            return $view;
-        });
+                return $view;
+            });
+        }
     }
 }
