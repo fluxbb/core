@@ -26,9 +26,7 @@ class SetOptions extends Action
      */
     protected function run()
     {
-        $options = $this->get('options');
-
-        foreach ($options as $key => $value) {
+        foreach ($this->input as $key => $value) {
             $key = 'o_' . $key;
             if ($this->config->has($key)) {
                 $this->config->set($key, $value);
