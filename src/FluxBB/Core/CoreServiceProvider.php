@@ -12,11 +12,16 @@ use FluxBB\Models\ConfigRepository;
 class CoreServiceProvider extends ServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
+     * Register the service provider.
      *
-     * @var bool
+     * @return void
      */
-    protected $defer = false;
+    public function register()
+    {
+        $this->registerBindings();
+        $this->registerViewComposers();
+        $this->registerEventHandlers();
+    }
 
     /**
      * Bootstrap the application events.
@@ -33,18 +38,6 @@ class CoreServiceProvider extends ServiceProvider
             $view->addNamespace('fluxbb:mail', __DIR__ . '/../../lang/' . $locale . '/mail/');
             return $view;
         });
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->registerBindings();
-        $this->registerViewComposers();
-        $this->registerEventHandlers();
     }
 
     /**
@@ -99,15 +92,5 @@ class CoreServiceProvider extends ServiceProvider
         $events->listen('FluxBB.Events.UserHasRegistered', 'FluxBB\Handlers\SendWelcomeEmail');
         $events->listen('FluxBB.Events.UserHasPosted', 'FluxBB\Handlers\UpdateUserPostStats');
         //$events->listen('FluxBB.Events.UserHasPosted', 'FluxBB\Handlers\UpdateForumStats');
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return array();
     }
 }
