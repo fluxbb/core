@@ -3,7 +3,6 @@
 namespace FluxBB\Validator;
 
 use FluxBB\Core\Validator;
-use FluxBB\Models\Post;
 use FluxBB\Server\Request;
 
 class PostValidator extends Validator
