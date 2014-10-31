@@ -24,6 +24,7 @@
         "illuminate/cache": "~5.0",
         "illuminate/config": "~5.0",
         "illuminate/container": "~5.0",
+        "illuminate/console": "~5.0",
         "illuminate/contracts": "~5.0",
         "illuminate/hashing": "~5.0",
         "illuminate/support": "~5.0",
