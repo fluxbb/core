@@ -22,16 +22,16 @@ abstract class Command extends LaravelCommand
     }
 
     /**
-     * Let the FluxBB server execute the given action and return its response.
+     * Let the FluxBB server execute the given action and return its response data.
      *
      * @param string $action
      * @param array $parameters
-     * @return \FluxBB\Server\Response
+     * @return array
      */
     public function dispatch($action, array $parameters = [])
     {
         return $this->server->dispatch(
             new Request($action, $parameters)
-        );
+        )->getData();
     }
 }
