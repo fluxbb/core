@@ -17,14 +17,13 @@ class ConversationController extends Controller
     public function create()
     {
         try {
-            $this->execute('new_topic_handler');
+            $conversation = $this->execute('new_topic_handler')->getData()['conversation'];
 
-            // TODO: id => conversation->id
-            return $this->redirectTo('conversation')
+            return $this->redirectTo('conversation', ['id' => $conversation->id])
                         ->withMessage(trans('fluxbb::topic.topic_added'));
         } catch (ValidationFailed $e) {
-            // TODO: slug
-            return $this->redirectTo('new_topic');
+            // TODO: errors
+            return $this->redirectTo('new_topic', $this->input);
         }
     }
 
@@ -32,8 +31,7 @@ class ConversationController extends Controller
     {
         $this->execute('topic_subscribe');
 
-        // TODO: Topic ID
-        return $this->redirectTo('viewtopic')
+        return $this->redirectTo('viewtopic', $this->input)
                     ->withMessage('Subscription added.');
     }
 
@@ -41,8 +39,7 @@ class ConversationController extends Controller
     {
         $this->execute('topic_unsubscribe');
 
-        // TODO: Topic ID
-        return $this->redirectTo('viewtopic')
+        return $this->redirectTo('viewtopic', $this->input)
                     ->withMessage('Subscription removed.');
     }
 }

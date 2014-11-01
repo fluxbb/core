@@ -19,11 +19,6 @@ class Reply extends Action
         $this->conversations = $repository;
     }
 
-    /**
-     * Run the action and return a response for the user.
-     *
-     * @return void
-     */
     protected function run()
     {
         $id = $this->get('id');
@@ -41,5 +36,9 @@ class Reply extends Action
         $this->conversations->addReply($conversation, $post);
 
         $this->raise(new UserHasPosted($creator, $post));
+
+        return [
+            'post' => $post,
+        ];
     }
 }

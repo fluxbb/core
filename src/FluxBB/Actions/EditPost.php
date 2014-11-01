@@ -24,5 +24,9 @@ class EditPost extends Action
 
         $post->save();
         $this->raise(new PostWasEdited($post, $creator));
+
+        return [
+            'post' => $post,
+        ];
     }
 }

@@ -10,14 +10,12 @@ class PostController extends Controller
     public function create()
     {
         try {
-            $this->execute('reply_handler'); // TODO: param ID -> CONVERSATION for action
+            $post = $this->execute('reply_handler')->getData()['post'];
 
-            return $this->redirectTo('viewpost')
+            return $this->redirectTo('viewpost', ['id' => $post->id])
                         ->withMessage(trans('fluxbb::post.post_added'));
-            // TODO: id => post->id (post == result['data'])
         } catch (ValidationFailed $e) {
-            return $this->redirectTo('conversation');
-            // TODO: id => conversation
+            return $this->redirectTo('conversation', $this->input);
         }
     }
 
@@ -29,14 +27,12 @@ class PostController extends Controller
     public function edit()
     {
         try {
-            $this->execute('post_edit_handler');
+            $post = $this->execute('post_edit_handler')->getData()['post'];
 
-            return $this->redirectTo('viewpost')
+            return $this->redirectTo('viewpost', ['id' => $post->id])
                         ->withMessage(trans('fluxbb::post.edit_redirect'));
-            // TODO: id => post->id
         } catch (ValidationFailed $e) {
-            return $this->redirectTo('post_edit');
-            // TODO: id => post->id
+            return $this->redirectTo('post_edit', $this->input);
         }
     }
 
