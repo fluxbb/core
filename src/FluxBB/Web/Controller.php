@@ -112,11 +112,11 @@ class Controller
     }
 
     /**
-     * Let the FluxBB server execute the given action and return its response.
+     * Let the FluxBB server execute the given action and return its response data.
      *
      * @param string $action
      * @param array $parameters
-     * @return \FluxBB\Server\Response
+     * @return array
      */
     protected function execute($action, array $parameters = [])
     {
@@ -124,7 +124,7 @@ class Controller
 
         return $this->server->dispatch(
             new ServerRequest($action, $parameters)
-        );
+        )->getData();
     }
 
     /**

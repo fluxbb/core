@@ -17,14 +17,14 @@ class ForumController extends Controller
     {
         $response = $this->execute('category');
 
-        return $this->view('category', $response->getData());
+        return $this->view('category', $response);
     }
 
     public function conversation()
     {
         $response = $this->execute('conversation');
 
-        return $this->view('conversation', $response->getData());
+        return $this->view('conversation', $response);
     }
 
     public function post($id)

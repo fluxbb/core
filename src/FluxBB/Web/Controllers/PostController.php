@@ -10,7 +10,8 @@ class PostController extends Controller
     public function create()
     {
         try {
-            $post = $this->execute('reply_handler')->getData()['post'];
+            $result = $this->execute('reply_handler');
+            $post = $result['post'];
 
             return $this->redirectTo('viewpost', ['id' => $post->id])
                         ->withMessage(trans('fluxbb::post.post_added'));
@@ -27,7 +28,8 @@ class PostController extends Controller
     public function edit()
     {
         try {
-            $post = $this->execute('post_edit_handler')->getData()['post'];
+            $result = $this->execute('post_edit_handler');
+            $post = $result['post'];
 
             return $this->redirectTo('viewpost', ['id' => $post->id])
                         ->withMessage(trans('fluxbb::post.edit_redirect'));

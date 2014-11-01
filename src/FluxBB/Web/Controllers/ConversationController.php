@@ -9,15 +9,16 @@ class ConversationController extends Controller
 {
     public function createForm()
     {
-        $category = $this->execute('category')->getData()['category'];
+        $data = $this->execute('category');
 
-        return $this->view('new_topic', compact('category'));
+        return $this->view('new_topic', $data);
     }
 
     public function create()
     {
         try {
-            $conversation = $this->execute('new_topic_handler')->getData()['conversation'];
+            $result = $this->execute('new_topic_handler');
+            $conversation = $result['conversation'];
 
             return $this->redirectTo('conversation', ['id' => $conversation->id])
                         ->withMessage(trans('fluxbb::topic.topic_added'));

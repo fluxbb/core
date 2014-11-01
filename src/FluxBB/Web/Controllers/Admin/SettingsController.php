@@ -9,9 +9,9 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        $results = $this->execute('get.settings');
+        $result = $this->execute('get.settings');
 
-        return $this->view('admin.settings.global', $results->getData());
+        return $this->view('admin.settings.global', $result);
     }
 
     public function email()
