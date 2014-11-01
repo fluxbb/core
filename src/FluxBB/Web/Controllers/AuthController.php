@@ -23,9 +23,7 @@ class AuthController extends Controller
             return $this->redirectTo('index')
                         ->withMessage(trans('fluxbb::register.reg_complete'));
         } catch (ValidationFailed $e) {
-            return $this->redirectTo('register')
-                        ->withInput()
-                        ->withErrors($e);
+            return $this->errorRedirectTo('register', $e);
         }
     }
 

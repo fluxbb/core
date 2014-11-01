@@ -5,6 +5,7 @@ namespace FluxBB\Web;
 use FluxBB\Server\Request as ServerRequest;
 use FluxBB\Server\ServerInterface;
 use FluxBB\View\ViewInterface;
+use Illuminate\Contracts\Support\MessageProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -174,6 +175,20 @@ class Controller
         $url = $this->url->toRoute($route, $parameters);
 
         return $this->makeRedirect($url);
+    }
+
+    /**
+     * Create a redirect response for errors.
+     *
+     * @param string $route
+     * @param \Illuminate\Contracts\Support\MessageProvider $errors
+     * @return \FluxBB\Web\RedirectResponse
+     */
+    protected function errorRedirectTo($route, MessageProvider $errors)
+    {
+        return $this->redirectTo($route, $this->input)
+            ->withInput()
+            ->withErrors($errors);
     }
 
     /**
