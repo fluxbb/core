@@ -12,7 +12,8 @@ class PostController extends Controller
         try {
             $this->execute('reply_handler'); // TODO: param ID -> CONVERSATION for action
 
-            return $this->redirect('viewpost', trans('fluxbb::post.post_added'));
+            return $this->redirect('viewpost')
+                        ->withMessage(trans('fluxbb::post.post_added'));
             // TODO: id => post->id (post == result['data'])
         } catch (ValidationFailed $e) {
             return $this->redirect('conversation');
@@ -30,7 +31,8 @@ class PostController extends Controller
         try {
             $this->execute('post_edit_handler');
 
-            return $this->redirect('viewpost', trans('fluxbb::post.edit_redirect'));
+            return $this->redirect('viewpost')
+                        ->withMessage(trans('fluxbb::post.edit_redirect'));
             // TODO: id => post->id
         } catch (ValidationFailed $e) {
             return $this->redirect('post_edit');

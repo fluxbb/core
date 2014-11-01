@@ -6,7 +6,6 @@ use FluxBB\Server\Request as ServerRequest;
 use FluxBB\Server\ServerInterface;
 use FluxBB\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -167,14 +166,26 @@ class Controller
      * Create a redirect response.
      *
      * @param string $to
-     * @param string $message
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \FluxBB\Web\RedirectResponse
      */
-    protected function redirect($to, $message = null)
+    protected function redirect($to)
     {
-        $this->session->set('fluxbb.message', $message);
-
         $url = $this->url->toRoute($to);
-        return new RedirectResponse($url);
+
+        return $this->makeRedirect($url);
+    }
+
+    /**
+     * Instantiate a redirect response.
+     *
+     * @param string $url
+     * @return \FluxBB\Web\RedirectResponse
+     */
+    protected function makeRedirect($url)
+    {
+        $redirect = new RedirectResponse($url);
+        $redirect->setSession($this->session);
+
+        return $redirect;
     }
 }

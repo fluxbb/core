@@ -20,7 +20,8 @@ class ConversationController extends Controller
             $this->execute('new_topic_handler');
 
             // TODO: id => conversation->id
-            return $this->redirect('conversation', trans('fluxbb::topic.topic_added'));
+            return $this->redirect('conversation')
+                        ->withMessage(trans('fluxbb::topic.topic_added'));
         } catch (ValidationFailed $e) {
             // TODO: slug
             return $this->redirect('new_topic');
@@ -32,7 +33,8 @@ class ConversationController extends Controller
         $this->execute('topic_subscribe');
 
         // TODO: Topic ID
-        return $this->redirect('viewtopic', 'Subscription added.');
+        return $this->redirect('viewtopic')
+                    ->withMessage('Subscription added.');
     }
 
     public function unsubscribe()
@@ -40,6 +42,7 @@ class ConversationController extends Controller
         $this->execute('topic_unsubscribe');
 
         // TODO: Topic ID
-        return $this->redirect('viewtopic', 'Subscription removed.');
+        return $this->redirect('viewtopic')
+                    ->withMessage('Subscription removed.');
     }
 }

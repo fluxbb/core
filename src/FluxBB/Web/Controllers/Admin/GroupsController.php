@@ -28,7 +28,8 @@ class GroupsController extends Controller
         try {
             // Update group
 
-            return $this->redirect('admin_groups_edit', 'Group was updated successfully.'); // TODO: params
+            return $this->redirect('admin_groups_edit')
+                        ->withMessage('Group was updated successfully.'); // TODO: params
         } catch (ValidationFailed $e) {
             return $this->redirect('admin_groups_edit'); // TODO: params
         }
