@@ -24,6 +24,7 @@ class AuthController extends Controller
                         ->withMessage(trans('fluxbb::register.reg_complete'));
         } catch (ValidationFailed $e) {
             return $this->redirectTo('register')
+                        ->withInput()
                         ->withErrors($e);
         }
     }
@@ -41,7 +42,8 @@ class AuthController extends Controller
             return $this->redirectTo('index')
                         ->withMessage(trans('fluxbb::login.message_login'));
         } catch (Exception $e) {
-            return $this->redirectTo('login');
+            return $this->redirectTo('login')
+                        ->withInput();
             // TODO: With errors!
         }
     }

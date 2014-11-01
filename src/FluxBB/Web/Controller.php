@@ -186,6 +186,7 @@ class Controller
     {
         $redirect = new RedirectResponse($url);
         $redirect->setSession($this->session);
+        $redirect->setInput($this->input);
 
         return $redirect;
     }

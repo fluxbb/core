@@ -9,9 +9,18 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class RedirectResponse extends SymfonyRedirect
 {
     /**
+     * The session handler instance.
+     *
      * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
      */
     protected $session;
+
+    /**
+     * An array of previous input data that may be flashed to the session.
+     *
+     * @var array
+     */
+    protected $input;
 
 
     public function withMessage($message)
@@ -21,9 +30,11 @@ class RedirectResponse extends SymfonyRedirect
         return $this;
     }
 
-    public function withInput(array $input)
+    public function withInput()
     {
-        // Flash input to session
+        $this->session->set('fluxbb.input', $this->input);
+
+        return $this;
     }
 
     public function withErrors(MessageProvider $errors)
@@ -36,5 +47,10 @@ class RedirectResponse extends SymfonyRedirect
     public function setSession(SessionInterface $session)
     {
         $this->session = $session;
+    }
+
+    public function setInput(array $input)
+    {
+        $this->input = $input;
     }
 }
