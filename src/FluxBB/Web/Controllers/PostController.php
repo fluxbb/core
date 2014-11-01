@@ -16,7 +16,8 @@ class PostController extends Controller
             return $this->redirectTo('viewpost', ['id' => $post->id])
                         ->withMessage(trans('fluxbb::post.post_added'));
         } catch (ValidationFailed $e) {
-            return $this->redirectTo('conversation', $this->input);
+            return $this->redirectTo('conversation', $this->input)
+                        ->withErrors($e);
         }
     }
 
@@ -34,7 +35,8 @@ class PostController extends Controller
             return $this->redirectTo('viewpost', ['id' => $post->id])
                         ->withMessage(trans('fluxbb::post.edit_redirect'));
         } catch (ValidationFailed $e) {
-            return $this->redirectTo('post_edit', $this->input);
+            return $this->redirectTo('post_edit', $this->input)
+                        ->withErrors($e);
         }
     }
 

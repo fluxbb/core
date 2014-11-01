@@ -2,7 +2,7 @@
 
 namespace FluxBB\Web;
 
-use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Contracts\Support\MessageProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirect;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -26,9 +26,11 @@ class RedirectResponse extends SymfonyRedirect
         // Flash input to session
     }
 
-    public function withErrors(MessageBag $errors)
+    public function withErrors(MessageProvider $errors)
     {
-        // Flash errors to session
+        $this->session->set('fluxbb.errors', $errors->getMessageBag());
+
+        return $this;
     }
 
     public function setSession(SessionInterface $session)

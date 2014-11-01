@@ -23,8 +23,8 @@ class ConversationController extends Controller
             return $this->redirectTo('conversation', ['id' => $conversation->id])
                         ->withMessage(trans('fluxbb::topic.topic_added'));
         } catch (ValidationFailed $e) {
-            // TODO: errors
-            return $this->redirectTo('new_topic', $this->input);
+            return $this->redirectTo('new_topic', $this->input)
+                        ->withErrors($e);
         }
     }
 
