@@ -20,10 +20,10 @@ class AuthController extends Controller
                 'ip' => $this->request->getClientIp(),
             ]);
 
-            return $this->redirect('index')
+            return $this->redirectTo('index')
                         ->withMessage(trans('fluxbb::register.reg_complete'));
         } catch (ValidationFailed $e) {
-            return $this->redirect('register');
+            return $this->redirectTo('register');
         }
     }
 
@@ -37,10 +37,10 @@ class AuthController extends Controller
         try {
             $this->execute('handle_login');
 
-            return $this->redirect('index')
+            return $this->redirectTo('index')
                         ->withMessage(trans('fluxbb::login.message_login'));
         } catch (Exception $e) {
-            return $this->redirect('login');
+            return $this->redirectTo('login');
             // TODO: With errors!
         }
     }
@@ -49,7 +49,7 @@ class AuthController extends Controller
     {
         $this->execute('logout');
 
-        return $this->redirect('index');
+        return $this->redirectTo('index');
     }
 
     public function resetForm()

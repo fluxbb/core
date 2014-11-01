@@ -165,12 +165,12 @@ class Controller
     /**
      * Create a redirect response.
      *
-     * @param string $to
+     * @param string $route
      * @return \FluxBB\Web\RedirectResponse
      */
-    protected function redirect($to)
+    protected function redirectTo($route)
     {
-        $url = $this->url->toRoute($to);
+        $url = $this->url->toRoute($route);
 
         return $this->makeRedirect($url);
     }
