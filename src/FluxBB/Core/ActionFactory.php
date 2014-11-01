@@ -34,7 +34,6 @@ class ActionFactory
     {
         $action = $this->container->make($class);
         $action->setEvents($this->container->make('events'));
-        $action->setServer($this->container->make('FluxBB\Server\ServerInterface'));
 
         return $action;
     }
