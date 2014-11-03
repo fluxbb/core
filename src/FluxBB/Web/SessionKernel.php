@@ -3,9 +3,6 @@
 namespace FluxBB\Web;
 
 use Carbon\Carbon;
-use Illuminate\Database\ConnectionInterface;
-use Illuminate\Session\DatabaseSessionHandler;
-use Illuminate\Session\Store;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,23 +19,23 @@ class SessionKernel implements HttpKernelInterface
     protected $wrapped;
 
     /**
-     * The database connection instance.
+     * The session instance.
      *
-     * @var \Illuminate\Database\ConnectionInterface
+     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
      */
-    protected $connection;
+    protected $session;
 
 
     /**
      * Create the session wrapper instance.
      *
      * @param \Symfony\Component\HttpKernel\HttpKernelInterface $wrapped
-     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
      */
-    public function __construct(HttpKernelInterface $wrapped, ConnectionInterface $connection)
+    public function __construct(HttpKernelInterface $wrapped, SessionInterface $session)
     {
         $this->wrapped = $wrapped;
-        $this->connection = $connection;
+        $this->session = $session;
     }
 
     /**
@@ -46,13 +43,13 @@ class SessionKernel implements HttpKernelInterface
      */
     public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
     {
-        $session = $this->startSession($request);
-        $request->setSession($session);
+        $this->startSession($request);
+        $request->setSession($this->session);
 
         $response = $this->wrapped->handle($request, $type, $catch);
 
-        $session->save();
-        $this->writeSession($session, $response);
+        $this->session->save();
+        $this->writeSessionTo($response);
 
         return $response;
     }
@@ -61,29 +58,21 @@ class SessionKernel implements HttpKernelInterface
      * Prepare and start the session instance with data from the given request.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @return void
      */
     protected function startSession(Request $request)
     {
-        $table = 'sessions';
-
-        $handler = new DatabaseSessionHandler($this->connection, $table);
-        $session = new Store('fluxbb_session', $handler);
-
-        $session->setId($request->cookies->get('fluxbb_session'));
-        $session->start();
-
-        return $session;
+        $this->session->setId($request->cookies->get('fluxbb_session'));
+        $this->session->start();
     }
 
     /**
      * Write the session cookie to the response.
      *
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @return void
      */
-    protected function writeSession(SessionInterface $session, Response $response)
+    protected function writeSessionTo(Response $response)
     {
         // TODO: Take these values from config
         $lifetime = Carbon::now()->addMinutes(120);
@@ -92,8 +81,8 @@ class SessionKernel implements HttpKernelInterface
         $secure = false;
 
         $response->headers->setCookie(new Cookie(
-            $session->getName(),
-            $session->getId(),
+            $this->session->getName(),
+            $this->session->getId(),
             $lifetime,
             $path,
             $domain,
