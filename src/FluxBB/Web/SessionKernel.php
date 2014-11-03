@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class SessionWrapper implements HttpKernelInterface
+class SessionKernel implements HttpKernelInterface
 {
     /**
      * The wrapped HTTP kernel instance.
