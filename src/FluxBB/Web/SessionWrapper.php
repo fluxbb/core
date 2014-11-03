@@ -102,7 +102,12 @@ class SessionWrapper implements HttpKernelInterface
         $secure = false;
 
         $response->headers->setCookie(new Cookie(
-            $session->getName(), $session->getId(), $lifetime, $path, $domain, $secure
+            $session->getName(),
+            $session->getId(),
+            $lifetime,
+            $path,
+            $domain,
+            $secure
         ));
     }
 
