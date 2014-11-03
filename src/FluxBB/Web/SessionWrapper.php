@@ -3,7 +3,6 @@
 namespace FluxBB\Web;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Cookie\QueueingFactory;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Session\DatabaseSessionHandler;
 use Illuminate\Session\Store;
@@ -23,13 +22,6 @@ class SessionWrapper implements HttpKernelInterface
     protected $wrapped;
 
     /**
-     * The cookie jar instance.
-     *
-     * @var \Illuminate\Contracts\Cookie\QueueingFactory
-     */
-    protected $queue;
-
-    /**
      * The database connection instance.
      *
      * @var \Illuminate\Database\ConnectionInterface
@@ -41,12 +33,11 @@ class SessionWrapper implements HttpKernelInterface
      * Create the session wrapper instance.
      *
      * @param \Symfony\Component\HttpKernel\HttpKernelInterface $wrapped
-     * @param \Illuminate\Contracts\Cookie\QueueingFactory $queue
+     * @param \Illuminate\Database\ConnectionInterface $connection
      */
-    public function __construct(HttpKernelInterface $wrapped, QueueingFactory $queue, ConnectionInterface $connection)
+    public function __construct(HttpKernelInterface $wrapped, ConnectionInterface $connection)
     {
         $this->wrapped = $wrapped;
-        $this->queue = $queue;
         $this->connection = $connection;
     }
 
@@ -62,7 +53,6 @@ class SessionWrapper implements HttpKernelInterface
 
         $session->save();
         $this->writeSession($session, $response);
-        $this->writeQueuedCookies($response);
 
         return $response;
     }
@@ -109,18 +99,5 @@ class SessionWrapper implements HttpKernelInterface
             $domain,
             $secure
         ));
-    }
-
-    /**
-     * Append all queued cookies to the response.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @return void
-     */
-    protected function writeQueuedCookies(Response $response)
-    {
-        foreach ($this->queue->getQueuedCookies() as $cookie) {
-            $response->headers->setCookie($cookie);
-        }
     }
 }
