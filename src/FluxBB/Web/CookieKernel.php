@@ -44,6 +44,8 @@ class CookieKernel implements HttpKernelInterface
         $response = $this->wrapped->handle($request, $type, $catch);
 
         $this->writeQueuedCookies($response);
+
+        return $response;
     }
 
     /**
