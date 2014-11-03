@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Validator;
+namespace FluxBB\Validation;
 
 use FluxBB\Core\Validator;
 use FluxBB\Server\Request;

@@ -78,11 +78,11 @@ class ServiceProvider extends Base
      */
     protected function registerValidators(RequestValidator $validator)
     {
-        $validator->registerValidator('post_edit_handler', 'FluxBB\Validator\PostValidator');
-        $validator->registerValidator('reply_handler', 'FluxBB\Validator\PostValidator');
-        $validator->registerValidator('new_topic_handler', 'FluxBB\Validator\PostValidator');
-        $validator->registerValidator('admin.options.set', 'FluxBB\Validator\OptionsValidator');
-        $validator->registerValidator('handle_registration', 'FluxBB\Validator\UserValidator');
+        $validator->registerValidator('post_edit_handler', 'FluxBB\Validation\PostValidator');
+        $validator->registerValidator('reply_handler', 'FluxBB\Validation\PostValidator');
+        $validator->registerValidator('new_topic_handler', 'FluxBB\Validation\PostValidator');
+        $validator->registerValidator('admin.options.set', 'FluxBB\Validation\OptionsValidator');
+        $validator->registerValidator('handle_registration', 'FluxBB\Validation\UserValidator');
     }
 
     /**

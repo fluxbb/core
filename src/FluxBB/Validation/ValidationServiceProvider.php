@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxBB\Validator;
+namespace FluxBB\Validation;
 
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
 use Illuminate\Support\ServiceProvider;
