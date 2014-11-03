@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 use FluxBB\Models\GroupRepository;
 use FluxBB\Models\ConfigRepository;
+use Illuminate\Translation\Translator;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,8 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('fluxbb/core', 'fluxbb');
+        $this->registerLangNamespace();
+        $this->registerViewNamespace();
 
         // Add another namespace for localized mail templates
         $this->app->extend('view', function (Factory $view, $app) {
@@ -92,5 +94,27 @@ class CoreServiceProvider extends ServiceProvider
         $events->listen('FluxBB.Events.UserHasRegistered', 'FluxBB\Handlers\SendWelcomeEmail');
         $events->listen('FluxBB.Events.UserHasPosted', 'FluxBB\Handlers\UpdateUserPostStats');
         //$events->listen('FluxBB.Events.UserHasPosted', 'FluxBB\Handlers\UpdateForumStats');
+    }
+
+    protected function registerLangNamespace()
+    {
+        $path = $this->guessPackagePath();
+        $langPath = "$path/lang";
+
+        $this->app->extend('translator', function (Translator $translator) use ($langPath) {
+            $translator->addNamespace('fluxbb', $langPath);
+            return $translator;
+        });
+    }
+
+    protected function registerViewNamespace()
+    {
+        $path = $this->guessPackagePath();
+        $viewPath = "$path/views";
+
+        $this->app->extend('view', function (Factory $view) use ($viewPath) {
+            $view->addNamespace('fluxbb', $viewPath);
+            return $view;
+        });
     }
 }
