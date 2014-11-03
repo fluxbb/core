@@ -96,6 +96,11 @@ class CoreServiceProvider extends ServiceProvider
         //$events->listen('FluxBB.Events.UserHasPosted', 'FluxBB\Handlers\UpdateForumStats');
     }
 
+    /**
+     * Register a localization namespace for the package.
+     *
+     * @return void
+     */
     protected function registerLangNamespace()
     {
         $path = $this->guessPackagePath();
@@ -107,6 +112,11 @@ class CoreServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Register a view namespace for the package.
+     *
+     * @return void
+     */
     protected function registerViewNamespace()
     {
         $path = $this->guessPackagePath();
