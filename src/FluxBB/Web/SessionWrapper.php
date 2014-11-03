@@ -4,6 +4,7 @@ namespace FluxBB\Web;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Cookie\QueueingFactory;
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Session\DatabaseSessionHandler;
 use Illuminate\Session\Store;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -28,6 +29,13 @@ class SessionWrapper implements HttpKernelInterface
      */
     protected $queue;
 
+    /**
+     * The database connection instance.
+     *
+     * @var \Illuminate\Database\ConnectionInterface
+     */
+    protected $connection;
+
 
     /**
      * Create the session wrapper instance.
@@ -35,10 +43,11 @@ class SessionWrapper implements HttpKernelInterface
      * @param \Symfony\Component\HttpKernel\HttpKernelInterface $wrapped
      * @param \Illuminate\Contracts\Cookie\QueueingFactory $queue
      */
-    public function __construct(HttpKernelInterface $wrapped, QueueingFactory $queue)
+    public function __construct(HttpKernelInterface $wrapped, QueueingFactory $queue, ConnectionInterface $connection)
     {
         $this->wrapped = $wrapped;
         $this->queue = $queue;
+        $this->connection = $connection;
     }
 
     /**
@@ -66,10 +75,9 @@ class SessionWrapper implements HttpKernelInterface
      */
     protected function startSession(Request $request)
     {
-        $connection = app('Illuminate\Database\ConnectionInterface');
         $table = 'sessions';
 
-        $handler = new DatabaseSessionHandler($connection, $table);
+        $handler = new DatabaseSessionHandler($this->connection, $table);
         $session = new Store('fluxbb_session', $handler);
 
         $session->setId($request->cookies->get('fluxbb_session'));
