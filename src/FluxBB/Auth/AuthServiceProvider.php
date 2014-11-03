@@ -3,7 +3,7 @@
 namespace FluxBB\Auth;
 
 use FluxBB\Core;
-use Illuminate\Auth\DatabaseUserProvider;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Auth\Guard;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,11 +17,10 @@ class AuthServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('Illuminate\Contracts\Auth\Guard', function () {
-            $connection = $this->app->make('Illuminate\Database\ConnectionInterface');
             $hasher = $this->app->make('Illuminate\Contracts\Hashing\Hasher');
-            $session = $this->app->make('Symfony\Component\HttpFoundation\Session\SessionInterface');
+            $session = $this->app->make('request')->getSession();
 
-            $provider = new DatabaseUserProvider($connection, $hasher, 'users');
+            $provider = new EloquentUserProvider($hasher, 'FluxBB\Models\User');
             $guard = new Guard($provider, $session);
 
             $guard->setCookieJar($this->app->make('Illuminate\Contracts\Cookie\QueueingFactory'));
