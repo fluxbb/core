@@ -1,4 +1,4 @@
-@extends('fluxbb::layout.main')
+@extends('fluxbb::...layout.main')
 
 @section('main')
 Pages: {{{ $users->links() }}}
