@@ -1,4 +1,4 @@
-@include('fluxbb::partials.header')
+@include('fluxbb::layout.partials.header')
 
 <div id="brdmain">
 
@@ -17,4 +17,4 @@
 
 </div>
 
-@include('fluxbb::partials.footer')
+@include('fluxbb::layout.partials.footer')
