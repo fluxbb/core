@@ -4,15 +4,21 @@
 
 FluxBB is an open-source PHP forum software that is meant to be fast, light-weight, user-friendly and extensible.
 
-*fluxbb/core* is the package containing all the FluxBB source code, ready to be integrated into any Laravel application.
+*fluxbb/core* is the package containing all the FluxBB source code.
 
 **ALPHA SOFTWARE**: FluxBB 2.0 is not ready for prime time yet, so do not use it in production.
 
 ## License
 
-FluxBB 2.0 is available as open-source software under the terms of the [MIT license](http://opensource.org/licenses/MIT)
+FluxBB 2.0 is available as open-source software under the terms of the
+[MIT license](http://opensource.org/licenses/MIT).
 
 ## For Developers
+
+### Installation
+
+Instructions for installing the development version can be found in the repository of the
+[stand-alone app](https://github.com/fluxbb/fluxbb/tree/2.0#readme).
 
 ### Contributing
 
