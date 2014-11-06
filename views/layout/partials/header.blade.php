@@ -9,22 +9,24 @@
     <!-- end meta tags -->
 
     <!-- begin css -->
-    <link rel="stylesheet" type="text/css" href="/public/packages/fluxbb/core/frontend/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/public/packages/fluxbb/core/frontend/style.css" />
-    <link rel="stylesheet" type="text/css" href="/public/packages/fluxbb/core/frontend/assets/css/entypo.css" />
+    {{ $asset('bootstrap', '/vendor/fluxbb/core/public/frontend/bootstrap.min.css') }}
+    {{ $asset('style', '/vendor/fluxbb/core/public/frontend/style.css') }}
+    {{ $asset('entypo', '/vendor/fluxbb/core/public/frontend/assets/css/entypo.css') }}
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
     <!-- end css -->
 
 
     <!-- begin shortcut -->
-    <link rel="shortcut icon" href="/public/packages/fluxbb/core/img/favicon.ico">
+    <link rel="shortcut icon" href="/vendor/fluxbb/core/public/img/favicon.ico">
     <!-- end shortcut -->
 
     <!-- begin js -->
-    <script src="/public/packages/fluxbb/core/js/jquery.min.js"></script>
-    <script src="/public/packages/fluxbb/core/js/fluxbb.js"></script>
-    <script src="/public/packages/fluxbb/core/js/frontend.js"></script>
+    {{ $asset('jquery', '/vendor/fluxbb/core/public/js/jquery.min.js') }}
+    {{ $asset('fluxbb', '/vendor/fluxbb/core/public/js/fluxbb.js') }}
+    {{ $asset('frontend', '/vendor/fluxbb/core/public/js/frontend.js') }}
     <!-- end js -->
+
+    {!! $assets() !!}
 
 </head>
 
