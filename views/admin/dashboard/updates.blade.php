@@ -1,4 +1,4 @@
-@extends('fluxbb::...layout.main')
+@extends('fluxbb::admin.layout.main')
 
 @section('main')
 

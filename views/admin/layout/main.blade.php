@@ -21,7 +21,7 @@
 
     <body>
 
-        @include('fluxbb::menu')
+        @include('fluxbb::admin.layout.menu')
 
 
         @yield('alerts')
