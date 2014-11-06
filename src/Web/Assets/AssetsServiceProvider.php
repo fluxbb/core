@@ -29,7 +29,7 @@ class AssetsServiceProvider extends ServiceProvider
                 return implode("\n", $tags);
             });
 
-            $view->share('asset', function ($name, $path) {
+            $view->share('load', function ($name, $path) {
                 $container = $this->app->make('FluxBB\Web\Assets\ContainerInterface');
 
                 $container->load($name, $path);
