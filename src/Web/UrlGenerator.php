@@ -25,6 +25,11 @@ class UrlGenerator implements UrlGeneratorInterface
         return $this->request->getBaseUrl().'/'.$path;
     }
 
+    public function toAsset($path)
+    {
+        return $this->request->getBaseUrl().'/'.$path;
+    }
+
     public function canonical()
     {
         $path = $this->router->getCurrentPath();
