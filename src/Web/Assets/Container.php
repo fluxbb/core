@@ -2,10 +2,22 @@
 
 namespace FluxBB\Web\Assets;
 
+use FluxBB\Web\UrlGeneratorInterface;
+
 class Container implements CompilerInterface, ContainerInterface
 {
+    /**
+     * @var \FluxBB\Web\UrlGeneratorInterface
+     */
+    protected $generator;
+
     protected $assets = [];
 
+
+    public function __construct(UrlGeneratorInterface $generator)
+    {
+        $this->generator = $generator;
+    }
 
     public function load($name, $path)
     {
@@ -33,6 +45,8 @@ class Container implements CompilerInterface, ContainerInterface
     {
         $parts = explode('.', $path);
         $extension = end($parts);
+
+        $path = $this->generator->toAsset($path);
 
         return $this->{'create'.ucfirst($extension).'Tag'}($path);
     }

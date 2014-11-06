@@ -9,9 +9,9 @@
     <!-- end meta tags -->
 
     <!-- begin css -->
-    {{ $load('bootstrap', '/vendor/fluxbb/core/public/frontend/bootstrap.min.css') }}
-    {{ $load('style', '/vendor/fluxbb/core/public/frontend/style.css') }}
-    {{ $load('entypo', '/vendor/fluxbb/core/public/frontend/assets/css/entypo.css') }}
+    {{ $load('bootstrap', 'vendor/fluxbb/core/public/frontend/bootstrap.min.css') }}
+    {{ $load('style', 'vendor/fluxbb/core/public/frontend/style.css') }}
+    {{ $load('entypo', 'vendor/fluxbb/core/public/frontend/assets/css/entypo.css') }}
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
     <!-- end css -->
 
@@ -21,9 +21,9 @@
     <!-- end shortcut -->
 
     <!-- begin js -->
-    {{ $load('jquery', '/vendor/fluxbb/core/public/js/jquery.min.js') }}
-    {{ $load('fluxbb', '/vendor/fluxbb/core/public/js/fluxbb.js') }}
-    {{ $load('frontend', '/vendor/fluxbb/core/public/js/frontend.js') }}
+    {{ $load('jquery', 'vendor/fluxbb/core/public/js/jquery.min.js') }}
+    {{ $load('fluxbb', 'vendor/fluxbb/core/public/js/fluxbb.js') }}
+    {{ $load('frontend', 'vendor/fluxbb/core/public/js/frontend.js') }}
     <!-- end js -->
 
     {!! $assets() !!}

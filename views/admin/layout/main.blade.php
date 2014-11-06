@@ -10,20 +10,20 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {{ $load('bootstrap-fluxbb', '/vendor/fluxbb/core/public/css/bootstrap-fluxbb.css') }}
-        {{ $load('morris-css', '/vendor/fluxbb/core/public/css/morris.min.css') }}
-        {{ $load('font-awesome', '/vendor/fluxbb/core/public/css/font-awesome.min.css') }}
-        {{ $load('main', '/vendor/fluxbb/core/public/css/main.css') }}
+        {{ $load('bootstrap-fluxbb', 'vendor/fluxbb/core/public/css/bootstrap-fluxbb.css') }}
+        {{ $load('morris-css', 'vendor/fluxbb/core/public/css/morris.min.css') }}
+        {{ $load('font-awesome', 'vendor/fluxbb/core/public/css/font-awesome.min.css') }}
+        {{ $load('main', 'vendor/fluxbb/core/public/css/main.css') }}
 
         <link rel="shortcut icon" href="/vendor/fluxbb/core/public/img/favicon.ico">
 
-        {{ $load('jquery', '/vendor/fluxbb/core/public/js/jquery-1.9.1.min.js') }}
-        {{ $load('raphael', '/vendor/fluxbb/core/public/js/raphael.min.js') }}
-        {{ $load('morris-js', '/vendor/fluxbb/core/public/js/morris.min.js') }}
-        {{ $load('bootstrap', '/vendor/fluxbb/core/public/js/bootstrap.min.js') }}
-        {{ $load('application', '/vendor/fluxbb/core/public/js/application.js') }}
-        {{ $load('fluxbb', '/vendor/fluxbb/core/public/js/fluxbb.js') }}
-        {{ $load('admin', '/vendor/fluxbb/core/public/js/admin.js') }}
+        {{ $load('jquery', 'vendor/fluxbb/core/public/js/jquery-1.9.1.min.js') }}
+        {{ $load('raphael', 'vendor/fluxbb/core/public/js/raphael.min.js') }}
+        {{ $load('morris-js', 'vendor/fluxbb/core/public/js/morris.min.js') }}
+        {{ $load('bootstrap', 'vendor/fluxbb/core/public/js/bootstrap.min.js') }}
+        {{ $load('application', 'vendor/fluxbb/core/public/js/application.js') }}
+        {{ $load('fluxbb', 'vendor/fluxbb/core/public/js/fluxbb.js') }}
+        {{ $load('admin', 'vendor/fluxbb/core/public/js/admin.js') }}
 
         {!! $assets() !!}
 

@@ -14,9 +14,7 @@ class AssetsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('fluxbb.assets', function () {
-            return new Container();
-        });
+        $this->app->singleton('fluxbb.assets', 'FluxBB\Web\Assets\Container');
 
         $this->app->alias('fluxbb.assets', 'FluxBB\Web\Assets\ContainerInterface');
         $this->app->alias('fluxbb.assets', 'FluxBB\Web\Assets\CompilerInterface');
