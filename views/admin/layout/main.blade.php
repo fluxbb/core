@@ -10,12 +10,22 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="/public/packages/fluxbb/core/css/bootstrap-fluxbb.css">
-        <link rel="stylesheet" href="/public/packages/fluxbb/core/css/morris.min.css">
-        <link rel="stylesheet" href="/public/packages/fluxbb/core/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/public/packages/fluxbb/core/css/main.css">
+        {{ $asset('bootstrap-fluxbb', '/vendor/fluxbb/core/public/css/bootstrap-fluxbb.css') }}
+        {{ $asset('morris-css', '/vendor/fluxbb/core/public/css/morris.min.css') }}
+        {{ $asset('font-awesome', '/vendor/fluxbb/core/public/css/font-awesome.min.css') }}
+        {{ $asset('main', '/vendor/fluxbb/core/public/css/main.css') }}
 
-        <link rel="shortcut icon" href="/public/packages/fluxbb/core/img/favicon.ico">
+        <link rel="shortcut icon" href="/vendor/fluxbb/core/public/img/favicon.ico">
+
+        {{ $asset('jquery', '/vendor/fluxbb/core/public/js/jquery-1.9.1.min.js') }}
+        {{ $asset('raphael', '/vendor/fluxbb/core/public/js/raphael.min.js') }}
+        {{ $asset('morris-js', '/vendor/fluxbb/core/public/js/morris.min.js') }}
+        {{ $asset('bootstrap', '/vendor/fluxbb/core/public/js/bootstrap.min.js') }}
+        {{ $asset('application', '/vendor/fluxbb/core/public/js/application.js') }}
+        {{ $asset('fluxbb', '/vendor/fluxbb/core/public/js/fluxbb.js') }}
+        {{ $asset('admin', '/vendor/fluxbb/core/public/js/admin.js') }}
+
+        {!! $assets() !!}
 
     </head>
 
@@ -38,14 +48,6 @@
             </div>
 
         </footer>
-
-        <script src="/public/packages/fluxbb/core/js/jquery-1.9.1.min.js"></script>
-        <script src="/public/packages/fluxbb/core/js/raphael.min.js"></script>
-        <script src="/public/packages/fluxbb/core/js/morris.min.js"></script>
-        <script src="/public/packages/fluxbb/core/js/bootstrap.min.js"></script>
-        <script src="/public/packages/fluxbb/core/js/application.js"></script>
-        <script src="/public/packages/fluxbb/core/js/fluxbb.js"></script>
-        <script src="/public/packages/fluxbb/core/js/admin.js"></script>
 
     </body>
 
