@@ -5,7 +5,7 @@ namespace FluxBB\Web;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider as Base;
 
-class ServiceProvider extends Base
+class WebServiceProvider extends Base
 {
     /**
      * Indicates if loading of the provider is deferred.
