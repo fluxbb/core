@@ -2,6 +2,7 @@
 
 namespace FluxBB\Web;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider as Base;
 
 class ServiceProvider extends Base
@@ -46,19 +47,21 @@ class ServiceProvider extends Base
      */
     protected function registerViewHelpers()
     {
-        $app = $this->app;
-
-        $app->extend('view', function ($view, $app) {
-            $view->share('route', function ($name, $parameters = []) use ($app) {
-                return $app['FluxBB\Web\UrlGeneratorInterface']->toRoute($name, $parameters);
+        $this->app->extend('view', function (Factory $view) {
+            $view->share('route', function ($name, $parameters = []) {
+                return $this->app->make('FluxBB\Web\UrlGeneratorInterface')->toRoute($name, $parameters);
             });
 
-            $view->share('canonical', function () use ($app) {
-                return $app['FluxBB\Web\UrlGeneratorInterface']->canonical();
+            $view->share('asset', function ($path) {
+                return $this->app->make('FluxBB\Web\UrlGeneratorInterface')->toAsset($path);
             });
 
-            $view->share('method', function ($name) use ($app) {
-                return $app['FluxBB\Web\Router']->getMethod($name);
+            $view->share('canonical', function () {
+                return $this->app->make('FluxBB\Web\UrlGeneratorInterface')->canonical();
+            });
+
+            $view->share('method', function ($name) {
+                return $this->app->make('FluxBB\Web\Router')->getMethod($name);
             });
 
             return $view;

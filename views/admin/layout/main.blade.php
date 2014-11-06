@@ -15,7 +15,7 @@
         {{ $load('font-awesome', 'vendor/fluxbb/core/public/css/font-awesome.min.css') }}
         {{ $load('main', 'vendor/fluxbb/core/public/css/main.css') }}
 
-        <link rel="shortcut icon" href="/vendor/fluxbb/core/public/img/favicon.ico">
+        <link rel="shortcut icon" href="{{ $asset('vendor/fluxbb/core/public/img/favicon.ico') }}">
 
         {{ $load('jquery', 'vendor/fluxbb/core/public/js/jquery-1.9.1.min.js') }}
         {{ $load('raphael', 'vendor/fluxbb/core/public/js/raphael.min.js') }}

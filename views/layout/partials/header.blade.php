@@ -17,7 +17,7 @@
 
 
     <!-- begin shortcut -->
-    <link rel="shortcut icon" href="/vendor/fluxbb/core/public/img/favicon.ico">
+    <link rel="shortcut icon" href="{{ $asset('vendor/fluxbb/core/public/img/favicon.ico') }}">
     <!-- end shortcut -->
 
     <!-- begin js -->
