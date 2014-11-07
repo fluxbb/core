@@ -18,7 +18,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->singleton('Illuminate\Contracts\Auth\Guard', function () {
             $hasher = $this->app->make('Illuminate\Contracts\Hashing\Hasher');
-            $session = $this->app->make('request')->getSession();
+            $session = $this->app->make('Symfony\Component\HttpFoundation\Session\SessionInterface');
 
             $provider = new EloquentUserProvider($hasher, 'FluxBB\Models\User');
             $guard = new Guard($provider, $session);
