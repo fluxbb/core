@@ -53,7 +53,9 @@ class Application extends Container
 
     public function boot()
     {
-        if ($this->isBooted) return;
+        if ($this->isBooted) {
+            return;
+        }
 
         foreach ($this->registered as $provider) {
             $provider->boot();
