@@ -2,7 +2,7 @@
 
 namespace FluxBB\Models;
 
-use Illuminate\Contracts\Auth\User as UserContract;
+use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
