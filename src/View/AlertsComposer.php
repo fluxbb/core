@@ -2,7 +2,7 @@
 
 namespace FluxBB\View;
 
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\View as ViewContract;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AlertsComposer
@@ -15,7 +15,7 @@ class AlertsComposer
         $this->session = $session;
     }
 
-    public function compose(View $view)
+    public function compose(ViewContract $view)
     {
         if ($this->session->has('fluxbb.message')) {
             $view->with('message', $this->session->get('fluxbb.message'));
