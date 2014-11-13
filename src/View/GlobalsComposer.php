@@ -5,7 +5,7 @@ namespace FluxBB\View;
 use FluxBB\Core;
 use FluxBB\Models\ConfigRepositoryInterface;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\View as ViewContract;
 
 class GlobalsComposer
 {
@@ -20,7 +20,7 @@ class GlobalsComposer
         $this->fluxbbConfig = $fluxbb;
     }
 
-    public function compose(View $view)
+    public function compose(ViewContract $view)
     {
         $view->with('language', trans('fluxbb::common.lang_identifier'))
              ->with('direction', trans('fluxbb::common.lang_direction'))
