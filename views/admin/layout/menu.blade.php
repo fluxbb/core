@@ -93,11 +93,9 @@
 
         <div class="row-fluid">
 
-            <div class="span12 dashbox">
-                <ul class="nav nav-pills pull-left">
-                    <li><a class="message alert" href="{{ $route('admin.dashboard.updates') }}">Updates <span>6</span></a></li>
-                </ul>
-            </div>
+            <!--<div class="span12 dashbox">
+                Admin updates here
+            </div>-->
 
         </div> <!-- /row-fluid -->
 
