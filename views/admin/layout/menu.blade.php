@@ -47,7 +47,7 @@
                     </li>
                     <li id="subnav-content"<?php echo (in_array('content', array()) ? ' class="active"' : '' ); ?>>
                         <ul class="nav">
-                            <li><a href="/content/forums/"><i class="icon-cog"></i> {{ trans('fluxbb::admin_common.forums_submenu') }}</a></li>
+                            <li><a href="{{ $route('admin.categories.index') }}"><i class="icon-cog"></i> {{ trans('fluxbb::admin_common.forums_submenu') }}</a></li>
                             <li><a href="/content/bbcode/"><i class="icon-code"></i> {{ trans('fluxbb::admin_common.bbcode_submenu') }}</a></li>
                             <li><a href="/content/reports/"><i class="icon-flag"></i> {{ trans('fluxbb::admin_common.spam_reports_submenu') }}</a></li>
                         </ul>
