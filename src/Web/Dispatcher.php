@@ -57,7 +57,7 @@ class Dispatcher implements HttpKernelInterface
         $controller = $this->factory->make($class);
         $controller->setRequest($request);
 
-        return $controller->{$action}();
+        return $controller->call($action);
     }
 
     /**

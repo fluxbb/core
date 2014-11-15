@@ -56,6 +56,17 @@ class Controller
 
 
     /**
+     * Call the given action on this controller.
+     *
+     * @param string $action
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function call($action)
+    {
+        return $this->{$action}();
+    }
+
+    /**
      * Set the server to use.
      *
      * @param \FluxBB\Server\ServerInterface $server
