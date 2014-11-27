@@ -16,7 +16,7 @@ before_script:
   - php composer.phar install --dev
 
 script:
-  - vendor/bin/phpspec run
+  - vendor/bin/phpspec run --verbose --format=dot
   - vendor/bin/phpcs --ignore=*.blade.php --standard=PSR2 -np src
 
 notifications:
