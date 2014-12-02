@@ -189,20 +189,6 @@ class Controller
     }
 
     /**
-     * Create a redirect response for errors.
-     *
-     * @param string $route
-     * @param \Illuminate\Contracts\Support\MessageProvider $errors
-     * @return \FluxBB\Web\RedirectResponse
-     */
-    protected function errorRedirectTo($route, MessageProvider $errors)
-    {
-        return $this->redirectTo($route, $this->input)
-            ->withInput()
-            ->withErrors($errors);
-    }
-
-    /**
      * Instantiate a redirect response.
      *
      * @param string $url
