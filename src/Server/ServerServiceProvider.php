@@ -5,7 +5,7 @@ namespace FluxBB\Server;
 use Illuminate\Support\ServiceProvider as Base;
 use FluxBB\Core\ActionFactory;
 
-class ServiceProvider extends Base
+class ServerServiceProvider extends Base
 {
     /**
      * Indicates if loading of the provider is deferred.
