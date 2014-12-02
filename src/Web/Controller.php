@@ -5,7 +5,6 @@ namespace FluxBB\Web;
 use FluxBB\Server\Request as ServerRequest;
 use FluxBB\Server\ServerInterface;
 use FluxBB\View\ViewInterface;
-use Illuminate\Contracts\Support\MessageProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
