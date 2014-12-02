@@ -64,7 +64,7 @@ class ControllerFactory
     /**
      * Instantiate the session driver.
      *
-     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @return \Illuminate\Session\Store
      */
     protected function makeSession()
     {

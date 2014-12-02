@@ -3,15 +3,15 @@
 namespace FluxBB\Web;
 
 use Illuminate\Contracts\Support\MessageProvider;
+use Illuminate\Session\Store;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirect;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class RedirectResponse extends SymfonyRedirect
 {
     /**
      * The session handler instance.
      *
-     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @var \Illuminate\Session\Store
      */
     protected $session;
 
@@ -25,26 +25,26 @@ class RedirectResponse extends SymfonyRedirect
 
     public function withMessage($message)
     {
-        $this->session->set('fluxbb.message', $message);
+        $this->session->flash('fluxbb.message', $message);
 
         return $this;
     }
 
     public function withInput()
     {
-        $this->session->set('fluxbb.input', $this->input);
+        $this->session->flashInput($this->input);
 
         return $this;
     }
 
     public function withErrors(MessageProvider $errors)
     {
-        $this->session->set('fluxbb.errors', $errors->getMessageBag());
+        $this->session->flash('fluxbb.errors', $errors->getMessageBag());
 
         return $this;
     }
 
-    public function setSession(SessionInterface $session)
+    public function setSession(Store $session)
     {
         $this->session = $session;
     }

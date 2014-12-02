@@ -15,11 +15,13 @@ class SessionServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Symfony\Component\HttpFoundation\Session\SessionInterface', function () {
+        $this->app->singleton('Illuminate\Session\Store', function () {
             $connection = $this->app->make('Illuminate\Database\ConnectionInterface');
             $handler = new DatabaseSessionHandler($connection, 'sessions');
 
             return new Store('fluxbb_session', $handler);
         });
+
+        $this->app->alias('Illuminate\Session\Store', 'Symfony\Component\HttpFoundation\Session\SessionInterface');
     }
 }

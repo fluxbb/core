@@ -5,9 +5,9 @@ namespace FluxBB\Web;
 use FluxBB\Server\Request as ServerRequest;
 use FluxBB\Server\ServerInterface;
 use FluxBB\View\ViewInterface;
+use Illuminate\Session\Store;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class Controller
 {
@@ -28,7 +28,7 @@ class Controller
     /**
      * The session instance.
      *
-     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @var \Illuminate\Session\Store
      */
     protected $session;
 
@@ -90,10 +90,10 @@ class Controller
     /**
      * Set the session driver to use.
      *
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
+     * @param \Illuminate\Session\Store $session
      * @return void
      */
-    public function setSession(SessionInterface $session)
+    public function setSession(Store $session)
     {
         $this->session = $session;
     }
