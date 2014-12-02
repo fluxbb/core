@@ -1,23 +1,23 @@
 {
-	"name": "fluxbb/core",
-	"type": "library",
-	"description": "The FluxBB forum core",
-	"keywords": ["forum", "laravel"],
-	"homepage": "http://fluxbb.org",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Franz Liedke",
-			"email": "franz@fluxbb.org",
-			"homepage": "http://www.develophp.org",
-			"role": "Lead Developer"
-		}
-	],
-	"support": {
-		"email": "devs@fluxbb.org",
-		"irc": "irc://irc.freenode.org/fluxbb"
-	},
-	"require": {
+    "name": "fluxbb/core",
+    "type": "library",
+    "description": "The FluxBB forum core",
+    "keywords": ["forum", "laravel"],
+    "homepage": "http://fluxbb.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Franz Liedke",
+            "email": "franz@fluxbb.org",
+            "homepage": "http://www.develophp.org",
+            "role": "Lead Developer"
+        }
+    ],
+    "support": {
+        "email": "devs@fluxbb.org",
+        "irc": "irc://irc.freenode.org/fluxbb"
+    },
+    "require": {
         "php": ">=5.4.0",
         "nikic/fast-route": "~0.1.0",
         "illuminate/auth": "~5.0",
@@ -33,16 +33,16 @@
         "illuminate/validation": "~5.0",
         "symfony/http-foundation": "2.6.*",
         "nesbot/carbon": "~1.0"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "3.7.*",
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
         "phpspec/phpspec": "~2.0",
-		"squizlabs/php_codesniffer": "1.*"
-	},
-	"autoload": {
-		"psr-4": {
-			"FluxBB\\": "src"
-		}
-	},
-	"minimum-stability": "dev"
+        "squizlabs/php_codesniffer": "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "FluxBB\\": "src"
+        }
+    },
+    "minimum-stability": "dev"
 }
