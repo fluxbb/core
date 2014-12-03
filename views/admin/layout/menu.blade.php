@@ -9,11 +9,11 @@
             <a class="brand" href="{{ $route('admin.index') }}">{{ $board_title }}</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li<?php echo (in_array('dashboard', array()) ? ' class="current active"' : '' ); ?> id="nav-dashboard"><a href="#"><i class="icon-dashboard"></i> {{ trans('fluxbb::admin_common.dashboard_menu') }}</a></li>
-                    <li<?php echo (in_array('content', array()) ? ' class="current active"' : '' ); ?> id="nav-content"><a href="#"><i class="icon-folder-open"></i> {{ trans('fluxbb::admin_common.content_menu') }}</a></li>
-                    <li<?php echo (in_array('users', array()) ? ' class="current active"' : '' ); ?> id="nav-users"><a href="#"><i class="icon-user"></i> {{ trans('fluxbb::admin_common.users_menu') }}</a></li>
-                    <li<?php echo (in_array('settings', array()) ? ' class="current active"' : '' ); ?> id="nav-settings"><a href="#"><i class="icon-cogs"></i> {{ trans('fluxbb::admin_common.settings_menu') }}</a></li>
-                    <li<?php echo (in_array('extensions', array()) ? ' class="current active"' : '' ); ?> id="nav-extensions"><a href="#"><i class="icon-wrench"></i> {{ trans('fluxbb::admin_common.extensions_menu') }}</a></li>
+                    <li<?php echo (in_array('dashboard', array()) ? ' class="current active"' : '' ); ?> class="js-show-submenu" id="nav-dashboard"><a href="#"><i class="icon-dashboard"></i> {{ trans('fluxbb::admin_common.dashboard_menu') }}</a></li>
+                    <li<?php echo (in_array('content', array()) ? ' class="current active"' : '' ); ?> class="js-show-submenu" id="nav-content"><a href="#"><i class="icon-folder-open"></i> {{ trans('fluxbb::admin_common.content_menu') }}</a></li>
+                    <li<?php echo (in_array('users', array()) ? ' class="current active"' : '' ); ?> class="js-show-submenu" id="nav-users"><a href="#"><i class="icon-user"></i> {{ trans('fluxbb::admin_common.users_menu') }}</a></li>
+                    <li<?php echo (in_array('settings', array()) ? ' class="current active"' : '' ); ?> class="js-show-submenu" id="nav-settings"><a href="#"><i class="icon-cogs"></i> {{ trans('fluxbb::admin_common.settings_menu') }}</a></li>
+                    <li<?php echo (in_array('extensions', array()) ? ' class="current active"' : '' ); ?> class="js-show-submenu" id="nav-extensions"><a href="#"><i class="icon-wrench"></i> {{ trans('fluxbb::admin_common.extensions_menu') }}</a></li>
                 </ul>
                 <ul class="nav pull-right">
                     @if($user)

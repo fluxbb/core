@@ -1,17 +1,19 @@
-(function($) {
-
+jQuery(function($) {
     $('[data-toggle=tooltip]').tooltip({
         placement: 'bottom'
     });
 
-    $('#navbar .nav > li').bind('mouseover', function() {
-        id = '#sub'+this.id;
-        if ( $(id).length > 0 ) {
-            $('#navbar .nav > li').removeClass('active');
+    $(document).on('mouseover', '.js-show-submenu', function() {
+        var id = '#sub' + this.id;
+        var $submenu = $(id);
+
+        if ($submenu.length > 0) {
+            $('.js-show-submenu').removeClass('active');
             $(this).addClass('active');
+
             $('.subnav > .active').removeClass('active');
-            $(id+' > ul').parent('li').addClass('active');
-            $(id+' > ul').show();
+            $submenu.find('ul').parent('li').addClass('active');
+            $submenu.find('ul').show();
         }
     });
 
@@ -111,5 +113,4 @@
             hideHover: 'auto'
         });
     }
-
-})(jQuery);
+});
