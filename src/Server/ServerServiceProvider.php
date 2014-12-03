@@ -55,18 +55,18 @@ class ServerServiceProvider extends Base
      */
     protected function registerActions(Server $server)
     {
-        $server->registerAction('category', 'FluxBB\Actions\ViewCategory');
-        $server->registerAction('conversation', 'FluxBB\Actions\GetConversation');
-        $server->registerAction('post', 'FluxBB\Actions\GetPost');
-        $server->registerAction('handle_registration', 'FluxBB\Actions\CreateUser');
-        $server->registerAction('handle_login', 'FluxBB\Actions\Login');
-        $server->registerAction('logout', 'FluxBB\Actions\Logout');
-        $server->registerAction('post_edit_handler', 'FluxBB\Actions\EditPost');
-        $server->registerAction('reply_handler', 'FluxBB\Actions\Reply');
-        $server->registerAction('topic_subscribe', 'FluxBB\Actions\SubscribeTopic');
-        $server->registerAction('topic_unsubscribe', 'FluxBB\Actions\UnsubscribeTopic');
-        $server->registerAction('new_topic_handler', 'FluxBB\Actions\NewTopic');
-        $server->registerAction('admin.options.set', 'FluxBB\Actions\SetOptions');
+        $server->registerAction('get.category', 'FluxBB\Actions\ViewCategory');
+        $server->registerAction('get.conversation', 'FluxBB\Actions\GetConversation');
+        $server->registerAction('get.post', 'FluxBB\Actions\GetPost');
+        $server->registerAction('create.user', 'FluxBB\Actions\CreateUser');
+        $server->registerAction('login.user', 'FluxBB\Actions\Login');
+        $server->registerAction('logout.user', 'FluxBB\Actions\Logout');
+        $server->registerAction('edit.post', 'FluxBB\Actions\EditPost');
+        $server->registerAction('reply.topic', 'FluxBB\Actions\Reply');
+        $server->registerAction('subscribe.topic', 'FluxBB\Actions\SubscribeTopic');
+        $server->registerAction('unsubscribe.topic', 'FluxBB\Actions\UnsubscribeTopic');
+        $server->registerAction('create.topic', 'FluxBB\Actions\NewTopic');
+        $server->registerAction('set.options', 'FluxBB\Actions\SetOptions');
         $server->registerAction('get.settings', 'FluxBB\Actions\GetSettings');
     }
 

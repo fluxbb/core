@@ -26,7 +26,7 @@ class SettingsController extends Controller
 
     public function set()
     {
-        $this->execute('admin.options.set');
+        $this->execute('set.options');
 
         return new JsonResponse();
     }

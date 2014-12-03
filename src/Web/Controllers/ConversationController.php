@@ -9,7 +9,7 @@ class ConversationController extends Controller
 {
     public function createForm()
     {
-        $data = $this->execute('category');
+        $data = $this->execute('get.category');
 
         return $this->view('new_topic', $data);
     }
@@ -17,7 +17,7 @@ class ConversationController extends Controller
     public function create()
     {
         try {
-            $result = $this->execute('new_topic_handler');
+            $result = $this->execute('create.topic');
             $conversation = $result['conversation'];
 
             return $this->redirectTo('conversation', ['id' => $conversation->id])
@@ -31,7 +31,7 @@ class ConversationController extends Controller
 
     public function subscribe()
     {
-        $this->execute('topic_subscribe');
+        $this->execute('subscribe.topic');
 
         return $this->redirectTo('viewtopic', $this->input)
                     ->withMessage('Subscription added.');
@@ -39,7 +39,7 @@ class ConversationController extends Controller
 
     public function unsubscribe()
     {
-        $this->execute('topic_unsubscribe');
+        $this->execute('unsubscribe.topic');
 
         return $this->redirectTo('viewtopic', $this->input)
                     ->withMessage('Subscription removed.');

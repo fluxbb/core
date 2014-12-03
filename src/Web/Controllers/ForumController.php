@@ -20,14 +20,14 @@ class ForumController extends Controller
 
     public function category()
     {
-        $response = $this->execute('category');
+        $response = $this->execute('get.category');
 
         return $this->view('category', $response);
     }
 
     public function conversation()
     {
-        $response = $this->execute('conversation');
+        $response = $this->execute('get.conversation');
 
         return $this->view('conversation', $response);
     }

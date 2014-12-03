@@ -10,7 +10,7 @@ class PostController extends Controller
     public function create()
     {
         try {
-            $result = $this->execute('reply_handler');
+            $result = $this->execute('reply.topic');
             $post = $result['post'];
 
             return $this->redirectTo('viewpost', ['id' => $post->id])
@@ -30,7 +30,7 @@ class PostController extends Controller
     public function edit()
     {
         try {
-            $result = $this->execute('post_edit_handler');
+            $result = $this->execute('edit.post');
             $post = $result['post'];
 
             return $this->redirectTo('viewpost', ['id' => $post->id])
