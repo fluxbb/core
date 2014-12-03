@@ -66,7 +66,7 @@ class ServerServiceProvider extends Base
         $server->registerAction('subscribe.topic', 'FluxBB\Actions\SubscribeTopic');
         $server->registerAction('unsubscribe.topic', 'FluxBB\Actions\UnsubscribeTopic');
         $server->registerAction('create.topic', 'FluxBB\Actions\NewTopic');
-        $server->registerAction('set.options', 'FluxBB\Actions\SetOptions');
+        $server->registerAction('set.settings', 'FluxBB\Actions\SetSettings');
         $server->registerAction('get.settings', 'FluxBB\Actions\GetSettings');
     }
 

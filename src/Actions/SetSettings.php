@@ -6,7 +6,7 @@ use FluxBB\Core\Action;
 use FluxBB\Events\OptionWasChanged;
 use FluxBB\Models\ConfigRepositoryInterface;
 
-class SetOptions extends Action
+class SetSettings extends Action
 {
     /**
      * @var \FluxBB\Models\ConfigRepositoryInterface
