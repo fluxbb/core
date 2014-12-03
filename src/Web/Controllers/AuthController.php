@@ -52,7 +52,8 @@ class AuthController extends Controller
     {
         $this->execute('logout');
 
-        return $this->redirectTo('index');
+        return $this->redirectTo('index')
+                    ->withMessage('Successfully logged out.');
     }
 
     public function resetForm()
