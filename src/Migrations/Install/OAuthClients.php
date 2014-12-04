@@ -22,3 +22,4 @@ class OAuthClients extends Migration
         $table->string('user_id', 80)
         $table->timestamps();
      }
+}
