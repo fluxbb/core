@@ -17,6 +17,7 @@ class ApiKeys extends Migration {
 		{
 			$table->increments('id');
 			$table->string('api_key');
+                        $table->boolean('create_keys')->default(0);
 			$table->timestamps();
 		});
 	}
