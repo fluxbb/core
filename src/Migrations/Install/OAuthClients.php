@@ -19,7 +19,7 @@ class OAuthClients extends Migration
         $table->string('redirect_uri', 2000);
         $table->string('grant_types', 80);
         $table->string('scope', 100);
-        $table->string('user_id', 80)
+        $table->string('user_id', 80);
         $table->timestamps();
      }
 }
