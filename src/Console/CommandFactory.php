@@ -22,6 +22,7 @@ class CommandFactory
     public function make($class)
     {
         $command = $this->container->make($class);
+        $command->setLaravel($this->container);
         $command->setServer($this->container->make('FluxBB\Server\ServerInterface'));
 
         return $command;
