@@ -13,7 +13,7 @@ class Core extends Facade
 
     public static function isInstalled()
     {
-        return static::$app->make('config')->hasGroup('fluxbb');
+        return static::$app->make('config')->has('fluxbb');
     }
 
     public static function version()
