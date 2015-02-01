@@ -26,4 +26,4 @@ Pull requests are welcome. Please open issues at our [official bug tracker](http
 
 ### Documentation
 
-Developer resources for this version can be found on [our website](https://fluxbb.org/docs/v2.0).
+Developer resources for this version can be found in [the documentation repository](https://github.com/fluxbb/docs).
