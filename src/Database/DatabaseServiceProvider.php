@@ -38,7 +38,7 @@ class DatabaseServiceProvider extends ServiceProvider
         });
 
         if (Core::isInstalled()) {
-            $this->app->booting(function() {
+            $this->app->booting(function () {
                 $resolver = $this->app->make('Illuminate\Database\ConnectionResolverInterface');
                 Model::setConnectionResolver($resolver);
             });
