@@ -13,7 +13,7 @@
         <div id="post-new" class="post post-new post-bg clearfix">
             <div class="author-box col-md-2 text-center">
                 <div class="author-name"><h4><a href="#">Username</a></h4></div>
-                <div class="author-avatar"><img src="assets/img/cyrano.jpg" width="140" height="140" alt="" /></div>
+                <div class="author-avatar"><img src="{{ $asset('vendor/fluxbb/core/public/frontend/assets/img/cyrano.jpg') }}" width="140" height="140" alt="" /></div>
             </div>
             <div class="post-box col-md-10">
                 <div class="post-meta clearfix">

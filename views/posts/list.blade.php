@@ -3,7 +3,7 @@
         <div class="author-box col-md-2 col-sm-2 col-xs-2">
             <div class="author-name"><h4><a href="{{ $route('profile', ['id' => $post->poster_id]) }}">{{ $post->poster }}</a></h4></div>
             <div class="author-title"><h5>{{ 'Administrator' }}</h5></div>
-            <div class="author-avatar"><img src="assets/img/cyrano.jpg" width="70" height="80" alt=""></div>
+            <div class="author-avatar"><img src="{{ $asset('vendor/fluxbb/core/public/frontend/assets/img/cyrano.jpg') }}" width="70" height="80" alt=""></div>
             <div class="author-icon author-location"><a href="#" class="tip author-field" data-original-title="Location: Bergerac"></a></div>
             <div class="author-icon author-registered"><a href="#" class="tip author-field" data-original-title="Member since: 1619-03-06"></a></div>
             <div class="author-icon author-posts"><a href="#" class="tip author-field" data-original-title="4,815 Posts"></a></div>

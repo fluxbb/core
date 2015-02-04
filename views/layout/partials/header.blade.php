@@ -41,8 +41,8 @@
 
             @if($user)
             <div class="avatar">
-                <!-- TODO: avitar function -->
-                <img src="assets/img/cyrano.jpg" alt="" />
+                <!-- TODO: avatar function -->
+                <img src="{{ $asset('vendor/fluxbb/core/public/frontend/assets/img/cyrano.jpg') }}" alt="" />
             </div>
             @endif
         </div>
