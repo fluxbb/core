@@ -102,19 +102,19 @@ a, a:hover, a:focus, a:active {
 	padding: 0.5em;
 	position: absolute;
 	width: 7em;
-    transition: border-radius 0.5s;
+    transition: border-radius 0.2s;
 }
 
 #brdtitle .avatar img {
 	height: 6em;
 	width: 6em;
     border-bottom-left-radius: 6em;
-    transition: border-radius 0.5s;
+    transition: border-radius 0.2s;
 }
 
 #brdtitle .avatar:hover, #brdtitle .avatar:hover img {
     border-bottom-left-radius: 0;
-    transition: border-radius 0.5s;
+    transition: border-radius 0.2s;
 }
 
 #brdtitle .avatar .btn {
