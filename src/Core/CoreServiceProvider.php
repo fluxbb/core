@@ -8,7 +8,6 @@ use FluxBB\Models\GroupRepository;
 use FluxBB\Models\ConfigRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Translation\Translator;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -33,13 +32,6 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->registerLangNamespace();
         $this->registerViewNamespace();
-
-        // Add another namespace for localized mail templates
-        $this->app->extend('view', function (Factory $view, $app) {
-            $locale = $app['config']['app.locale'];
-            $view->addNamespace('fluxbb:mail', __DIR__ . '/../../lang/' . $locale . '/mail/');
-            return $view;
-        });
     }
 
     /**
@@ -104,11 +96,7 @@ class CoreServiceProvider extends ServiceProvider
     protected function registerLangNamespace()
     {
         $langPath = __DIR__ . '/../../lang';
-
-        $this->app->extend('translator', function (Translator $translator) use ($langPath) {
-            $translator->addNamespace('fluxbb', $langPath);
-            return $translator;
-        });
+        $this->loadTranslationsFrom($langPath, 'fluxbb');
     }
 
     /**
@@ -119,10 +107,11 @@ class CoreServiceProvider extends ServiceProvider
     protected function registerViewNamespace()
     {
         $viewPath = __DIR__ . '/../../views';
+        $this->loadViewsFrom($viewPath, 'fluxbb');
 
-        $this->app->extend('view', function (Factory $view) use ($viewPath) {
-            $view->addNamespace('fluxbb', $viewPath);
-            return $view;
-        });
+        // Add another namespace for localized mail templates
+        $locale = $this->app['config']['app.locale'];
+        $mailPath = __DIR__ . '/../../lang/' . $locale . '/mail/';
+        $this->loadViewsFrom($mailPath, 'fluxbb:mail');
     }
 }
