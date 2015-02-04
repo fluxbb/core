@@ -12,7 +12,7 @@
     {{ $load('bootstrap', 'vendor/fluxbb/core/public/frontend/bootstrap.min.css') }}
     {{ $load('style', 'vendor/fluxbb/core/public/frontend/style.css') }}
     {{ $load('entypo', 'vendor/fluxbb/core/public/frontend/assets/css/entypo.css') }}
-    {{ $load('main', 'css/main.css') }}
+    {{ $load('main', 'vendor/fluxbb/core/public/css/main.css') }}
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Telex" rel="stylesheet" type="text/css">
     <!-- end css -->
 
