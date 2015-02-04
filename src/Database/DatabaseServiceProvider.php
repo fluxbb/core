@@ -36,12 +36,12 @@ class DatabaseServiceProvider extends ServiceProvider
 
             return $resolver;
         });
-    }
 
-    public function boot()
-    {
         if (Core::isInstalled()) {
-            Model::setConnectionResolver($this->app->make('Illuminate\Database\ConnectionResolverInterface'));
+            $this->app->booting(function() {
+                $resolver = $this->app->make('Illuminate\Database\ConnectionResolverInterface');
+                Model::setConnectionResolver($resolver);
+            });
         }
     }
 }
