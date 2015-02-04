@@ -11,6 +11,10 @@ class Application extends Container implements AppContract
 
     protected $isBooted = false;
 
+    protected $bootingCallbacks = [];
+
+    protected $bootedCallbacks = [];
+
     protected $registered = [];
 
 
@@ -28,7 +32,7 @@ class Application extends Container implements AppContract
         $this->register('Illuminate\Events\EventServiceProvider');
     }
 
-    public function register($provider, $options = array(), $force = false)
+    public function register($provider, $options = [], $force = false)
     {
         $provider = $this->makeProvider($provider);
 
@@ -58,11 +62,22 @@ class Application extends Container implements AppContract
             return;
         }
 
+        $this->fireAppCallbacks($this->bootingCallbacks);
+
         foreach ($this->registered as $provider) {
             $provider->boot();
         }
 
         $this->isBooted = true;
+
+        $this->fireAppCallbacks($this->bootedCallbacks);
+    }
+
+    private function fireAppCallbacks($callbacks)
+    {
+        foreach ($callbacks as $callback) {
+            $callback($this);
+        }
     }
 
     public function basePath()
@@ -131,7 +146,7 @@ class Application extends Container implements AppContract
      */
     public function booting($callback)
     {
-        // TODO: Implement booting() method.
+        $this->bootingCallbacks[] = $callback;
     }
 
     /**
@@ -142,6 +157,6 @@ class Application extends Container implements AppContract
      */
     public function booted($callback)
     {
-        // TODO: Implement booted() method.
+        $this->bootedCallbacks[] = $callback;
     }
 }
